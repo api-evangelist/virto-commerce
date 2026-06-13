@@ -1,0 +1,29 @@
+name: Virto Commerce Rate Limits
+description: Virto Commerce is an open-source, self-hosted or privately managed cloud platform. Rate limits are not imposed by the vendor at the API level by default; they are configured at the infrastructure level by the operator (via Kubernetes ingress controllers, Azure API Management, or custom middleware). No publicly documented rate limit thresholds are published.
+url: https://docs.virtocommerce.org/platform/developer-guide/
+enforcement: operator-configured
+limits:
+  - scope: REST API (default platform)
+    limit: No vendor-imposed default limit
+    notes: Operators configure rate limiting at the reverse proxy or API gateway layer (e.g., Azure API Management, NGINX ingress, or custom ASP.NET middleware)
+  - scope: GraphQL Experience API (XAPI)
+    limit: No vendor-imposed default limit
+    notes: Same infrastructure-level configuration applies
+  - scope: Order documents per order
+    limit: 20 documents per order (default configurable)
+    notes: Soft limit on related documents (payments, shipments, refunds) per order object; configurable in platform settings
+  - scope: Search indexing
+    limit: Configurable via ScalableIndexation module
+    notes: Large catalog indexing supports scalable batch configuration
+authentication:
+  - type: API Key
+    description: API keys created per integration, partner, or developer. Passed as a header or query parameter on all requests.
+    url: https://docs.virtocommerce.org/platform/developer-guide/Fundamentals/Security/authentication/api-key-authentication/
+  - type: OAuth 2.0 / OpenID Connect
+    description: Token-based authentication using OpenIddict. Short-lived JWTs issued for user and service accounts.
+  - type: ASP.NET Core Identity
+    description: Built-in identity provider for platform users and roles.
+notes:
+  - Virto Commerce Cloud (managed) may apply custom rate limits defined in customer SLA contracts.
+  - For self-hosted deployments, operators are responsible for implementing rate limiting policies.
+  - SOC 2 Type II certified infrastructure for cloud deployments.

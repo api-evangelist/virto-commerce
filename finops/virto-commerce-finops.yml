@@ -1,0 +1,41 @@
+name: Virto Commerce FinOps
+description: Financial operations guidance for Virto Commerce deployments. Virto Commerce uses a custom enterprise pricing model with no public tiers. Cost drivers include license fees (GMV-based or flat subscription), cloud infrastructure (Azure/AWS/GCP), professional services, and support tiers. Organizations should plan for both vendor licensing and infrastructure operational costs.
+url: https://virtocommerce.com/virto-commerce-cloud
+cost_drivers:
+  - category: Platform License
+    description: Annual enterprise license negotiated with Virto Commerce. May be GMV-based (percentage of gross merchandise value) or a flat subscription. Includes access to stable module bundle (53+ thoroughly tested modules).
+    visibility: negotiated
+  - category: Cloud Infrastructure
+    description: Kubernetes-native hosting on Azure (default). Infrastructure costs include compute, storage, networking, and managed services. Portable to AWS or GCP on request. Self-hosted deployments incur operator-managed infrastructure costs.
+    visibility: variable
+  - category: Support & SLA
+    description: SLA-backed operations and expert support are included in managed cloud plans. Support tier level affects response times and coverage scope.
+    visibility: negotiated
+  - category: Professional Services
+    description: Implementation, customization, and integration services available from Virto Commerce or certified partners. Priced per engagement.
+    visibility: negotiated
+  - category: Module Extensions
+    description: 80+ packaged business capabilities (PBCs) and 107 available modules. Core stable bundle included in enterprise license. Additional or custom modules may incur extra costs.
+    visibility: variable
+cost_optimization:
+  - strategy: Start with open-source community edition to validate architecture before committing to enterprise license
+  - strategy: Right-size Kubernetes pods and use auto-scaling to reduce idle cloud infrastructure costs
+  - strategy: Use Azure Blob Storage assets provider for cost-effective media and asset storage
+  - strategy: Leverage GMV-based pricing model for lower-volume initial deployments
+  - strategy: Consolidate modules to the stable bundle rather than mixing alpha/edge modules that may require additional support
+  - strategy: Use Power BI Commerce Reports module for visibility into commerce KPIs and financial performance
+  - strategy: Enable scalable indexation module to optimize search infrastructure costs for large catalogs
+observability:
+  - tool: Azure Application Insights (ApplicationInsights module)
+    description: Collect, monitor, and analyze application telemetry for cost and performance optimization
+  - tool: Open Telemetry (OpenTelemetry module)
+    description: OTLP exporter for metrics, tracing, and logging across the platform
+  - tool: Power BI Reports (PowerBiReports module)
+    description: Commerce performance dashboards and reporting
+  - tool: SeqLog module
+    description: Centralized structured log management via Serilog Seq
+contact:
+  sales: sales@virtocommerce.com
+  phone: "+1-800-980-5288"
+  demo: https://virtocommerce.com/request-demo
+  support: https://help.virtocommerce.com/support/home
