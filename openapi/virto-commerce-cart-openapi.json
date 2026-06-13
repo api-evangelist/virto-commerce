@@ -1,0 +1,4012 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "VirtoCommerce.Cart",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/carts/{storeId}/{customerId}/{cartName}/{currency}/{cultureName}/current": {
+      "get": {
+        "tags": [
+          "Shopping Cart"
+        ],
+        "operationId": "CartModule_GetCart",
+        "parameters": [
+          {
+            "name": "storeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cartName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "currency",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cultureName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShoppingCart"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShoppingCart"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShoppingCart"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Cart"
+      }
+    },
+    "/api/carts/{cartId}/itemscount": {
+      "get": {
+        "tags": [
+          "Shopping Cart"
+        ],
+        "operationId": "CartModule_GetCartItemsCount",
+        "parameters": [
+          {
+            "name": "cartId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Cart"
+      }
+    },
+    "/api/carts/{cartId}/items": {
+      "post": {
+        "tags": [
+          "Shopping Cart"
+        ],
+        "operationId": "CartModule_AddItemToCart",
+        "parameters": [
+          {
+            "name": "cartId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CartLineItem"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CartLineItem"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CartLineItem"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Cart"
+      },
+      "put": {
+        "tags": [
+          "Shopping Cart"
+        ],
+        "operationId": "CartModule_ChangeCartItem",
+        "parameters": [
+          {
+            "name": "cartId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lineItemId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "quantity",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Cart"
+      },
+      "delete": {
+        "tags": [
+          "Shopping Cart"
+        ],
+        "operationId": "CartModule_ClearCart",
+        "parameters": [
+          {
+            "name": "cartId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Cart"
+      }
+    },
+    "/api/carts/{cartId}/items/{lineItemId}": {
+      "delete": {
+        "tags": [
+          "Shopping Cart"
+        ],
+        "operationId": "CartModule_RemoveCartItem",
+        "parameters": [
+          {
+            "name": "cartId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lineItemId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Cart"
+      }
+    },
+    "/api/carts/{cartId}": {
+      "patch": {
+        "tags": [
+          "Shopping Cart"
+        ],
+        "operationId": "CartModule_MergeWithCart",
+        "parameters": [
+          {
+            "name": "cartId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ShoppingCart"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ShoppingCart"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ShoppingCart"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Cart"
+      },
+      "get": {
+        "tags": [
+          "Shopping Cart"
+        ],
+        "summary": "Get shopping cart by id",
+        "operationId": "CartModule_GetCartById",
+        "parameters": [
+          {
+            "name": "cartId",
+            "in": "path",
+            "description": "Shopping cart id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShoppingCart"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShoppingCart"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShoppingCart"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Cart"
+      }
+    },
+    "/api/carts/{cartId}/availshippingrates": {
+      "get": {
+        "tags": [
+          "Shopping Cart"
+        ],
+        "operationId": "CartModule_GetAvailableShippingRates",
+        "parameters": [
+          {
+            "name": "cartId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ShippingRate"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ShippingRate"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ShippingRate"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Cart"
+      }
+    },
+    "/api/carts/availshippingrates": {
+      "post": {
+        "tags": [
+          "Shopping Cart"
+        ],
+        "operationId": "CartModule_GetAvailableShippingRatesByContext",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ShippingEvaluationContext"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ShippingEvaluationContext"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ShippingEvaluationContext"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ShippingRate"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ShippingRate"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ShippingRate"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Cart"
+      }
+    },
+    "/api/carts/{cartId}/availpaymentmethods": {
+      "get": {
+        "tags": [
+          "Shopping Cart"
+        ],
+        "operationId": "CartModule_GetAvailablePaymentMethods",
+        "parameters": [
+          {
+            "name": "cartId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PaymentMethod"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PaymentMethod"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PaymentMethod"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Cart"
+      }
+    },
+    "/api/carts/{cartId}/coupons/{couponCode}": {
+      "post": {
+        "tags": [
+          "Shopping Cart"
+        ],
+        "operationId": "CartModule_AddCartCoupon",
+        "parameters": [
+          {
+            "name": "cartId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "couponCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Cart"
+      },
+      "delete": {
+        "tags": [
+          "Shopping Cart"
+        ],
+        "operationId": "CartModule_RemoveCartCoupon",
+        "parameters": [
+          {
+            "name": "cartId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "couponCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Cart"
+      }
+    },
+    "/api/carts/{cartId}/shipments": {
+      "post": {
+        "tags": [
+          "Shopping Cart"
+        ],
+        "operationId": "CartModule_AddOrUpdateCartShipment",
+        "parameters": [
+          {
+            "name": "cartId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CartShipment"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CartShipment"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CartShipment"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Cart"
+      }
+    },
+    "/api/carts/{cartId}/payments": {
+      "post": {
+        "tags": [
+          "Shopping Cart"
+        ],
+        "operationId": "CartModule_AddOrUpdateCartPayment",
+        "parameters": [
+          {
+            "name": "cartId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Payment"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Payment"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Payment"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Cart"
+      }
+    },
+    "/api/carts/search": {
+      "post": {
+        "tags": [
+          "Shopping Cart"
+        ],
+        "summary": "Search shopping carts by given criteria",
+        "operationId": "CartModule_SearchShoppingCart",
+        "requestBody": {
+          "description": "Shopping cart search criteria",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ShoppingCartSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ShoppingCartSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ShoppingCartSearchCriteria"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShoppingCartSearchResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShoppingCartSearchResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShoppingCartSearchResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "cart:read"
+            ]
+          },
+          {
+            "api_key": [
+              "cart:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "cart:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "cart:read"
+            ]
+          },
+          {
+            "basic": [
+              "cart:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Cart"
+      }
+    },
+    "/api/carts": {
+      "post": {
+        "tags": [
+          "Shopping Cart"
+        ],
+        "summary": "Create shopping cart",
+        "operationId": "CartModule_Create",
+        "requestBody": {
+          "description": "Shopping cart model",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ShoppingCart"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ShoppingCart"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ShoppingCart"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShoppingCart"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShoppingCart"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShoppingCart"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "cart:create"
+            ]
+          },
+          {
+            "api_key": [
+              "cart:create"
+            ]
+          },
+          {
+            "api_key_header": [
+              "cart:create"
+            ]
+          },
+          {
+            "http-signature": [
+              "cart:create"
+            ]
+          },
+          {
+            "basic": [
+              "cart:create"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Cart"
+      },
+      "put": {
+        "tags": [
+          "Shopping Cart"
+        ],
+        "summary": "Update shopping cart",
+        "operationId": "CartModule_UpdateShoppingCart",
+        "requestBody": {
+          "description": "Shopping cart model",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ShoppingCart"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ShoppingCart"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ShoppingCart"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShoppingCart"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShoppingCart"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShoppingCart"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "cart:update"
+            ]
+          },
+          {
+            "api_key": [
+              "cart:update"
+            ]
+          },
+          {
+            "api_key_header": [
+              "cart:update"
+            ]
+          },
+          {
+            "http-signature": [
+              "cart:update"
+            ]
+          },
+          {
+            "basic": [
+              "cart:update"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Cart"
+      },
+      "delete": {
+        "tags": [
+          "Shopping Cart"
+        ],
+        "summary": "Delete shopping carts by ids",
+        "operationId": "CartModule_DeleteCarts",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "Array of shopping cart ids",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "cart:delete"
+            ]
+          },
+          {
+            "api_key": [
+              "cart:delete"
+            ]
+          },
+          {
+            "api_key_header": [
+              "cart:delete"
+            ]
+          },
+          {
+            "http-signature": [
+              "cart:delete"
+            ]
+          },
+          {
+            "basic": [
+              "cart:delete"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Cart"
+      }
+    },
+    "/api/carts/recalculate": {
+      "post": {
+        "tags": [
+          "Shopping Cart"
+        ],
+        "summary": "Calculates totals for cart.",
+        "operationId": "CartModule_RecalculateTotals",
+        "requestBody": {
+          "description": "Shopping cart model",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ShoppingCart"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ShoppingCart"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ShoppingCart"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShoppingCart"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShoppingCart"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShoppingCart"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Cart"
+      }
+    },
+    "/api/carts/patch/{id}": {
+      "patch": {
+        "tags": [
+          "Shopping Cart"
+        ],
+        "summary": "Partial update for the specified ShoppingCart by id",
+        "operationId": "CartModule_PatchCart",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ShoppingCart id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "JsonPatchDocument object with fields to update",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "cart:update"
+            ]
+          },
+          {
+            "api_key": [
+              "cart:update"
+            ]
+          },
+          {
+            "api_key_header": [
+              "cart:update"
+            ]
+          },
+          {
+            "http-signature": [
+              "cart:update"
+            ]
+          },
+          {
+            "basic": [
+              "cart:update"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Cart"
+      }
+    },
+    "/api/carts/patch/{cartId}/items/{lineItemId}": {
+      "patch": {
+        "tags": [
+          "Shopping Cart"
+        ],
+        "summary": "Partial update for the specified ShoppingCart LineItem by id",
+        "operationId": "CartModule_PatchCartItem",
+        "parameters": [
+          {
+            "name": "cartId",
+            "in": "path",
+            "description": "ShoppingCart id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lineItemId",
+            "in": "path",
+            "description": "LineItem id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "JsonPatchDocument object with fields to update",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "cart:update"
+            ]
+          },
+          {
+            "api_key": [
+              "cart:update"
+            ]
+          },
+          {
+            "api_key_header": [
+              "cart:update"
+            ]
+          },
+          {
+            "http-signature": [
+              "cart:update"
+            ]
+          },
+          {
+            "basic": [
+              "cart:update"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Cart"
+      }
+    },
+    "/api/carts/patch/{cartId}/shipments/{shipmentId}": {
+      "patch": {
+        "tags": [
+          "Shopping Cart"
+        ],
+        "summary": "Partial update for the specified ShoppingCart Shipment by id",
+        "operationId": "CartModule_PatchCartShipment",
+        "parameters": [
+          {
+            "name": "cartId",
+            "in": "path",
+            "description": "ShoppingCart id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "shipmentId",
+            "in": "path",
+            "description": "Shipment id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "JsonPatchDocument object with fields to update",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "cart:update"
+            ]
+          },
+          {
+            "api_key": [
+              "cart:update"
+            ]
+          },
+          {
+            "api_key_header": [
+              "cart:update"
+            ]
+          },
+          {
+            "http-signature": [
+              "cart:update"
+            ]
+          },
+          {
+            "basic": [
+              "cart:update"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Cart"
+      }
+    },
+    "/api/carts/patch/{cartId}/payments/{paymentId}": {
+      "patch": {
+        "tags": [
+          "Shopping Cart"
+        ],
+        "summary": "Partial update for the specified ShoppingCart Payment by id",
+        "operationId": "CartModule_PatchCartPayment",
+        "parameters": [
+          {
+            "name": "cartId",
+            "in": "path",
+            "description": "ShoppingCart id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "paymentId",
+            "in": "path",
+            "description": "Payment id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "JsonPatchDocument object with fields to update",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "cart:update"
+            ]
+          },
+          {
+            "api_key": [
+              "cart:update"
+            ]
+          },
+          {
+            "api_key_header": [
+              "cart:update"
+            ]
+          },
+          {
+            "http-signature": [
+              "cart:update"
+            ]
+          },
+          {
+            "basic": [
+              "cart:update"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Cart"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AddressType": {
+        "enum": [
+          "Undefined",
+          "Billing",
+          "Shipping",
+          "BillingAndShipping",
+          "Pickup"
+        ],
+        "type": "string"
+      },
+      "CartAddress": {
+        "type": "object",
+        "properties": {
+          "addressType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AddressType"
+              }
+            ]
+          },
+          "key": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "organization": {
+            "type": "string",
+            "nullable": true
+          },
+          "countryCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "countryName": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "postalCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "zip": {
+            "type": "string",
+            "nullable": true
+          },
+          "line1": {
+            "type": "string",
+            "nullable": true
+          },
+          "line2": {
+            "type": "string",
+            "nullable": true
+          },
+          "regionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "regionName": {
+            "type": "string",
+            "nullable": true
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "middleName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "isDefault": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CartConfigurationItem": {
+        "type": "object",
+        "properties": {
+          "lineItemId": {
+            "type": "string",
+            "nullable": true
+          },
+          "productId": {
+            "type": "string",
+            "nullable": true
+          },
+          "sectionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "sku": {
+            "type": "string",
+            "nullable": true
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "listPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "salePrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "extendedPrice": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "catalogId": {
+            "type": "string",
+            "nullable": true
+          },
+          "categoryId": {
+            "type": "string",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "customText": {
+            "type": "string",
+            "nullable": true
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CartConfigurationItemFile"
+            },
+            "nullable": true
+          },
+          "selectedForCheckout": {
+            "type": "boolean"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CartConfigurationItemFile": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "url": {
+            "type": "string",
+            "nullable": true
+          },
+          "contentType": {
+            "type": "string",
+            "nullable": true
+          },
+          "size": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CartLineItem": {
+        "type": "object",
+        "properties": {
+          "productId": {
+            "type": "string",
+            "nullable": true
+          },
+          "catalogId": {
+            "type": "string",
+            "nullable": true
+          },
+          "categoryId": {
+            "type": "string",
+            "nullable": true
+          },
+          "sku": {
+            "type": "string",
+            "nullable": true
+          },
+          "productType": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "productOuterId": {
+            "type": "string",
+            "nullable": true
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fulfillmentCenterId": {
+            "type": "string",
+            "nullable": true
+          },
+          "fulfillmentCenterName": {
+            "type": "string",
+            "nullable": true
+          },
+          "fulfillmentLocationCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "shipmentMethodCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "requiredShipping": {
+            "type": "boolean"
+          },
+          "thumbnailImageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "isGift": {
+            "type": "boolean"
+          },
+          "isRejected": {
+            "type": "boolean"
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "note": {
+            "type": "string",
+            "nullable": true
+          },
+          "isReccuring": {
+            "type": "boolean"
+          },
+          "taxIncluded": {
+            "type": "boolean"
+          },
+          "isConfigured": {
+            "type": "boolean"
+          },
+          "volumetricWeight": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "weightUnit": {
+            "type": "string",
+            "nullable": true
+          },
+          "weight": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "measureUnit": {
+            "type": "string",
+            "nullable": true
+          },
+          "height": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "length": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "width": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "validationType": {
+            "type": "string",
+            "nullable": true
+          },
+          "isReadOnly": {
+            "type": "boolean"
+          },
+          "priceId": {
+            "type": "string",
+            "nullable": true
+          },
+          "listPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "listPriceWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "listTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "listTotalWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "salePrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "salePriceWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "placedPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "placedPriceWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "extendedPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "extendedPriceWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "isDiscountAmountRounded": {
+            "type": "boolean"
+          },
+          "discountAmountWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountTotalWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "fee": {
+            "type": "number",
+            "format": "double"
+          },
+          "feeWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "vendorId": {
+            "type": "string",
+            "nullable": true
+          },
+          "selectedForCheckout": {
+            "type": "boolean"
+          },
+          "discounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Discount"
+            },
+            "nullable": true
+          },
+          "taxType": {
+            "type": "string",
+            "nullable": true
+          },
+          "taxTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "taxPercentRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "taxDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaxDetail"
+            },
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "dynamicProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicObjectProperty"
+            },
+            "nullable": true
+          },
+          "configurationItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CartConfigurationItem"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CartSharingSetting": {
+        "type": "object",
+        "properties": {
+          "shoppingCartId": {
+            "type": "string",
+            "nullable": true
+          },
+          "scope": {
+            "type": "string",
+            "nullable": true
+          },
+          "access": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CartShipment": {
+        "type": "object",
+        "properties": {
+          "shipmentMethodCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "shipmentMethodOption": {
+            "type": "string",
+            "nullable": true
+          },
+          "fulfillmentCenterId": {
+            "type": "string",
+            "nullable": true
+          },
+          "fulfillmentCenterName": {
+            "type": "string",
+            "nullable": true
+          },
+          "warehouseLocation": {
+            "type": "string",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "volumetricWeight": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "weightUnit": {
+            "type": "string",
+            "nullable": true
+          },
+          "weight": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "measureUnit": {
+            "type": "string",
+            "nullable": true
+          },
+          "height": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "length": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "width": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "priceWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "total": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountAmountWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "pickupLocationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "fee": {
+            "type": "number",
+            "format": "double"
+          },
+          "feeWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "vendorId": {
+            "type": "string",
+            "nullable": true
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
+          },
+          "taxType": {
+            "type": "string",
+            "nullable": true
+          },
+          "taxTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "taxPercentRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "deliveryAddress": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CartAddress"
+              }
+            ],
+            "nullable": true
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CartShipmentItem"
+            },
+            "nullable": true
+          },
+          "discounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Discount"
+            },
+            "nullable": true
+          },
+          "taxDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaxDetail"
+            },
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "dynamicProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicObjectProperty"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CartShipmentItem": {
+        "type": "object",
+        "properties": {
+          "lineItemId": {
+            "type": "string",
+            "nullable": true
+          },
+          "lineItem": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CartLineItem"
+              }
+            ],
+            "nullable": true
+          },
+          "barCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Discount": {
+        "type": "object",
+        "properties": {
+          "promotionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "discountAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountAmountWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "coupon": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicObjectProperty": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string",
+            "nullable": true
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicPropertyObjectValue"
+            },
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "isArray": {
+            "type": "boolean"
+          },
+          "isDictionary": {
+            "type": "boolean"
+          },
+          "isMultilingual": {
+            "type": "boolean"
+          },
+          "isRequired": {
+            "type": "boolean"
+          },
+          "displayOrder": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "valueType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DynamicPropertyValueType"
+              }
+            ]
+          },
+          "displayNames": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicPropertyName"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicPropertyName": {
+        "type": "object",
+        "properties": {
+          "locale": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicPropertyObjectValue": {
+        "type": "object",
+        "properties": {
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectId": {
+            "type": "string",
+            "nullable": true
+          },
+          "locale": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "type": "object",
+            "nullable": true
+          },
+          "valueId": {
+            "type": "string",
+            "nullable": true
+          },
+          "valueType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DynamicPropertyValueType"
+              }
+            ]
+          },
+          "propertyId": {
+            "type": "string",
+            "nullable": true
+          },
+          "propertyName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicPropertyValueType": {
+        "enum": [
+          "Undefined",
+          "ShortText",
+          "LongText",
+          "Integer",
+          "Decimal",
+          "DateTime",
+          "Boolean",
+          "Html",
+          "Image"
+        ],
+        "type": "string"
+      },
+      "LocalizedString": {
+        "type": "object",
+        "properties": {
+          "values": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "nullable": true
+            },
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ObjectSettingEntry": {
+        "type": "object",
+        "properties": {
+          "itHasValues": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "objectId": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "isReadOnly": {
+            "type": "boolean"
+          },
+          "value": {
+            "type": "object",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "restartRequired": {
+            "type": "boolean"
+          },
+          "moduleId": {
+            "type": "string",
+            "nullable": true
+          },
+          "groupName": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "displayName": {
+            "type": "string",
+            "nullable": true
+          },
+          "isRequired": {
+            "type": "boolean"
+          },
+          "isHidden": {
+            "type": "boolean"
+          },
+          "isPublic": {
+            "type": "boolean"
+          },
+          "valueType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SettingValueType"
+              }
+            ]
+          },
+          "allowedValues": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            },
+            "nullable": true
+          },
+          "defaultValue": {
+            "type": "object",
+            "nullable": true
+          },
+          "isDictionary": {
+            "type": "boolean"
+          },
+          "isLocalizable": {
+            "type": "boolean"
+          },
+          "tenant": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Operation": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "object",
+            "nullable": true
+          },
+          "path": {
+            "type": "string",
+            "nullable": true
+          },
+          "op": {
+            "type": "string",
+            "nullable": true
+          },
+          "from": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Payment": {
+        "type": "object",
+        "properties": {
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "paymentGatewayCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "purpose": {
+            "type": "string",
+            "nullable": true
+          },
+          "billingAddress": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CartAddress"
+              }
+            ],
+            "nullable": true
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "priceWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "total": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountAmountWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "vendorId": {
+            "type": "string",
+            "nullable": true
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
+          },
+          "taxType": {
+            "type": "string",
+            "nullable": true
+          },
+          "taxTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "taxPercentRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "discounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Discount"
+            },
+            "nullable": true
+          },
+          "taxDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaxDetail"
+            },
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "dynamicProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicObjectProperty"
+            },
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaymentMethod": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "logoUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "priority": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isAvailableForPartial": {
+            "type": "boolean"
+          },
+          "allowDeferredPayment": {
+            "type": "boolean"
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "priceWithTax": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "total": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "totalWithTax": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "discountAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountAmountWithTax": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "allowCartPayment": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "storeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "typeName": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "settings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ObjectSettingEntry"
+            },
+            "nullable": true
+          },
+          "taxType": {
+            "type": "string",
+            "nullable": true
+          },
+          "taxTotal": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "taxPercentRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "taxDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaxDetail"
+            },
+            "nullable": true
+          },
+          "localizedName": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LocalizedString"
+              }
+            ],
+            "nullable": true
+          },
+          "paymentMethodType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentMethodType"
+              }
+            ],
+            "readOnly": true
+          },
+          "paymentMethodGroupType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentMethodGroupType"
+              }
+            ],
+            "readOnly": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaymentMethodGroupType": {
+        "enum": [
+          "Paypal",
+          "BankCard",
+          "Alternative",
+          "Manual"
+        ],
+        "type": "string"
+      },
+      "PaymentMethodType": {
+        "enum": [
+          "Unknown",
+          "Standard",
+          "Redirection",
+          "PreparedForm"
+        ],
+        "type": "string"
+      },
+      "SettingValueType": {
+        "enum": [
+          "ShortText",
+          "LongText",
+          "Integer",
+          "Decimal",
+          "DateTime",
+          "Boolean",
+          "SecureString",
+          "Json",
+          "PositiveInteger"
+        ],
+        "type": "string"
+      },
+      "ShippingEvaluationContext": {
+        "type": "object",
+        "properties": {
+          "shoppingCart": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ShoppingCart"
+              }
+            ],
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ShippingMethod": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "logoUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "priority": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "taxType": {
+            "type": "string",
+            "nullable": true
+          },
+          "storeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "settings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ObjectSettingEntry"
+            },
+            "nullable": true
+          },
+          "typeName": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ShippingRate": {
+        "type": "object",
+        "properties": {
+          "optionName": {
+            "type": "string",
+            "nullable": true
+          },
+          "optionDescription": {
+            "type": "string",
+            "nullable": true
+          },
+          "rate": {
+            "type": "number",
+            "format": "double"
+          },
+          "rateWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "discountAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountAmountWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "shippingMethod": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ShippingMethod"
+              }
+            ],
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ShoppingCart": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "storeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "channelId": {
+            "type": "string",
+            "nullable": true
+          },
+          "isAnonymous": {
+            "type": "boolean"
+          },
+          "customerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerName": {
+            "type": "string",
+            "nullable": true
+          },
+          "organizationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "organizationName": {
+            "type": "string",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "taxIncluded": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "isRecuring": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "purchaseOrderNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "weightUnit": {
+            "type": "string",
+            "nullable": true
+          },
+          "weight": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "validationType": {
+            "type": "string",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "volumetricWeight": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "abandonmentNotificationDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "checkoutId": {
+            "type": "string",
+            "nullable": true
+          },
+          "total": {
+            "type": "number",
+            "format": "double"
+          },
+          "subTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "subTotalWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "subTotalDiscount": {
+            "type": "number",
+            "format": "double"
+          },
+          "subTotalDiscountWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "shippingTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "shippingTotalWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "shippingSubTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "shippingSubTotalWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "shippingDiscountTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "shippingDiscountTotalWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "paymentTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "paymentTotalWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "paymentSubTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "paymentSubTotalWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "paymentDiscountTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "paymentDiscountTotalWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "handlingTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "handlingTotalWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountAmountWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountTotalWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "fee": {
+            "type": "number",
+            "format": "double"
+          },
+          "feeWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "feeTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "feeTotalWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "lineItemsCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "addresses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CartAddress"
+            },
+            "nullable": true
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CartLineItem"
+            },
+            "nullable": true
+          },
+          "payments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Payment"
+            },
+            "nullable": true
+          },
+          "shipments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CartShipment"
+            },
+            "nullable": true
+          },
+          "coupons": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "coupon": {
+            "type": "string",
+            "nullable": true
+          },
+          "discounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Discount"
+            },
+            "nullable": true
+          },
+          "taxType": {
+            "type": "string",
+            "nullable": true
+          },
+          "taxTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "taxPercentRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "taxDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaxDetail"
+            },
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "dynamicProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicObjectProperty"
+            },
+            "nullable": true
+          },
+          "sharingSettings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CartSharingSetting"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ShoppingCartSearchCriteria": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "storeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "organizationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "organizationIdIsEmpty": {
+            "type": "boolean"
+          },
+          "createdStartDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdEndDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "modifiedStartDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "modifiedEndDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "customerOrOrganization": {
+            "type": "boolean"
+          },
+          "isAnonymous": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "hasLineItems": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "types": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "notType": {
+            "type": "string",
+            "nullable": true
+          },
+          "notTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "hasAbandonmentNotification": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "abandonmentNotificationStartDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "abandonmentNotificationEndDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "sharingKey": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseGroup": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "objectIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "keyword": {
+            "type": "string",
+            "nullable": true
+          },
+          "searchPhrase": {
+            "type": "string",
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "sort": {
+            "type": "string",
+            "nullable": true
+          },
+          "sortInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SortInfo"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
+          "skip": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "take": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ShoppingCartSearchResult": {
+        "type": "object",
+        "properties": {
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ShoppingCart"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SortDirection": {
+        "enum": [
+          "Ascending",
+          "Descending"
+        ],
+        "type": "string"
+      },
+      "SortInfo": {
+        "type": "object",
+        "properties": {
+          "sortColumn": {
+            "type": "string",
+            "nullable": true
+          },
+          "sortDirection": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SortDirection"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "TaxDetail": {
+        "type": "object",
+        "properties": {
+          "rate": {
+            "type": "number",
+            "format": "double"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "oauth2": {
+        "type": "oauth2",
+        "description": "OAuth2 Resource Owner Password Grant flow",
+        "flows": {
+          "password": {
+            "tokenUrl": "/connect/token",
+            "scopes": { }
+          },
+          "clientCredentials": {
+            "tokenUrl": "/connect/token",
+            "scopes": { }
+          }
+        }
+      },
+      "api_key": {
+        "type": "apiKey",
+        "description": "API Key authentication",
+        "name": "api_key",
+        "in": "query"
+      },
+      "api_key_header": {
+        "type": "apiKey",
+        "description": "API Key authentication (alternative via header)",
+        "name": "api_key",
+        "in": "header"
+      },
+      "http-signature": {
+        "type": "http",
+        "description": "HTTP Signature authentication using Authorization header",
+        "scheme": "signature"
+      },
+      "basic": {
+        "type": "http",
+        "description": "Basic authentication using username and password",
+        "scheme": "basic"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Shopping Cart",
+      "description": "Shopping cart / checkout functionality"
+    }
+  ]
+}

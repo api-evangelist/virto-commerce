@@ -1,0 +1,6734 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "VirtoCommerce.Orders",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/order/customerOrders/search": {
+      "post": {
+        "tags": [
+          "Order Management"
+        ],
+        "summary": "Search customer orders by given criteria",
+        "operationId": "OrderModule_SearchCustomerOrder",
+        "requestBody": {
+          "description": "criteria",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerOrderSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerOrderSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerOrderSearchCriteria"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrderSearchResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrderSearchResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrderSearchResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      }
+    },
+    "/api/order/customerOrders/number/{number}": {
+      "get": {
+        "tags": [
+          "Order Management"
+        ],
+        "summary": "Find customer order by number",
+        "description": "Return a single customer order with all nested documents or null if order was not found",
+        "operationId": "OrderModule_GetByNumber",
+        "parameters": [
+          {
+            "name": "number",
+            "in": "path",
+            "description": "customer order number",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "respGroup",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrder"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrder"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrder"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      }
+    },
+    "/api/order/customerOrders/{id}": {
+      "get": {
+        "tags": [
+          "Order Management"
+        ],
+        "summary": "Find customer order by id",
+        "description": "Return a single customer order with all nested documents or null if order was not found",
+        "operationId": "OrderModule_GetById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "customer order id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "respGroup",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrder"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrder"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrder"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      },
+      "patch": {
+        "tags": [
+          "Order Management"
+        ],
+        "summary": "Partial update for the specified Orde by id",
+        "operationId": "OrderModule_PatcOrder",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Orde id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "JsonPatchDocument object with fields to update",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      }
+    },
+    "/api/order/customerOrders/outer/{outerId}": {
+      "get": {
+        "tags": [
+          "Order Management"
+        ],
+        "summary": "Find customer order by outer id",
+        "description": "Return a single customer order with all nested documents or null if order was not found",
+        "operationId": "OrderModule_GetByOuterId",
+        "parameters": [
+          {
+            "name": "outerId",
+            "in": "path",
+            "description": "customer order outer id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "responseGroup",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrder"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrder"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrder"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      }
+    },
+    "/api/order/customerOrders/recalculate": {
+      "put": {
+        "tags": [
+          "Order Management"
+        ],
+        "summary": "Calculate order totals after changes",
+        "description": "Return order with recalculated totals",
+        "operationId": "OrderModule_CalculateTotals",
+        "requestBody": {
+          "description": "Customer order",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerOrder"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerOrder"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerOrder"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrder"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrder"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrder"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      }
+    },
+    "/api/order/customerOrders/{orderId}/processPayment/{paymentId}": {
+      "post": {
+        "tags": [
+          "Order Management"
+        ],
+        "summary": "Register customer order payment in external payment system",
+        "description": "Used in storefront checkout or manual order payment registration",
+        "operationId": "OrderModule_ProcessOrderPayments",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "customer order id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "paymentId",
+            "in": "path",
+            "description": "payment id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "banking card information",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/BankCardInfo"
+                  }
+                ]
+              }
+            },
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/BankCardInfo"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessPaymentRequestResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessPaymentRequestResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessPaymentRequestResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      }
+    },
+    "/api/order/customerOrders/{cartId}": {
+      "post": {
+        "tags": [
+          "Order Management"
+        ],
+        "summary": "Create new customer order based on shopping cart.",
+        "operationId": "OrderModule_CreateOrderFromCart",
+        "parameters": [
+          {
+            "name": "cartId",
+            "in": "path",
+            "description": "shopping cart id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrder"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrder"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrder"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "order:create"
+            ]
+          },
+          {
+            "api_key": [
+              "order:create"
+            ]
+          },
+          {
+            "api_key_header": [
+              "order:create"
+            ]
+          },
+          {
+            "http-signature": [
+              "order:create"
+            ]
+          },
+          {
+            "basic": [
+              "order:create"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      }
+    },
+    "/api/order/customerOrders": {
+      "post": {
+        "tags": [
+          "Order Management"
+        ],
+        "summary": "Add new customer order to system",
+        "operationId": "OrderModule_CreateOrder",
+        "requestBody": {
+          "description": "customer order",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerOrder"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerOrder"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerOrder"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrder"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrder"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrder"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "order:create"
+            ]
+          },
+          {
+            "api_key": [
+              "order:create"
+            ]
+          },
+          {
+            "api_key_header": [
+              "order:create"
+            ]
+          },
+          {
+            "http-signature": [
+              "order:create"
+            ]
+          },
+          {
+            "basic": [
+              "order:create"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      },
+      "put": {
+        "tags": [
+          "Order Management"
+        ],
+        "summary": "Update a existing customer order",
+        "operationId": "OrderModule_UpdateOrder",
+        "requestBody": {
+          "description": "customer order",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerOrder"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerOrder"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerOrder"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      },
+      "delete": {
+        "tags": [
+          "Order Management"
+        ],
+        "summary": "Delete a whole customer orders",
+        "operationId": "OrderModule_DeleteOrdersByIds",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "customer order ids for delete",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      }
+    },
+    "/api/order/customerOrders/{id}/shipments/new": {
+      "get": {
+        "tags": [
+          "Order Management"
+        ],
+        "summary": "Get new shipment for specified customer order",
+        "description": "Return new shipment document with populates all required properties.",
+        "operationId": "OrderModule_GetNewShipment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "customer order id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderShipment"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderShipment"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderShipment"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      }
+    },
+    "/api/order/customerOrders/{id}/payments/new": {
+      "get": {
+        "tags": [
+          "Order Management"
+        ],
+        "summary": "Get new payment for specified customer order",
+        "description": "Return new payment  document with populates all required properties.",
+        "operationId": "OrderModule_GetNewPayment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "customer order id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentIn"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentIn"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentIn"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      }
+    },
+    "/api/order/dashboardStatistics/settings": {
+      "get": {
+        "tags": [
+          "Order Management"
+        ],
+        "summary": "Get dashboard statistics settings",
+        "operationId": "OrderModule_GetDashboardStatisticsSettingsAsync",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "order:dashboardstatistics:view"
+            ]
+          },
+          {
+            "api_key": [
+              "order:dashboardstatistics:view"
+            ]
+          },
+          {
+            "api_key_header": [
+              "order:dashboardstatistics:view"
+            ]
+          },
+          {
+            "http-signature": [
+              "order:dashboardstatistics:view"
+            ]
+          },
+          {
+            "basic": [
+              "order:dashboardstatistics:view"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      }
+    },
+    "/api/order/dashboardStatistics": {
+      "get": {
+        "tags": [
+          "Order Management"
+        ],
+        "summary": "Get a some order statistic information for Commerce manager dashboard",
+        "operationId": "OrderModule_GetDashboardStatisticsAsync",
+        "parameters": [
+          {
+            "name": "start",
+            "in": "query",
+            "description": "start interval date",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "description": "end interval date",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardStatisticsResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardStatisticsResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardStatisticsResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "order:dashboardstatistics:view"
+            ]
+          },
+          {
+            "api_key": [
+              "order:dashboardstatistics:view"
+            ]
+          },
+          {
+            "api_key_header": [
+              "order:dashboardstatistics:view"
+            ]
+          },
+          {
+            "http-signature": [
+              "order:dashboardstatistics:view"
+            ]
+          },
+          {
+            "basic": [
+              "order:dashboardstatistics:view"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      }
+    },
+    "/api/paymentcallback": {
+      "post": {
+        "tags": [
+          "Order Management"
+        ],
+        "summary": "Payment callback operation used by external payment services to inform post process payment in our system",
+        "operationId": "OrderModule_PostProcessPayment",
+        "requestBody": {
+          "description": "payment callback parameters",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PaymentCallbackParameters"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PaymentCallbackParameters"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PaymentCallbackParameters"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostProcessPaymentRequestResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostProcessPaymentRequestResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostProcessPaymentRequestResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "order:payment:execute_callback"
+            ]
+          },
+          {
+            "api_key": [
+              "order:payment:execute_callback"
+            ]
+          },
+          {
+            "api_key_header": [
+              "order:payment:execute_callback"
+            ]
+          },
+          {
+            "http-signature": [
+              "order:payment:execute_callback"
+            ]
+          },
+          {
+            "basic": [
+              "order:payment:execute_callback"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      }
+    },
+    "/api/paymentcallback-raw": {
+      "post": {
+        "tags": [
+          "Order Management"
+        ],
+        "summary": "Payment callback operation used by external payment services to inform post process payment in our system",
+        "operationId": "OrderModule_PostProcessPaymentRaw",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostProcessPaymentRequestResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostProcessPaymentRequestResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostProcessPaymentRequestResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "order:payment:execute_callback"
+            ]
+          },
+          {
+            "api_key": [
+              "order:payment:execute_callback"
+            ]
+          },
+          {
+            "api_key_header": [
+              "order:payment:execute_callback"
+            ]
+          },
+          {
+            "http-signature": [
+              "order:payment:execute_callback"
+            ]
+          },
+          {
+            "basic": [
+              "order:payment:execute_callback"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      }
+    },
+    "/api/paymentcallback-form": {
+      "post": {
+        "tags": [
+          "Order Management"
+        ],
+        "summary": "Payment callback operation used by external payment services to inform post process payment in our system",
+        "operationId": "OrderModule_PostProcessPaymentForm",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostProcessPaymentRequestResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostProcessPaymentRequestResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostProcessPaymentRequestResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "order:payment:execute_callback"
+            ]
+          },
+          {
+            "api_key": [
+              "order:payment:execute_callback"
+            ]
+          },
+          {
+            "api_key_header": [
+              "order:payment:execute_callback"
+            ]
+          },
+          {
+            "http-signature": [
+              "order:payment:execute_callback"
+            ]
+          },
+          {
+            "basic": [
+              "order:payment:execute_callback"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      }
+    },
+    "/api/order/customerOrders/invoice/{orderNumber}": {
+      "get": {
+        "tags": [
+          "Order Management"
+        ],
+        "operationId": "OrderModule_GetInvoicePdf",
+        "parameters": [
+          {
+            "name": "orderNumber",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      }
+    },
+    "/api/order/customerOrders/{id}/changes": {
+      "get": {
+        "tags": [
+          "Order Management"
+        ],
+        "operationId": "OrderModule_GetOrderChanges",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OperationLog"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OperationLog"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OperationLog"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      }
+    },
+    "/api/order/customerOrders/searchChanges": {
+      "post": {
+        "tags": [
+          "Order Management"
+        ],
+        "operationId": "OrderModule_SearchOrderChanges",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerOrderHistorySearchCriteria"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerOrderHistorySearchCriteria"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerOrderHistorySearchCriteria"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChangeLogSearchResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChangeLogSearchResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChangeLogSearchResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      }
+    },
+    "/api/order/customerOrders/indexed/searchEnabled": {
+      "get": {
+        "tags": [
+          "Order Management"
+        ],
+        "operationId": "OrderModule_GetOrderFullTextSearchEnabled",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      }
+    },
+    "/api/order/customerOrders/indexed/search": {
+      "post": {
+        "tags": [
+          "Order Management"
+        ],
+        "operationId": "OrderModule_SearchCustomerOrderIndexed",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerOrderIndexedSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerOrderIndexedSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerOrderIndexedSearchCriteria"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrderSearchResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrderSearchResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrderSearchResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      }
+    },
+    "/api/order/payments/search": {
+      "post": {
+        "tags": [
+          "Order Management"
+        ],
+        "summary": "Search  order payments by given criteria",
+        "operationId": "OrderModulePayments_SearchOrderPayments",
+        "requestBody": {
+          "description": "criteria",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PaymentSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PaymentSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PaymentSearchCriteria"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentSearchResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentSearchResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentSearchResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      }
+    },
+    "/api/order/payments/{id}": {
+      "get": {
+        "tags": [
+          "Order Management"
+        ],
+        "summary": "Find  order payment by id",
+        "description": "Return a single order payment with all nested documents or null if payment was not found",
+        "operationId": "OrderModulePayments_GetById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "order payment id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "respGroup",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentIn"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentIn"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentIn"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      },
+      "patch": {
+        "tags": [
+          "Order Management"
+        ],
+        "summary": "Partial update for the specified Payment by id",
+        "operationId": "OrderModulePayments_PatchPayment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Payment id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "JsonPatchDocument object with fields to update",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      }
+    },
+    "/api/order/payments/outer/{outerId}": {
+      "get": {
+        "tags": [
+          "Order Management"
+        ],
+        "summary": "Get order payment by outer id",
+        "description": "Return a single order payment with all nested documents or null if payment was not found",
+        "operationId": "OrderModulePayments_GetByOuterId",
+        "parameters": [
+          {
+            "name": "outerId",
+            "in": "path",
+            "description": "order payment outer id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "responseGroup",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentIn"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentIn"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentIn"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      }
+    },
+    "/api/order/payments": {
+      "post": {
+        "tags": [
+          "Order Management"
+        ],
+        "summary": "Create or update order payment",
+        "operationId": "OrderModulePayments_CreatePayment",
+        "requestBody": {
+          "description": "payment",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PaymentIn"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PaymentIn"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PaymentIn"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrder"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrder"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrder"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      },
+      "put": {
+        "tags": [
+          "Order Management"
+        ],
+        "operationId": "OrderModulePayments_UpdatePayment",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PaymentIn"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PaymentIn"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PaymentIn"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrder"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrder"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrder"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      },
+      "delete": {
+        "tags": [
+          "Order Management"
+        ],
+        "summary": "Delete an order payment",
+        "operationId": "OrderModulePayments_DeleteOrderPaymentsByIds",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "order payment ids",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      }
+    },
+    "/api/order/payments/payment/capture": {
+      "post": {
+        "tags": [
+          "Order Management"
+        ],
+        "operationId": "OrderModulePayments_CapturePayment",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CaptureOrderPaymentRequest"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CaptureOrderPaymentRequest"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CaptureOrderPaymentRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "order:capture_payment"
+            ]
+          },
+          {
+            "api_key": [
+              "order:capture_payment"
+            ]
+          },
+          {
+            "api_key_header": [
+              "order:capture_payment"
+            ]
+          },
+          {
+            "http-signature": [
+              "order:capture_payment"
+            ]
+          },
+          {
+            "basic": [
+              "order:capture_payment"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      }
+    },
+    "/api/order/payments/payment/refund": {
+      "post": {
+        "tags": [
+          "Order Management"
+        ],
+        "operationId": "OrderModulePayments_RefundPayment",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/RefundOrderPaymentRequest"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/RefundOrderPaymentRequest"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/RefundOrderPaymentRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "order:refund"
+            ]
+          },
+          {
+            "api_key": [
+              "order:refund"
+            ]
+          },
+          {
+            "api_key_header": [
+              "order:refund"
+            ]
+          },
+          {
+            "http-signature": [
+              "order:refund"
+            ]
+          },
+          {
+            "basic": [
+              "order:refund"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      }
+    },
+    "/api/order/shipments": {
+      "post": {
+        "tags": [
+          "Order Management"
+        ],
+        "operationId": "OrderModuleShipments_UpdateShipment",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/OrderShipment"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/OrderShipment"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/OrderShipment"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "order:update_shipments"
+            ]
+          },
+          {
+            "api_key": [
+              "order:update_shipments"
+            ]
+          },
+          {
+            "api_key_header": [
+              "order:update_shipments"
+            ]
+          },
+          {
+            "http-signature": [
+              "order:update_shipments"
+            ]
+          },
+          {
+            "basic": [
+              "order:update_shipments"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      }
+    },
+    "/api/order/shipments/search": {
+      "post": {
+        "tags": [
+          "Order Management"
+        ],
+        "summary": "Search shipments by given criteria",
+        "operationId": "OrderModuleShipments_SearchOrderShipments",
+        "requestBody": {
+          "description": "criteria",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ShipmentSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ShipmentSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ShipmentSearchCriteria"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShipmentSearchResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShipmentSearchResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShipmentSearchResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      }
+    },
+    "/api/order/shipments/{id}": {
+      "patch": {
+        "tags": [
+          "Order Management"
+        ],
+        "summary": "Partial update for the specified Shipment by id",
+        "operationId": "OrderModuleShipments_PatchShipment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Shipment id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "JsonPatchDocument object with fields to update",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "order:update_shipments"
+            ]
+          },
+          {
+            "api_key": [
+              "order:update_shipments"
+            ]
+          },
+          {
+            "api_key_header": [
+              "order:update_shipments"
+            ]
+          },
+          {
+            "http-signature": [
+              "order:update_shipments"
+            ]
+          },
+          {
+            "basic": [
+              "order:update_shipments"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Orders"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AddressType": {
+        "enum": [
+          "Undefined",
+          "Billing",
+          "Shipping",
+          "BillingAndShipping",
+          "Pickup"
+        ],
+        "type": "string"
+      },
+      "BankCardInfo": {
+        "type": "object",
+        "properties": {
+          "bankCardNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "bankCardType": {
+            "type": "string",
+            "nullable": true
+          },
+          "bankCardMonth": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "bankCardYear": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "bankCardCVV2": {
+            "type": "string",
+            "nullable": true
+          },
+          "cardholderName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CancelledState": {
+        "enum": [
+          "Undefined",
+          "Requested",
+          "Completed"
+        ],
+        "type": "string"
+      },
+      "Capture": {
+        "type": "object",
+        "properties": {
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "vendorId": {
+            "type": "string",
+            "nullable": true
+          },
+          "transactionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerOrderId": {
+            "type": "string",
+            "nullable": true
+          },
+          "paymentId": {
+            "type": "string",
+            "nullable": true
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CaptureItem"
+            },
+            "nullable": true
+          },
+          "closeTransaction": {
+            "type": "boolean"
+          },
+          "operationType": {
+            "type": "string",
+            "nullable": true
+          },
+          "parentOperationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "number": {
+            "type": "string",
+            "nullable": true
+          },
+          "isApproved": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "sum": {
+            "type": "number",
+            "format": "double"
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "cancelledState": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CancelledState"
+              }
+            ],
+            "description": "For system use to handle canellation flow"
+          },
+          "isCancelled": {
+            "type": "boolean",
+            "description": "Used by payment provides to indicate that cancellation operation has completed"
+          },
+          "cancelledDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "cancelReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "dynamicProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicObjectProperty"
+            },
+            "nullable": true
+          },
+          "operationsLog": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OperationLog"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CaptureItem": {
+        "type": "object",
+        "properties": {
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "lineItemId": {
+            "type": "string",
+            "nullable": true
+          },
+          "lineItem": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OrderLineItem"
+              }
+            ],
+            "nullable": true
+          },
+          "captureId": {
+            "type": "string",
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CaptureOrderPaymentRequest": {
+        "type": "object",
+        "properties": {
+          "captureDetails": {
+            "type": "string",
+            "description": "Provides information about the charge that customers see on their statements. If Seller provides this information, a payment provider can implement it.",
+            "nullable": true
+          },
+          "closeTransaction": {
+            "type": "boolean",
+            "description": "Set to True to close a transaction, restricting future capture operations against this order; otherwise, set to False. By default, False."
+          },
+          "orderId": {
+            "type": "string",
+            "nullable": true
+          },
+          "paymentId": {
+            "type": "string",
+            "nullable": true
+          },
+          "transactionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "amount": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ChangeLogSearchResult": {
+        "type": "object",
+        "properties": {
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OperationLog"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CustomerOrder": {
+        "type": "object",
+        "properties": {
+          "rowVersion": {
+            "type": "string",
+            "format": "byte",
+            "nullable": true
+          },
+          "customerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerName": {
+            "type": "string",
+            "nullable": true
+          },
+          "channelId": {
+            "type": "string",
+            "nullable": true
+          },
+          "storeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "storeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "organizationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "organizationName": {
+            "type": "string",
+            "nullable": true
+          },
+          "employeeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "employeeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "shoppingCartId": {
+            "type": "string",
+            "description": "The base shopping cart ID the order was created with",
+            "nullable": true
+          },
+          "isPrototype": {
+            "type": "boolean",
+            "description": "This checkbox determines whether the order is a prototype"
+          },
+          "purchaseOrderNumber": {
+            "type": "string",
+            "description": "The order internal number provided by customer",
+            "nullable": true
+          },
+          "subscriptionNumber": {
+            "type": "string",
+            "description": "Number of subscription associated with this order",
+            "nullable": true
+          },
+          "subscriptionId": {
+            "type": "string",
+            "description": "The ID of subscription associated with this order",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "addresses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderAddress"
+            },
+            "nullable": true
+          },
+          "inPayments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentIn"
+            },
+            "nullable": true
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderLineItem"
+            },
+            "nullable": true
+          },
+          "shipments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderShipment"
+            },
+            "nullable": true
+          },
+          "feeDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FeeDetail"
+            },
+            "nullable": true
+          },
+          "relevanceScore": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "discounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Discount"
+            },
+            "nullable": true
+          },
+          "discountAmount": {
+            "type": "number",
+            "description": "When a discount is applied to the order, the tax calculation has already been applied and is shown in the tax field.\nTherefore, the discount will not be taking tax into account. \nFor instance, if the cart subtotal is $100, and the tax subtotal is $15, a 10% discount will yield a total of $105 ($100 subtotal – $10 discount + $15 tax).",
+            "format": "double"
+          },
+          "taxDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaxDetail"
+            },
+            "nullable": true
+          },
+          "scopes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "total": {
+            "type": "number",
+            "description": "Order grand total",
+            "format": "double"
+          },
+          "subTotal": {
+            "type": "number",
+            "description": "Amount of the item prices",
+            "format": "double"
+          },
+          "subTotalWithTax": {
+            "type": "number",
+            "description": "Amount of the item prices with tax",
+            "format": "double"
+          },
+          "subTotalDiscount": {
+            "type": "number",
+            "description": "Amount of the item discount total",
+            "format": "double"
+          },
+          "subTotalDiscountWithTax": {
+            "type": "number",
+            "description": "Amount of the item discount total with tax",
+            "format": "double"
+          },
+          "subTotalTaxTotal": {
+            "type": "number",
+            "description": "Amount of the item tax total",
+            "format": "double"
+          },
+          "shippingTotal": {
+            "type": "number",
+            "description": "Amount of the shipment total",
+            "format": "double"
+          },
+          "shippingTotalWithTax": {
+            "type": "number",
+            "description": "Amount of the shipment total with tax",
+            "format": "double"
+          },
+          "shippingSubTotal": {
+            "type": "number",
+            "description": "Amount of the shipment prices",
+            "format": "double"
+          },
+          "shippingSubTotalWithTax": {
+            "type": "number",
+            "description": "Amount of the shipment prices with tax",
+            "format": "double"
+          },
+          "shippingDiscountTotal": {
+            "type": "number",
+            "description": "Amount of the shipment discount amounts",
+            "format": "double"
+          },
+          "shippingDiscountTotalWithTax": {
+            "type": "number",
+            "description": "Amount of the shipment discount amounts with tax",
+            "format": "double"
+          },
+          "shippingTaxTotal": {
+            "type": "number",
+            "description": "Reserved for future needs",
+            "format": "double"
+          },
+          "paymentTotal": {
+            "type": "number",
+            "description": "Amount of the payments totals",
+            "format": "double"
+          },
+          "paymentTotalWithTax": {
+            "type": "number",
+            "description": "Amount of the payment totals with tax",
+            "format": "double"
+          },
+          "paymentSubTotal": {
+            "type": "number",
+            "description": "Amount of the payment prices",
+            "format": "double"
+          },
+          "paymentSubTotalWithTax": {
+            "type": "number",
+            "description": "Amount of the payment prices with tax",
+            "format": "double"
+          },
+          "paymentDiscountTotal": {
+            "type": "number",
+            "description": "Amount of the payments discount amounts",
+            "format": "double"
+          },
+          "paymentDiscountTotalWithTax": {
+            "type": "number",
+            "description": "Amount of the payment discount amounts with tax",
+            "format": "double"
+          },
+          "paymentTaxTotal": {
+            "type": "number",
+            "description": "Reserved for future needs",
+            "format": "double"
+          },
+          "discountTotal": {
+            "type": "number",
+            "description": "Amount of the discount amounts of items, shipments and payments, and the order discount amount",
+            "format": "double"
+          },
+          "discountTotalWithTax": {
+            "type": "number",
+            "description": "Amount of the discount amounts with tax of items, shipments and payments, and the order discount amount with tax",
+            "format": "double"
+          },
+          "fee": {
+            "type": "number",
+            "description": "Any extra fees applied to the order. This value comes from the cart",
+            "format": "double"
+          },
+          "feeWithTax": {
+            "type": "number",
+            "description": "Order fee with applied tax factor",
+            "format": "double"
+          },
+          "feeTotal": {
+            "type": "number",
+            "description": "Amount of the order fee, as well as any item, shipment, and payment fees",
+            "format": "double"
+          },
+          "feeTotalWithTax": {
+            "type": "number",
+            "description": "Total fee with applied tax factor",
+            "format": "double"
+          },
+          "handlingTotal": {
+            "type": "number",
+            "description": "Reserved for future needs",
+            "format": "double"
+          },
+          "handlingTotalWithTax": {
+            "type": "number",
+            "description": "Reserved for future needs",
+            "format": "double"
+          },
+          "isAnonymous": {
+            "type": "boolean"
+          },
+          "taxType": {
+            "type": "string",
+            "description": "Tax category or type",
+            "nullable": true
+          },
+          "taxTotal": {
+            "type": "number",
+            "description": "Amount of tax totals for items, shipments, and payments without the order discount amount with tax factor applied",
+            "format": "double"
+          },
+          "taxPercentRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "operationType": {
+            "type": "string",
+            "nullable": true
+          },
+          "parentOperationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "number": {
+            "type": "string",
+            "nullable": true
+          },
+          "isApproved": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "sum": {
+            "type": "number",
+            "format": "double"
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "cancelledState": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CancelledState"
+              }
+            ],
+            "description": "For system use to handle canellation flow"
+          },
+          "isCancelled": {
+            "type": "boolean",
+            "description": "Used by payment provides to indicate that cancellation operation has completed"
+          },
+          "cancelledDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "cancelReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "dynamicProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicObjectProperty"
+            },
+            "nullable": true
+          },
+          "operationsLog": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OperationLog"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CustomerOrderHistorySearchCriteria": {
+        "type": "object",
+        "properties": {
+          "orderId": {
+            "type": "string",
+            "nullable": true
+          },
+          "operationTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "responseGroup": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "objectIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "keyword": {
+            "type": "string",
+            "nullable": true
+          },
+          "searchPhrase": {
+            "type": "string",
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "sort": {
+            "type": "string",
+            "nullable": true
+          },
+          "sortInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SortInfo"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
+          "skip": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "take": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CustomerOrderIndexedSearchCriteria": {
+        "type": "object",
+        "properties": {
+          "facet": {
+            "type": "string",
+            "nullable": true
+          },
+          "withPrototypes": {
+            "type": "boolean",
+            "description": "Search orders with flag IsPrototype"
+          },
+          "onlyRecurring": {
+            "type": "boolean",
+            "description": "Search only recurring orders created by subscription"
+          },
+          "subscriptionId": {
+            "type": "string",
+            "description": "Search orders with given subscription",
+            "nullable": true
+          },
+          "subscriptionIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "operationId": {
+            "type": "string",
+            "description": "It used to limit search within an operation (customer order for example)",
+            "nullable": true
+          },
+          "customerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "organizationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "organizationIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "productId": {
+            "type": "string",
+            "description": "Search orders with a certain product",
+            "nullable": true
+          },
+          "promotionId": {
+            "type": "string",
+            "description": "Search orders with a certain promotion",
+            "nullable": true
+          },
+          "promotionIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Search orders with given promotions",
+            "nullable": true
+          },
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "outerIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "hasParentOperation": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "parentOperationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "employeeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "storeIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "description": "Search by status",
+            "nullable": true
+          },
+          "statuses": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "number": {
+            "type": "string",
+            "description": "Search by numbers",
+            "nullable": true
+          },
+          "numbers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "responseGroup": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "objectIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "keyword": {
+            "type": "string",
+            "nullable": true
+          },
+          "searchPhrase": {
+            "type": "string",
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "sort": {
+            "type": "string",
+            "nullable": true
+          },
+          "sortInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SortInfo"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
+          "skip": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "take": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CustomerOrderSearchCriteria": {
+        "type": "object",
+        "properties": {
+          "withPrototypes": {
+            "type": "boolean",
+            "description": "Search orders with flag IsPrototype"
+          },
+          "onlyRecurring": {
+            "type": "boolean",
+            "description": "Search only recurring orders created by subscription"
+          },
+          "subscriptionId": {
+            "type": "string",
+            "description": "Search orders with given subscription",
+            "nullable": true
+          },
+          "subscriptionIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "operationId": {
+            "type": "string",
+            "description": "It used to limit search within an operation (customer order for example)",
+            "nullable": true
+          },
+          "customerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "organizationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "organizationIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "productId": {
+            "type": "string",
+            "description": "Search orders with a certain product",
+            "nullable": true
+          },
+          "promotionId": {
+            "type": "string",
+            "description": "Search orders with a certain promotion",
+            "nullable": true
+          },
+          "promotionIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Search orders with given promotions",
+            "nullable": true
+          },
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "outerIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "hasParentOperation": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "parentOperationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "employeeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "storeIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "description": "Search by status",
+            "nullable": true
+          },
+          "statuses": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "number": {
+            "type": "string",
+            "description": "Search by numbers",
+            "nullable": true
+          },
+          "numbers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "responseGroup": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "objectIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "keyword": {
+            "type": "string",
+            "nullable": true
+          },
+          "searchPhrase": {
+            "type": "string",
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "sort": {
+            "type": "string",
+            "nullable": true
+          },
+          "sortInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SortInfo"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
+          "skip": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "take": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CustomerOrderSearchResult": {
+        "type": "object",
+        "properties": {
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CustomerOrder"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DashboardMoney": {
+        "type": "object",
+        "properties": {
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DashboardStatisticsResult": {
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "revenue": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DashboardMoney"
+            },
+            "nullable": true
+          },
+          "revenuePeriodDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuarterPeriodMoney"
+            },
+            "nullable": true
+          },
+          "orderCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "customersCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "revenuePerCustomer": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DashboardMoney"
+            },
+            "nullable": true
+          },
+          "avgOrderValue": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DashboardMoney"
+            },
+            "nullable": true
+          },
+          "avgOrderValuePeriodDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuarterPeriodMoney"
+            },
+            "nullable": true
+          },
+          "itemsPurchased": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "lineItemsPerOrder": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Discount": {
+        "type": "object",
+        "properties": {
+          "promotionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "discountAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountAmountWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "coupon": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicObjectProperty": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string",
+            "nullable": true
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicPropertyObjectValue"
+            },
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "isArray": {
+            "type": "boolean"
+          },
+          "isDictionary": {
+            "type": "boolean"
+          },
+          "isMultilingual": {
+            "type": "boolean"
+          },
+          "isRequired": {
+            "type": "boolean"
+          },
+          "displayOrder": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "valueType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DynamicPropertyValueType"
+              }
+            ]
+          },
+          "displayNames": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicPropertyName"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicPropertyName": {
+        "type": "object",
+        "properties": {
+          "locale": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicPropertyObjectValue": {
+        "type": "object",
+        "properties": {
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectId": {
+            "type": "string",
+            "nullable": true
+          },
+          "locale": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "type": "object",
+            "nullable": true
+          },
+          "valueId": {
+            "type": "string",
+            "nullable": true
+          },
+          "valueType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DynamicPropertyValueType"
+              }
+            ]
+          },
+          "propertyId": {
+            "type": "string",
+            "nullable": true
+          },
+          "propertyName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicPropertyValueType": {
+        "enum": [
+          "Undefined",
+          "ShortText",
+          "LongText",
+          "Integer",
+          "Decimal",
+          "DateTime",
+          "Boolean",
+          "Html",
+          "Image"
+        ],
+        "type": "string"
+      },
+      "EntryState": {
+        "enum": [
+          "Detached",
+          "Unchanged",
+          "Added",
+          "Deleted",
+          "Modified"
+        ],
+        "type": "string"
+      },
+      "FeeDetail": {
+        "type": "object",
+        "properties": {
+          "feeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "IOperation": {
+        "type": "object",
+        "properties": {
+          "operationType": {
+            "type": "string",
+            "nullable": true
+          },
+          "number": {
+            "type": "string",
+            "nullable": true
+          },
+          "isApproved": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "parentOperationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "childrenOperations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IOperation"
+            },
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "KeyValuePair": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LocalizedString": {
+        "type": "object",
+        "properties": {
+          "values": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "nullable": true
+            },
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ObjectSettingEntry": {
+        "type": "object",
+        "properties": {
+          "itHasValues": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "objectId": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "isReadOnly": {
+            "type": "boolean"
+          },
+          "value": {
+            "type": "object",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "restartRequired": {
+            "type": "boolean"
+          },
+          "moduleId": {
+            "type": "string",
+            "nullable": true
+          },
+          "groupName": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "displayName": {
+            "type": "string",
+            "nullable": true
+          },
+          "isRequired": {
+            "type": "boolean"
+          },
+          "isHidden": {
+            "type": "boolean"
+          },
+          "isPublic": {
+            "type": "boolean"
+          },
+          "valueType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SettingValueType"
+              }
+            ]
+          },
+          "allowedValues": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            },
+            "nullable": true
+          },
+          "defaultValue": {
+            "type": "object",
+            "nullable": true
+          },
+          "isDictionary": {
+            "type": "boolean"
+          },
+          "isLocalizable": {
+            "type": "boolean"
+          },
+          "tenant": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Operation": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "object",
+            "nullable": true
+          },
+          "path": {
+            "type": "string",
+            "nullable": true
+          },
+          "op": {
+            "type": "string",
+            "nullable": true
+          },
+          "from": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OperationLog": {
+        "type": "object",
+        "properties": {
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectId": {
+            "type": "string",
+            "nullable": true
+          },
+          "operationType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EntryState"
+              }
+            ]
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrderAddress": {
+        "type": "object",
+        "properties": {
+          "addressType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AddressType"
+              }
+            ]
+          },
+          "key": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "organization": {
+            "type": "string",
+            "nullable": true
+          },
+          "countryCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "countryName": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "postalCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "zip": {
+            "type": "string",
+            "nullable": true
+          },
+          "line1": {
+            "type": "string",
+            "nullable": true
+          },
+          "line2": {
+            "type": "string",
+            "nullable": true
+          },
+          "regionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "regionName": {
+            "type": "string",
+            "nullable": true
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "middleName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "isDefault": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrderConfigurationItem": {
+        "type": "object",
+        "properties": {
+          "lineItemId": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerOrderId": {
+            "type": "string",
+            "description": "Not mapped for updates: updates to this property are ignored by CRUD services.",
+            "nullable": true,
+            "readOnly": true
+          },
+          "productId": {
+            "type": "string",
+            "nullable": true
+          },
+          "sectionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "sku": {
+            "type": "string",
+            "nullable": true
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "salePrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "extendedPrice": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "catalogId": {
+            "type": "string",
+            "nullable": true
+          },
+          "categoryId": {
+            "type": "string",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "customText": {
+            "type": "string",
+            "nullable": true
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderConfigurationItemFile"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrderConfigurationItemFile": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "url": {
+            "type": "string",
+            "nullable": true
+          },
+          "contentType": {
+            "type": "string",
+            "nullable": true
+          },
+          "size": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrderLineItem": {
+        "type": "object",
+        "properties": {
+          "customerOrderId": {
+            "type": "string",
+            "description": "Not mapped for updates: updates to this property are ignored by CRUD services.",
+            "nullable": true,
+            "readOnly": true
+          },
+          "priceId": {
+            "type": "string",
+            "description": "Price id",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "price": {
+            "type": "number",
+            "description": "unit price without discount and tax",
+            "format": "double"
+          },
+          "priceWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "listTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "listTotalWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "placedPrice": {
+            "type": "number",
+            "description": "Resulting price with discount for one unit",
+            "format": "double"
+          },
+          "placedPriceWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "extendedPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "extendedPriceWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountAmount": {
+            "type": "number",
+            "description": "Gets the value of the single qty line item discount amount",
+            "format": "double"
+          },
+          "isDiscountAmountRounded": {
+            "type": "boolean",
+            "description": "Indicates whether the discount amount per item was rounded according to the currency settings.\nIf false, DiscountAmount and PlacedPrice should not be visible to the customer, as these values may be incorrect;\nin this case, DiscountTotal and ExtendedPrice should be used."
+          },
+          "discountAmountWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountTotalWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "fee": {
+            "type": "number",
+            "format": "double"
+          },
+          "feeWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "taxType": {
+            "type": "string",
+            "description": "Tax category or type",
+            "nullable": true
+          },
+          "taxTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "taxPercentRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "reserveQuantity": {
+            "type": "integer",
+            "description": "Reserve quantity",
+            "format": "int32"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "productId": {
+            "type": "string",
+            "nullable": true
+          },
+          "sku": {
+            "type": "string",
+            "nullable": true
+          },
+          "productType": {
+            "type": "string",
+            "nullable": true
+          },
+          "catalogId": {
+            "type": "string",
+            "nullable": true
+          },
+          "categoryId": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "productOuterId": {
+            "type": "string",
+            "nullable": true
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "isGift": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "shippingMethodCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "fulfillmentLocationCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "fulfillmentCenterId": {
+            "type": "string",
+            "nullable": true
+          },
+          "fulfillmentCenterName": {
+            "type": "string",
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "feeDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FeeDetail"
+            },
+            "nullable": true
+          },
+          "vendorId": {
+            "type": "string",
+            "nullable": true
+          },
+          "isConfigured": {
+            "type": "boolean"
+          },
+          "weightUnit": {
+            "type": "string",
+            "nullable": true
+          },
+          "weight": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "measureUnit": {
+            "type": "string",
+            "nullable": true
+          },
+          "height": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "length": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "width": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "isCancelled": {
+            "type": "boolean"
+          },
+          "cancelledDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "cancelReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "dynamicProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicObjectProperty"
+            },
+            "nullable": true
+          },
+          "discounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Discount"
+            },
+            "nullable": true
+          },
+          "taxDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaxDetail"
+            },
+            "nullable": true
+          },
+          "configurationItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderConfigurationItem"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrderShipment": {
+        "type": "object",
+        "properties": {
+          "organizationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "organizationName": {
+            "type": "string",
+            "nullable": true
+          },
+          "fulfillmentCenterId": {
+            "type": "string",
+            "nullable": true
+          },
+          "fulfillmentCenterName": {
+            "type": "string",
+            "nullable": true
+          },
+          "employeeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "employeeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "shipmentMethodCode": {
+            "type": "string",
+            "description": "Current shipment method code",
+            "nullable": true
+          },
+          "shipmentMethodOption": {
+            "type": "string",
+            "description": "Current shipment option code",
+            "nullable": true
+          },
+          "shippingMethod": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ShippingMethod"
+              }
+            ],
+            "description": "Shipment method contains additional shipment method information",
+            "nullable": true
+          },
+          "customerOrderId": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerOrder": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CustomerOrder"
+              }
+            ],
+            "nullable": true
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderShipmentItem"
+            },
+            "nullable": true
+          },
+          "packages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ShipmentPackage"
+            },
+            "nullable": true
+          },
+          "inPayments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentIn"
+            },
+            "nullable": true
+          },
+          "feeDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FeeDetail"
+            },
+            "nullable": true
+          },
+          "weightUnit": {
+            "type": "string",
+            "nullable": true
+          },
+          "weight": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "measureUnit": {
+            "type": "string",
+            "nullable": true
+          },
+          "height": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "length": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "width": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "discounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Discount"
+            },
+            "nullable": true
+          },
+          "deliveryAddress": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OrderAddress"
+              }
+            ],
+            "nullable": true
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "priceWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "total": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountAmountWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "pickupLocationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "fee": {
+            "type": "number",
+            "format": "double"
+          },
+          "feeWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "trackingNumber": {
+            "type": "string",
+            "description": "Tracking information",
+            "nullable": true
+          },
+          "trackingUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "deliveryDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "vendorId": {
+            "type": "string",
+            "nullable": true
+          },
+          "taxType": {
+            "type": "string",
+            "description": "Tax category or type",
+            "nullable": true
+          },
+          "taxTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "taxPercentRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "taxDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaxDetail"
+            },
+            "nullable": true
+          },
+          "operationType": {
+            "type": "string",
+            "nullable": true
+          },
+          "parentOperationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "number": {
+            "type": "string",
+            "nullable": true
+          },
+          "isApproved": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "sum": {
+            "type": "number",
+            "format": "double"
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "cancelledState": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CancelledState"
+              }
+            ],
+            "description": "For system use to handle canellation flow"
+          },
+          "isCancelled": {
+            "type": "boolean",
+            "description": "Used by payment provides to indicate that cancellation operation has completed"
+          },
+          "cancelledDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "cancelReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "dynamicProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicObjectProperty"
+            },
+            "nullable": true
+          },
+          "operationsLog": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OperationLog"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrderShipmentItem": {
+        "type": "object",
+        "properties": {
+          "lineItemId": {
+            "type": "string",
+            "nullable": true
+          },
+          "lineItem": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OrderLineItem"
+              }
+            ],
+            "nullable": true
+          },
+          "barCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaymentCallbackParameters": {
+        "type": "object",
+        "properties": {
+          "parameters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/KeyValuePair"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaymentGatewayTransaction": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "currencyCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "isProcessed": {
+            "type": "boolean",
+            "description": "Flag represent that current transaction is processed"
+          },
+          "processedDate": {
+            "type": "string",
+            "description": "Date when this transaction was handled",
+            "format": "date-time",
+            "nullable": true
+          },
+          "processError": {
+            "type": "string",
+            "nullable": true
+          },
+          "processAttemptCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "requestData": {
+            "type": "string",
+            "description": "Raw request data",
+            "nullable": true
+          },
+          "responseData": {
+            "type": "string",
+            "description": "Raw response data",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "description": "Gateway or VC response status code",
+            "nullable": true
+          },
+          "gatewayIpAddress": {
+            "type": "string",
+            "description": "Gateway IP address",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of payment interaction.The payment can be Capture or CheckReceived. \nThe value also includes customer payment interactions such as Website, Call, Store, or Unknown.",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "description": "\"Active\", \"Expired\", and \"Inactive\" or other",
+            "nullable": true
+          },
+          "note": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaymentIn": {
+        "type": "object",
+        "properties": {
+          "orderId": {
+            "type": "string",
+            "nullable": true
+          },
+          "purpose": {
+            "type": "string",
+            "nullable": true
+          },
+          "gatewayCode": {
+            "type": "string",
+            "description": "Payment method (gateway) code",
+            "nullable": true
+          },
+          "paymentMethod": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentMethod"
+              }
+            ],
+            "description": "Payment method contains additional payment method information",
+            "nullable": true
+          },
+          "organizationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "organizationName": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerName": {
+            "type": "string",
+            "nullable": true
+          },
+          "incomingDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "billingAddress": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OrderAddress"
+              }
+            ],
+            "nullable": true
+          },
+          "paymentStatus": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentStatus"
+              }
+            ]
+          },
+          "authorizedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "capturedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "voidedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "processPaymentResult": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ProcessPaymentRequestResult"
+              }
+            ],
+            "nullable": true
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "priceWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "total": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountAmountWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "feeDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FeeDetail"
+            },
+            "nullable": true
+          },
+          "vendorId": {
+            "type": "string",
+            "nullable": true
+          },
+          "taxType": {
+            "type": "string",
+            "description": "Tax category or type",
+            "nullable": true
+          },
+          "taxTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "taxPercentRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "taxDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaxDetail"
+            },
+            "nullable": true
+          },
+          "discounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Discount"
+            },
+            "nullable": true
+          },
+          "transactions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentGatewayTransaction"
+            },
+            "nullable": true
+          },
+          "refunds": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Refund"
+            },
+            "nullable": true
+          },
+          "captures": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Capture"
+            },
+            "nullable": true
+          },
+          "operationType": {
+            "type": "string",
+            "nullable": true
+          },
+          "parentOperationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "number": {
+            "type": "string",
+            "nullable": true
+          },
+          "isApproved": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "sum": {
+            "type": "number",
+            "format": "double"
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "cancelledState": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CancelledState"
+              }
+            ],
+            "description": "For system use to handle canellation flow"
+          },
+          "isCancelled": {
+            "type": "boolean",
+            "description": "Used by payment provides to indicate that cancellation operation has completed"
+          },
+          "cancelledDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "cancelReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "dynamicProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicObjectProperty"
+            },
+            "nullable": true
+          },
+          "operationsLog": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OperationLog"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaymentMethod": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "logoUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "priority": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isAvailableForPartial": {
+            "type": "boolean"
+          },
+          "allowDeferredPayment": {
+            "type": "boolean"
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "priceWithTax": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "total": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "totalWithTax": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "discountAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountAmountWithTax": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "allowCartPayment": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "storeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "typeName": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "settings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ObjectSettingEntry"
+            },
+            "nullable": true
+          },
+          "taxType": {
+            "type": "string",
+            "nullable": true
+          },
+          "taxTotal": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "taxPercentRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "taxDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaxDetail"
+            },
+            "nullable": true
+          },
+          "localizedName": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LocalizedString"
+              }
+            ],
+            "nullable": true
+          },
+          "paymentMethodType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentMethodType"
+              }
+            ],
+            "readOnly": true
+          },
+          "paymentMethodGroupType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentMethodGroupType"
+              }
+            ],
+            "readOnly": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaymentMethodGroupType": {
+        "enum": [
+          "Paypal",
+          "BankCard",
+          "Alternative",
+          "Manual"
+        ],
+        "type": "string"
+      },
+      "PaymentMethodType": {
+        "enum": [
+          "Unknown",
+          "Standard",
+          "Redirection",
+          "PreparedForm"
+        ],
+        "type": "string"
+      },
+      "PaymentSearchCriteria": {
+        "type": "object",
+        "properties": {
+          "orderId": {
+            "type": "string",
+            "description": "It used to limit search within a customer order id",
+            "nullable": true
+          },
+          "orderNumber": {
+            "type": "string",
+            "description": "It used to limit search within a customer order number",
+            "nullable": true
+          },
+          "customerId": {
+            "type": "string",
+            "description": "Filter payments by customer",
+            "nullable": true
+          },
+          "capturedStartDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "capturedEndDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "authorizedStartDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "authorizedEndDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "outerIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "hasParentOperation": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "parentOperationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "employeeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "storeIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "description": "Search by status",
+            "nullable": true
+          },
+          "statuses": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "number": {
+            "type": "string",
+            "description": "Search by numbers",
+            "nullable": true
+          },
+          "numbers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "responseGroup": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "objectIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "keyword": {
+            "type": "string",
+            "nullable": true
+          },
+          "searchPhrase": {
+            "type": "string",
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "sort": {
+            "type": "string",
+            "nullable": true
+          },
+          "sortInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SortInfo"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
+          "skip": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "take": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaymentSearchResult": {
+        "type": "object",
+        "properties": {
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentIn"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaymentStatus": {
+        "enum": [
+          "New",
+          "Pending",
+          "Authorized",
+          "Paid",
+          "PartiallyRefunded",
+          "Refunded",
+          "Voided",
+          "Custom",
+          "Cancelled",
+          "Declined",
+          "Error"
+        ],
+        "type": "string"
+      },
+      "PostProcessPaymentRequestResult": {
+        "type": "object",
+        "properties": {
+          "returnUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "orderId": {
+            "type": "string",
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "paymentMethod": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentMethod"
+              }
+            ],
+            "nullable": true
+          },
+          "isSuccess": {
+            "type": "boolean"
+          },
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "newPaymentStatus": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentStatus"
+              }
+            ]
+          },
+          "publicParameters": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "nullable": true
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProcessPaymentRequestResult": {
+        "type": "object",
+        "properties": {
+          "redirectUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "htmlForm": {
+            "type": "string",
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "paymentMethod": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentMethod"
+              }
+            ],
+            "nullable": true
+          },
+          "isSuccess": {
+            "type": "boolean"
+          },
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "newPaymentStatus": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentStatus"
+              }
+            ]
+          },
+          "publicParameters": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "nullable": true
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "QuarterPeriodMoney": {
+        "type": "object",
+        "properties": {
+          "year": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "quarter": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Refund": {
+        "type": "object",
+        "properties": {
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "reasonCode": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RefundReasonCode"
+              }
+            ]
+          },
+          "refundStatus": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RefundStatus"
+              }
+            ]
+          },
+          "reasonMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "rejectReasonMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "vendorId": {
+            "type": "string",
+            "nullable": true
+          },
+          "transactionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerOrderId": {
+            "type": "string",
+            "nullable": true
+          },
+          "paymentId": {
+            "type": "string",
+            "nullable": true
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RefundItem"
+            },
+            "nullable": true
+          },
+          "operationType": {
+            "type": "string",
+            "nullable": true
+          },
+          "parentOperationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "number": {
+            "type": "string",
+            "nullable": true
+          },
+          "isApproved": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "sum": {
+            "type": "number",
+            "format": "double"
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "cancelledState": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CancelledState"
+              }
+            ],
+            "description": "For system use to handle canellation flow"
+          },
+          "isCancelled": {
+            "type": "boolean",
+            "description": "Used by payment provides to indicate that cancellation operation has completed"
+          },
+          "cancelledDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "cancelReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "dynamicProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicObjectProperty"
+            },
+            "nullable": true
+          },
+          "operationsLog": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OperationLog"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RefundItem": {
+        "type": "object",
+        "properties": {
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "lineItemId": {
+            "type": "string",
+            "nullable": true
+          },
+          "lineItem": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OrderLineItem"
+              }
+            ],
+            "nullable": true
+          },
+          "refundId": {
+            "type": "string",
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RefundOrderPaymentRequest": {
+        "type": "object",
+        "properties": {
+          "reasonCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "reasonMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "orderId": {
+            "type": "string",
+            "nullable": true
+          },
+          "paymentId": {
+            "type": "string",
+            "nullable": true
+          },
+          "transactionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "amount": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RefundReasonCode": {
+        "enum": [
+          "Duplicate",
+          "Fraudulent",
+          "RequestedByCustomer",
+          "Other"
+        ],
+        "type": "string"
+      },
+      "RefundStatus": {
+        "enum": [
+          "Pending",
+          "Rejected",
+          "Processed"
+        ],
+        "type": "string"
+      },
+      "SettingValueType": {
+        "enum": [
+          "ShortText",
+          "LongText",
+          "Integer",
+          "Decimal",
+          "DateTime",
+          "Boolean",
+          "SecureString",
+          "Json",
+          "PositiveInteger"
+        ],
+        "type": "string"
+      },
+      "ShipmentPackage": {
+        "type": "object",
+        "properties": {
+          "barCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "packageType": {
+            "type": "string",
+            "nullable": true
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderShipmentItem"
+            },
+            "nullable": true
+          },
+          "weightUnit": {
+            "type": "string",
+            "nullable": true
+          },
+          "weight": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "measureUnit": {
+            "type": "string",
+            "nullable": true
+          },
+          "height": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "length": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "width": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ShipmentSearchCriteria": {
+        "type": "object",
+        "properties": {
+          "orderId": {
+            "type": "string",
+            "description": "It used to limit search within a customer order id",
+            "nullable": true
+          },
+          "orderNumber": {
+            "type": "string",
+            "description": "It used to limit search within a customer order number",
+            "nullable": true
+          },
+          "fulfillmentCenterId": {
+            "type": "string",
+            "nullable": true
+          },
+          "shipmentMethodCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "shipmentMethodOption": {
+            "type": "string",
+            "nullable": true
+          },
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "outerIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "hasParentOperation": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "parentOperationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "employeeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "storeIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "description": "Search by status",
+            "nullable": true
+          },
+          "statuses": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "number": {
+            "type": "string",
+            "description": "Search by numbers",
+            "nullable": true
+          },
+          "numbers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "responseGroup": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "objectIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "keyword": {
+            "type": "string",
+            "nullable": true
+          },
+          "searchPhrase": {
+            "type": "string",
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "sort": {
+            "type": "string",
+            "nullable": true
+          },
+          "sortInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SortInfo"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
+          "skip": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "take": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ShipmentSearchResult": {
+        "type": "object",
+        "properties": {
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderShipment"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ShippingMethod": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "logoUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "priority": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "taxType": {
+            "type": "string",
+            "nullable": true
+          },
+          "storeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "settings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ObjectSettingEntry"
+            },
+            "nullable": true
+          },
+          "typeName": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SortDirection": {
+        "enum": [
+          "Ascending",
+          "Descending"
+        ],
+        "type": "string"
+      },
+      "SortInfo": {
+        "type": "object",
+        "properties": {
+          "sortColumn": {
+            "type": "string",
+            "nullable": true
+          },
+          "sortDirection": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SortDirection"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "TaxDetail": {
+        "type": "object",
+        "properties": {
+          "rate": {
+            "type": "number",
+            "format": "double"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "oauth2": {
+        "type": "oauth2",
+        "description": "OAuth2 Resource Owner Password Grant flow",
+        "flows": {
+          "password": {
+            "tokenUrl": "/connect/token",
+            "scopes": { }
+          },
+          "clientCredentials": {
+            "tokenUrl": "/connect/token",
+            "scopes": { }
+          }
+        }
+      },
+      "api_key": {
+        "type": "apiKey",
+        "description": "API Key authentication",
+        "name": "api_key",
+        "in": "query"
+      },
+      "api_key_header": {
+        "type": "apiKey",
+        "description": "API Key authentication (alternative via header)",
+        "name": "api_key",
+        "in": "header"
+      },
+      "http-signature": {
+        "type": "http",
+        "description": "HTTP Signature authentication using Authorization header",
+        "scheme": "signature"
+      },
+      "basic": {
+        "type": "http",
+        "description": "Basic authentication using username and password",
+        "scheme": "basic"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Order Management",
+      "description": "Document based flexible order management system."
+    }
+  ]
+}

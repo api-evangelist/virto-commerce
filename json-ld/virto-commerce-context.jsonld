@@ -1,0 +1,121 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "schema": "https://schema.org/",
+    "apis": "https://apis.io/",
+    "virto": "https://virtocommerce.com/",
+    "aid": "apis:aid",
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": "schema:url",
+    "provider": "schema:provider",
+    "catalog": "virto:catalog",
+    "pricing": "virto:pricing",
+    "inventory": "virto:inventory",
+    "orders": "virto:orders",
+    "cart": "virto:cart",
+    "customer": "virto:customer",
+    "marketing": "virto:marketing",
+    "quotes": "virto:quotes",
+    "store": "virto:store",
+    "platform": "virto:platform"
+  },
+  "@type": "schema:WebAPI",
+  "@id": "https://virtocommerce.com/",
+  "name": "Virto Commerce",
+  "description": "Virto Commerce is an open-source, API-first B2B e-commerce platform built on .NET Core providing REST and GraphQL APIs for catalog management, pricing, inventory, order management, customer organizations, marketing, payments, shipping, subscriptions, and complex B2B purchasing workflows.",
+  "url": "https://virtocommerce.com/",
+  "provider": {
+    "@type": "schema:Organization",
+    "name": "Virto Commerce",
+    "url": "https://virtocommerce.com/",
+    "sameAs": [
+      "https://github.com/VirtoCommerce",
+      "https://www.linkedin.com/company/virto-commerce/",
+      "https://x.com/VirtoCommerce"
+    ]
+  },
+  "documentation": "https://docs.virtocommerce.org/",
+  "hasAPI": [
+    {
+      "@type": "schema:WebAPI",
+      "aid": "virto-commerce:catalog",
+      "name": "Virto Commerce Catalog API",
+      "description": "Product information management API for managing catalogs, categories, products, variations, properties, and attributes.",
+      "url": "https://virtostart-demo-admin.govirto.com/docs/VirtoCommerce.Catalog/swagger.json",
+      "endpointCount": 70
+    },
+    {
+      "@type": "schema:WebAPI",
+      "aid": "virto-commerce:pricing",
+      "name": "Virto Commerce Pricing API",
+      "description": "Robust pricing management API based on price lists and dynamic evaluation supporting tier pricing, bulk pricing, and contract-based pricing.",
+      "url": "https://virtostart-demo-admin.govirto.com/docs/VirtoCommerce.Pricing/swagger.json",
+      "endpointCount": 22
+    },
+    {
+      "@type": "schema:WebAPI",
+      "aid": "virto-commerce:inventory",
+      "name": "Virto Commerce Inventory API",
+      "description": "Product inventory management API for tracking stock levels, fulfillment centers, reservations, and availability across multiple warehouses.",
+      "url": "https://virtostart-demo-admin.govirto.com/docs/VirtoCommerce.Inventory/swagger.json",
+      "endpointCount": 13
+    },
+    {
+      "@type": "schema:WebAPI",
+      "aid": "virto-commerce:orders",
+      "name": "Virto Commerce Order Management API",
+      "description": "Document-based flexible order management API supporting complex B2B order flows, payments, shipments, and approval workflows.",
+      "url": "https://virtostart-demo-admin.govirto.com/docs/VirtoCommerce.Orders/swagger.json",
+      "endpointCount": 29
+    },
+    {
+      "@type": "schema:WebAPI",
+      "aid": "virto-commerce:cart",
+      "name": "Virto Commerce Shopping Cart API",
+      "description": "Shopping cart and checkout API supporting complex B2B cart scenarios including multi-line items, coupons, promotions, and tax calculations.",
+      "url": "https://virtostart-demo-admin.govirto.com/docs/VirtoCommerce.Cart/swagger.json",
+      "endpointCount": 18
+    },
+    {
+      "@type": "schema:WebAPI",
+      "aid": "virto-commerce:customer",
+      "name": "Virto Commerce Customer API",
+      "description": "Customer contact and organization management API supporting B2B company hierarchies, contacts, roles, and delegated purchasing permissions.",
+      "url": "https://virtostart-demo-admin.govirto.com/docs/VirtoCommerce.Customer/swagger.json",
+      "endpointCount": 27
+    },
+    {
+      "@type": "schema:WebAPI",
+      "aid": "virto-commerce:marketing",
+      "name": "Virto Commerce Marketing API",
+      "description": "Marketing and promotions management API for dynamic content, discount rules, coupon campaigns, banners, and promotion engines.",
+      "url": "https://virtostart-demo-admin.govirto.com/docs/VirtoCommerce.Marketing/swagger.json",
+      "endpointCount": 25
+    },
+    {
+      "@type": "schema:WebAPI",
+      "aid": "virto-commerce:quotes",
+      "name": "Virto Commerce Quotes API",
+      "description": "Quote request and approval workflow API enabling B2B buyers to initiate quote requests, negotiate pricing, and convert approved quotes into orders.",
+      "url": "https://virtostart-demo-admin.govirto.com/docs/VirtoCommerce.Quote/swagger.json",
+      "endpointCount": 8
+    },
+    {
+      "@type": "schema:WebAPI",
+      "aid": "virto-commerce:store",
+      "name": "Virto Commerce Store API",
+      "description": "Multi-store management API for configuring individual store settings, currencies, languages, payment methods, and shipping providers.",
+      "url": "https://virtostart-demo-admin.govirto.com/docs/VirtoCommerce.Store/swagger.json",
+      "endpointCount": 9
+    },
+    {
+      "@type": "schema:WebAPI",
+      "aid": "virto-commerce:platform",
+      "name": "Virto Commerce Platform API",
+      "description": "Core platform REST API providing access to security, users, roles, settings, modules, jobs, notifications, export/import, and system administration.",
+      "url": "https://virtostart-demo-admin.govirto.com/docs/VirtoCommerce.Platform/swagger.json",
+      "endpointCount": 106
+    }
+  ]
+}

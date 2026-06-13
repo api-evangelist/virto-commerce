@@ -1,0 +1,6116 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "VirtoCommerce.Quote",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/quote/requests/search": {
+      "post": {
+        "tags": [
+          "Quotes"
+        ],
+        "operationId": "QuoteModule_Search",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/QuoteRequestSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/QuoteRequestSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/QuoteRequestSearchCriteria"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuoteRequestSearchResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuoteRequestSearchResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuoteRequestSearchResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "quote:read"
+            ]
+          },
+          {
+            "api_key": [
+              "quote:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "quote:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "quote:read"
+            ]
+          },
+          {
+            "basic": [
+              "quote:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Quote"
+      }
+    },
+    "/api/quote/requests/{id}": {
+      "get": {
+        "tags": [
+          "Quotes"
+        ],
+        "operationId": "QuoteModule_GetById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuoteRequest"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuoteRequest"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuoteRequest"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "quote:read"
+            ]
+          },
+          {
+            "api_key": [
+              "quote:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "quote:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "quote:read"
+            ]
+          },
+          {
+            "basic": [
+              "quote:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Quote"
+      }
+    },
+    "/api/quote/requests": {
+      "post": {
+        "tags": [
+          "Quotes"
+        ],
+        "operationId": "QuoteModule_Create",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/QuoteRequest"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/QuoteRequest"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/QuoteRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuoteRequest"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuoteRequest"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuoteRequest"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "quote:read",
+              "quote:create"
+            ]
+          },
+          {
+            "api_key": [
+              "quote:read",
+              "quote:create"
+            ]
+          },
+          {
+            "api_key_header": [
+              "quote:read",
+              "quote:create"
+            ]
+          },
+          {
+            "http-signature": [
+              "quote:read",
+              "quote:create"
+            ]
+          },
+          {
+            "basic": [
+              "quote:read",
+              "quote:create"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Quote"
+      },
+      "put": {
+        "tags": [
+          "Quotes"
+        ],
+        "operationId": "QuoteModule_Update",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/QuoteRequest"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/QuoteRequest"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/QuoteRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "quote:read",
+              "quote:update"
+            ]
+          },
+          {
+            "api_key": [
+              "quote:read",
+              "quote:update"
+            ]
+          },
+          {
+            "api_key_header": [
+              "quote:read",
+              "quote:update"
+            ]
+          },
+          {
+            "http-signature": [
+              "quote:read",
+              "quote:update"
+            ]
+          },
+          {
+            "basic": [
+              "quote:read",
+              "quote:update"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Quote"
+      },
+      "delete": {
+        "tags": [
+          "Quotes"
+        ],
+        "operationId": "QuoteModule_Delete",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "quote:read",
+              "quote:delete"
+            ]
+          },
+          {
+            "api_key": [
+              "quote:read",
+              "quote:delete"
+            ]
+          },
+          {
+            "api_key_header": [
+              "quote:read",
+              "quote:delete"
+            ]
+          },
+          {
+            "http-signature": [
+              "quote:read",
+              "quote:delete"
+            ]
+          },
+          {
+            "basic": [
+              "quote:read",
+              "quote:delete"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Quote"
+      }
+    },
+    "/api/quote/requests/recalculate": {
+      "put": {
+        "tags": [
+          "Quotes"
+        ],
+        "operationId": "QuoteModule_CalculateTotals",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/QuoteRequest"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/QuoteRequest"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/QuoteRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuoteRequest"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuoteRequest"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuoteRequest"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "quote:read"
+            ]
+          },
+          {
+            "api_key": [
+              "quote:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "quote:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "quote:read"
+            ]
+          },
+          {
+            "basic": [
+              "quote:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Quote"
+      }
+    },
+    "/api/quote/requests/{id}/shipmentmethods": {
+      "get": {
+        "tags": [
+          "Quotes"
+        ],
+        "operationId": "QuoteModule_GetShipmentMethods",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ShipmentMethod"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ShipmentMethod"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ShipmentMethod"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "quote:read"
+            ]
+          },
+          {
+            "api_key": [
+              "quote:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "quote:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "quote:read"
+            ]
+          },
+          {
+            "basic": [
+              "quote:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Quote"
+      }
+    },
+    "/api/quote/requests/{id}/order": {
+      "post": {
+        "tags": [
+          "Quotes"
+        ],
+        "operationId": "QuoteModule_CreateOrderFromQuote",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrder"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrder"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOrder"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "quote:read",
+              "order:create"
+            ]
+          },
+          {
+            "api_key": [
+              "quote:read",
+              "order:create"
+            ]
+          },
+          {
+            "api_key_header": [
+              "quote:read",
+              "order:create"
+            ]
+          },
+          {
+            "http-signature": [
+              "quote:read",
+              "order:create"
+            ]
+          },
+          {
+            "basic": [
+              "quote:read",
+              "order:create"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Quote"
+      }
+    },
+    "/api/quote/requests/{id}/status": {
+      "put": {
+        "tags": [
+          "Quotes"
+        ],
+        "operationId": "QuoteModule_UpdateStatus",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "quote:read",
+              "quote:update"
+            ]
+          },
+          {
+            "api_key": [
+              "quote:read",
+              "quote:update"
+            ]
+          },
+          {
+            "api_key_header": [
+              "quote:read",
+              "quote:update"
+            ]
+          },
+          {
+            "http-signature": [
+              "quote:read",
+              "quote:update"
+            ]
+          },
+          {
+            "basic": [
+              "quote:read",
+              "quote:update"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Quote"
+      }
+    },
+    "/api/quote/requests/attachments/options": {
+      "get": {
+        "tags": [
+          "Quotes"
+        ],
+        "operationId": "QuoteModule_GetAttachmentOptions",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileUploadScopeOptions"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileUploadScopeOptions"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileUploadScopeOptions"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "quote:read"
+            ]
+          },
+          {
+            "api_key": [
+              "quote:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "quote:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "quote:read"
+            ]
+          },
+          {
+            "basic": [
+              "quote:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Quote"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AddressType": {
+        "enum": [
+          "Undefined",
+          "Billing",
+          "Shipping",
+          "BillingAndShipping",
+          "Pickup"
+        ],
+        "type": "string"
+      },
+      "Asset": {
+        "type": "object",
+        "properties": {
+          "mimeType": {
+            "type": "string",
+            "nullable": true
+          },
+          "size": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "readableSize": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "binaryData": {
+            "type": "string",
+            "format": "byte",
+            "nullable": true
+          },
+          "relativeUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "url": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "typeId": {
+            "type": "string",
+            "description": "Gets or sets the asset type identifier.",
+            "nullable": true
+          },
+          "group": {
+            "type": "string",
+            "description": "Gets or sets the asset group name.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Gets or sets the asset name.",
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "description": "",
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "description": "Gets or sets the asset language.",
+            "nullable": true
+          },
+          "isInherited": {
+            "type": "boolean",
+            "description": "System flag used to mark that object was inherited from other",
+            "readOnly": true
+          },
+          "seoObjectType": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "seoInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SeoInfo"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CancelledState": {
+        "enum": [
+          "Undefined",
+          "Requested",
+          "Completed"
+        ],
+        "type": "string"
+      },
+      "Capture": {
+        "type": "object",
+        "properties": {
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "vendorId": {
+            "type": "string",
+            "nullable": true
+          },
+          "transactionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerOrderId": {
+            "type": "string",
+            "nullable": true
+          },
+          "paymentId": {
+            "type": "string",
+            "nullable": true
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CaptureItem"
+            },
+            "nullable": true
+          },
+          "closeTransaction": {
+            "type": "boolean"
+          },
+          "operationType": {
+            "type": "string",
+            "nullable": true
+          },
+          "parentOperationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "number": {
+            "type": "string",
+            "nullable": true
+          },
+          "isApproved": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "sum": {
+            "type": "number",
+            "format": "double"
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "cancelledState": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CancelledState"
+              }
+            ],
+            "description": "For system use to handle canellation flow"
+          },
+          "isCancelled": {
+            "type": "boolean",
+            "description": "Used by payment provides to indicate that cancellation operation has completed"
+          },
+          "cancelledDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "cancelReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "dynamicProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicObjectProperty"
+            },
+            "nullable": true
+          },
+          "operationsLog": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OperationLog"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CaptureItem": {
+        "type": "object",
+        "properties": {
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "lineItemId": {
+            "type": "string",
+            "nullable": true
+          },
+          "lineItem": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OrderLineItem"
+              }
+            ],
+            "nullable": true
+          },
+          "captureId": {
+            "type": "string",
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CatalogProduct": {
+        "type": "object",
+        "properties": {
+          "productType": {
+            "type": "string",
+            "description": "The type of product. Can be \"Physical\", \"Digital\", etc.",
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "description": "The Stock Keeping Unit (SKU) code for the product.",
+            "nullable": true
+          },
+          "manufacturerPartNumber": {
+            "type": "string",
+            "description": "A manufacturer part number (MPN) is a unique alphanumeric code assigned by a manufacturer to identify a specific product or component. It is used primarily for part tracking in inventory management, supply chain operations, and ordering purposes.",
+            "nullable": true
+          },
+          "gtin": {
+            "type": "string",
+            "description": "The Global Trade Item Number (GTIN) for the product. This can include UPC (in North America), EAN (in Europe), JAN (in Japan), and ISBN (for books).",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the product.",
+            "nullable": true
+          },
+          "localizedName": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LocalizedString"
+              }
+            ],
+            "nullable": true
+          },
+          "catalogId": {
+            "type": "string",
+            "description": "The ID of the catalog to which this product belongs.",
+            "nullable": true
+          },
+          "categoryId": {
+            "type": "string",
+            "description": "The ID of the category to which this product belongs.",
+            "nullable": true
+          },
+          "outline": {
+            "type": "string",
+            "description": "Product outline in physical catalog (all parent categories ids concatenated. E.g. (1/21/344))",
+            "nullable": true,
+            "readOnly": true
+          },
+          "path": {
+            "type": "string",
+            "description": "Product path in physical catalog (all parent categories names concatenated. E.g. (parent1/parent2))",
+            "nullable": true,
+            "readOnly": true
+          },
+          "titularItemId": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "mainProductId": {
+            "type": "string",
+            "description": "The ID of the main product associated with this product variation.",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean",
+            "description": "Specifies whether the product is currently visible on the store for customers to view and purchase.\nIf set to false, the product is currently sold out.",
+            "nullable": true
+          },
+          "isBuyable": {
+            "type": "boolean",
+            "description": "Specifies whether the product is currently visible on the store for customers to view and purchase.\nIf set to false, the product is currently ouf of stock.",
+            "nullable": true
+          },
+          "trackInventory": {
+            "type": "boolean",
+            "description": "Indicates whether the inventory service is tracking the availability of this product.\nIf set to false, the product is considered in stock without any inventory limitations.",
+            "nullable": true
+          },
+          "indexingDate": {
+            "type": "string",
+            "description": "The date and time when the product was last indexed for search.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "maxQuantity": {
+            "type": "integer",
+            "description": "The maximum quantity of the product that can be purchased in a single order. A value of 0 indicates that there are no limitations on the maximum quantity.",
+            "format": "int32",
+            "nullable": true
+          },
+          "minQuantity": {
+            "type": "integer",
+            "description": "The minimum quantity of the product that must be purchased in a single order. A value of 0 indicates that there are no limitations on the minimum quantity.",
+            "format": "int32",
+            "nullable": true
+          },
+          "packSize": {
+            "type": "integer",
+            "description": "Defines the number of items in a package. Quantity step for your product's. Default value is 1.",
+            "format": "int32"
+          },
+          "startDate": {
+            "type": "string",
+            "description": "First listed date and time. If you do not specify an end date, the product will be active until you deactivate it.If you do not specify an end date, the product will be active until you deactivate it.If you do not specify a start date, the product will become active immediately once you save it.",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "description": "Listing expires on the specific date and time. If you do not specify an end date, the product will be active until you deactivate it.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "packageType": {
+            "type": "string",
+            "description": "The type of package for this product, which determines the product's specific dimensions.",
+            "nullable": true
+          },
+          "weightUnit": {
+            "type": "string",
+            "description": "The unit of measurement for the product's weight.",
+            "nullable": true
+          },
+          "weight": {
+            "type": "number",
+            "description": "The weight of the product, in the unit specified by the WeightUnit property.",
+            "format": "double",
+            "nullable": true
+          },
+          "measureUnit": {
+            "type": "string",
+            "description": "The unit of measurement for the product's height, length, and width.",
+            "nullable": true
+          },
+          "height": {
+            "type": "number",
+            "description": "The height of the product, in the unit specified by the MeasureUnit property.",
+            "format": "double",
+            "nullable": true
+          },
+          "length": {
+            "type": "number",
+            "description": "The length of the product, in the unit specified by the MeasureUnit property.",
+            "format": "double",
+            "nullable": true
+          },
+          "width": {
+            "type": "number",
+            "description": "The width of the product, in the unit specified by the MeasureUnit property.",
+            "format": "double",
+            "nullable": true
+          },
+          "enableReview": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "maxNumberOfDownload": {
+            "type": "integer",
+            "description": "The maximum number of times the product can be downloaded. A value of 0 indicates no limit.",
+            "format": "int32",
+            "nullable": true
+          },
+          "downloadExpiration": {
+            "type": "string",
+            "description": "The date and time when the download link or access to the product will expire.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "downloadType": {
+            "type": "string",
+            "description": "The type of product download. Valid values include: \"Standard Product\", \"Software\", and \"Music\".",
+            "nullable": true
+          },
+          "hasUserAgreement": {
+            "type": "boolean",
+            "description": "Indicates whether the product requires the user to agree to any terms or conditions before downloading.",
+            "nullable": true
+          },
+          "shippingType": {
+            "type": "string",
+            "description": "Specifies the type of shipping option available for the product.",
+            "nullable": true
+          },
+          "taxType": {
+            "type": "string",
+            "description": "Specifies the type of tax applied to the product.",
+            "nullable": true
+          },
+          "vendor": {
+            "type": "string",
+            "description": "ID of the vendor associated with the product.",
+            "nullable": true
+          },
+          "priority": {
+            "type": "integer",
+            "description": "Indicates the position of the product in the catalog for ordering purposes.",
+            "format": "int32"
+          },
+          "outerId": {
+            "type": "string",
+            "description": "An external identifier for the product that can be used for integration with external systems.",
+            "nullable": true
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Property"
+            },
+            "nullable": true
+          },
+          "excludedProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExcludedProperty"
+            },
+            "nullable": true
+          },
+          "imgSrc": {
+            "type": "string",
+            "description": "Gets the default image for the product.",
+            "nullable": true,
+            "readOnly": true
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Image"
+            },
+            "nullable": true
+          },
+          "assets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Asset"
+            },
+            "nullable": true
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CategoryLink"
+            },
+            "nullable": true
+          },
+          "variations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Variation"
+            },
+            "nullable": true
+          },
+          "seoObjectType": {
+            "type": "string",
+            "description": "Each descendant type should override this property to use other object type for seo records",
+            "nullable": true,
+            "readOnly": true
+          },
+          "seoInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SeoInfo"
+            },
+            "nullable": true
+          },
+          "reviews": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EditorialReview"
+            },
+            "nullable": true
+          },
+          "associations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductAssociation"
+            },
+            "nullable": true
+          },
+          "referencedAssociations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductAssociation"
+            },
+            "nullable": true
+          },
+          "outlines": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Outline"
+            },
+            "nullable": true
+          },
+          "isInherited": {
+            "type": "boolean",
+            "description": "System flag used to mark that object was inherited from other",
+            "readOnly": true
+          },
+          "parentCategoryIsActive": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "relevanceScore": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CategoryLink": {
+        "type": "object",
+        "properties": {
+          "entryId": {
+            "type": "string",
+            "description": "Entry identifier which this link belongs to",
+            "nullable": true,
+            "readOnly": true
+          },
+          "listEntryId": {
+            "type": "string",
+            "nullable": true
+          },
+          "listEntryType": {
+            "type": "string",
+            "description": "Gets or sets the type of the list entry. E.g. \"product\", \"category\"",
+            "nullable": true
+          },
+          "priority": {
+            "type": "integer",
+            "description": "Product order position in virtual catalog",
+            "format": "int32"
+          },
+          "catalogId": {
+            "type": "string",
+            "nullable": true
+          },
+          "categoryId": {
+            "type": "string",
+            "nullable": true
+          },
+          "targetId": {
+            "type": "string",
+            "description": "Gets the Id of either target Catetory or Catalog",
+            "nullable": true,
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Gets the name of either target Catetory or Catalog",
+            "nullable": true,
+            "readOnly": true
+          },
+          "isAutomatic": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CustomerOrder": {
+        "type": "object",
+        "properties": {
+          "rowVersion": {
+            "type": "string",
+            "format": "byte",
+            "nullable": true
+          },
+          "customerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerName": {
+            "type": "string",
+            "nullable": true
+          },
+          "channelId": {
+            "type": "string",
+            "nullable": true
+          },
+          "storeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "storeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "organizationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "organizationName": {
+            "type": "string",
+            "nullable": true
+          },
+          "employeeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "employeeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "shoppingCartId": {
+            "type": "string",
+            "description": "The base shopping cart ID the order was created with",
+            "nullable": true
+          },
+          "isPrototype": {
+            "type": "boolean",
+            "description": "This checkbox determines whether the order is a prototype"
+          },
+          "purchaseOrderNumber": {
+            "type": "string",
+            "description": "The order internal number provided by customer",
+            "nullable": true
+          },
+          "subscriptionNumber": {
+            "type": "string",
+            "description": "Number of subscription associated with this order",
+            "nullable": true
+          },
+          "subscriptionId": {
+            "type": "string",
+            "description": "The ID of subscription associated with this order",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "addresses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderAddress"
+            },
+            "nullable": true
+          },
+          "inPayments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentIn"
+            },
+            "nullable": true
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderLineItem"
+            },
+            "nullable": true
+          },
+          "shipments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderShipment"
+            },
+            "nullable": true
+          },
+          "feeDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FeeDetail"
+            },
+            "nullable": true
+          },
+          "relevanceScore": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "discounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Discount"
+            },
+            "nullable": true
+          },
+          "discountAmount": {
+            "type": "number",
+            "description": "When a discount is applied to the order, the tax calculation has already been applied and is shown in the tax field.\nTherefore, the discount will not be taking tax into account. \nFor instance, if the cart subtotal is $100, and the tax subtotal is $15, a 10% discount will yield a total of $105 ($100 subtotal – $10 discount + $15 tax).",
+            "format": "double"
+          },
+          "taxDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaxDetail"
+            },
+            "nullable": true
+          },
+          "scopes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "total": {
+            "type": "number",
+            "description": "Order grand total",
+            "format": "double"
+          },
+          "subTotal": {
+            "type": "number",
+            "description": "Amount of the item prices",
+            "format": "double"
+          },
+          "subTotalWithTax": {
+            "type": "number",
+            "description": "Amount of the item prices with tax",
+            "format": "double"
+          },
+          "subTotalDiscount": {
+            "type": "number",
+            "description": "Amount of the item discount total",
+            "format": "double"
+          },
+          "subTotalDiscountWithTax": {
+            "type": "number",
+            "description": "Amount of the item discount total with tax",
+            "format": "double"
+          },
+          "subTotalTaxTotal": {
+            "type": "number",
+            "description": "Amount of the item tax total",
+            "format": "double"
+          },
+          "shippingTotal": {
+            "type": "number",
+            "description": "Amount of the shipment total",
+            "format": "double"
+          },
+          "shippingTotalWithTax": {
+            "type": "number",
+            "description": "Amount of the shipment total with tax",
+            "format": "double"
+          },
+          "shippingSubTotal": {
+            "type": "number",
+            "description": "Amount of the shipment prices",
+            "format": "double"
+          },
+          "shippingSubTotalWithTax": {
+            "type": "number",
+            "description": "Amount of the shipment prices with tax",
+            "format": "double"
+          },
+          "shippingDiscountTotal": {
+            "type": "number",
+            "description": "Amount of the shipment discount amounts",
+            "format": "double"
+          },
+          "shippingDiscountTotalWithTax": {
+            "type": "number",
+            "description": "Amount of the shipment discount amounts with tax",
+            "format": "double"
+          },
+          "shippingTaxTotal": {
+            "type": "number",
+            "description": "Reserved for future needs",
+            "format": "double"
+          },
+          "paymentTotal": {
+            "type": "number",
+            "description": "Amount of the payments totals",
+            "format": "double"
+          },
+          "paymentTotalWithTax": {
+            "type": "number",
+            "description": "Amount of the payment totals with tax",
+            "format": "double"
+          },
+          "paymentSubTotal": {
+            "type": "number",
+            "description": "Amount of the payment prices",
+            "format": "double"
+          },
+          "paymentSubTotalWithTax": {
+            "type": "number",
+            "description": "Amount of the payment prices with tax",
+            "format": "double"
+          },
+          "paymentDiscountTotal": {
+            "type": "number",
+            "description": "Amount of the payments discount amounts",
+            "format": "double"
+          },
+          "paymentDiscountTotalWithTax": {
+            "type": "number",
+            "description": "Amount of the payment discount amounts with tax",
+            "format": "double"
+          },
+          "paymentTaxTotal": {
+            "type": "number",
+            "description": "Reserved for future needs",
+            "format": "double"
+          },
+          "discountTotal": {
+            "type": "number",
+            "description": "Amount of the discount amounts of items, shipments and payments, and the order discount amount",
+            "format": "double"
+          },
+          "discountTotalWithTax": {
+            "type": "number",
+            "description": "Amount of the discount amounts with tax of items, shipments and payments, and the order discount amount with tax",
+            "format": "double"
+          },
+          "fee": {
+            "type": "number",
+            "description": "Any extra fees applied to the order. This value comes from the cart",
+            "format": "double"
+          },
+          "feeWithTax": {
+            "type": "number",
+            "description": "Order fee with applied tax factor",
+            "format": "double"
+          },
+          "feeTotal": {
+            "type": "number",
+            "description": "Amount of the order fee, as well as any item, shipment, and payment fees",
+            "format": "double"
+          },
+          "feeTotalWithTax": {
+            "type": "number",
+            "description": "Total fee with applied tax factor",
+            "format": "double"
+          },
+          "handlingTotal": {
+            "type": "number",
+            "description": "Reserved for future needs",
+            "format": "double"
+          },
+          "handlingTotalWithTax": {
+            "type": "number",
+            "description": "Reserved for future needs",
+            "format": "double"
+          },
+          "isAnonymous": {
+            "type": "boolean"
+          },
+          "taxType": {
+            "type": "string",
+            "description": "Tax category or type",
+            "nullable": true
+          },
+          "taxTotal": {
+            "type": "number",
+            "description": "Amount of tax totals for items, shipments, and payments without the order discount amount with tax factor applied",
+            "format": "double"
+          },
+          "taxPercentRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "operationType": {
+            "type": "string",
+            "nullable": true
+          },
+          "parentOperationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "number": {
+            "type": "string",
+            "nullable": true
+          },
+          "isApproved": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "sum": {
+            "type": "number",
+            "format": "double"
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "cancelledState": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CancelledState"
+              }
+            ],
+            "description": "For system use to handle canellation flow"
+          },
+          "isCancelled": {
+            "type": "boolean",
+            "description": "Used by payment provides to indicate that cancellation operation has completed"
+          },
+          "cancelledDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "cancelReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "dynamicProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicObjectProperty"
+            },
+            "nullable": true
+          },
+          "operationsLog": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OperationLog"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Discount": {
+        "type": "object",
+        "properties": {
+          "promotionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "discountAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountAmountWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "coupon": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicObjectProperty": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string",
+            "nullable": true
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicPropertyObjectValue"
+            },
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "isArray": {
+            "type": "boolean"
+          },
+          "isDictionary": {
+            "type": "boolean"
+          },
+          "isMultilingual": {
+            "type": "boolean"
+          },
+          "isRequired": {
+            "type": "boolean"
+          },
+          "displayOrder": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "valueType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DynamicPropertyValueType"
+              }
+            ]
+          },
+          "displayNames": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicPropertyName"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicPropertyName": {
+        "type": "object",
+        "properties": {
+          "locale": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicPropertyObjectValue": {
+        "type": "object",
+        "properties": {
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectId": {
+            "type": "string",
+            "nullable": true
+          },
+          "locale": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "type": "object",
+            "nullable": true
+          },
+          "valueId": {
+            "type": "string",
+            "nullable": true
+          },
+          "valueType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DynamicPropertyValueType"
+              }
+            ]
+          },
+          "propertyId": {
+            "type": "string",
+            "nullable": true
+          },
+          "propertyName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicPropertyValueType": {
+        "enum": [
+          "Undefined",
+          "ShortText",
+          "LongText",
+          "Integer",
+          "Decimal",
+          "DateTime",
+          "Boolean",
+          "Html",
+          "Image"
+        ],
+        "type": "string"
+      },
+      "EditorialReview": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string",
+            "nullable": true
+          },
+          "reviewType": {
+            "type": "string",
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "isInherited": {
+            "type": "boolean"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EntryState": {
+        "enum": [
+          "Detached",
+          "Unchanged",
+          "Added",
+          "Deleted",
+          "Modified"
+        ],
+        "type": "string"
+      },
+      "ExcludedProperty": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "isInherited": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "FeeDetail": {
+        "type": "object",
+        "properties": {
+          "feeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "FileUploadScopeOptions": {
+        "required": [
+          "allowedExtensions",
+          "maxFileSize",
+          "scope"
+        ],
+        "type": "object",
+        "properties": {
+          "scope": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxFileSize": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "allowedExtensions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "allowAnonymousUpload": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "IOperation": {
+        "type": "object",
+        "properties": {
+          "operationType": {
+            "type": "string",
+            "nullable": true
+          },
+          "number": {
+            "type": "string",
+            "nullable": true
+          },
+          "isApproved": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "parentOperationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "childrenOperations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IOperation"
+            },
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Image": {
+        "type": "object",
+        "properties": {
+          "binaryData": {
+            "type": "string",
+            "format": "byte",
+            "nullable": true
+          },
+          "altText": {
+            "type": "string",
+            "nullable": true
+          },
+          "relativeUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "url": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "typeId": {
+            "type": "string",
+            "description": "Gets or sets the asset type identifier.",
+            "nullable": true
+          },
+          "group": {
+            "type": "string",
+            "description": "Gets or sets the asset group name.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Gets or sets the asset name.",
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "description": "",
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "description": "Gets or sets the asset language.",
+            "nullable": true
+          },
+          "isInherited": {
+            "type": "boolean",
+            "description": "System flag used to mark that object was inherited from other",
+            "readOnly": true
+          },
+          "seoObjectType": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "seoInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SeoInfo"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LocalizedString": {
+        "type": "object",
+        "properties": {
+          "values": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "nullable": true
+            },
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ObjectSettingEntry": {
+        "type": "object",
+        "properties": {
+          "itHasValues": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "objectId": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "isReadOnly": {
+            "type": "boolean"
+          },
+          "value": {
+            "type": "object",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "restartRequired": {
+            "type": "boolean"
+          },
+          "moduleId": {
+            "type": "string",
+            "nullable": true
+          },
+          "groupName": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "displayName": {
+            "type": "string",
+            "nullable": true
+          },
+          "isRequired": {
+            "type": "boolean"
+          },
+          "isHidden": {
+            "type": "boolean"
+          },
+          "isPublic": {
+            "type": "boolean"
+          },
+          "valueType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SettingValueType"
+              }
+            ]
+          },
+          "allowedValues": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            },
+            "nullable": true
+          },
+          "defaultValue": {
+            "type": "object",
+            "nullable": true
+          },
+          "isDictionary": {
+            "type": "boolean"
+          },
+          "isLocalizable": {
+            "type": "boolean"
+          },
+          "tenant": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OperationLog": {
+        "type": "object",
+        "properties": {
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectId": {
+            "type": "string",
+            "nullable": true
+          },
+          "operationType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EntryState"
+              }
+            ]
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrderAddress": {
+        "type": "object",
+        "properties": {
+          "addressType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AddressType"
+              }
+            ]
+          },
+          "key": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "organization": {
+            "type": "string",
+            "nullable": true
+          },
+          "countryCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "countryName": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "postalCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "zip": {
+            "type": "string",
+            "nullable": true
+          },
+          "line1": {
+            "type": "string",
+            "nullable": true
+          },
+          "line2": {
+            "type": "string",
+            "nullable": true
+          },
+          "regionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "regionName": {
+            "type": "string",
+            "nullable": true
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "middleName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "isDefault": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrderConfigurationItem": {
+        "type": "object",
+        "properties": {
+          "lineItemId": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerOrderId": {
+            "type": "string",
+            "description": "Not mapped for updates: updates to this property are ignored by CRUD services.",
+            "nullable": true,
+            "readOnly": true
+          },
+          "productId": {
+            "type": "string",
+            "nullable": true
+          },
+          "sectionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "sku": {
+            "type": "string",
+            "nullable": true
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "salePrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "extendedPrice": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "catalogId": {
+            "type": "string",
+            "nullable": true
+          },
+          "categoryId": {
+            "type": "string",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "customText": {
+            "type": "string",
+            "nullable": true
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderConfigurationItemFile"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrderConfigurationItemFile": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "url": {
+            "type": "string",
+            "nullable": true
+          },
+          "contentType": {
+            "type": "string",
+            "nullable": true
+          },
+          "size": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrderLineItem": {
+        "type": "object",
+        "properties": {
+          "customerOrderId": {
+            "type": "string",
+            "description": "Not mapped for updates: updates to this property are ignored by CRUD services.",
+            "nullable": true,
+            "readOnly": true
+          },
+          "priceId": {
+            "type": "string",
+            "description": "Price id",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "price": {
+            "type": "number",
+            "description": "unit price without discount and tax",
+            "format": "double"
+          },
+          "priceWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "listTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "listTotalWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "placedPrice": {
+            "type": "number",
+            "description": "Resulting price with discount for one unit",
+            "format": "double"
+          },
+          "placedPriceWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "extendedPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "extendedPriceWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountAmount": {
+            "type": "number",
+            "description": "Gets the value of the single qty line item discount amount",
+            "format": "double"
+          },
+          "isDiscountAmountRounded": {
+            "type": "boolean",
+            "description": "Indicates whether the discount amount per item was rounded according to the currency settings.\nIf false, DiscountAmount and PlacedPrice should not be visible to the customer, as these values may be incorrect;\nin this case, DiscountTotal and ExtendedPrice should be used."
+          },
+          "discountAmountWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountTotalWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "fee": {
+            "type": "number",
+            "format": "double"
+          },
+          "feeWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "taxType": {
+            "type": "string",
+            "description": "Tax category or type",
+            "nullable": true
+          },
+          "taxTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "taxPercentRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "reserveQuantity": {
+            "type": "integer",
+            "description": "Reserve quantity",
+            "format": "int32"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "productId": {
+            "type": "string",
+            "nullable": true
+          },
+          "sku": {
+            "type": "string",
+            "nullable": true
+          },
+          "productType": {
+            "type": "string",
+            "nullable": true
+          },
+          "catalogId": {
+            "type": "string",
+            "nullable": true
+          },
+          "categoryId": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "productOuterId": {
+            "type": "string",
+            "nullable": true
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "isGift": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "shippingMethodCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "fulfillmentLocationCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "fulfillmentCenterId": {
+            "type": "string",
+            "nullable": true
+          },
+          "fulfillmentCenterName": {
+            "type": "string",
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "feeDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FeeDetail"
+            },
+            "nullable": true
+          },
+          "vendorId": {
+            "type": "string",
+            "nullable": true
+          },
+          "isConfigured": {
+            "type": "boolean"
+          },
+          "weightUnit": {
+            "type": "string",
+            "nullable": true
+          },
+          "weight": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "measureUnit": {
+            "type": "string",
+            "nullable": true
+          },
+          "height": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "length": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "width": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "isCancelled": {
+            "type": "boolean"
+          },
+          "cancelledDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "cancelReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "dynamicProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicObjectProperty"
+            },
+            "nullable": true
+          },
+          "discounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Discount"
+            },
+            "nullable": true
+          },
+          "taxDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaxDetail"
+            },
+            "nullable": true
+          },
+          "configurationItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderConfigurationItem"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrderShipment": {
+        "type": "object",
+        "properties": {
+          "organizationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "organizationName": {
+            "type": "string",
+            "nullable": true
+          },
+          "fulfillmentCenterId": {
+            "type": "string",
+            "nullable": true
+          },
+          "fulfillmentCenterName": {
+            "type": "string",
+            "nullable": true
+          },
+          "employeeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "employeeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "shipmentMethodCode": {
+            "type": "string",
+            "description": "Current shipment method code",
+            "nullable": true
+          },
+          "shipmentMethodOption": {
+            "type": "string",
+            "description": "Current shipment option code",
+            "nullable": true
+          },
+          "shippingMethod": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ShippingMethod"
+              }
+            ],
+            "description": "Shipment method contains additional shipment method information",
+            "nullable": true
+          },
+          "customerOrderId": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerOrder": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CustomerOrder"
+              }
+            ],
+            "nullable": true
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderShipmentItem"
+            },
+            "nullable": true
+          },
+          "packages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ShipmentPackage"
+            },
+            "nullable": true
+          },
+          "inPayments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentIn"
+            },
+            "nullable": true
+          },
+          "feeDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FeeDetail"
+            },
+            "nullable": true
+          },
+          "weightUnit": {
+            "type": "string",
+            "nullable": true
+          },
+          "weight": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "measureUnit": {
+            "type": "string",
+            "nullable": true
+          },
+          "height": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "length": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "width": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "discounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Discount"
+            },
+            "nullable": true
+          },
+          "deliveryAddress": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OrderAddress"
+              }
+            ],
+            "nullable": true
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "priceWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "total": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountAmountWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "pickupLocationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "fee": {
+            "type": "number",
+            "format": "double"
+          },
+          "feeWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "trackingNumber": {
+            "type": "string",
+            "description": "Tracking information",
+            "nullable": true
+          },
+          "trackingUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "deliveryDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "vendorId": {
+            "type": "string",
+            "nullable": true
+          },
+          "taxType": {
+            "type": "string",
+            "description": "Tax category or type",
+            "nullable": true
+          },
+          "taxTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "taxPercentRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "taxDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaxDetail"
+            },
+            "nullable": true
+          },
+          "operationType": {
+            "type": "string",
+            "nullable": true
+          },
+          "parentOperationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "number": {
+            "type": "string",
+            "nullable": true
+          },
+          "isApproved": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "sum": {
+            "type": "number",
+            "format": "double"
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "cancelledState": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CancelledState"
+              }
+            ],
+            "description": "For system use to handle canellation flow"
+          },
+          "isCancelled": {
+            "type": "boolean",
+            "description": "Used by payment provides to indicate that cancellation operation has completed"
+          },
+          "cancelledDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "cancelReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "dynamicProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicObjectProperty"
+            },
+            "nullable": true
+          },
+          "operationsLog": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OperationLog"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrderShipmentItem": {
+        "type": "object",
+        "properties": {
+          "lineItemId": {
+            "type": "string",
+            "nullable": true
+          },
+          "lineItem": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OrderLineItem"
+              }
+            ],
+            "nullable": true
+          },
+          "barCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Outline": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OutlineItem"
+            },
+            "description": "Outline parts",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents the path from the catalog to one of the child objects (product or category):\ncatalog/parent-category1/.../parent-categoryN/object"
+      },
+      "OutlineItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Object id",
+            "nullable": true
+          },
+          "seoObjectType": {
+            "type": "string",
+            "description": "Object type",
+            "nullable": true
+          },
+          "seoInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SeoInfo"
+            },
+            "description": "All SEO records for the object",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of current item",
+            "nullable": true
+          },
+          "localizedName": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LocalizedString"
+              }
+            ],
+            "nullable": true
+          },
+          "hasVirtualParent": {
+            "type": "boolean",
+            "description": "True when this object is linked to the virtual parent."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents one outline element: catalog, category or product."
+      },
+      "PaymentGatewayTransaction": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "currencyCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "isProcessed": {
+            "type": "boolean",
+            "description": "Flag represent that current transaction is processed"
+          },
+          "processedDate": {
+            "type": "string",
+            "description": "Date when this transaction was handled",
+            "format": "date-time",
+            "nullable": true
+          },
+          "processError": {
+            "type": "string",
+            "nullable": true
+          },
+          "processAttemptCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "requestData": {
+            "type": "string",
+            "description": "Raw request data",
+            "nullable": true
+          },
+          "responseData": {
+            "type": "string",
+            "description": "Raw response data",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "description": "Gateway or VC response status code",
+            "nullable": true
+          },
+          "gatewayIpAddress": {
+            "type": "string",
+            "description": "Gateway IP address",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of payment interaction.The payment can be Capture or CheckReceived. \nThe value also includes customer payment interactions such as Website, Call, Store, or Unknown.",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "description": "\"Active\", \"Expired\", and \"Inactive\" or other",
+            "nullable": true
+          },
+          "note": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaymentIn": {
+        "type": "object",
+        "properties": {
+          "orderId": {
+            "type": "string",
+            "nullable": true
+          },
+          "purpose": {
+            "type": "string",
+            "nullable": true
+          },
+          "gatewayCode": {
+            "type": "string",
+            "description": "Payment method (gateway) code",
+            "nullable": true
+          },
+          "paymentMethod": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentMethod"
+              }
+            ],
+            "description": "Payment method contains additional payment method information",
+            "nullable": true
+          },
+          "organizationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "organizationName": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerName": {
+            "type": "string",
+            "nullable": true
+          },
+          "incomingDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "billingAddress": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OrderAddress"
+              }
+            ],
+            "nullable": true
+          },
+          "paymentStatus": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentStatus"
+              }
+            ]
+          },
+          "authorizedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "capturedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "voidedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "processPaymentResult": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ProcessPaymentRequestResult"
+              }
+            ],
+            "nullable": true
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "priceWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "total": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountAmountWithTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "feeDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FeeDetail"
+            },
+            "nullable": true
+          },
+          "vendorId": {
+            "type": "string",
+            "nullable": true
+          },
+          "taxType": {
+            "type": "string",
+            "description": "Tax category or type",
+            "nullable": true
+          },
+          "taxTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "taxPercentRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "taxDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaxDetail"
+            },
+            "nullable": true
+          },
+          "discounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Discount"
+            },
+            "nullable": true
+          },
+          "transactions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentGatewayTransaction"
+            },
+            "nullable": true
+          },
+          "refunds": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Refund"
+            },
+            "nullable": true
+          },
+          "captures": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Capture"
+            },
+            "nullable": true
+          },
+          "operationType": {
+            "type": "string",
+            "nullable": true
+          },
+          "parentOperationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "number": {
+            "type": "string",
+            "nullable": true
+          },
+          "isApproved": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "sum": {
+            "type": "number",
+            "format": "double"
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "cancelledState": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CancelledState"
+              }
+            ],
+            "description": "For system use to handle canellation flow"
+          },
+          "isCancelled": {
+            "type": "boolean",
+            "description": "Used by payment provides to indicate that cancellation operation has completed"
+          },
+          "cancelledDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "cancelReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "dynamicProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicObjectProperty"
+            },
+            "nullable": true
+          },
+          "operationsLog": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OperationLog"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaymentMethod": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "logoUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "priority": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isAvailableForPartial": {
+            "type": "boolean"
+          },
+          "allowDeferredPayment": {
+            "type": "boolean"
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "priceWithTax": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "total": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "totalWithTax": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "discountAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountAmountWithTax": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "allowCartPayment": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "storeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "typeName": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "settings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ObjectSettingEntry"
+            },
+            "nullable": true
+          },
+          "taxType": {
+            "type": "string",
+            "nullable": true
+          },
+          "taxTotal": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "taxPercentRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "taxDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaxDetail"
+            },
+            "nullable": true
+          },
+          "localizedName": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LocalizedString"
+              }
+            ],
+            "nullable": true
+          },
+          "paymentMethodType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentMethodType"
+              }
+            ],
+            "readOnly": true
+          },
+          "paymentMethodGroupType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentMethodGroupType"
+              }
+            ],
+            "readOnly": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaymentMethodGroupType": {
+        "enum": [
+          "Paypal",
+          "BankCard",
+          "Alternative",
+          "Manual"
+        ],
+        "type": "string"
+      },
+      "PaymentMethodType": {
+        "enum": [
+          "Unknown",
+          "Standard",
+          "Redirection",
+          "PreparedForm"
+        ],
+        "type": "string"
+      },
+      "PaymentStatus": {
+        "enum": [
+          "New",
+          "Pending",
+          "Authorized",
+          "Paid",
+          "PartiallyRefunded",
+          "Refunded",
+          "Voided",
+          "Custom",
+          "Cancelled",
+          "Declined",
+          "Error"
+        ],
+        "type": "string"
+      },
+      "ProcessPaymentRequestResult": {
+        "type": "object",
+        "properties": {
+          "redirectUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "htmlForm": {
+            "type": "string",
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "paymentMethod": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentMethod"
+              }
+            ],
+            "nullable": true
+          },
+          "isSuccess": {
+            "type": "boolean"
+          },
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "newPaymentStatus": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentStatus"
+              }
+            ]
+          },
+          "publicParameters": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "nullable": true
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProductAssociation": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Association type (Accessories, Up-Sales, Cross-Sales, Related etc)",
+            "nullable": true
+          },
+          "priority": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "itemId": {
+            "type": "string",
+            "description": "Is a primary key of associating object",
+            "nullable": true
+          },
+          "associatedObjectId": {
+            "type": "string",
+            "description": "Each link element can have an associated object like Product, Category, etc.\nIs a primary key of associated object",
+            "nullable": true
+          },
+          "associatedObjectType": {
+            "type": "string",
+            "description": "Associated object type : 'product', 'category' etc",
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "description": "",
+            "nullable": true
+          },
+          "associatedObjectName": {
+            "type": "string",
+            "description": "Display name for associated object",
+            "nullable": true,
+            "readOnly": true
+          },
+          "associatedObjectImg": {
+            "type": "string",
+            "description": "Associated object image URL",
+            "nullable": true,
+            "readOnly": true
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "imgSrc": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Image"
+            },
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Property": {
+        "type": "object",
+        "properties": {
+          "isReadOnly": {
+            "type": "boolean",
+            "description": "Gets or sets a value indicating whether user can change property value."
+          },
+          "isManageable": {
+            "type": "boolean",
+            "description": "Gets or sets a value indicating whether user can change property metadata or remove this property.",
+            "readOnly": true
+          },
+          "isNew": {
+            "type": "boolean",
+            "description": "Gets or sets a value indicating whether this instance is new. A new property should be created on server site instead of trying to update it."
+          },
+          "catalogId": {
+            "type": "string",
+            "description": "Gets or sets the catalog id that this product belongs to.",
+            "nullable": true
+          },
+          "categoryId": {
+            "type": "string",
+            "description": "Gets or sets the category id that this product belongs to.",
+            "nullable": true
+          },
+          "propertyGroupId": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "dictionary": {
+            "type": "boolean"
+          },
+          "multivalue": {
+            "type": "boolean"
+          },
+          "multilanguage": {
+            "type": "boolean"
+          },
+          "hidden": {
+            "type": "boolean",
+            "description": "Gets or sets a value indicating whether this VirtoCommerce.CatalogModule.Core.Model.Property is hidden."
+          },
+          "valueType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PropertyValueType"
+              }
+            ]
+          },
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PropertyType"
+              }
+            ]
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "measureId": {
+            "type": "string",
+            "nullable": true
+          },
+          "ownerName": {
+            "type": "string",
+            "nullable": true
+          },
+          "displayOrder": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PropertyValue"
+            },
+            "nullable": true
+          },
+          "attributes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PropertyAttribute"
+            },
+            "nullable": true
+          },
+          "displayNames": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PropertyDisplayName"
+            },
+            "nullable": true
+          },
+          "validationRules": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PropertyValidationRule"
+            },
+            "nullable": true
+          },
+          "validationRule": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PropertyValidationRule"
+              }
+            ],
+            "description": "Represents property validation rules definition",
+            "nullable": true,
+            "readOnly": true
+          },
+          "isInherited": {
+            "type": "boolean"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PropertyAttribute": {
+        "type": "object",
+        "properties": {
+          "propertyId": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PropertyDisplayName": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PropertyType": {
+        "enum": [
+          "Product",
+          "Variation",
+          "Category",
+          "Catalog"
+        ],
+        "type": "string"
+      },
+      "PropertyValidationRule": {
+        "type": "object",
+        "properties": {
+          "isUnique": {
+            "type": "boolean",
+            "description": "Uniquie value flag constrain"
+          },
+          "charCountMin": {
+            "type": "integer",
+            "description": "Down chars count border or null if no defined",
+            "format": "int32",
+            "nullable": true
+          },
+          "charCountMax": {
+            "type": "integer",
+            "description": "Upper chars count border or null if no defined",
+            "format": "int32",
+            "nullable": true
+          },
+          "regExp": {
+            "type": "string",
+            "description": "Custom regular expression",
+            "nullable": true
+          },
+          "propertyId": {
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents property validation rules definition"
+      },
+      "PropertyValue": {
+        "type": "object",
+        "properties": {
+          "propertyName": {
+            "type": "string",
+            "nullable": true
+          },
+          "propertyId": {
+            "type": "string",
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "alias": {
+            "type": "string",
+            "nullable": true
+          },
+          "displayOrder": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "valueType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PropertyValueType"
+              }
+            ]
+          },
+          "valueId": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "type": "object",
+            "nullable": true
+          },
+          "propertyMultivalue": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "unitOfMeasureId": {
+            "type": "string",
+            "nullable": true
+          },
+          "colorCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "isInherited": {
+            "type": "boolean"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PropertyValueType": {
+        "enum": [
+          "ShortText",
+          "LongText",
+          "Number",
+          "DateTime",
+          "Boolean",
+          "Integer",
+          "GeoPoint",
+          "Html",
+          "Measure",
+          "Color"
+        ],
+        "type": "string"
+      },
+      "QuoteAddress": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "addressType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AddressType"
+              }
+            ]
+          },
+          "key": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "organization": {
+            "type": "string",
+            "nullable": true
+          },
+          "countryCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "countryName": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "postalCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "zip": {
+            "type": "string",
+            "nullable": true
+          },
+          "line1": {
+            "type": "string",
+            "nullable": true
+          },
+          "line2": {
+            "type": "string",
+            "nullable": true
+          },
+          "regionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "regionName": {
+            "type": "string",
+            "nullable": true
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "middleName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "isDefault": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "QuoteAttachment": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "url": {
+            "type": "string",
+            "nullable": true
+          },
+          "mimeType": {
+            "type": "string",
+            "nullable": true
+          },
+          "size": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "QuoteConfigurationItem": {
+        "type": "object",
+        "properties": {
+          "lineItemId": {
+            "type": "string",
+            "nullable": true
+          },
+          "productId": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "sku": {
+            "type": "string",
+            "nullable": true
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "catalogId": {
+            "type": "string",
+            "nullable": true
+          },
+          "categoryId": {
+            "type": "string",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "customText": {
+            "type": "string",
+            "nullable": true
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuoteConfigurationItemFile"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "QuoteConfigurationItemFile": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "url": {
+            "type": "string",
+            "nullable": true
+          },
+          "contentType": {
+            "type": "string",
+            "nullable": true
+          },
+          "size": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "configurationItemId": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "QuoteItem": {
+        "type": "object",
+        "properties": {
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "listPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "salePrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "sku": {
+            "type": "string",
+            "nullable": true
+          },
+          "productId": {
+            "type": "string",
+            "nullable": true
+          },
+          "product": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CatalogProduct"
+              }
+            ],
+            "nullable": true
+          },
+          "catalogId": {
+            "type": "string",
+            "nullable": true
+          },
+          "categoryId": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "taxType": {
+            "type": "string",
+            "nullable": true
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isConfigured": {
+            "type": "boolean"
+          },
+          "selectedTierPrice": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TierPrice"
+              }
+            ],
+            "nullable": true
+          },
+          "proposalPrices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TierPrice"
+            },
+            "nullable": true
+          },
+          "configurationItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuoteConfigurationItem"
+            },
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "QuoteRequest": {
+        "type": "object",
+        "properties": {
+          "number": {
+            "type": "string",
+            "nullable": true
+          },
+          "storeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "channelId": {
+            "type": "string",
+            "nullable": true
+          },
+          "isAnonymous": {
+            "type": "boolean"
+          },
+          "customerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerName": {
+            "type": "string",
+            "nullable": true
+          },
+          "organizationName": {
+            "type": "string",
+            "nullable": true
+          },
+          "organizationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "employeeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "employeeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "expirationDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "reminderDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "enableNotification": {
+            "type": "boolean"
+          },
+          "isLocked": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "tag": {
+            "type": "string",
+            "nullable": true
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
+          },
+          "innerComment": {
+            "type": "string",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "coupon": {
+            "type": "string",
+            "nullable": true
+          },
+          "manualShippingTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "manualSubTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "manualRelDiscountAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "totals": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/QuoteRequestTotals"
+              }
+            ],
+            "nullable": true
+          },
+          "shipmentMethod": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ShipmentMethod"
+              }
+            ],
+            "nullable": true
+          },
+          "addresses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuoteAddress"
+            },
+            "nullable": true
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuoteItem"
+            },
+            "nullable": true
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuoteAttachment"
+            },
+            "nullable": true
+          },
+          "operationsLog": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OperationLog"
+            },
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "taxDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaxDetail"
+            },
+            "nullable": true
+          },
+          "isCancelled": {
+            "type": "boolean"
+          },
+          "cancelledDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "cancelReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "dynamicProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicObjectProperty"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "QuoteRequestSearchCriteria": {
+        "type": "object",
+        "properties": {
+          "number": {
+            "type": "string",
+            "nullable": true
+          },
+          "numberKeyword": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "organizationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "storeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "tag": {
+            "type": "string",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "statuses": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "responseGroup": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "objectIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "keyword": {
+            "type": "string",
+            "nullable": true
+          },
+          "searchPhrase": {
+            "type": "string",
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "sort": {
+            "type": "string",
+            "nullable": true
+          },
+          "sortInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SortInfo"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
+          "skip": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "take": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "QuoteRequestSearchResult": {
+        "type": "object",
+        "properties": {
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuoteRequest"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "QuoteRequestTotals": {
+        "type": "object",
+        "properties": {
+          "originalSubTotalExlTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "subTotalExlTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "shippingTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "taxTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "adjustmentQuoteExlTax": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "grandTotalExlTax": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "grandTotalInclTax": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Refund": {
+        "type": "object",
+        "properties": {
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "reasonCode": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RefundReasonCode"
+              }
+            ]
+          },
+          "refundStatus": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RefundStatus"
+              }
+            ]
+          },
+          "reasonMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "rejectReasonMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "vendorId": {
+            "type": "string",
+            "nullable": true
+          },
+          "transactionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerOrderId": {
+            "type": "string",
+            "nullable": true
+          },
+          "paymentId": {
+            "type": "string",
+            "nullable": true
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RefundItem"
+            },
+            "nullable": true
+          },
+          "operationType": {
+            "type": "string",
+            "nullable": true
+          },
+          "parentOperationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "number": {
+            "type": "string",
+            "nullable": true
+          },
+          "isApproved": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "sum": {
+            "type": "number",
+            "format": "double"
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "cancelledState": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CancelledState"
+              }
+            ],
+            "description": "For system use to handle canellation flow"
+          },
+          "isCancelled": {
+            "type": "boolean",
+            "description": "Used by payment provides to indicate that cancellation operation has completed"
+          },
+          "cancelledDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "cancelReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "dynamicProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicObjectProperty"
+            },
+            "nullable": true
+          },
+          "operationsLog": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OperationLog"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RefundItem": {
+        "type": "object",
+        "properties": {
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "lineItemId": {
+            "type": "string",
+            "nullable": true
+          },
+          "lineItem": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OrderLineItem"
+              }
+            ],
+            "nullable": true
+          },
+          "refundId": {
+            "type": "string",
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RefundReasonCode": {
+        "enum": [
+          "Duplicate",
+          "Fraudulent",
+          "RequestedByCustomer",
+          "Other"
+        ],
+        "type": "string"
+      },
+      "RefundStatus": {
+        "enum": [
+          "Pending",
+          "Rejected",
+          "Processed"
+        ],
+        "type": "string"
+      },
+      "SeoInfo": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "semanticUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "outline": {
+            "type": "string",
+            "nullable": true
+          },
+          "pageTitle": {
+            "type": "string",
+            "nullable": true
+          },
+          "metaDescription": {
+            "type": "string",
+            "nullable": true
+          },
+          "imageAltDescription": {
+            "type": "string",
+            "nullable": true
+          },
+          "metaKeywords": {
+            "type": "string",
+            "nullable": true
+          },
+          "storeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "organizationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectId": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SettingValueType": {
+        "enum": [
+          "ShortText",
+          "LongText",
+          "Integer",
+          "Decimal",
+          "DateTime",
+          "Boolean",
+          "SecureString",
+          "Json",
+          "PositiveInteger"
+        ],
+        "type": "string"
+      },
+      "ShipmentMethod": {
+        "type": "object",
+        "properties": {
+          "shipmentMethodCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "optionName": {
+            "type": "string",
+            "nullable": true
+          },
+          "logoUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "typeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ShipmentPackage": {
+        "type": "object",
+        "properties": {
+          "barCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "packageType": {
+            "type": "string",
+            "nullable": true
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderShipmentItem"
+            },
+            "nullable": true
+          },
+          "weightUnit": {
+            "type": "string",
+            "nullable": true
+          },
+          "weight": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "measureUnit": {
+            "type": "string",
+            "nullable": true
+          },
+          "height": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "length": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "width": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ShippingMethod": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "logoUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "priority": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "taxType": {
+            "type": "string",
+            "nullable": true
+          },
+          "storeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "settings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ObjectSettingEntry"
+            },
+            "nullable": true
+          },
+          "typeName": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SortDirection": {
+        "enum": [
+          "Ascending",
+          "Descending"
+        ],
+        "type": "string"
+      },
+      "SortInfo": {
+        "type": "object",
+        "properties": {
+          "sortColumn": {
+            "type": "string",
+            "nullable": true
+          },
+          "sortDirection": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SortDirection"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "TaxDetail": {
+        "type": "object",
+        "properties": {
+          "rate": {
+            "type": "number",
+            "format": "double"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TierPrice": {
+        "type": "object",
+        "properties": {
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Variation": {
+        "type": "object",
+        "properties": {
+          "productType": {
+            "type": "string",
+            "description": "The type of product. Can be \"Physical\", \"Digital\", etc.",
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "description": "The Stock Keeping Unit (SKU) code for the product.",
+            "nullable": true
+          },
+          "manufacturerPartNumber": {
+            "type": "string",
+            "description": "A manufacturer part number (MPN) is a unique alphanumeric code assigned by a manufacturer to identify a specific product or component. It is used primarily for part tracking in inventory management, supply chain operations, and ordering purposes.",
+            "nullable": true
+          },
+          "gtin": {
+            "type": "string",
+            "description": "The Global Trade Item Number (GTIN) for the product. This can include UPC (in North America), EAN (in Europe), JAN (in Japan), and ISBN (for books).",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the product.",
+            "nullable": true
+          },
+          "localizedName": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LocalizedString"
+              }
+            ],
+            "nullable": true
+          },
+          "catalogId": {
+            "type": "string",
+            "description": "The ID of the catalog to which this product belongs.",
+            "nullable": true
+          },
+          "categoryId": {
+            "type": "string",
+            "description": "The ID of the category to which this product belongs.",
+            "nullable": true
+          },
+          "outline": {
+            "type": "string",
+            "description": "Product outline in physical catalog (all parent categories ids concatenated. E.g. (1/21/344))",
+            "nullable": true,
+            "readOnly": true
+          },
+          "path": {
+            "type": "string",
+            "description": "Product path in physical catalog (all parent categories names concatenated. E.g. (parent1/parent2))",
+            "nullable": true,
+            "readOnly": true
+          },
+          "titularItemId": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "mainProductId": {
+            "type": "string",
+            "description": "The ID of the main product associated with this product variation.",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean",
+            "description": "Specifies whether the product is currently visible on the store for customers to view and purchase.\nIf set to false, the product is currently sold out.",
+            "nullable": true
+          },
+          "isBuyable": {
+            "type": "boolean",
+            "description": "Specifies whether the product is currently visible on the store for customers to view and purchase.\nIf set to false, the product is currently ouf of stock.",
+            "nullable": true
+          },
+          "trackInventory": {
+            "type": "boolean",
+            "description": "Indicates whether the inventory service is tracking the availability of this product.\nIf set to false, the product is considered in stock without any inventory limitations.",
+            "nullable": true
+          },
+          "indexingDate": {
+            "type": "string",
+            "description": "The date and time when the product was last indexed for search.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "maxQuantity": {
+            "type": "integer",
+            "description": "The maximum quantity of the product that can be purchased in a single order. A value of 0 indicates that there are no limitations on the maximum quantity.",
+            "format": "int32",
+            "nullable": true
+          },
+          "minQuantity": {
+            "type": "integer",
+            "description": "The minimum quantity of the product that must be purchased in a single order. A value of 0 indicates that there are no limitations on the minimum quantity.",
+            "format": "int32",
+            "nullable": true
+          },
+          "packSize": {
+            "type": "integer",
+            "description": "Defines the number of items in a package. Quantity step for your product's. Default value is 1.",
+            "format": "int32"
+          },
+          "startDate": {
+            "type": "string",
+            "description": "First listed date and time. If you do not specify an end date, the product will be active until you deactivate it.If you do not specify an end date, the product will be active until you deactivate it.If you do not specify a start date, the product will become active immediately once you save it.",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "description": "Listing expires on the specific date and time. If you do not specify an end date, the product will be active until you deactivate it.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "packageType": {
+            "type": "string",
+            "description": "The type of package for this product, which determines the product's specific dimensions.",
+            "nullable": true
+          },
+          "weightUnit": {
+            "type": "string",
+            "description": "The unit of measurement for the product's weight.",
+            "nullable": true
+          },
+          "weight": {
+            "type": "number",
+            "description": "The weight of the product, in the unit specified by the WeightUnit property.",
+            "format": "double",
+            "nullable": true
+          },
+          "measureUnit": {
+            "type": "string",
+            "description": "The unit of measurement for the product's height, length, and width.",
+            "nullable": true
+          },
+          "height": {
+            "type": "number",
+            "description": "The height of the product, in the unit specified by the MeasureUnit property.",
+            "format": "double",
+            "nullable": true
+          },
+          "length": {
+            "type": "number",
+            "description": "The length of the product, in the unit specified by the MeasureUnit property.",
+            "format": "double",
+            "nullable": true
+          },
+          "width": {
+            "type": "number",
+            "description": "The width of the product, in the unit specified by the MeasureUnit property.",
+            "format": "double",
+            "nullable": true
+          },
+          "enableReview": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "maxNumberOfDownload": {
+            "type": "integer",
+            "description": "The maximum number of times the product can be downloaded. A value of 0 indicates no limit.",
+            "format": "int32",
+            "nullable": true
+          },
+          "downloadExpiration": {
+            "type": "string",
+            "description": "The date and time when the download link or access to the product will expire.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "downloadType": {
+            "type": "string",
+            "description": "The type of product download. Valid values include: \"Standard Product\", \"Software\", and \"Music\".",
+            "nullable": true
+          },
+          "hasUserAgreement": {
+            "type": "boolean",
+            "description": "Indicates whether the product requires the user to agree to any terms or conditions before downloading.",
+            "nullable": true
+          },
+          "shippingType": {
+            "type": "string",
+            "description": "Specifies the type of shipping option available for the product.",
+            "nullable": true
+          },
+          "taxType": {
+            "type": "string",
+            "description": "Specifies the type of tax applied to the product.",
+            "nullable": true
+          },
+          "vendor": {
+            "type": "string",
+            "description": "ID of the vendor associated with the product.",
+            "nullable": true
+          },
+          "priority": {
+            "type": "integer",
+            "description": "Indicates the position of the product in the catalog for ordering purposes.",
+            "format": "int32"
+          },
+          "outerId": {
+            "type": "string",
+            "description": "An external identifier for the product that can be used for integration with external systems.",
+            "nullable": true
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Property"
+            },
+            "nullable": true
+          },
+          "excludedProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExcludedProperty"
+            },
+            "nullable": true
+          },
+          "imgSrc": {
+            "type": "string",
+            "description": "Gets the default image for the product.",
+            "nullable": true,
+            "readOnly": true
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Image"
+            },
+            "nullable": true
+          },
+          "assets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Asset"
+            },
+            "nullable": true
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CategoryLink"
+            },
+            "nullable": true
+          },
+          "variations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Variation"
+            },
+            "nullable": true
+          },
+          "seoObjectType": {
+            "type": "string",
+            "description": "Each descendant type should override this property to use other object type for seo records",
+            "nullable": true,
+            "readOnly": true
+          },
+          "seoInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SeoInfo"
+            },
+            "nullable": true
+          },
+          "reviews": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EditorialReview"
+            },
+            "nullable": true
+          },
+          "associations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductAssociation"
+            },
+            "nullable": true
+          },
+          "referencedAssociations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductAssociation"
+            },
+            "nullable": true
+          },
+          "outlines": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Outline"
+            },
+            "nullable": true
+          },
+          "isInherited": {
+            "type": "boolean",
+            "description": "System flag used to mark that object was inherited from other",
+            "readOnly": true
+          },
+          "parentCategoryIsActive": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "relevanceScore": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "oauth2": {
+        "type": "oauth2",
+        "description": "OAuth2 Resource Owner Password Grant flow",
+        "flows": {
+          "password": {
+            "tokenUrl": "/connect/token",
+            "scopes": { }
+          },
+          "clientCredentials": {
+            "tokenUrl": "/connect/token",
+            "scopes": { }
+          }
+        }
+      },
+      "api_key": {
+        "type": "apiKey",
+        "description": "API Key authentication",
+        "name": "api_key",
+        "in": "query"
+      },
+      "api_key_header": {
+        "type": "apiKey",
+        "description": "API Key authentication (alternative via header)",
+        "name": "api_key",
+        "in": "header"
+      },
+      "http-signature": {
+        "type": "http",
+        "description": "HTTP Signature authentication using Authorization header",
+        "scheme": "signature"
+      },
+      "basic": {
+        "type": "http",
+        "description": "Basic authentication using username and password",
+        "scheme": "basic"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Quotes",
+      "description": "Quoter enables business users to execute quote requests online. Once initiated, an online conversation takes place with internal users who interact with the business user's request. The internal user can set prices for quantity breaks or discounts. The quote is then made available to the business user online. The business user can accept the quote and place the order, continue the conversation, or reject the quote."
+    }
+  ]
+}

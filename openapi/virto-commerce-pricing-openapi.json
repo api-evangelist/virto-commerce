@@ -1,0 +1,5621 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "VirtoCommerce.Pricing",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/pricing/evaluate": {
+      "post": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Evaluate prices by given context",
+        "operationId": "PricingModule_EvaluatePrices",
+        "requestBody": {
+          "description": "Pricing evaluation context",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PriceEvaluationContext"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PriceEvaluationContext"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PriceEvaluationContext"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Price"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Price"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Price"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "pricing:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "pricing:read"
+            ]
+          },
+          {
+            "basic": [
+              "pricing:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Pricing"
+      }
+    },
+    "/api/pricing/pricelists/evaluate": {
+      "post": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Evaluate pricelists by given context",
+        "operationId": "PricingModule_EvaluatePriceLists",
+        "requestBody": {
+          "description": "Pricing evaluation context",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PriceEvaluationContext"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PriceEvaluationContext"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PriceEvaluationContext"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Pricelist"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Pricelist"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Pricelist"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "pricing:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "pricing:read"
+            ]
+          },
+          {
+            "basic": [
+              "pricing:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Pricing"
+      }
+    },
+    "/api/pricing/assignments/{id}": {
+      "get": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Get pricelist assignment",
+        "operationId": "PricingModule_GetPricelistAssignmentById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Pricelist assignment id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PricelistAssignment"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PricelistAssignment"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PricelistAssignment"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "pricing:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "pricing:read"
+            ]
+          },
+          {
+            "basic": [
+              "pricing:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Pricing"
+      },
+      "patch": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Partial update for the specified pricelist assignment by id",
+        "operationId": "PricingModule_PatchPriceListAssignment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "PricelistAssignment id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "JsonPatchDocument object with fields to update",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          },
+          {
+            "api_key": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          },
+          {
+            "api_key_header": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          },
+          {
+            "http-signature": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          },
+          {
+            "basic": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Pricing"
+      }
+    },
+    "/api/pricing/assignments/outer/{outerId}": {
+      "get": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Get pricelist assignment by outer id",
+        "operationId": "PricingModule_GetPricelistAssignmentByOuterId",
+        "parameters": [
+          {
+            "name": "outerId",
+            "in": "path",
+            "description": "Pricelist assignment outer id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PricelistAssignment"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PricelistAssignment"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PricelistAssignment"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "pricing:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "pricing:read"
+            ]
+          },
+          {
+            "basic": [
+              "pricing:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Pricing"
+      }
+    },
+    "/api/pricing/assignments/new": {
+      "get": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Get a new pricelist assignment",
+        "description": "Get a new pricelist assignment object. Create new pricelist assignment, but does not save one.",
+        "operationId": "PricingModule_GetNewPricelistAssignments",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PricelistAssignment"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PricelistAssignment"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PricelistAssignment"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "pricing:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "pricing:read"
+            ]
+          },
+          {
+            "basic": [
+              "pricing:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Pricing"
+      }
+    },
+    "/api/pricing/pricelists": {
+      "get": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Get pricelists",
+        "description": "Get all pricelists for all catalogs.",
+        "operationId": "PricingModule_SearchPricelists",
+        "parameters": [
+          {
+            "name": "Currencies",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "ResponseGroup",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ObjectType",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ObjectTypes",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "ObjectIds",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "Keyword",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SearchPhrase",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "LanguageCode",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Sort",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SortInfos",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/SortInfo"
+              }
+            }
+          },
+          {
+            "name": "Skip",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Take",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PricelistSearchResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PricelistSearchResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PricelistSearchResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "pricing:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "pricing:read"
+            ]
+          },
+          {
+            "basic": [
+              "pricing:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Pricing"
+      },
+      "post": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Create pricelist",
+        "operationId": "PricingModule_CreatePriceList",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Pricelist"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Pricelist"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Pricelist"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pricelist"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pricelist"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pricelist"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "pricing:read",
+              "pricing:create"
+            ]
+          },
+          {
+            "api_key": [
+              "pricing:read",
+              "pricing:create"
+            ]
+          },
+          {
+            "api_key_header": [
+              "pricing:read",
+              "pricing:create"
+            ]
+          },
+          {
+            "http-signature": [
+              "pricing:read",
+              "pricing:create"
+            ]
+          },
+          {
+            "basic": [
+              "pricing:read",
+              "pricing:create"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Pricing"
+      },
+      "put": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Update pricelist",
+        "operationId": "PricingModule_UpdatePriceList",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Pricelist"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Pricelist"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Pricelist"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          },
+          {
+            "api_key": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          },
+          {
+            "api_key_header": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          },
+          {
+            "http-signature": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          },
+          {
+            "basic": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Pricing"
+      },
+      "delete": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Delete pricelists",
+        "description": "Delete pricelists by given array of pricelist ids.",
+        "operationId": "PricingModule_DeletePricelists",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "An array of pricelist ids",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "pricing:read",
+              "pricing:delete"
+            ]
+          },
+          {
+            "api_key": [
+              "pricing:read",
+              "pricing:delete"
+            ]
+          },
+          {
+            "api_key_header": [
+              "pricing:read",
+              "pricing:delete"
+            ]
+          },
+          {
+            "http-signature": [
+              "pricing:read",
+              "pricing:delete"
+            ]
+          },
+          {
+            "basic": [
+              "pricing:read",
+              "pricing:delete"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Pricing"
+      }
+    },
+    "/api/pricing/assignments": {
+      "get": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Search pricelist assignments",
+        "description": "Search price list assignments by given criteria",
+        "operationId": "PricingModule_SearchPricelistAssignments",
+        "parameters": [
+          {
+            "name": "PriceListId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "CatalogIds",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "StoreIds",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "PriceListIds",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "ResponseGroup",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ObjectType",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ObjectTypes",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "ObjectIds",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "Keyword",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SearchPhrase",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "LanguageCode",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Sort",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SortInfos",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/SortInfo"
+              }
+            }
+          },
+          {
+            "name": "Skip",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Take",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PricelistAssignmentSearchResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PricelistAssignmentSearchResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PricelistAssignmentSearchResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "pricing:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "pricing:read"
+            ]
+          },
+          {
+            "basic": [
+              "pricing:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Pricing"
+      },
+      "post": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Create pricelist assignment",
+        "operationId": "PricingModule_CreatePricelistAssignment",
+        "requestBody": {
+          "description": "PricelistAssignment",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PricelistAssignment"
+                  }
+                ],
+                "description": "Used to assign pricelist to specific catalog by using conditional expression"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PricelistAssignment"
+                  }
+                ],
+                "description": "Used to assign pricelist to specific catalog by using conditional expression"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PricelistAssignment"
+                  }
+                ],
+                "description": "Used to assign pricelist to specific catalog by using conditional expression"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PricelistAssignment"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PricelistAssignment"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PricelistAssignment"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "pricing:read",
+              "pricing:create"
+            ]
+          },
+          {
+            "api_key": [
+              "pricing:read",
+              "pricing:create"
+            ]
+          },
+          {
+            "api_key_header": [
+              "pricing:read",
+              "pricing:create"
+            ]
+          },
+          {
+            "http-signature": [
+              "pricing:read",
+              "pricing:create"
+            ]
+          },
+          {
+            "basic": [
+              "pricing:read",
+              "pricing:create"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Pricing"
+      },
+      "put": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Update pricelist assignment",
+        "operationId": "PricingModule_UpdatePriceListAssignment",
+        "requestBody": {
+          "description": "PricelistAssignment",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PricelistAssignment"
+                  }
+                ],
+                "description": "Used to assign pricelist to specific catalog by using conditional expression"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PricelistAssignment"
+                  }
+                ],
+                "description": "Used to assign pricelist to specific catalog by using conditional expression"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PricelistAssignment"
+                  }
+                ],
+                "description": "Used to assign pricelist to specific catalog by using conditional expression"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          },
+          {
+            "api_key": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          },
+          {
+            "api_key_header": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          },
+          {
+            "http-signature": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          },
+          {
+            "basic": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Pricing"
+      },
+      "delete": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Delete pricelist assignments",
+        "description": "Delete pricelist assignment by given array of ids.",
+        "operationId": "PricingModule_DeleteAssignments",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "An array of pricelist assignment ids",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "pricing:read",
+              "pricing:delete"
+            ]
+          },
+          {
+            "api_key": [
+              "pricing:read",
+              "pricing:delete"
+            ]
+          },
+          {
+            "api_key_header": [
+              "pricing:read",
+              "pricing:delete"
+            ]
+          },
+          {
+            "http-signature": [
+              "pricing:read",
+              "pricing:delete"
+            ]
+          },
+          {
+            "basic": [
+              "pricing:read",
+              "pricing:delete"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Pricing"
+      }
+    },
+    "/api/catalog/products/prices/search": {
+      "get": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Search product prices",
+        "description": "Search product prices",
+        "operationId": "PricingModule_SearchProductPricesGet",
+        "parameters": [
+          {
+            "name": "GroupByProducts",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "PriceListId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "PriceListIds",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "ProductId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ProductIds",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "ModifiedSince",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "ResponseGroup",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ObjectType",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ObjectTypes",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "ObjectIds",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "Keyword",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SearchPhrase",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "LanguageCode",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Sort",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SortInfos",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/SortInfo"
+              }
+            }
+          },
+          {
+            "name": "Skip",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Take",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductPriceSearchResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductPriceSearchResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductPriceSearchResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "pricing:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "pricing:read"
+            ]
+          },
+          {
+            "basic": [
+              "pricing:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Pricing"
+      },
+      "post": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Search product prices",
+        "description": "Search product prices",
+        "operationId": "PricingModule_SearchProductPricesPost",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PricesSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PricesSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PricesSearchCriteria"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductPriceSearchResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductPriceSearchResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductPriceSearchResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "pricing:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "pricing:read"
+            ]
+          },
+          {
+            "basic": [
+              "pricing:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Pricing"
+      }
+    },
+    "/api/products/{productId}/prices": {
+      "get": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Evaluate  product prices",
+        "description": "Get an array of valid product prices for each currency.",
+        "operationId": "PricingModule_EvaluateProductPrices",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "Product id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Price"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Price"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Price"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "pricing:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "pricing:read"
+            ]
+          },
+          {
+            "basic": [
+              "pricing:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Pricing"
+      },
+      "put": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Update product prices",
+        "operationId": "PricingModule_UpdateProductPrices",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "ProductPrice",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ProductPrice"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ProductPrice"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ProductPrice"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          },
+          {
+            "api_key": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          },
+          {
+            "api_key_header": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          },
+          {
+            "http-signature": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          },
+          {
+            "basic": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Pricing"
+      }
+    },
+    "/api/products/{productId}/{catalogId}/pricesWidget": {
+      "get": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Evaluate product prices for demand catalog",
+        "description": "Get an array of valid product prices for each currency.",
+        "operationId": "PricingModule_EvaluateProductPricesForCatalog",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "Product id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "catalogId",
+            "in": "path",
+            "description": "Catalog id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Price"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Price"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Price"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "pricing:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "pricing:read"
+            ]
+          },
+          {
+            "basic": [
+              "pricing:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Pricing"
+      }
+    },
+    "/api/products/prices": {
+      "put": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Update product prices",
+        "operationId": "PricingModule_UpdateProductsPrices",
+        "requestBody": {
+          "description": "List of ProductPrice",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ProductPrice"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ProductPrice"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ProductPrice"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          },
+          {
+            "api_key": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          },
+          {
+            "api_key_header": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          },
+          {
+            "http-signature": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          },
+          {
+            "basic": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Pricing"
+      }
+    },
+    "/api/catalog/products/{productId}/pricelists": {
+      "get": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Get all price lists for product",
+        "description": "Get all price lists for given product.",
+        "operationId": "PricingModule_GetProductPriceLists",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "Product id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Pricelist"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Pricelist"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Pricelist"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "pricing:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "pricing:read"
+            ]
+          },
+          {
+            "basic": [
+              "pricing:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Pricing"
+      }
+    },
+    "/api/pricing/pricelists/{id}": {
+      "get": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Get pricelist",
+        "operationId": "PricingModule_GetPriceListById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Pricelist id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pricelist"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pricelist"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pricelist"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "pricing:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "pricing:read"
+            ]
+          },
+          {
+            "basic": [
+              "pricing:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Pricing"
+      },
+      "patch": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Partial update for the specified Pricelist by id",
+        "operationId": "PricingModule_PatchPriceList",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Pricelist id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "JsonPatchDocument object with fields to update",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          },
+          {
+            "api_key": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          },
+          {
+            "api_key_header": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          },
+          {
+            "http-signature": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          },
+          {
+            "basic": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Pricing"
+      }
+    },
+    "/api/pricing/pricelists/outer/{outerId}": {
+      "get": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Get pricelist by outer id",
+        "operationId": "PricingModule_GetPricelistByOuterId",
+        "parameters": [
+          {
+            "name": "outerId",
+            "in": "path",
+            "description": "Pricelist outer id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pricelist"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pricelist"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pricelist"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "pricing:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "pricing:read"
+            ]
+          },
+          {
+            "basic": [
+              "pricing:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Pricing"
+      }
+    },
+    "/api/pricing/pricelistsshort/{id}": {
+      "get": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Get pricelist in short mode (without assignments to avoid redundant assignments read)",
+        "operationId": "PricingModule_GetPriceListInShortById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Pricelist id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pricelist"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pricelist"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pricelist"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "pricing:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "pricing:read"
+            ]
+          },
+          {
+            "basic": [
+              "pricing:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Pricing"
+      }
+    },
+    "/api/pricing/pricelistsshort/outer/{outerId}": {
+      "get": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Get pricelist by outer id in short mode (without assignments)",
+        "operationId": "PricingModule_GetPricelistInShortByOuterId",
+        "parameters": [
+          {
+            "name": "outerId",
+            "in": "path",
+            "description": "Pricelist outer id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pricelist"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pricelist"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pricelist"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "pricing:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "pricing:read"
+            ]
+          },
+          {
+            "basic": [
+              "pricing:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Pricing"
+      }
+    },
+    "/api/pricing/filteredAssignments": {
+      "delete": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Delete pricelist assignments",
+        "description": "Delete pricelist assignments by given criteria.",
+        "operationId": "PricingModule_DeleteFilteredAssignments",
+        "parameters": [
+          {
+            "name": "PriceListId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "CatalogIds",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "StoreIds",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "PriceListIds",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "ResponseGroup",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ObjectType",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ObjectTypes",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "ObjectIds",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "Keyword",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SearchPhrase",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "LanguageCode",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Sort",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SortInfos",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/SortInfo"
+              }
+            }
+          },
+          {
+            "name": "Skip",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Take",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "pricing:read",
+              "pricing:delete"
+            ]
+          },
+          {
+            "api_key": [
+              "pricing:read",
+              "pricing:delete"
+            ]
+          },
+          {
+            "api_key_header": [
+              "pricing:read",
+              "pricing:delete"
+            ]
+          },
+          {
+            "http-signature": [
+              "pricing:read",
+              "pricing:delete"
+            ]
+          },
+          {
+            "basic": [
+              "pricing:read",
+              "pricing:delete"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Pricing"
+      }
+    },
+    "/api/pricing/pricelists/{pricelistId}/products/prices": {
+      "delete": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Delete all prices for specified product in specified price list",
+        "operationId": "PricingModule_DeleteProductPrices",
+        "parameters": [
+          {
+            "name": "pricelistId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "productIds",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          },
+          {
+            "api_key": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          },
+          {
+            "api_key_header": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          },
+          {
+            "http-signature": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          },
+          {
+            "basic": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Pricing"
+      }
+    },
+    "/api/pricing/products/prices": {
+      "delete": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Delete price by ids",
+        "operationId": "PricingModule_DeleteProductPrice",
+        "parameters": [
+          {
+            "name": "priceIds",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "pricing:read",
+              "pricing:delete"
+            ]
+          },
+          {
+            "api_key": [
+              "pricing:read",
+              "pricing:delete"
+            ]
+          },
+          {
+            "api_key_header": [
+              "pricing:read",
+              "pricing:delete"
+            ]
+          },
+          {
+            "http-signature": [
+              "pricing:read",
+              "pricing:delete"
+            ]
+          },
+          {
+            "basic": [
+              "pricing:read",
+              "pricing:delete"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Pricing"
+      }
+    },
+    "/api/pricing/mergedpricegroups": {
+      "post": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Merge base and priority price list and returns MergedPriceGroup.",
+        "operationId": "PricingModule_SearchGroups",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MergedPriceSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MergedPriceSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MergedPriceSearchCriteria"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MergedPriceGroupSearchResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MergedPriceGroupSearchResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MergedPriceGroupSearchResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "pricing:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "pricing:read"
+            ]
+          },
+          {
+            "basic": [
+              "pricing:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Pricing"
+      }
+    },
+    "/api/pricing/mergedprices": {
+      "post": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Merge base and priority price list and returns MergedPrice.",
+        "operationId": "PricingModule_SearchGroupPrices",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MergedPriceSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MergedPriceSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MergedPriceSearchCriteria"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MergedPriceSearchResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MergedPriceSearchResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MergedPriceSearchResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key": [
+              "pricing:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "pricing:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "pricing:read"
+            ]
+          },
+          {
+            "basic": [
+              "pricing:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Pricing"
+      }
+    },
+    "/api/products/prices/{id}": {
+      "patch": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Partial update for the specified ProductPrice by id",
+        "operationId": "PricingModule_PatchProductPrice",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ProductPrice id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "JsonPatchDocument object with fields to update",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          },
+          {
+            "api_key": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          },
+          {
+            "api_key_header": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          },
+          {
+            "http-signature": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          },
+          {
+            "basic": [
+              "pricing:read",
+              "pricing:update"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Pricing"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Asset": {
+        "type": "object",
+        "properties": {
+          "mimeType": {
+            "type": "string",
+            "nullable": true
+          },
+          "size": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "readableSize": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "binaryData": {
+            "type": "string",
+            "format": "byte",
+            "nullable": true
+          },
+          "relativeUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "url": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "typeId": {
+            "type": "string",
+            "description": "Gets or sets the asset type identifier.",
+            "nullable": true
+          },
+          "group": {
+            "type": "string",
+            "description": "Gets or sets the asset group name.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Gets or sets the asset name.",
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "description": "",
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "description": "Gets or sets the asset language.",
+            "nullable": true
+          },
+          "isInherited": {
+            "type": "boolean",
+            "description": "System flag used to mark that object was inherited from other",
+            "readOnly": true
+          },
+          "seoObjectType": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "seoInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SeoInfo"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CatalogProduct": {
+        "type": "object",
+        "properties": {
+          "productType": {
+            "type": "string",
+            "description": "The type of product. Can be \"Physical\", \"Digital\", etc.",
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "description": "The Stock Keeping Unit (SKU) code for the product.",
+            "nullable": true
+          },
+          "manufacturerPartNumber": {
+            "type": "string",
+            "description": "A manufacturer part number (MPN) is a unique alphanumeric code assigned by a manufacturer to identify a specific product or component. It is used primarily for part tracking in inventory management, supply chain operations, and ordering purposes.",
+            "nullable": true
+          },
+          "gtin": {
+            "type": "string",
+            "description": "The Global Trade Item Number (GTIN) for the product. This can include UPC (in North America), EAN (in Europe), JAN (in Japan), and ISBN (for books).",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the product.",
+            "nullable": true
+          },
+          "localizedName": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LocalizedString"
+              }
+            ],
+            "nullable": true
+          },
+          "catalogId": {
+            "type": "string",
+            "description": "The ID of the catalog to which this product belongs.",
+            "nullable": true
+          },
+          "categoryId": {
+            "type": "string",
+            "description": "The ID of the category to which this product belongs.",
+            "nullable": true
+          },
+          "outline": {
+            "type": "string",
+            "description": "Product outline in physical catalog (all parent categories ids concatenated. E.g. (1/21/344))",
+            "nullable": true,
+            "readOnly": true
+          },
+          "path": {
+            "type": "string",
+            "description": "Product path in physical catalog (all parent categories names concatenated. E.g. (parent1/parent2))",
+            "nullable": true,
+            "readOnly": true
+          },
+          "titularItemId": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "mainProductId": {
+            "type": "string",
+            "description": "The ID of the main product associated with this product variation.",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean",
+            "description": "Specifies whether the product is currently visible on the store for customers to view and purchase.\nIf set to false, the product is currently sold out.",
+            "nullable": true
+          },
+          "isBuyable": {
+            "type": "boolean",
+            "description": "Specifies whether the product is currently visible on the store for customers to view and purchase.\nIf set to false, the product is currently ouf of stock.",
+            "nullable": true
+          },
+          "trackInventory": {
+            "type": "boolean",
+            "description": "Indicates whether the inventory service is tracking the availability of this product.\nIf set to false, the product is considered in stock without any inventory limitations.",
+            "nullable": true
+          },
+          "indexingDate": {
+            "type": "string",
+            "description": "The date and time when the product was last indexed for search.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "maxQuantity": {
+            "type": "integer",
+            "description": "The maximum quantity of the product that can be purchased in a single order. A value of 0 indicates that there are no limitations on the maximum quantity.",
+            "format": "int32",
+            "nullable": true
+          },
+          "minQuantity": {
+            "type": "integer",
+            "description": "The minimum quantity of the product that must be purchased in a single order. A value of 0 indicates that there are no limitations on the minimum quantity.",
+            "format": "int32",
+            "nullable": true
+          },
+          "packSize": {
+            "type": "integer",
+            "description": "Defines the number of items in a package. Quantity step for your product's. Default value is 1.",
+            "format": "int32"
+          },
+          "startDate": {
+            "type": "string",
+            "description": "First listed date and time. If you do not specify an end date, the product will be active until you deactivate it.If you do not specify an end date, the product will be active until you deactivate it.If you do not specify a start date, the product will become active immediately once you save it.",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "description": "Listing expires on the specific date and time. If you do not specify an end date, the product will be active until you deactivate it.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "packageType": {
+            "type": "string",
+            "description": "The type of package for this product, which determines the product's specific dimensions.",
+            "nullable": true
+          },
+          "weightUnit": {
+            "type": "string",
+            "description": "The unit of measurement for the product's weight.",
+            "nullable": true
+          },
+          "weight": {
+            "type": "number",
+            "description": "The weight of the product, in the unit specified by the WeightUnit property.",
+            "format": "double",
+            "nullable": true
+          },
+          "measureUnit": {
+            "type": "string",
+            "description": "The unit of measurement for the product's height, length, and width.",
+            "nullable": true
+          },
+          "height": {
+            "type": "number",
+            "description": "The height of the product, in the unit specified by the MeasureUnit property.",
+            "format": "double",
+            "nullable": true
+          },
+          "length": {
+            "type": "number",
+            "description": "The length of the product, in the unit specified by the MeasureUnit property.",
+            "format": "double",
+            "nullable": true
+          },
+          "width": {
+            "type": "number",
+            "description": "The width of the product, in the unit specified by the MeasureUnit property.",
+            "format": "double",
+            "nullable": true
+          },
+          "enableReview": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "maxNumberOfDownload": {
+            "type": "integer",
+            "description": "The maximum number of times the product can be downloaded. A value of 0 indicates no limit.",
+            "format": "int32",
+            "nullable": true
+          },
+          "downloadExpiration": {
+            "type": "string",
+            "description": "The date and time when the download link or access to the product will expire.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "downloadType": {
+            "type": "string",
+            "description": "The type of product download. Valid values include: \"Standard Product\", \"Software\", and \"Music\".",
+            "nullable": true
+          },
+          "hasUserAgreement": {
+            "type": "boolean",
+            "description": "Indicates whether the product requires the user to agree to any terms or conditions before downloading.",
+            "nullable": true
+          },
+          "shippingType": {
+            "type": "string",
+            "description": "Specifies the type of shipping option available for the product.",
+            "nullable": true
+          },
+          "taxType": {
+            "type": "string",
+            "description": "Specifies the type of tax applied to the product.",
+            "nullable": true
+          },
+          "vendor": {
+            "type": "string",
+            "description": "ID of the vendor associated with the product.",
+            "nullable": true
+          },
+          "priority": {
+            "type": "integer",
+            "description": "Indicates the position of the product in the catalog for ordering purposes.",
+            "format": "int32"
+          },
+          "outerId": {
+            "type": "string",
+            "description": "An external identifier for the product that can be used for integration with external systems.",
+            "nullable": true
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Property"
+            },
+            "nullable": true
+          },
+          "excludedProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExcludedProperty"
+            },
+            "nullable": true
+          },
+          "imgSrc": {
+            "type": "string",
+            "description": "Gets the default image for the product.",
+            "nullable": true,
+            "readOnly": true
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Image"
+            },
+            "nullable": true
+          },
+          "assets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Asset"
+            },
+            "nullable": true
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CategoryLink"
+            },
+            "nullable": true
+          },
+          "variations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Variation"
+            },
+            "nullable": true
+          },
+          "seoObjectType": {
+            "type": "string",
+            "description": "Each descendant type should override this property to use other object type for seo records",
+            "nullable": true,
+            "readOnly": true
+          },
+          "seoInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SeoInfo"
+            },
+            "nullable": true
+          },
+          "reviews": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EditorialReview"
+            },
+            "nullable": true
+          },
+          "associations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductAssociation"
+            },
+            "nullable": true
+          },
+          "referencedAssociations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductAssociation"
+            },
+            "nullable": true
+          },
+          "outlines": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Outline"
+            },
+            "nullable": true
+          },
+          "isInherited": {
+            "type": "boolean",
+            "description": "System flag used to mark that object was inherited from other",
+            "readOnly": true
+          },
+          "parentCategoryIsActive": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "relevanceScore": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CategoryLink": {
+        "type": "object",
+        "properties": {
+          "entryId": {
+            "type": "string",
+            "description": "Entry identifier which this link belongs to",
+            "nullable": true,
+            "readOnly": true
+          },
+          "listEntryId": {
+            "type": "string",
+            "nullable": true
+          },
+          "listEntryType": {
+            "type": "string",
+            "description": "Gets or sets the type of the list entry. E.g. \"product\", \"category\"",
+            "nullable": true
+          },
+          "priority": {
+            "type": "integer",
+            "description": "Product order position in virtual catalog",
+            "format": "int32"
+          },
+          "catalogId": {
+            "type": "string",
+            "nullable": true
+          },
+          "categoryId": {
+            "type": "string",
+            "nullable": true
+          },
+          "targetId": {
+            "type": "string",
+            "description": "Gets the Id of either target Catetory or Catalog",
+            "nullable": true,
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Gets the name of either target Catetory or Catalog",
+            "nullable": true,
+            "readOnly": true
+          },
+          "isAutomatic": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EditorialReview": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string",
+            "nullable": true
+          },
+          "reviewType": {
+            "type": "string",
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "isInherited": {
+            "type": "boolean"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ExcludedProperty": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "isInherited": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "IConditionTree": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "availableChildren": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IConditionTree"
+            },
+            "description": "List of all available children for current tree node (is used in expression designer)",
+            "nullable": true,
+            "readOnly": true
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IConditionTree"
+            },
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Image": {
+        "type": "object",
+        "properties": {
+          "binaryData": {
+            "type": "string",
+            "format": "byte",
+            "nullable": true
+          },
+          "altText": {
+            "type": "string",
+            "nullable": true
+          },
+          "relativeUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "url": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "typeId": {
+            "type": "string",
+            "description": "Gets or sets the asset type identifier.",
+            "nullable": true
+          },
+          "group": {
+            "type": "string",
+            "description": "Gets or sets the asset group name.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Gets or sets the asset name.",
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "description": "",
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "description": "Gets or sets the asset language.",
+            "nullable": true
+          },
+          "isInherited": {
+            "type": "boolean",
+            "description": "System flag used to mark that object was inherited from other",
+            "readOnly": true
+          },
+          "seoObjectType": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "seoInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SeoInfo"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LocalizedString": {
+        "type": "object",
+        "properties": {
+          "values": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "nullable": true
+            },
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MergedPrice": {
+        "type": "object",
+        "properties": {
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "pricelistId": {
+            "type": "string",
+            "nullable": true
+          },
+          "productId": {
+            "type": "string",
+            "nullable": true
+          },
+          "sale": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "list": {
+            "type": "number",
+            "format": "double"
+          },
+          "minQuantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "state": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MergedPriceState"
+              }
+            ]
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MergedPriceGroup": {
+        "type": "object",
+        "properties": {
+          "productId": {
+            "type": "string",
+            "nullable": true
+          },
+          "productName": {
+            "type": "string",
+            "nullable": true
+          },
+          "productCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "productImgSrc": {
+            "type": "string",
+            "nullable": true
+          },
+          "groupPricesCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "groupState": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MergedPriceState"
+              }
+            ]
+          },
+          "minSalePrice": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "maxSalePrice": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "minListPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "maxListPrice": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "MergedPriceGroupSearchResult": {
+        "type": "object",
+        "properties": {
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MergedPriceGroup"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MergedPriceSearchCriteria": {
+        "type": "object",
+        "properties": {
+          "all": {
+            "type": "boolean"
+          },
+          "basePriceListId": {
+            "type": "string",
+            "nullable": true
+          },
+          "priorityPriceListId": {
+            "type": "string",
+            "nullable": true
+          },
+          "productIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "responseGroup": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "objectIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "keyword": {
+            "type": "string",
+            "nullable": true
+          },
+          "searchPhrase": {
+            "type": "string",
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "sort": {
+            "type": "string",
+            "nullable": true
+          },
+          "sortInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SortInfo"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
+          "skip": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "take": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "MergedPriceSearchResult": {
+        "type": "object",
+        "properties": {
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MergedPrice"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MergedPriceState": {
+        "enum": [
+          "Base",
+          "New",
+          "Updated"
+        ],
+        "type": "string"
+      },
+      "Operation": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "object",
+            "nullable": true
+          },
+          "path": {
+            "type": "string",
+            "nullable": true
+          },
+          "op": {
+            "type": "string",
+            "nullable": true
+          },
+          "from": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Outline": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OutlineItem"
+            },
+            "description": "Outline parts",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents the path from the catalog to one of the child objects (product or category):\ncatalog/parent-category1/.../parent-categoryN/object"
+      },
+      "OutlineItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Object id",
+            "nullable": true
+          },
+          "seoObjectType": {
+            "type": "string",
+            "description": "Object type",
+            "nullable": true
+          },
+          "seoInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SeoInfo"
+            },
+            "description": "All SEO records for the object",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of current item",
+            "nullable": true
+          },
+          "localizedName": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LocalizedString"
+              }
+            ],
+            "nullable": true
+          },
+          "hasVirtualParent": {
+            "type": "boolean",
+            "description": "True when this object is linked to the virtual parent."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents one outline element: catalog, category or product."
+      },
+      "Price": {
+        "type": "object",
+        "properties": {
+          "pricelistId": {
+            "type": "string",
+            "nullable": true
+          },
+          "pricelist": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Pricelist"
+              }
+            ],
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "productId": {
+            "type": "string",
+            "nullable": true
+          },
+          "sale": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "list": {
+            "type": "number",
+            "format": "double"
+          },
+          "minQuantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "startDate": {
+            "type": "string",
+            "description": "Optional start date for this price, so that we can prepare prices ahead of time.\nIf start date equals now, this price will be active.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endDate": {
+            "type": "string",
+            "description": "Optional end date for this price, so that we can prepare prices ahead of time.\nIf end date equals now, this price will not be active.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "effectiveValue": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PriceConditionTree": {
+        "type": "object",
+        "properties": {
+          "all": {
+            "type": "boolean"
+          },
+          "not": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "availableChildren": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IConditionTree"
+            },
+            "nullable": true
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IConditionTree"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PriceEvaluationContext": {
+        "type": "object",
+        "properties": {
+          "storeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "catalogId": {
+            "type": "string",
+            "nullable": true
+          },
+          "productIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "pricelistIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "pricelists": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Pricelist"
+            },
+            "nullable": true
+          },
+          "returnAllMatchedPrices": {
+            "type": "boolean"
+          },
+          "quantity": {
+            "type": "number",
+            "format": "double"
+          },
+          "customerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "organizationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "certainDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "skipAssignmentValidation": {
+            "type": "boolean"
+          },
+          "contextObject": {
+            "type": "object",
+            "nullable": true
+          },
+          "geoCity": {
+            "type": "string",
+            "nullable": true
+          },
+          "geoState": {
+            "type": "string",
+            "nullable": true
+          },
+          "geoCountry": {
+            "type": "string",
+            "nullable": true
+          },
+          "geoContinent": {
+            "type": "string",
+            "nullable": true
+          },
+          "geoZipCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "geoConnectionType": {
+            "type": "string",
+            "nullable": true
+          },
+          "geoTimeZone": {
+            "type": "string",
+            "nullable": true
+          },
+          "geoIpRoutingType": {
+            "type": "string",
+            "nullable": true
+          },
+          "geoIspSecondLevel": {
+            "type": "string",
+            "nullable": true
+          },
+          "geoIspTopLevel": {
+            "type": "string",
+            "nullable": true
+          },
+          "shopperAge": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "shopperGender": {
+            "type": "string",
+            "nullable": true
+          },
+          "language": {
+            "type": "string",
+            "nullable": true
+          },
+          "userGroups": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Any tags or groups belongs to user such as VIP, Wholesaler etc",
+            "nullable": true
+          },
+          "shopperSearchedPhraseInStore": {
+            "type": "string",
+            "nullable": true
+          },
+          "shopperSearchedPhraseOnInternet": {
+            "type": "string",
+            "nullable": true
+          },
+          "currentUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "referredUrl": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Pricelist": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "priority": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "prices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Price"
+            },
+            "nullable": true
+          },
+          "assignments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PricelistAssignment"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PricelistAssignment": {
+        "type": "object",
+        "properties": {
+          "catalogId": {
+            "type": "string",
+            "nullable": true
+          },
+          "storeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "pricelistId": {
+            "type": "string",
+            "nullable": true
+          },
+          "pricelist": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Pricelist"
+              }
+            ],
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "priority": {
+            "type": "integer",
+            "description": "If two PricelistAssignments satisfies the conditions and rules, will use one with the greater priority",
+            "format": "int32"
+          },
+          "startDate": {
+            "type": "string",
+            "description": "Start of period when Prices Assignment is valid. Null value means no limit",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endDate": {
+            "type": "string",
+            "description": "End of period when Prices Assignment is valid. Null value means no limit",
+            "format": "date-time",
+            "nullable": true
+          },
+          "dynamicExpression": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PriceConditionTree"
+              }
+            ],
+            "description": "List of conditions and rules to define Prices Assignment is valid",
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Used to assign pricelist to specific catalog by using conditional expression"
+      },
+      "PricelistAssignmentSearchResult": {
+        "type": "object",
+        "properties": {
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PricelistAssignment"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PricelistSearchResult": {
+        "type": "object",
+        "properties": {
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Pricelist"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PricesSearchCriteria": {
+        "type": "object",
+        "properties": {
+          "groupByProducts": {
+            "type": "boolean"
+          },
+          "priceListId": {
+            "type": "string",
+            "nullable": true
+          },
+          "priceListIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "productId": {
+            "type": "string",
+            "nullable": true
+          },
+          "productIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "modifiedSince": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "responseGroup": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "objectIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "keyword": {
+            "type": "string",
+            "nullable": true
+          },
+          "searchPhrase": {
+            "type": "string",
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "sort": {
+            "type": "string",
+            "nullable": true
+          },
+          "sortInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SortInfo"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
+          "skip": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "take": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProductAssociation": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Association type (Accessories, Up-Sales, Cross-Sales, Related etc)",
+            "nullable": true
+          },
+          "priority": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "itemId": {
+            "type": "string",
+            "description": "Is a primary key of associating object",
+            "nullable": true
+          },
+          "associatedObjectId": {
+            "type": "string",
+            "description": "Each link element can have an associated object like Product, Category, etc.\nIs a primary key of associated object",
+            "nullable": true
+          },
+          "associatedObjectType": {
+            "type": "string",
+            "description": "Associated object type : 'product', 'category' etc",
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "description": "",
+            "nullable": true
+          },
+          "associatedObjectName": {
+            "type": "string",
+            "description": "Display name for associated object",
+            "nullable": true,
+            "readOnly": true
+          },
+          "associatedObjectImg": {
+            "type": "string",
+            "description": "Associated object image URL",
+            "nullable": true,
+            "readOnly": true
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "imgSrc": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Image"
+            },
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProductPrice": {
+        "type": "object",
+        "properties": {
+          "productId": {
+            "type": "string",
+            "nullable": true
+          },
+          "product": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CatalogProduct"
+              }
+            ],
+            "nullable": true
+          },
+          "prices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Price"
+            },
+            "description": "List prices for the products. It includes tiered prices also. (Depending on the quantity, for example)",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProductPriceSearchResult": {
+        "type": "object",
+        "properties": {
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductPrice"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Property": {
+        "type": "object",
+        "properties": {
+          "isReadOnly": {
+            "type": "boolean",
+            "description": "Gets or sets a value indicating whether user can change property value."
+          },
+          "isManageable": {
+            "type": "boolean",
+            "description": "Gets or sets a value indicating whether user can change property metadata or remove this property.",
+            "readOnly": true
+          },
+          "isNew": {
+            "type": "boolean",
+            "description": "Gets or sets a value indicating whether this instance is new. A new property should be created on server site instead of trying to update it."
+          },
+          "catalogId": {
+            "type": "string",
+            "description": "Gets or sets the catalog id that this product belongs to.",
+            "nullable": true
+          },
+          "categoryId": {
+            "type": "string",
+            "description": "Gets or sets the category id that this product belongs to.",
+            "nullable": true
+          },
+          "propertyGroupId": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "dictionary": {
+            "type": "boolean"
+          },
+          "multivalue": {
+            "type": "boolean"
+          },
+          "multilanguage": {
+            "type": "boolean"
+          },
+          "hidden": {
+            "type": "boolean",
+            "description": "Gets or sets a value indicating whether this VirtoCommerce.CatalogModule.Core.Model.Property is hidden."
+          },
+          "valueType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PropertyValueType"
+              }
+            ]
+          },
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PropertyType"
+              }
+            ]
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "measureId": {
+            "type": "string",
+            "nullable": true
+          },
+          "ownerName": {
+            "type": "string",
+            "nullable": true
+          },
+          "displayOrder": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PropertyValue"
+            },
+            "nullable": true
+          },
+          "attributes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PropertyAttribute"
+            },
+            "nullable": true
+          },
+          "displayNames": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PropertyDisplayName"
+            },
+            "nullable": true
+          },
+          "validationRules": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PropertyValidationRule"
+            },
+            "nullable": true
+          },
+          "validationRule": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PropertyValidationRule"
+              }
+            ],
+            "description": "Represents property validation rules definition",
+            "nullable": true,
+            "readOnly": true
+          },
+          "isInherited": {
+            "type": "boolean"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PropertyAttribute": {
+        "type": "object",
+        "properties": {
+          "propertyId": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PropertyDisplayName": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PropertyType": {
+        "enum": [
+          "Product",
+          "Variation",
+          "Category",
+          "Catalog"
+        ],
+        "type": "string"
+      },
+      "PropertyValidationRule": {
+        "type": "object",
+        "properties": {
+          "isUnique": {
+            "type": "boolean",
+            "description": "Uniquie value flag constrain"
+          },
+          "charCountMin": {
+            "type": "integer",
+            "description": "Down chars count border or null if no defined",
+            "format": "int32",
+            "nullable": true
+          },
+          "charCountMax": {
+            "type": "integer",
+            "description": "Upper chars count border or null if no defined",
+            "format": "int32",
+            "nullable": true
+          },
+          "regExp": {
+            "type": "string",
+            "description": "Custom regular expression",
+            "nullable": true
+          },
+          "propertyId": {
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents property validation rules definition"
+      },
+      "PropertyValue": {
+        "type": "object",
+        "properties": {
+          "propertyName": {
+            "type": "string",
+            "nullable": true
+          },
+          "propertyId": {
+            "type": "string",
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "alias": {
+            "type": "string",
+            "nullable": true
+          },
+          "displayOrder": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "valueType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PropertyValueType"
+              }
+            ]
+          },
+          "valueId": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "type": "object",
+            "nullable": true
+          },
+          "propertyMultivalue": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "unitOfMeasureId": {
+            "type": "string",
+            "nullable": true
+          },
+          "colorCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "isInherited": {
+            "type": "boolean"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PropertyValueType": {
+        "enum": [
+          "ShortText",
+          "LongText",
+          "Number",
+          "DateTime",
+          "Boolean",
+          "Integer",
+          "GeoPoint",
+          "Html",
+          "Measure",
+          "Color"
+        ],
+        "type": "string"
+      },
+      "SeoInfo": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "semanticUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "outline": {
+            "type": "string",
+            "nullable": true
+          },
+          "pageTitle": {
+            "type": "string",
+            "nullable": true
+          },
+          "metaDescription": {
+            "type": "string",
+            "nullable": true
+          },
+          "imageAltDescription": {
+            "type": "string",
+            "nullable": true
+          },
+          "metaKeywords": {
+            "type": "string",
+            "nullable": true
+          },
+          "storeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "organizationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectId": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SortDirection": {
+        "enum": [
+          "Ascending",
+          "Descending"
+        ],
+        "type": "string"
+      },
+      "SortInfo": {
+        "type": "object",
+        "properties": {
+          "sortColumn": {
+            "type": "string",
+            "nullable": true
+          },
+          "sortDirection": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SortDirection"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "Variation": {
+        "type": "object",
+        "properties": {
+          "productType": {
+            "type": "string",
+            "description": "The type of product. Can be \"Physical\", \"Digital\", etc.",
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "description": "The Stock Keeping Unit (SKU) code for the product.",
+            "nullable": true
+          },
+          "manufacturerPartNumber": {
+            "type": "string",
+            "description": "A manufacturer part number (MPN) is a unique alphanumeric code assigned by a manufacturer to identify a specific product or component. It is used primarily for part tracking in inventory management, supply chain operations, and ordering purposes.",
+            "nullable": true
+          },
+          "gtin": {
+            "type": "string",
+            "description": "The Global Trade Item Number (GTIN) for the product. This can include UPC (in North America), EAN (in Europe), JAN (in Japan), and ISBN (for books).",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the product.",
+            "nullable": true
+          },
+          "localizedName": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LocalizedString"
+              }
+            ],
+            "nullable": true
+          },
+          "catalogId": {
+            "type": "string",
+            "description": "The ID of the catalog to which this product belongs.",
+            "nullable": true
+          },
+          "categoryId": {
+            "type": "string",
+            "description": "The ID of the category to which this product belongs.",
+            "nullable": true
+          },
+          "outline": {
+            "type": "string",
+            "description": "Product outline in physical catalog (all parent categories ids concatenated. E.g. (1/21/344))",
+            "nullable": true,
+            "readOnly": true
+          },
+          "path": {
+            "type": "string",
+            "description": "Product path in physical catalog (all parent categories names concatenated. E.g. (parent1/parent2))",
+            "nullable": true,
+            "readOnly": true
+          },
+          "titularItemId": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "mainProductId": {
+            "type": "string",
+            "description": "The ID of the main product associated with this product variation.",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean",
+            "description": "Specifies whether the product is currently visible on the store for customers to view and purchase.\nIf set to false, the product is currently sold out.",
+            "nullable": true
+          },
+          "isBuyable": {
+            "type": "boolean",
+            "description": "Specifies whether the product is currently visible on the store for customers to view and purchase.\nIf set to false, the product is currently ouf of stock.",
+            "nullable": true
+          },
+          "trackInventory": {
+            "type": "boolean",
+            "description": "Indicates whether the inventory service is tracking the availability of this product.\nIf set to false, the product is considered in stock without any inventory limitations.",
+            "nullable": true
+          },
+          "indexingDate": {
+            "type": "string",
+            "description": "The date and time when the product was last indexed for search.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "maxQuantity": {
+            "type": "integer",
+            "description": "The maximum quantity of the product that can be purchased in a single order. A value of 0 indicates that there are no limitations on the maximum quantity.",
+            "format": "int32",
+            "nullable": true
+          },
+          "minQuantity": {
+            "type": "integer",
+            "description": "The minimum quantity of the product that must be purchased in a single order. A value of 0 indicates that there are no limitations on the minimum quantity.",
+            "format": "int32",
+            "nullable": true
+          },
+          "packSize": {
+            "type": "integer",
+            "description": "Defines the number of items in a package. Quantity step for your product's. Default value is 1.",
+            "format": "int32"
+          },
+          "startDate": {
+            "type": "string",
+            "description": "First listed date and time. If you do not specify an end date, the product will be active until you deactivate it.If you do not specify an end date, the product will be active until you deactivate it.If you do not specify a start date, the product will become active immediately once you save it.",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "description": "Listing expires on the specific date and time. If you do not specify an end date, the product will be active until you deactivate it.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "packageType": {
+            "type": "string",
+            "description": "The type of package for this product, which determines the product's specific dimensions.",
+            "nullable": true
+          },
+          "weightUnit": {
+            "type": "string",
+            "description": "The unit of measurement for the product's weight.",
+            "nullable": true
+          },
+          "weight": {
+            "type": "number",
+            "description": "The weight of the product, in the unit specified by the WeightUnit property.",
+            "format": "double",
+            "nullable": true
+          },
+          "measureUnit": {
+            "type": "string",
+            "description": "The unit of measurement for the product's height, length, and width.",
+            "nullable": true
+          },
+          "height": {
+            "type": "number",
+            "description": "The height of the product, in the unit specified by the MeasureUnit property.",
+            "format": "double",
+            "nullable": true
+          },
+          "length": {
+            "type": "number",
+            "description": "The length of the product, in the unit specified by the MeasureUnit property.",
+            "format": "double",
+            "nullable": true
+          },
+          "width": {
+            "type": "number",
+            "description": "The width of the product, in the unit specified by the MeasureUnit property.",
+            "format": "double",
+            "nullable": true
+          },
+          "enableReview": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "maxNumberOfDownload": {
+            "type": "integer",
+            "description": "The maximum number of times the product can be downloaded. A value of 0 indicates no limit.",
+            "format": "int32",
+            "nullable": true
+          },
+          "downloadExpiration": {
+            "type": "string",
+            "description": "The date and time when the download link or access to the product will expire.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "downloadType": {
+            "type": "string",
+            "description": "The type of product download. Valid values include: \"Standard Product\", \"Software\", and \"Music\".",
+            "nullable": true
+          },
+          "hasUserAgreement": {
+            "type": "boolean",
+            "description": "Indicates whether the product requires the user to agree to any terms or conditions before downloading.",
+            "nullable": true
+          },
+          "shippingType": {
+            "type": "string",
+            "description": "Specifies the type of shipping option available for the product.",
+            "nullable": true
+          },
+          "taxType": {
+            "type": "string",
+            "description": "Specifies the type of tax applied to the product.",
+            "nullable": true
+          },
+          "vendor": {
+            "type": "string",
+            "description": "ID of the vendor associated with the product.",
+            "nullable": true
+          },
+          "priority": {
+            "type": "integer",
+            "description": "Indicates the position of the product in the catalog for ordering purposes.",
+            "format": "int32"
+          },
+          "outerId": {
+            "type": "string",
+            "description": "An external identifier for the product that can be used for integration with external systems.",
+            "nullable": true
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Property"
+            },
+            "nullable": true
+          },
+          "excludedProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExcludedProperty"
+            },
+            "nullable": true
+          },
+          "imgSrc": {
+            "type": "string",
+            "description": "Gets the default image for the product.",
+            "nullable": true,
+            "readOnly": true
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Image"
+            },
+            "nullable": true
+          },
+          "assets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Asset"
+            },
+            "nullable": true
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CategoryLink"
+            },
+            "nullable": true
+          },
+          "variations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Variation"
+            },
+            "nullable": true
+          },
+          "seoObjectType": {
+            "type": "string",
+            "description": "Each descendant type should override this property to use other object type for seo records",
+            "nullable": true,
+            "readOnly": true
+          },
+          "seoInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SeoInfo"
+            },
+            "nullable": true
+          },
+          "reviews": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EditorialReview"
+            },
+            "nullable": true
+          },
+          "associations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductAssociation"
+            },
+            "nullable": true
+          },
+          "referencedAssociations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductAssociation"
+            },
+            "nullable": true
+          },
+          "outlines": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Outline"
+            },
+            "nullable": true
+          },
+          "isInherited": {
+            "type": "boolean",
+            "description": "System flag used to mark that object was inherited from other",
+            "readOnly": true
+          },
+          "parentCategoryIsActive": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "relevanceScore": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "oauth2": {
+        "type": "oauth2",
+        "description": "OAuth2 Resource Owner Password Grant flow",
+        "flows": {
+          "password": {
+            "tokenUrl": "/connect/token",
+            "scopes": { }
+          },
+          "clientCredentials": {
+            "tokenUrl": "/connect/token",
+            "scopes": { }
+          }
+        }
+      },
+      "api_key": {
+        "type": "apiKey",
+        "description": "API Key authentication",
+        "name": "api_key",
+        "in": "query"
+      },
+      "api_key_header": {
+        "type": "apiKey",
+        "description": "API Key authentication (alternative via header)",
+        "name": "api_key",
+        "in": "header"
+      },
+      "http-signature": {
+        "type": "http",
+        "description": "HTTP Signature authentication using Authorization header",
+        "scheme": "signature"
+      },
+      "basic": {
+        "type": "http",
+        "description": "Basic authentication using username and password",
+        "scheme": "basic"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Pricing",
+      "description": "Robust pricing management functionality based on price list and dynamic evaluation"
+    }
+  ]
+}

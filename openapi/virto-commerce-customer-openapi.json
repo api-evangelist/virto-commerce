@@ -1,0 +1,5492 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "VirtoCommerce.Customer",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/members/organizations": {
+      "get": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Get organizations",
+        "description": "Get array of all organizations.",
+        "operationId": "CustomerModule_ListOrganizations",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Organization"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Organization"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Organization"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      }
+    },
+    "/api/members/search": {
+      "post": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Get members",
+        "description": "Get array of members satisfied search criteria.",
+        "operationId": "CustomerModule_SearchMember",
+        "requestBody": {
+          "description": "concrete instance of SearchCriteria type type will be created by using PolymorphicMemberSearchCriteriaJsonConverter",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MembersSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MembersSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MembersSearchCriteria"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MemberSearchResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MemberSearchResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MemberSearchResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      }
+    },
+    "/api/members/{id}": {
+      "get": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Get member",
+        "operationId": "CustomerModule_GetMemberById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "member id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "responseGroup",
+            "in": "query",
+            "description": "response group",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "memberType",
+            "in": "query",
+            "description": "member type",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Member"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Member"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Member"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      },
+      "patch": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Partial update for Member",
+        "operationId": "CustomerModule_PatchMember",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Member id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "JsonPatchDocument object with fields to update",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      }
+    },
+    "/api/members/accounts/{userId}": {
+      "get": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "operationId": "CustomerModule_GetMemberByUserId",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "responseGroup",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "memberType",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Member"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Member"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Member"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      }
+    },
+    "/api/members": {
+      "get": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "operationId": "CustomerModule_GetMembersByIds",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "responseGroup",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "memberTypes",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Member"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Member"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Member"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      },
+      "post": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Create new member (can be any object inherited from Member type)",
+        "operationId": "CustomerModule_CreateMember",
+        "requestBody": {
+          "description": "concrete instance of abstract member type will be created by using PolymorphicMemberJsonConverter",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Member"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Member"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Member"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Member"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Member"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Member"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      },
+      "put": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Update member",
+        "operationId": "CustomerModule_UpdateMember",
+        "requestBody": {
+          "description": "concrete instance of abstract member type will be created by using PolymorphicMemberJsonConverter",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Member"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Member"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Member"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      },
+      "delete": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Delete members",
+        "description": "Delete members by given array of ids.",
+        "operationId": "CustomerModule_DeleteMembers",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "An array of members ids",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "customer:delete"
+            ]
+          },
+          {
+            "api_key": [
+              "customer:delete"
+            ]
+          },
+          {
+            "api_key_header": [
+              "customer:delete"
+            ]
+          },
+          {
+            "http-signature": [
+              "customer:delete"
+            ]
+          },
+          {
+            "basic": [
+              "customer:delete"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      }
+    },
+    "/api/members/bulk": {
+      "post": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Bulk create new members (can be any objects inherited from Member type)",
+        "operationId": "CustomerModule_BulkCreateMembers",
+        "requestBody": {
+          "description": "Array of concrete instances of abstract member type will be created by using PolymorphicMemberJsonConverter",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Member"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Member"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Member"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Member"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Member"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Member"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      },
+      "put": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Bulk update members",
+        "operationId": "CustomerModule_BulkUpdateMembers",
+        "requestBody": {
+          "description": "Array of concrete instances of abstract member type will be created by using PolymorphicMemberJsonConverter",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Member"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Member"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Member"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      }
+    },
+    "/api/members/delete": {
+      "post": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Bulk delete members",
+        "description": "Bulk delete members by search criteria of members.",
+        "operationId": "CustomerModule_BulkDeleteMembersBySearchCriteria",
+        "requestBody": {
+          "description": "concrete instance of SearchCriteria type will be created by using PolymorphicMemberSearchCriteriaJsonConverter",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MembersSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MembersSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MembersSearchCriteria"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "customer:delete"
+            ]
+          },
+          {
+            "api_key": [
+              "customer:delete"
+            ]
+          },
+          {
+            "api_key_header": [
+              "customer:delete"
+            ]
+          },
+          {
+            "http-signature": [
+              "customer:delete"
+            ]
+          },
+          {
+            "basic": [
+              "customer:delete"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      }
+    },
+    "/api/members/customers/invite": {
+      "post": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "operationId": "CustomerModule_InviteCustomers",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/InviteCustomerRequest"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/InviteCustomerRequest"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/InviteCustomerRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/InviteCustomerResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InviteCustomerResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InviteCustomerResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "customer:invite"
+            ]
+          },
+          {
+            "api_key": [
+              "customer:invite"
+            ]
+          },
+          {
+            "api_key_header": [
+              "customer:invite"
+            ]
+          },
+          {
+            "http-signature": [
+              "customer:invite"
+            ]
+          },
+          {
+            "basic": [
+              "customer:invite"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      }
+    },
+    "/api/members/customers/invite/roles": {
+      "get": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "operationId": "CustomerModule_GetInviteRoles",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerRoleSearchResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerRoleSearchResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerRoleSearchResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "customer:invite"
+            ]
+          },
+          {
+            "api_key": [
+              "customer:invite"
+            ]
+          },
+          {
+            "api_key_header": [
+              "customer:invite"
+            ]
+          },
+          {
+            "http-signature": [
+              "customer:invite"
+            ]
+          },
+          {
+            "basic": [
+              "customer:invite"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      }
+    },
+    "/api/contacts": {
+      "post": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Create contact",
+        "operationId": "CustomerModule_CreateContact",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Contact"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Contact"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Contact"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Contact"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Contact"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Contact"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      },
+      "put": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Update contact",
+        "operationId": "CustomerModule_UpdateContact",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Contact"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Contact"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Contact"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      },
+      "delete": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Delete contacts",
+        "description": "Delete contacts by given array of ids.",
+        "operationId": "CustomerModule_DeleteContacts",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "An array of contacts ids",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "customer:delete"
+            ]
+          },
+          {
+            "api_key": [
+              "customer:delete"
+            ]
+          },
+          {
+            "api_key_header": [
+              "customer:delete"
+            ]
+          },
+          {
+            "http-signature": [
+              "customer:delete"
+            ]
+          },
+          {
+            "basic": [
+              "customer:delete"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      },
+      "get": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Get plenty contacts",
+        "operationId": "CustomerModule_GetContactsByIds",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "contact IDs",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Contact"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Contact"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Contact"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      }
+    },
+    "/api/contacts/bulk": {
+      "post": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Bulk create contacts",
+        "operationId": "CustomerModule_BulkCreateContacts",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Contact"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Contact"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Contact"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Contact"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Contact"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Contact"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      },
+      "put": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Bulk update contact",
+        "operationId": "CustomerModule_BulkUpdateContacts",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Contact"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Contact"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Contact"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      }
+    },
+    "/api/contacts/{id}": {
+      "patch": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Partial update for Contact",
+        "operationId": "CustomerModule_PatchContact",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Contact id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "JsonPatchDocument object with fields to update",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      },
+      "get": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Get contact",
+        "operationId": "CustomerModule_GetContactById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Contact ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Contact"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Contact"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Contact"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      }
+    },
+    "/api/contacts/search": {
+      "post": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Search contacts",
+        "description": "Get array of contacts satisfied search criteria.",
+        "operationId": "CustomerModule_SearchContacts",
+        "requestBody": {
+          "description": "concrete instance of SearchCriteria type type will be created by using PolymorphicMemberSearchCriteriaJsonConverter",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MembersSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MembersSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MembersSearchCriteria"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContactSearchResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContactSearchResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContactSearchResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      }
+    },
+    "/api/organizations": {
+      "post": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Create organization",
+        "operationId": "CustomerModule_CreateOrganization",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Organization"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Organization"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Organization"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      },
+      "put": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Update organization",
+        "operationId": "CustomerModule_UpdateOrganization",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Organization"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Organization"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Organization"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      },
+      "delete": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Delete organizations",
+        "description": "Delete organizations by given array of ids.",
+        "operationId": "CustomerModule_DeleteOrganizations",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "An array of organizations ids",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "customer:delete"
+            ]
+          },
+          {
+            "api_key": [
+              "customer:delete"
+            ]
+          },
+          {
+            "api_key_header": [
+              "customer:delete"
+            ]
+          },
+          {
+            "http-signature": [
+              "customer:delete"
+            ]
+          },
+          {
+            "basic": [
+              "customer:delete"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      },
+      "get": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Get plenty organizations",
+        "operationId": "CustomerModule_GetOrganizationsByIds",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "Organization ids",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Organization"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Organization"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Organization"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      }
+    },
+    "/api/organizations/bulk": {
+      "post": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Bulk create organizations",
+        "operationId": "CustomerModule_BulkCreateOrganizations",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      },
+      "put": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Bulk update organization",
+        "operationId": "CustomerModule_BulkUpdateOrganizations",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      }
+    },
+    "/api/organizations/{id}": {
+      "get": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Get organization",
+        "operationId": "CustomerModule_GetOrganizationById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Organization id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      },
+      "patch": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Partial update for Organization",
+        "operationId": "CustomerModule_PatchOrganization",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Organization id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "JsonPatchDocument object with fields to update",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      }
+    },
+    "/api/organizations/search": {
+      "post": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Search organizations",
+        "description": "Get array of organizations satisfied search criteria.",
+        "operationId": "CustomerModule_SearchOrganizations",
+        "requestBody": {
+          "description": "concrete instance of SearchCriteria type type will be created by using PolymorphicMemberSearchCriteriaJsonConverter",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MembersSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MembersSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MembersSearchCriteria"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationSearchResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationSearchResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationSearchResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      }
+    },
+    "/api/vendors/{id}": {
+      "get": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Get vendor",
+        "operationId": "CustomerModule_GetVendorById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Vendor ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Vendor"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Vendor"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Vendor"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "customer:read"
+            ]
+          },
+          {
+            "api_key": [
+              "customer:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "customer:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "customer:read"
+            ]
+          },
+          {
+            "basic": [
+              "customer:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      }
+    },
+    "/api/vendors": {
+      "get": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Get plenty vendors",
+        "operationId": "CustomerModule_GetVendorsByIds",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "Vendors IDs",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Vendor"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Vendor"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Vendor"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "customer:read"
+            ]
+          },
+          {
+            "api_key": [
+              "customer:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "customer:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "customer:read"
+            ]
+          },
+          {
+            "basic": [
+              "customer:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      }
+    },
+    "/api/vendors/search": {
+      "post": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Search vendors",
+        "description": "Get array of vendors satisfied search criteria.",
+        "operationId": "CustomerModule_SearchVendors",
+        "requestBody": {
+          "description": "concrete instance of SearchCriteria type type will be created by using PolymorphicMemberSearchCriteriaJsonConverter",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MembersSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MembersSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MembersSearchCriteria"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/VendorSearchResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VendorSearchResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VendorSearchResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "customer:read"
+            ]
+          },
+          {
+            "api_key": [
+              "customer:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "customer:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "customer:read"
+            ]
+          },
+          {
+            "basic": [
+              "customer:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      }
+    },
+    "/api/addresses": {
+      "put": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "operationId": "CustomerModule_UpdateAddesses",
+        "parameters": [
+          {
+            "name": "memberId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CustomerAddress"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CustomerAddress"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CustomerAddress"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      }
+    },
+    "/api/employees": {
+      "post": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Create employee",
+        "operationId": "CustomerModule_CreateEmployee",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Employee"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Employee"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Employee"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Employee"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Employee"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Employee"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "customer:create"
+            ]
+          },
+          {
+            "api_key": [
+              "customer:create"
+            ]
+          },
+          {
+            "api_key_header": [
+              "customer:create"
+            ]
+          },
+          {
+            "http-signature": [
+              "customer:create"
+            ]
+          },
+          {
+            "basic": [
+              "customer:create"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      },
+      "get": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Get plenty employees",
+        "operationId": "CustomerModule_GetEmployeesByIds",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "contact IDs",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Employee"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Employee"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Employee"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "customer:read"
+            ]
+          },
+          {
+            "api_key": [
+              "customer:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "customer:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "customer:read"
+            ]
+          },
+          {
+            "basic": [
+              "customer:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      }
+    },
+    "/api/employees/bulk": {
+      "post": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Create employee",
+        "operationId": "CustomerModule_BulkCreateEmployees",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Employee"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Employee"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Employee"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Employee"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Employee"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Employee"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "customer:create"
+            ]
+          },
+          {
+            "api_key": [
+              "customer:create"
+            ]
+          },
+          {
+            "api_key_header": [
+              "customer:create"
+            ]
+          },
+          {
+            "http-signature": [
+              "customer:create"
+            ]
+          },
+          {
+            "basic": [
+              "customer:create"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      }
+    },
+    "/api/members/{id}/organizations": {
+      "get": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "summary": "Get all member organizations",
+        "operationId": "CustomerModule_GetMemberOrganizations",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "member Id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Organization"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Organization"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Organization"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      }
+    },
+    "/api/customer-preferences/search": {
+      "post": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "operationId": "CustomerPreference_Search",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerPreferenceSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerPreferenceSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerPreferenceSearchCriteria"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerPreferenceSearchResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerPreferenceSearchResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerPreferenceSearchResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "customer:read"
+            ]
+          },
+          {
+            "api_key": [
+              "customer:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "customer:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "customer:read"
+            ]
+          },
+          {
+            "basic": [
+              "customer:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      }
+    },
+    "/api/customer-preferences": {
+      "post": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "operationId": "CustomerPreference_Create",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerPreference"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerPreference"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerPreference"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerPreference"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerPreference"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerPreference"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "customer:create"
+            ]
+          },
+          {
+            "api_key": [
+              "customer:create"
+            ]
+          },
+          {
+            "api_key_header": [
+              "customer:create"
+            ]
+          },
+          {
+            "http-signature": [
+              "customer:create"
+            ]
+          },
+          {
+            "basic": [
+              "customer:create"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      },
+      "put": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "operationId": "CustomerPreference_Update",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerPreference"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerPreference"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerPreference"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerPreference"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerPreference"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerPreference"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "customer:update"
+            ]
+          },
+          {
+            "api_key": [
+              "customer:update"
+            ]
+          },
+          {
+            "api_key_header": [
+              "customer:update"
+            ]
+          },
+          {
+            "http-signature": [
+              "customer:update"
+            ]
+          },
+          {
+            "basic": [
+              "customer:update"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      },
+      "delete": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "operationId": "CustomerPreference_Delete",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "customer:delete"
+            ]
+          },
+          {
+            "api_key": [
+              "customer:delete"
+            ]
+          },
+          {
+            "api_key_header": [
+              "customer:delete"
+            ]
+          },
+          {
+            "http-signature": [
+              "customer:delete"
+            ]
+          },
+          {
+            "basic": [
+              "customer:delete"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      }
+    },
+    "/api/customer-preferences/{id}": {
+      "get": {
+        "tags": [
+          "Companies and Contacts"
+        ],
+        "operationId": "CustomerPreference_Get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "responseGroup",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerPreference"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerPreference"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerPreference"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "customer:read"
+            ]
+          },
+          {
+            "api_key": [
+              "customer:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "customer:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "customer:read"
+            ]
+          },
+          {
+            "basic": [
+              "customer:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Customer"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AddressType": {
+        "enum": [
+          "Undefined",
+          "Billing",
+          "Shipping",
+          "BillingAndShipping",
+          "Pickup"
+        ],
+        "type": "string"
+      },
+      "ApplicationUser": {
+        "type": "object",
+        "properties": {
+          "storeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "memberId": {
+            "type": "string",
+            "nullable": true
+          },
+          "isAdministrator": {
+            "type": "boolean"
+          },
+          "photoUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "userType": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Role"
+            },
+            "nullable": true
+          },
+          "logins": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApplicationUserLogin"
+            },
+            "nullable": true
+          },
+          "passwordExpired": {
+            "type": "boolean"
+          },
+          "lastPasswordChangedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "lastPasswordChangeRequestDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "lastLoginDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "userName": {
+            "type": "string",
+            "nullable": true
+          },
+          "normalizedUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "normalizedEmail": {
+            "type": "string",
+            "nullable": true
+          },
+          "emailConfirmed": {
+            "type": "boolean"
+          },
+          "passwordHash": {
+            "type": "string",
+            "nullable": true
+          },
+          "securityStamp": {
+            "type": "string",
+            "nullable": true
+          },
+          "concurrencyStamp": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumberConfirmed": {
+            "type": "boolean"
+          },
+          "twoFactorEnabled": {
+            "type": "boolean"
+          },
+          "lockoutEnd": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "lockoutEnabled": {
+            "type": "boolean"
+          },
+          "accessFailedCount": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApplicationUserLogin": {
+        "type": "object",
+        "properties": {
+          "loginProvider": {
+            "type": "string",
+            "nullable": true
+          },
+          "providerKey": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Contact": {
+        "type": "object",
+        "properties": {
+          "salutation": {
+            "type": "string",
+            "nullable": true
+          },
+          "fullName": {
+            "type": "string",
+            "nullable": true
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "middleName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "birthDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "defaultLanguage": {
+            "type": "string",
+            "nullable": true
+          },
+          "currencyCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "timeZone": {
+            "type": "string",
+            "nullable": true
+          },
+          "organizations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "associatedOrganizations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "defaultOrganizationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "currentOrganizationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "selectedAddressId": {
+            "type": "string",
+            "nullable": true,
+            "deprecated": true
+          },
+          "taxPayerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "preferredDelivery": {
+            "type": "string",
+            "nullable": true
+          },
+          "preferredCommunication": {
+            "type": "string",
+            "nullable": true
+          },
+          "defaultShippingAddressId": {
+            "type": "string",
+            "nullable": true
+          },
+          "defaultBillingAddressId": {
+            "type": "string",
+            "nullable": true
+          },
+          "photoUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "isAnonymized": {
+            "type": "boolean"
+          },
+          "about": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "securityAccounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApplicationUser"
+            },
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "memberType": {
+            "type": "string",
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "addresses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CustomerAddress"
+            },
+            "nullable": true
+          },
+          "phones": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "emails": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "notes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Note"
+            },
+            "nullable": true
+          },
+          "groups": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "iconUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "relevanceScore": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "dynamicProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicObjectProperty"
+            },
+            "nullable": true
+          },
+          "useDynamicPropertyAccessor": {
+            "type": "boolean"
+          },
+          "dynamicPropertyAccessor": {
+            "nullable": true
+          },
+          "seoObjectType": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "seoInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SeoInfo"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ContactSearchResult": {
+        "type": "object",
+        "properties": {
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Contact"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CustomerAddress": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "addressType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AddressType"
+              }
+            ]
+          },
+          "key": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "organization": {
+            "type": "string",
+            "nullable": true
+          },
+          "countryCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "countryName": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "postalCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "zip": {
+            "type": "string",
+            "nullable": true
+          },
+          "line1": {
+            "type": "string",
+            "nullable": true
+          },
+          "line2": {
+            "type": "string",
+            "nullable": true
+          },
+          "regionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "regionName": {
+            "type": "string",
+            "nullable": true
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "middleName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "isDefault": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CustomerPreference": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CustomerPreferenceSearchCriteria": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseGroup": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "objectIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "keyword": {
+            "type": "string",
+            "nullable": true
+          },
+          "searchPhrase": {
+            "type": "string",
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "sort": {
+            "type": "string",
+            "nullable": true
+          },
+          "sortInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SortInfo"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
+          "skip": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "take": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CustomerPreferenceSearchResult": {
+        "type": "object",
+        "properties": {
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CustomerPreference"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CustomerRole": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CustomerRoleSearchResult": {
+        "type": "object",
+        "properties": {
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CustomerRole"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicObjectProperty": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string",
+            "nullable": true
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicPropertyObjectValue"
+            },
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "isArray": {
+            "type": "boolean"
+          },
+          "isDictionary": {
+            "type": "boolean"
+          },
+          "isMultilingual": {
+            "type": "boolean"
+          },
+          "isRequired": {
+            "type": "boolean"
+          },
+          "displayOrder": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "valueType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DynamicPropertyValueType"
+              }
+            ]
+          },
+          "displayNames": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicPropertyName"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicPropertyName": {
+        "type": "object",
+        "properties": {
+          "locale": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicPropertyObjectValue": {
+        "type": "object",
+        "properties": {
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectId": {
+            "type": "string",
+            "nullable": true
+          },
+          "locale": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "type": "object",
+            "nullable": true
+          },
+          "valueId": {
+            "type": "string",
+            "nullable": true
+          },
+          "valueType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DynamicPropertyValueType"
+              }
+            ]
+          },
+          "propertyId": {
+            "type": "string",
+            "nullable": true
+          },
+          "propertyName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicPropertyValueType": {
+        "enum": [
+          "Undefined",
+          "ShortText",
+          "LongText",
+          "Integer",
+          "Decimal",
+          "DateTime",
+          "Boolean",
+          "Html",
+          "Image"
+        ],
+        "type": "string"
+      },
+      "Employee": {
+        "type": "object",
+        "properties": {
+          "salutation": {
+            "type": "string",
+            "nullable": true
+          },
+          "fullName": {
+            "type": "string",
+            "nullable": true
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "middleName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "birthDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "defaultLanguage": {
+            "type": "string",
+            "nullable": true
+          },
+          "timeZone": {
+            "type": "string",
+            "nullable": true
+          },
+          "organizations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "defaultOrganizationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "currentOrganizationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "employeeType": {
+            "type": "string",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "photoUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "securityAccounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApplicationUser"
+            },
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "memberType": {
+            "type": "string",
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "addresses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CustomerAddress"
+            },
+            "nullable": true
+          },
+          "phones": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "emails": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "notes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Note"
+            },
+            "nullable": true
+          },
+          "groups": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "iconUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "relevanceScore": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "dynamicProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicObjectProperty"
+            },
+            "nullable": true
+          },
+          "useDynamicPropertyAccessor": {
+            "type": "boolean"
+          },
+          "dynamicPropertyAccessor": {
+            "nullable": true
+          },
+          "seoObjectType": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "seoInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SeoInfo"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InviteCustomerError": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "parameter": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InviteCustomerRequest": {
+        "type": "object",
+        "properties": {
+          "storeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "cultureName": {
+            "type": "string",
+            "nullable": true
+          },
+          "organizationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "emails": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "roleIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "urlSuffix": {
+            "type": "string",
+            "nullable": true
+          },
+          "additionalParameters": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "nullable": true
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InviteCustomerResult": {
+        "type": "object",
+        "properties": {
+          "succeeded": {
+            "type": "boolean"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InviteCustomerError"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Member": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "memberType": {
+            "type": "string",
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "addresses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CustomerAddress"
+            },
+            "nullable": true
+          },
+          "phones": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "emails": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "notes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Note"
+            },
+            "nullable": true
+          },
+          "groups": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "iconUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "relevanceScore": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "dynamicProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicObjectProperty"
+            },
+            "nullable": true
+          },
+          "useDynamicPropertyAccessor": {
+            "type": "boolean"
+          },
+          "dynamicPropertyAccessor": {
+            "nullable": true
+          },
+          "seoObjectType": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "seoInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SeoInfo"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MemberSearchResult": {
+        "type": "object",
+        "properties": {
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Member"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MembersSearchCriteria": {
+        "type": "object",
+        "properties": {
+          "memberType": {
+            "type": "string",
+            "nullable": true
+          },
+          "memberTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "group": {
+            "type": "string",
+            "nullable": true
+          },
+          "groups": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "memberId": {
+            "type": "string",
+            "nullable": true
+          },
+          "deepSearch": {
+            "type": "boolean"
+          },
+          "outerIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "responseGroup": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "objectIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "keyword": {
+            "type": "string",
+            "nullable": true
+          },
+          "searchPhrase": {
+            "type": "string",
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "sort": {
+            "type": "string",
+            "nullable": true
+          },
+          "sortInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SortInfo"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
+          "skip": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "take": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Note": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "body": {
+            "type": "string",
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Operation": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "object",
+            "nullable": true
+          },
+          "path": {
+            "type": "string",
+            "nullable": true
+          },
+          "op": {
+            "type": "string",
+            "nullable": true
+          },
+          "from": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Organization": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "businessCategory": {
+            "type": "string",
+            "nullable": true
+          },
+          "ownerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "parentId": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "memberType": {
+            "type": "string",
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "addresses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CustomerAddress"
+            },
+            "nullable": true
+          },
+          "phones": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "emails": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "notes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Note"
+            },
+            "nullable": true
+          },
+          "groups": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "iconUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "relevanceScore": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "dynamicProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicObjectProperty"
+            },
+            "nullable": true
+          },
+          "useDynamicPropertyAccessor": {
+            "type": "boolean"
+          },
+          "dynamicPropertyAccessor": {
+            "nullable": true
+          },
+          "seoObjectType": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "seoInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SeoInfo"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganizationSearchResult": {
+        "type": "object",
+        "properties": {
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Organization"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Permission": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "moduleId": {
+            "type": "string",
+            "nullable": true
+          },
+          "groupName": {
+            "type": "string",
+            "nullable": true
+          },
+          "assignedScopes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PermissionScope"
+            },
+            "nullable": true
+          },
+          "availableScopes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PermissionScope"
+            },
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PermissionScope": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "label": {
+            "type": "string",
+            "nullable": true
+          },
+          "scope": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Role": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "permissions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Permission"
+            },
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "normalizedName": {
+            "type": "string",
+            "nullable": true
+          },
+          "concurrencyStamp": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SeoInfo": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "semanticUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "outline": {
+            "type": "string",
+            "nullable": true
+          },
+          "pageTitle": {
+            "type": "string",
+            "nullable": true
+          },
+          "metaDescription": {
+            "type": "string",
+            "nullable": true
+          },
+          "imageAltDescription": {
+            "type": "string",
+            "nullable": true
+          },
+          "metaKeywords": {
+            "type": "string",
+            "nullable": true
+          },
+          "storeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "organizationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectId": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SortDirection": {
+        "enum": [
+          "Ascending",
+          "Descending"
+        ],
+        "type": "string"
+      },
+      "SortInfo": {
+        "type": "object",
+        "properties": {
+          "sortColumn": {
+            "type": "string",
+            "nullable": true
+          },
+          "sortDirection": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SortDirection"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "StringIdentityUserRole": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "nullable": true
+          },
+          "roleId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Vendor": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "siteUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "logoUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "groupName": {
+            "type": "string",
+            "nullable": true
+          },
+          "securityAccounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApplicationUser"
+            },
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "memberType": {
+            "type": "string",
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "addresses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CustomerAddress"
+            },
+            "nullable": true
+          },
+          "phones": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "emails": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "notes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Note"
+            },
+            "nullable": true
+          },
+          "groups": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "iconUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "relevanceScore": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "dynamicProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicObjectProperty"
+            },
+            "nullable": true
+          },
+          "useDynamicPropertyAccessor": {
+            "type": "boolean"
+          },
+          "dynamicPropertyAccessor": {
+            "nullable": true
+          },
+          "seoObjectType": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "seoInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SeoInfo"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "VendorSearchResult": {
+        "type": "object",
+        "properties": {
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Vendor"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "oauth2": {
+        "type": "oauth2",
+        "description": "OAuth2 Resource Owner Password Grant flow",
+        "flows": {
+          "password": {
+            "tokenUrl": "/connect/token",
+            "scopes": { }
+          },
+          "clientCredentials": {
+            "tokenUrl": "/connect/token",
+            "scopes": { }
+          }
+        }
+      },
+      "api_key": {
+        "type": "apiKey",
+        "description": "API Key authentication",
+        "name": "api_key",
+        "in": "query"
+      },
+      "api_key_header": {
+        "type": "apiKey",
+        "description": "API Key authentication (alternative via header)",
+        "name": "api_key",
+        "in": "header"
+      },
+      "http-signature": {
+        "type": "http",
+        "description": "HTTP Signature authentication using Authorization header",
+        "scheme": "signature"
+      },
+      "basic": {
+        "type": "http",
+        "description": "Basic authentication using username and password",
+        "scheme": "basic"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Companies and Contacts",
+      "description": "Managing customers contacts and organizations"
+    }
+  ]
+}
