@@ -1,0 +1,1900 @@
+# Virto Commerce GraphQL Schema (SDL)
+# Derived from open-source module source code:
+#   https://github.com/VirtoCommerce/vc-module-x-catalog
+#   https://github.com/VirtoCommerce/vc-module-x-cart
+#   https://github.com/VirtoCommerce/vc-module-x-order
+#   https://github.com/VirtoCommerce/vc-module-profile-experience-api
+# Schema reflects confirmed types from the GraphQL.NET C# type definitions.
+
+scalar DateTime
+scalar Long
+scalar Decimal
+scalar Any
+
+# ─────────────────────────────────────────────
+# Shared / Money
+# ─────────────────────────────────────────────
+
+type Money {
+  amount: Decimal!
+  currency: Currency!
+  decimalDigits: Int!
+  formattedAmount: String!
+  formattedAmountWithoutPoint: String!
+  formattedAmountWithoutCurrency: String!
+}
+
+type Currency {
+  code: String!
+  symbol: String!
+  englishName: String!
+  exchangeRate: Decimal!
+  customFormatting: String
+}
+
+type TierPrice {
+  price: Money!
+  priceWithTax: Money!
+  quantity: Long!
+}
+
+type TaxDetail {
+  rate: Decimal!
+  amount: Decimal!
+  name: String!
+}
+
+type DynamicProperty {
+  id: String
+  name: String
+  value: Any
+  valueType: String
+  displayOrder: Int
+}
+
+# ─────────────────────────────────────────────
+# Catalog — Assets, Images, Properties
+# ─────────────────────────────────────────────
+
+type Image {
+  id: String
+  url: String
+  name: String
+  description: String
+  sortOrder: Int
+  cultureName: String
+  group: String
+}
+
+type Asset {
+  id: String
+  url: String!
+  name: String
+  description: String
+  size: Int
+  mimeType: String
+  typeId: String
+  group: String
+  sortOrder: Int
+  cultureName: String
+}
+
+type Property {
+  id: String
+  name: String!
+  value: Any
+  valueId: String
+  valueType: String
+  type: PropertyTypeEnum
+  label: String
+  displayOrder: Int
+  isHidden: Boolean!
+  isMultivalue: Boolean!
+  isDictionary: Boolean!
+  isMultilanguage: Boolean!
+  dictionaryItems(first: Int, after: String): PropertyDictionaryItemConnection
+}
+
+enum PropertyTypeEnum {
+  Product
+  Variation
+  Category
+  Catalog
+}
+
+type PropertyDictionaryItem {
+  id: String!
+  alias: String!
+  value: String
+  sortOrder: Int!
+}
+
+type PropertyDictionaryItemConnection {
+  totalCount: Int
+  items: [PropertyDictionaryItem]
+}
+
+type PropertyGroup {
+  name: String
+  properties: [Property]
+}
+
+type OutlineItem {
+  id: String!
+  name: String!
+  seoObjectType: String
+  seoInfos: [SeoInfo]
+  hasParent: Boolean!
+}
+
+type Outline {
+  items: [OutlineItem]
+}
+
+type SeoInfo {
+  id: String
+  semanticUrl: String
+  pageTitle: String
+  metaDescription: String
+  imageAltDescription: String
+  metaKeywords: String
+  storeId: String
+  languageCode: String
+  isActive: Boolean
+  objectId: String
+  objectType: String
+}
+
+type Description {
+  id: String
+  reviewType: String
+  content: String!
+  languageCode: String!
+}
+
+type Video {
+  name: String!
+  description: String
+  uploadDate: DateTime
+  thumbnailUrl: String!
+  contentUrl: String!
+  embedUrl: String
+  duration: String
+  cultureName: String
+}
+
+# ─────────────────────────────────────────────
+# Catalog — Availability and Inventory
+# ─────────────────────────────────────────────
+
+type InventoryInfo {
+  inStockQuantity: Long!
+  reservedQuantity: Long!
+  fulfillmentCenterId: String!
+  fulfillmentCenterName: String!
+  allowPreorder: Boolean!
+  allowBackorder: Boolean!
+  preorderAvailabilityDate: DateTime
+  backorderAvailabilityDate: DateTime
+}
+
+type AvailabilityData {
+  availableQuantity: Long!
+  inventories: [InventoryInfo]!
+  isBuyable: Boolean!
+  isAvailable: Boolean!
+  isInStock: Boolean!
+  isActive: Boolean!
+  isTrackInventory: Boolean!
+}
+
+type FulfillmentCenter {
+  id: String!
+  name: String!
+  description: String
+  shortDescription: String
+  outerId: String
+  geoLocation: String
+  address: FulfillmentCenterAddress
+}
+
+type FulfillmentCenterAddress {
+  id: String
+  line1: String
+  line2: String
+  city: String
+  countryCode: String
+  countryName: String
+  regionId: String
+  regionName: String
+  postalCode: String
+  phone: String
+  email: String
+}
+
+# ─────────────────────────────────────────────
+# Catalog — Pricing
+# ─────────────────────────────────────────────
+
+type Price {
+  list: Money!
+  listWithTax: Money!
+  sale: Money!
+  saleWithTax: Money!
+  actual: Money!
+  actualWithTax: Money!
+  discountAmount: Money!
+  discountAmountWithTax: Money!
+  discountPercent: Decimal!
+  currency: String!
+  startDate: DateTime
+  endDate: DateTime
+  tierPrices: [TierPrice]!
+  discounts: [CatalogDiscount]!
+  pricelistId: String
+  pricelistName: String
+  minQuantity: Int
+}
+
+type CatalogDiscount {
+  id: String
+  promotionId: String
+  amount: Decimal!
+  amountWithTax: Decimal!
+  coupon: String
+  description: String
+  promotion: Promotion
+  currency: String!
+}
+
+type Promotion {
+  id: String!
+  name: String
+  description: String
+  type: String
+}
+
+# ─────────────────────────────────────────────
+# Catalog — Product and Variation
+# ─────────────────────────────────────────────
+
+type Variation {
+  id: String!
+  name: String!
+  code: String!
+  productType: String
+  minQuantity: Int
+  maxQuantity: Int
+  packSize: Int!
+  availabilityData: AvailabilityData!
+  images: [Image]!
+  price(cultureName: String, currencyCode: String): Price!
+  prices(cultureName: String, currencyCode: String): [Price]!
+  properties(filterByTypes: [String]): [Property]!
+  assets: [Asset]!
+  outlines: [Outline]
+  slug: String
+  vendor: Vendor
+  rating: Rating
+}
+
+type Product {
+  id: String!
+  code: String!
+  catalogId: String
+  productType: String
+  minQuantity: Int
+  maxQuantity: Int
+  packSize: Int!
+  relevanceScore: Decimal
+  isConfigurable: Boolean!
+  slug: String
+  name: String!
+  metaTitle: String
+  metaDescription: String
+  metaKeywords: String
+  brandName: String
+  imgSrc: String
+  outerId: String
+  gtin: String
+  hasVariations: Boolean!
+  inWishlist: Boolean!
+  wishlistIds: [String]!
+  category: Category
+  masterVariation: Variation
+  variations: [Variation]!
+  images: [Image]!
+  assets: [Asset]!
+  price(cultureName: String, currencyCode: String): Price!
+  prices(cultureName: String, currencyCode: String): [Price]!
+  properties(filterByTypes: [String]): [Property]!
+  propertyGroups: [PropertyGroup]!
+  descriptions(cultureName: String): [Description]!
+  description(cultureName: String, type: String): Description
+  availabilityData: AvailabilityData!
+  breadcrumbs: [Breadcrumb]!
+  outlines: [Outline]
+  seoInfo: SeoInfo
+  associations(first: Int, after: String, query: String, group: String): ProductAssociationConnection
+  relatedProducts(first: Int, after: String, query: String, group: String): ProductConnection
+  vendor: Vendor
+  rating: Rating
+  videos(cultureName: String): [Video]!
+  keyProperties(take: Int, cultureName: String): [Property]!
+  dynamicProperties(filterByTypes: [String]): [DynamicProperty]!
+}
+
+type ProductAssociation {
+  type: String
+  priority: Int
+  quantity: Int
+  associatedObjectId: String
+  associatedObjectType: String
+  tags: [String]
+  product: Product
+}
+
+type ProductAssociationConnection {
+  totalCount: Int
+  items: [ProductAssociation]
+}
+
+type Breadcrumb {
+  itemId: String!
+  title: String!
+  seoPath: String
+  typeName: String!
+}
+
+type Brand {
+  name: String!
+}
+
+# ─────────────────────────────────────────────
+# Catalog — Category
+# ─────────────────────────────────────────────
+
+type Category {
+  id: String!
+  code: String!
+  name: String!
+  imgSrc: String
+  level: Int!
+  priority: Int!
+  relevanceScore: Decimal
+  outline: String
+  slug: String
+  parent: Category
+  hasParent: Boolean!
+  breadcrumbs: [Breadcrumb]!
+  outlines: [Outline]
+  seoInfo: SeoInfo
+  images: [Image]!
+  properties(filterByTypes: [String]): [Property]!
+  descriptions(cultureName: String): [Description]!
+  description(cultureName: String, type: String): Description
+  childCategories: [Category]!
+}
+
+# ─────────────────────────────────────────────
+# Catalog — Vendor and Rating
+# ─────────────────────────────────────────────
+
+type Vendor {
+  id: String!
+  name: String!
+  rating: Rating
+  slug: String
+  seoInfo: SeoInfo
+}
+
+type Rating {
+  value: Decimal!
+  reviewCount: Int!
+}
+
+# ─────────────────────────────────────────────
+# Catalog — Search / Connection types
+# ─────────────────────────────────────────────
+
+type ProductConnection {
+  totalCount: Int!
+  items: [Product]
+  pageInfo: PageInfo!
+  edges: [ProductEdge]
+  filter_facets: [FilterFacet]!
+  range_facets: [RangeFacet]!
+  term_facets: [TermFacet]!
+}
+
+type ProductEdge {
+  cursor: String!
+  node: Product
+}
+
+type CategoryConnection {
+  totalCount: Int!
+  items: [Category]
+  pageInfo: PageInfo!
+  edges: [CategoryEdge]
+}
+
+type CategoryEdge {
+  cursor: String!
+  node: Category
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type FilterFacet {
+  name: String!
+  label: String!
+  count: Int!
+}
+
+type RangeFacet {
+  name: String!
+  label: String!
+  ranges: [FacetRange]!
+}
+
+type FacetRange {
+  from: Decimal
+  to: Decimal
+  count: Int!
+  totalCount: Int!
+  label: String!
+  isSelected: Boolean!
+  includeFrom: Boolean!
+  includeTo: Boolean!
+  fromId: String
+  toId: String
+  maxExcluding: Decimal
+  maxIncluding: Decimal
+  minExcluding: Decimal
+  minIncluding: Decimal
+}
+
+type TermFacet {
+  name: String!
+  label: String!
+  terms: [FacetTermType]!
+}
+
+type FacetTermType {
+  term: String
+  count: Int!
+  isSelected: Boolean!
+  label: String!
+}
+
+type ProductSuggestionsQueryResponse {
+  suggestions: [String]
+}
+
+# ─────────────────────────────────────────────
+# Cart — Line Items and Address
+# ─────────────────────────────────────────────
+
+type LineItem {
+  id: String!
+  productId: String
+  productType: String
+  parentProductId: String
+  sku: String!
+  name: String!
+  quantity: Int!
+  inStockQuantity: Int!
+  warehouseLocation: String
+  shipmentMethodCode: String
+  requiredShipping: Boolean!
+  thumbnailImageUrl: String
+  imageUrl: String
+  isGift: Boolean!
+  languageCode: String
+  comment: String
+  isReccuring: Boolean!
+  isValid: Boolean!
+  validationErrors: [ValidationError]
+  product: Product
+  selectedForCheckout: Boolean!
+  fulfillmentCenterId: String
+  fulfillmentCenterName: String
+  listPrice: Money!
+  listPriceWithTax: Money!
+  salePrice: Money!
+  salePriceWithTax: Money!
+  placedPrice: Money!
+  placedPriceWithTax: Money!
+  extendedPrice: Money!
+  extendedPriceWithTax: Money!
+  discountAmount: Money!
+  discountAmountWithTax: Money!
+  discountTotal: Money!
+  discountTotalWithTax: Money!
+  taxTotal: Money!
+  taxPercentRate: Decimal!
+  taxType: String
+  taxDetails: [TaxDetail]!
+  discounts: [Discount]!
+  dynamicProperties(filterByTypes: [String]): [DynamicProperty]!
+}
+
+type ValidationError {
+  errorCode: String
+  errorMessage: String
+  errorParameters: [ErrorParameter]!
+}
+
+type ErrorParameter {
+  key: String!
+  value: String!
+}
+
+type Discount {
+  coupon: String
+  description: String
+  promotionId: String
+  amount: Decimal!
+  amountWithTax: Decimal!
+  currency: String!
+}
+
+type CartAddress {
+  id: String
+  city: String
+  countryCode: String
+  countryName: String
+  email: String
+  firstName: String
+  id: String
+  key: String
+  lastName: String
+  line1: String
+  line2: String
+  middleName: String
+  name: String
+  organization: String
+  outerId: String
+  phone: String
+  postalCode: String!
+  regionId: String
+  regionName: String
+  zip: String
+  addressType: Int
+}
+
+type Coupon {
+  code: String!
+  isAppliedSuccessfully: Boolean!
+}
+
+type GiftItem {
+  id: String!
+  productId: String!
+  categoryId: String
+  imageUrl: String
+  name: String!
+  measureUnit: String
+  quantity: Int
+  lineItemId: String
+  product: Product
+}
+
+# ─────────────────────────────────────────────
+# Cart — Shipments and Payments
+# ─────────────────────────────────────────────
+
+type Shipment {
+  id: String!
+  shipmentMethodCode: String
+  shipmentMethodOption: String
+  fulfillmentCenterId: String
+  deliveryAddress: CartAddress
+  volumetricWeight: Decimal
+  weightUnit: String
+  weight: Decimal
+  measureUnit: String
+  height: Decimal
+  length: Decimal
+  width: Decimal
+  price: Money!
+  priceWithTax: Money!
+  total: Money!
+  totalWithTax: Money!
+  discountAmount: Money!
+  discountAmountWithTax: Money!
+  taxTotal: Money!
+  taxPercentRate: Decimal!
+  taxType: String
+  taxDetails: [TaxDetail]!
+  discounts: [Discount]!
+  comment: String
+  items: [CartShipmentItem]!
+}
+
+type CartShipmentItem {
+  quantity: Int!
+  lineItem: LineItem
+}
+
+type Payment {
+  id: String!
+  outerId: String
+  paymentGatewayCode: String
+  currency: Currency!
+  amount: Money!
+  billingAddress: CartAddress
+  comment: String
+  price: Money!
+  priceWithTax: Money!
+  total: Money!
+  totalWithTax: Money!
+  discountAmount: Money!
+  discountAmountWithTax: Money!
+  taxTotal: Money!
+  taxPercentRate: Decimal!
+  taxType: String
+  taxDetails: [TaxDetail]!
+  discounts: [Discount]!
+}
+
+type ShippingMethod {
+  id: String!
+  code: String!
+  logoUrl: String
+  optionName: String
+  optionDescription: String
+  priority: Int!
+  currency: Currency!
+  price: Money!
+  priceWithTax: Money!
+  total: Money!
+  totalWithTax: Money!
+  discountAmount: Money!
+  discountAmountWithTax: Money!
+  taxTotal: Money!
+  taxPercentRate: Decimal!
+  taxType: String
+  taxDetails: [TaxDetail]!
+  discounts: [Discount]!
+  settings: [Setting]!
+}
+
+type PaymentMethod {
+  code: String!
+  name: String
+  logoUrl: String
+  description: String
+  paymentMethodType: Int!
+  paymentMethodGroupType: Int!
+  priority: Int!
+  isAvailableForPartial: Boolean!
+  currency: Currency!
+  price: Money!
+  priceWithTax: Money!
+  total: Money!
+  totalWithTax: Money!
+  discountAmount: Money!
+  discountAmountWithTax: Money!
+  taxTotal: Money!
+  taxPercentRate: Decimal!
+  taxType: String
+  taxDetails: [TaxDetail]!
+  discounts: [Discount]!
+  settings: [Setting]!
+}
+
+type Setting {
+  name: String!
+  value: Any
+}
+
+# ─────────────────────────────────────────────
+# Cart — Main Cart Type
+# ─────────────────────────────────────────────
+
+type Cart {
+  id: String!
+  name: String!
+  status: String
+  storeId: String!
+  channelId: String
+  hasPhysicalProducts: Boolean!
+  isAnonymous: Boolean!
+  customerId: String!
+  customerName: String
+  organizationId: String
+  organizationName: String
+  isRecuring: Boolean
+  comment: String
+  purchaseOrderNumber: String
+  checkoutId: String!
+  volumetricWeight: Decimal
+  weightUnit: String
+  weight: Decimal
+  currency: Currency!
+  total: Money!
+  subTotal: Money!
+  subTotalWithTax: Money!
+  extendedPriceTotal: Money!
+  extendedPriceTotalWithTax: Money!
+  taxTotal: Money!
+  taxPercentRate: Decimal!
+  taxType: String!
+  taxDetails: [TaxDetail]!
+  fee: Money!
+  feeWithTax: Money!
+  feeTotal: Money!
+  feeTotalWithTax: Money!
+  shippingPrice: Money!
+  shippingPriceWithTax: Money!
+  shippingTotal: Money!
+  shippingTotalWithTax: Money!
+  paymentPrice: Money!
+  paymentPriceWithTax: Money!
+  paymentTotal: Money!
+  paymentTotalWithTax: Money!
+  handlingTotal: Money!
+  handlingTotalWithTax: Money!
+  discountTotal: Money!
+  discountTotalWithTax: Money!
+  subTotalDiscount: Money!
+  subTotalDiscountWithTax: Money!
+  shipments: [Shipment]!
+  availableShippingMethods: [ShippingMethod]!
+  payments: [Payment]!
+  availablePaymentMethods: [PaymentMethod]!
+  items: [LineItem]!
+  coupons: [Coupon]!
+  discounts: [Discount]!
+  gifts: [GiftItem]!
+  availableGifts: [GiftItem]!
+  addresses: [CartAddress]!
+  dynamicProperties(filterByTypes: [String]): [DynamicProperty]!
+  warnings: [ValidationError]!
+  validationErrors: [ValidationError]!
+  isValid: Boolean!
+}
+
+# ─────────────────────────────────────────────
+# Wishlist
+# ─────────────────────────────────────────────
+
+type Wishlist {
+  id: String!
+  name: String!
+  storeId: String
+  customerId: String
+  customerName: String
+  currency: Currency
+  items: [LineItem]!
+  itemsCount: Int!
+  scope: WishlistScopeType
+  description: String
+}
+
+enum WishlistScopeType {
+  Private
+  Organization
+}
+
+type WishlistConnection {
+  totalCount: Int!
+  items: [Wishlist]
+}
+
+# ─────────────────────────────────────────────
+# Order
+# ─────────────────────────────────────────────
+
+type OrderAddress {
+  id: String
+  line1: String
+  line2: String
+  city: String
+  countryCode: String
+  countryName: String
+  regionId: String
+  regionName: String
+  postalCode: String
+  phone: String
+  email: String
+  firstName: String
+  lastName: String
+  organization: String
+  addressType: Int
+  key: String
+  outerId: String
+}
+
+type OrderDiscount {
+  coupon: String
+  description: String
+  promotionId: String
+  amount: Decimal!
+  amountWithTax: Decimal!
+  currency: String!
+}
+
+type OrderLineItem {
+  id: String!
+  productId: String!
+  name: String!
+  productType: String
+  sku: String!
+  imageUrl: String
+  isGift: Boolean!
+  weight: Decimal
+  weightUnit: String
+  quantity: Int!
+  cancelledDate: DateTime
+  cancelReason: String
+  isCancelled: Boolean!
+  comment: String
+  outerId: String
+  currency: Currency!
+  price: Money!
+  priceWithTax: Money!
+  taxTotal: Money!
+  taxPercentRate: Decimal!
+  taxType: String
+  total: Money!
+  totalWithTax: Money!
+  discountAmount: Money!
+  discountAmountWithTax: Money!
+  discountTotal: Money!
+  discountTotalWithTax: Money!
+  extendedPrice: Money!
+  extendedPriceWithTax: Money!
+  placedPrice: Money!
+  placedPriceWithTax: Money!
+  listPrice: Money!
+  listPriceWithTax: Money!
+  salePrice: Money!
+  salePriceWithTax: Money!
+  product: Product
+  taxDetails: [OrderTaxDetail]!
+  discounts: [OrderDiscount]!
+  dynamicProperties(filterByTypes: [String]): [DynamicProperty]!
+}
+
+type OrderTaxDetail {
+  rate: Decimal!
+  amount: Decimal!
+  name: String!
+}
+
+type OrderShipmentItem {
+  lineItemId: String!
+  quantity: Int!
+  lineItem: OrderLineItem
+}
+
+type OrderShipmentPackage {
+  id: String!
+  barCode: String
+  weightUnit: String
+  weight: Decimal
+  measureUnit: String
+  height: Decimal
+  length: Decimal
+  width: Decimal
+  items: [OrderShipmentItem]!
+}
+
+type OrderShipment {
+  id: String!
+  shipmentMethodCode: String
+  shipmentMethodOption: String
+  fulfillmentCenterId: String
+  fulfillmentCenterName: String
+  employeeId: String
+  employeeName: String
+  organizationId: String
+  organizationName: String
+  discountAmount: Money!
+  discountAmountWithTax: Money!
+  price: Money!
+  priceWithTax: Money!
+  total: Money!
+  totalWithTax: Money!
+  taxTotal: Money!
+  taxPercentRate: Decimal!
+  taxType: String
+  weightUnit: String
+  weight: Decimal
+  measureUnit: String
+  height: Decimal
+  length: Decimal
+  width: Decimal
+  trackingNumber: String
+  trackingUrl: String
+  deliveryAddress: OrderAddress
+  status: String
+  currency: Currency!
+  items: [OrderShipmentItem]!
+  packages: [OrderShipmentPackage]!
+  taxDetails: [OrderTaxDetail]!
+  discounts: [OrderDiscount]!
+  dynamicProperties(filterByTypes: [String]): [DynamicProperty]!
+}
+
+type PaymentTransaction {
+  id: String!
+  isProcessed: Boolean!
+  processedDate: DateTime
+  processError: String
+  processAttemptCount: Int!
+  requestData: String
+  responseData: String
+  responseCode: String
+  gatewayIpAddress: String
+  type: String
+  status: String
+  note: String
+  amount: Money!
+}
+
+type PaymentIn {
+  id: String!
+  number: String!
+  isApproved: Boolean!
+  comment: String
+  outerId: String
+  isCancelled: Boolean!
+  cancelledDate: DateTime
+  cancelReason: String
+  operationType: String!
+  parentOperationId: String
+  purpose: String
+  gatewayCode: String
+  incomingDate: DateTime
+  authorizedDate: DateTime
+  capturedDate: DateTime
+  voidedDate: DateTime
+  status: String
+  currency: Currency!
+  price: Money!
+  priceWithTax: Money!
+  total: Money!
+  totalWithTax: Money!
+  discountAmount: Money!
+  discountAmountWithTax: Money!
+  taxTotal: Money!
+  taxPercentRate: Decimal!
+  taxType: String
+  createdDate: DateTime!
+  modifiedDate: DateTime
+  transactions: [PaymentTransaction]!
+  billingAddress: OrderAddress
+  dynamicProperties(filterByTypes: [String]): [DynamicProperty]!
+}
+
+type CustomerOrder {
+  id: String!
+  operationType: String!
+  parentOperationId: String
+  number: String!
+  isApproved: Boolean!
+  status: String
+  comment: String
+  outerId: String
+  isCancelled: Boolean!
+  cancelledDate: DateTime
+  cancelReason: String
+  objectType: String!
+  customerId: String!
+  customerName: String
+  channelId: String
+  storeId: String!
+  storeName: String
+  organizationId: String
+  organizationName: String
+  employeeId: String
+  employeeName: String
+  shoppingCartId: String
+  isPrototype: Boolean!
+  subscriptionNumber: String
+  subscriptionId: String
+  purchaseOrderNumber: String
+  taxType: String
+  taxPercentRate: Decimal!
+  languageCode: String
+  createdDate: DateTime!
+  createdBy: String
+  modifiedDate: DateTime
+  modifiedBy: String
+  currency: Currency!
+  total: Money!
+  taxTotal: Money!
+  discountAmount: Money!
+  subTotal: Money!
+  subTotalWithTax: Money!
+  subTotalDiscount: Money!
+  subTotalDiscountWithTax: Money!
+  subTotalTaxTotal: Money!
+  shippingTotal: Money!
+  shippingTotalWithTax: Money!
+  shippingSubTotal: Money!
+  shippingSubTotalWithTax: Money!
+  shippingTaxTotal: Money!
+  paymentTotal: Money!
+  paymentTotalWithTax: Money!
+  paymentSubTotal: Money!
+  paymentSubTotalWithTax: Money!
+  paymentTaxTotal: Money!
+  fee: Money!
+  feeWithTax: Money!
+  feeTotal: Money!
+  feeTotalWithTax: Money!
+  items: [OrderLineItem]!
+  shipments: [OrderShipment]!
+  inPayments: [PaymentIn]!
+  addresses: [OrderAddress]!
+  taxDetails: [OrderTaxDetail]!
+  discounts: [OrderDiscount]!
+  dynamicProperties(filterByTypes: [String]): [DynamicProperty]!
+  availablePaymentMethods: [OrderPaymentMethod]!
+}
+
+type OrderPaymentMethod {
+  code: String!
+  name: String
+  description: String
+  logoUrl: String
+  paymentMethodType: Int!
+  paymentMethodGroupType: Int!
+  priority: Int!
+  isAvailableForPartial: Boolean!
+  currency: Currency!
+  price: Money!
+  priceWithTax: Money!
+  total: Money!
+  totalWithTax: Money!
+}
+
+type CustomerOrderConnection {
+  totalCount: Int!
+  items: [CustomerOrder]
+  pageInfo: PageInfo!
+  edges: [CustomerOrderEdge]
+}
+
+type CustomerOrderEdge {
+  cursor: String!
+  node: CustomerOrder
+}
+
+type InitializePaymentResult {
+  isSuccess: Boolean!
+  errorMessage: String
+  storeId: String
+  paymentId: String
+  orderId: String
+  orderNumber: String
+  paymentMethod: OrderPaymentMethod
+  actionType: String
+  actionRedirectUrl: String
+  publicParameters: [KeyValueType]!
+}
+
+type AuthorizePaymentResult {
+  isSuccess: Boolean!
+  errorMessage: String
+}
+
+type ProcessPaymentRequestResult {
+  isSuccess: Boolean!
+  htmlForm: String
+  newPaymentStatus: String
+  errorMessage: String
+  redirectUrl: String
+  outerId: String
+}
+
+type KeyValueType {
+  key: String!
+  value: String
+}
+
+# ─────────────────────────────────────────────
+# Profile — Contact and Organization
+# ─────────────────────────────────────────────
+
+type MemberAddress {
+  id: String
+  city: String
+  countryCode: String
+  countryName: String
+  email: String
+  firstName: String
+  key: String
+  lastName: String
+  line1: String
+  line2: String
+  middleName: String
+  name: String
+  organization: String
+  outerId: String
+  phone: String
+  postalCode: String!
+  regionId: String
+  regionName: String
+  zip: String
+  addressType: Int
+  isDefault: Boolean!
+  isFavorite: Boolean!
+  description: String
+}
+
+type Contact {
+  id: String!
+  name: String!
+  firstName: String!
+  lastName: String!
+  middleName: String
+  fullName: String!
+  organizationId: String
+  organizationIds: [String]!
+  emails: [String]!
+  phones: [String]!
+  birthDate: DateTime
+  defaultLanguage: String
+  groups: [String]!
+  securityAccounts: [UserType]!
+  addresses(first: Int, after: String): MemberAddressConnection
+  dynamicProperties(filterByTypes: [String]): [DynamicProperty]!
+  organizations(first: Int, after: String, searchPhrase: String, sort: String): OrganizationConnection
+  iconUrl: String
+  status: String
+  about: String
+  outerId: String
+}
+
+type Organization {
+  id: String!
+  name: String!
+  memberType: String!
+  ownerId: String
+  parentId: String
+  phones: [String]!
+  emails: [String]!
+  groups: [String]!
+  businessCategory: String
+  description: String
+  seoObjectType: String
+  addresses(first: Int, after: String): MemberAddressConnection
+  contacts(first: Int, after: String, searchPhrase: String, sort: String): ContactConnection
+  dynamicProperties(filterByTypes: [String]): [DynamicProperty]!
+  iconUrl: String
+  outerId: String
+}
+
+type MemberAddressConnection {
+  totalCount: Int
+  items: [MemberAddress]
+}
+
+type ContactConnection {
+  totalCount: Int
+  items: [Contact]
+  pageInfo: PageInfo!
+}
+
+type OrganizationConnection {
+  totalCount: Int
+  items: [Organization]
+  pageInfo: PageInfo!
+}
+
+type UserType {
+  id: String!
+  userName: String!
+  email: String
+  emailConfirmed: Boolean!
+  isAdministrator: Boolean!
+  photoUrl: String
+  permissions: [String]!
+  contact: Contact
+  lockedState: Boolean!
+  isLockedOut: Boolean!
+  lastLoginDate: DateTime
+  passwordExpired: Boolean!
+  passwordExpiryInDays: Int
+  operatorUserId: String
+  operatorUserName: String
+  forcePasswordChange: Boolean!
+  roles: [RoleType]!
+}
+
+type RoleType {
+  id: String!
+  name: String!
+  normalizedName: String!
+  permissions: [String]!
+}
+
+type IdentityResultType {
+  succeeded: Boolean!
+  errors: [IdentityErrorType]
+}
+
+type IdentityErrorType {
+  code: String
+  description: String
+}
+
+type CustomIdentityResultType {
+  succeeded: Boolean!
+  errors: [IdentityErrorInfo]
+}
+
+type IdentityErrorInfo {
+  code: String
+  description: String
+  parameter: String
+}
+
+# ─────────────────────────────────────────────
+# Cart Mutation Input Types
+# ─────────────────────────────────────────────
+
+input InputAddItemType {
+  storeId: String!
+  cartName: String
+  cartType: String
+  userId: String!
+  currencyCode: String
+  cultureName: String
+  cartId: String
+  productId: String!
+  quantity: Int!
+  price: Decimal
+  comment: String
+  dynamicProperties: [InputDynamicPropertyValueType]
+  configurationSections: [InputConfigurationSectionType]
+}
+
+input InputAddItemsType {
+  storeId: String!
+  cartName: String
+  cartType: String
+  userId: String!
+  currencyCode: String
+  cultureName: String
+  cartId: String
+  cartItems: [InputNewCartItemType]!
+}
+
+input InputNewCartItemType {
+  productId: String!
+  quantity: Int
+  dynamicProperties: [InputDynamicPropertyValueType]
+}
+
+input InputDynamicPropertyValueType {
+  name: String!
+  value: Any
+  cultureName: String
+}
+
+input InputConfigurationSectionType {
+  sectionId: String
+  value: String
+  quantity: Int
+  productId: String
+  customText: String
+  type: String
+}
+
+input InputCartBaseType {
+  storeId: String!
+  cartName: String
+  cartType: String
+  userId: String!
+  currencyCode: String
+  cultureName: String
+  cartId: String
+}
+
+input InputChangeCartItemQuantityType {
+  storeId: String!
+  cartName: String
+  cartType: String
+  userId: String!
+  currencyCode: String
+  cultureName: String
+  cartId: String
+  lineItemId: String!
+  quantity: Int!
+}
+
+input InputAddCouponType {
+  storeId: String!
+  cartName: String
+  cartType: String
+  userId: String!
+  currencyCode: String
+  cultureName: String
+  cartId: String
+  couponCode: String!
+}
+
+input InputAddOrUpdateCartAddressType {
+  storeId: String!
+  cartName: String
+  cartType: String
+  userId: String!
+  currencyCode: String
+  cultureName: String
+  cartId: String
+  address: InputAddressType!
+}
+
+input InputAddressType {
+  id: String
+  city: String
+  countryCode: String
+  countryName: String
+  email: String
+  firstName: String
+  key: String
+  lastName: String
+  line1: String
+  line2: String
+  middleName: String
+  name: String
+  organization: String
+  outerId: String
+  phone: String
+  postalCode: String
+  regionId: String
+  regionName: String
+  zip: String
+  addressType: Int
+}
+
+input InputAddOrUpdateCartShipmentType {
+  storeId: String!
+  cartName: String
+  cartType: String
+  userId: String!
+  currencyCode: String
+  cultureName: String
+  cartId: String
+  shipment: InputShipmentType!
+}
+
+input InputShipmentType {
+  id: String
+  shipmentMethodCode: String
+  shipmentMethodOption: String
+  fulfillmentCenterId: String
+  deliveryAddress: InputAddressType
+  volumetricWeight: Decimal
+  weightUnit: String
+  weight: Decimal
+  measureUnit: String
+  height: Decimal
+  length: Decimal
+  width: Decimal
+  currency: String
+  price: Decimal
+  comment: String
+  dynamicProperties: [InputDynamicPropertyValueType]
+  items: [InputCartShipmentItemType]
+}
+
+input InputCartShipmentItemType {
+  lineItemId: String
+  quantity: Int
+}
+
+input InputAddOrUpdateCartPaymentType {
+  storeId: String!
+  cartName: String
+  cartType: String
+  userId: String!
+  currencyCode: String
+  cultureName: String
+  cartId: String
+  payment: InputPaymentType!
+}
+
+input InputPaymentType {
+  id: String
+  outerId: String
+  paymentGatewayCode: String
+  currency: String
+  price: Decimal
+  amount: Decimal
+  billingAddress: InputAddressType
+  comment: String
+  dynamicProperties: [InputDynamicPropertyValueType]
+  bankCardInfo: InputOrderBankCardInfoType
+}
+
+input InputOrderBankCardInfoType {
+  bankCardNumber: String
+  bankCardType: String
+  bankCardMonth: Int
+  bankCardYear: Int
+  bankCardCVV2: String
+}
+
+# ─────────────────────────────────────────────
+# Order Mutation Input Types
+# ─────────────────────────────────────────────
+
+input InputCreateOrderFromCartType {
+  cartId: String!
+  userId: String
+}
+
+input InputChangeOrderStatusType {
+  orderId: String!
+  status: String!
+}
+
+input InputInitializePaymentType {
+  orderId: String!
+  paymentId: String!
+}
+
+input InputAuthorizePaymentType {
+  orderId: String!
+  paymentId: String!
+  parameters: [KeyValuePairType]!
+}
+
+input KeyValuePairType {
+  key: String!
+  value: String
+}
+
+# ─────────────────────────────────────────────
+# Profile Mutation Input Types
+# ─────────────────────────────────────────────
+
+input InputCreateContactType {
+  firstName: String!
+  lastName: String!
+  middleName: String
+  email: String
+  phones: [String]
+  birthdate: DateTime
+  photoUrl: String
+  timeZone: String
+  defaultLanguage: String
+  groups: [String]
+  organizationId: String
+  addresses: [InputMemberAddressType]
+  dynamicProperties: [InputDynamicPropertyValueType]
+}
+
+input InputUpdateContactType {
+  id: String!
+  firstName: String!
+  lastName: String!
+  middleName: String
+  email: String
+  phones: [String]
+  birthdate: DateTime
+  photoUrl: String
+  timeZone: String
+  defaultLanguage: String
+  groups: [String]
+  organizationId: String
+  addresses: [InputMemberAddressType]
+  dynamicProperties: [InputDynamicPropertyValueType]
+}
+
+input InputCreateOrganizationType {
+  name: String!
+  memberType: String
+  phones: [String]
+  emails: [String]
+  groups: [String]
+  businessCategory: String
+  description: String
+  parentId: String
+  ownerId: String
+  addresses: [InputMemberAddressType]
+  dynamicProperties: [InputDynamicPropertyValueType]
+}
+
+input InputUpdateOrganizationType {
+  id: String!
+  name: String!
+  memberType: String
+  phones: [String]
+  emails: [String]
+  groups: [String]
+  businessCategory: String
+  description: String
+  parentId: String
+  ownerId: String
+  addresses: [InputMemberAddressType]
+  dynamicProperties: [InputDynamicPropertyValueType]
+}
+
+input InputMemberAddressType {
+  id: String
+  city: String
+  countryCode: String
+  countryName: String
+  email: String
+  firstName: String
+  key: String
+  lastName: String
+  line1: String
+  line2: String
+  middleName: String
+  name: String
+  organization: String
+  outerId: String
+  phone: String
+  postalCode: String!
+  regionId: String
+  regionName: String
+  zip: String
+  addressType: Int
+  isDefault: Boolean
+  isFavorite: Boolean
+  description: String
+}
+
+input InputChangePasswordType {
+  userId: String!
+  oldPassword: String!
+  newPassword: String!
+}
+
+input InputResetPasswordByTokenType {
+  userId: String!
+  token: String!
+  newPassword: String!
+}
+
+input InputCreateUserType {
+  email: String!
+  userName: String!
+  password: String
+  roles: [InputAssignRoleType]
+  storeId: String
+  memberId: String
+}
+
+input InputUpdateUserType {
+  id: String!
+  email: String
+  userName: String
+  roles: [InputAssignRoleType]
+  photoUrl: String
+}
+
+input InputAssignRoleType {
+  id: String!
+  name: String
+  permissions: [InputAssignPermissionType]
+}
+
+input InputAssignPermissionType {
+  id: String!
+  name: String!
+  assignedScopes: [InputAssignPermissionScopeType]
+}
+
+input InputAssignPermissionScopeType {
+  scope: String!
+  type: String!
+}
+
+# ─────────────────────────────────────────────
+# Query Root
+# ─────────────────────────────────────────────
+
+type Query {
+  # Catalog queries
+  product(
+    id: String!
+    storeId: String!
+    userId: String
+    currencyCode: String
+    cultureName: String
+    previousOutline: String
+    custom: String
+  ): Product
+
+  products(
+    storeId: String!
+    userId: String
+    currencyCode: String
+    cultureName: String
+    query: String
+    filter: String
+    fuzzy: Boolean
+    fuzzyLevel: Int
+    facet: String
+    sort: String
+    productIds: [String]
+    after: String
+    first: Int
+  ): ProductConnection
+
+  productSuggestions(
+    storeId: String!
+    query: String!
+    size: Int
+  ): ProductSuggestionsQueryResponse
+
+  category(
+    id: String!
+    storeId: String!
+    userId: String
+    currencyCode: String
+    cultureName: String
+    previousOutline: String
+  ): Category
+
+  categories(
+    storeId: String!
+    userId: String
+    currencyCode: String
+    cultureName: String
+    query: String
+    filter: String
+    fuzzy: Boolean
+    fuzzyLevel: Int
+    facet: String
+    sort: String
+    categoryIds: [String]
+    after: String
+    first: Int
+  ): CategoryConnection
+
+  childCategories(
+    storeId: String!
+    userId: String
+    cultureName: String
+    categoryId: String
+    maxLevel: Int
+    onlyActive: Boolean
+    productFilter: String
+  ): ChildCategoriesQueryResponse
+
+  # Cart queries
+  cart(
+    storeId: String!
+    userId: String!
+    currencyCode: String!
+    cultureName: String
+    cartName: String
+    cartType: String
+  ): Cart
+
+  wishlists(
+    storeId: String!
+    userId: String!
+    currencyCode: String
+    cultureName: String
+    after: String
+    first: Int
+  ): WishlistConnection
+
+  wishlist(
+    listId: String!
+    cultureName: String
+  ): Wishlist
+
+  # Order queries
+  order(
+    id: String
+    number: String
+    cultureName: String
+  ): CustomerOrder
+
+  orders(
+    filter: String
+    sort: String
+    cultureName: String
+    userId: String
+    organizationId: String
+    after: String
+    first: Int
+    vendorId: String
+  ): CustomerOrderConnection
+
+  payments(
+    filter: String
+    sort: String
+    cultureName: String
+    userId: String
+    after: String
+    first: Int
+  ): PaymentInConnection
+
+  # Profile queries
+  me(userId: String): UserType
+
+  contacts(
+    searchPhrase: String
+    sort: String
+    after: String
+    first: Int
+    organizationId: String
+    userId: String
+  ): ContactConnection
+
+  organizations(
+    searchPhrase: String
+    sort: String
+    after: String
+    first: Int
+    userId: String
+  ): OrganizationConnection
+
+  checkUsernameUniqueness(username: String!): Boolean
+  checkEmailUniqueness(email: String!): Boolean
+  checkDuplicateAddress(memberId: String!, address: InputMemberAddressType!): AddressDuplicatedResultType
+  requestPasswordReset(storeId: String, cultureName: String, loginOrEmail: String!, urlSuffix: String): Boolean
+  validatePassword(password: String!): CustomIdentityResultType
+}
+
+type ChildCategoriesQueryResponse {
+  childCategories: [Category]
+}
+
+type PaymentInConnection {
+  totalCount: Int!
+  items: [PaymentIn]
+  pageInfo: PageInfo!
+}
+
+type AddressDuplicatedResultType {
+  existingAddress: MemberAddress
+}
+
+# ─────────────────────────────────────────────
+# Mutation Root
+# ─────────────────────────────────────────────
+
+type Mutation {
+  # Cart mutations
+  addItem(command: InputAddItemType!): Cart
+  addItems(command: InputAddItemsType!): Cart
+  addBulkItems(command: InputAddBulkItemsType!): BulkCartType
+  changeCartItemQuantity(command: InputChangeCartItemQuantityType!): Cart
+  changeCartItemsQuantity(command: InputChangeCartItemsQuantityType!): Cart
+  removeCartItem(command: InputRemoveItemType!): Cart
+  removeCartItems(command: InputRemoveItemsType!): Cart
+  addCoupon(command: InputAddCouponType!): Cart
+  removeCoupon(command: InputRemoveCouponType!): Cart
+  addOrUpdateCartAddress(command: InputAddOrUpdateCartAddressType!): Cart
+  removeCartAddress(command: InputRemoveCartAddressType!): Cart
+  addOrUpdateCartShipment(command: InputAddOrUpdateCartShipmentType!): Cart
+  addOrUpdateCartPayment(command: InputAddOrUpdateCartPaymentType!): Cart
+  changeComment(command: InputChangeCommentType!): Cart
+  changePurchaseOrderNumber(command: InputChangePurchaseOrderNumber!): Cart
+  clearCart(command: InputClearCartType!): Cart
+  addGiftItems(command: InputAddGiftItemsType!): Cart
+  rejectGiftItems(command: InputRejectGiftItemsType!): Cart
+  addOrUpdateCartShipmentItems(command: InputAddOrUpdateCartShipmentItemsType!): Cart
+  mergeCart(command: InputMergeCartType!): Cart
+  removeCart(command: InputRemoveCartType!): Boolean
+  validateCoupon(command: InputValidateCouponType!): Boolean
+
+  # Wishlist mutations
+  createWishlist(command: InputCreateWishlistType!): Wishlist
+  changeWishlist(command: InputChangeWishlistType!): Wishlist
+  addWishlistItem(command: InputAddWishlistItemType!): Wishlist
+  addWishlistItems(command: InputAddWishlistItemsType!): Wishlist
+  removeWishlistItem(command: InputRemoveWishlistItemType!): Wishlist
+  moveWishlistItem(command: InputMoveWishlistItemType!): Wishlist
+  removeWishlist(command: InputRemoveWishlistType!): Boolean
+  cloneWishlist(command: InputCloneWishlistType!): Wishlist
+  addWishlistBulkItem(command: InputAddWishlistBulkItemType!): BulkWishlistType
+
+  # Order mutations
+  createOrderFromCart(command: InputCreateOrderFromCartType!): CustomerOrder
+  changeOrderStatus(command: InputChangeOrderStatusType!): Boolean
+  addOrUpdateOrderPayment(command: InputAddOrUpdateOrderPaymentType!): CustomerOrder
+  updateOrderDynamicProperties(command: InputUpdateOrderDynamicPropertiesType!): CustomerOrder
+  updateOrderItemDynamicProperties(command: InputUpdateOrderItemDynamicPropertiesType!): CustomerOrder
+  updateOrderShipmentDynamicProperties(command: InputUpdateOrderShipmentDynamicPropertiesType!): CustomerOrder
+  updateOrderPaymentDynamicProperties(command: InputUpdateOrderPaymentDynamicPropertiesType!): CustomerOrder
+  initializePayment(command: InputInitializePaymentType!): InitializePaymentResult
+  authorizePayment(command: InputAuthorizePaymentType!): AuthorizePaymentResult
+
+  # Profile mutations
+  createContact(command: InputCreateContactType!): Contact
+  updateContact(command: InputUpdateContactType!): Contact
+  deleteContact(command: InputDeleteContactType!): Boolean
+  lockOrganizationContact(command: InputLockContactType!): Contact
+  unlockOrganizationContact(command: InputLockContactType!): Contact
+  updateMemberAddresses(command: InputUpdateMemberAddressType!): MemberType
+  deleteMemberAddresses(command: InputDeleteMemberAddressType!): MemberType
+  createOrganization(command: InputCreateOrganizationType!): Organization
+  updateOrganization(command: InputUpdateOrganizationType!): Organization
+  inviteUser(command: InputInviteUserType!): CustomIdentityResultType
+  registerByInvitation(command: InputRegisterByInvitationType!): CustomIdentityResultType
+  createUser(command: InputCreateUserType!): IdentityResultType
+  updateUser(command: InputUpdateUserType!): IdentityResultType
+  deleteUsers(command: InputDeleteUserType!): IdentityResultType
+  changePassword(command: InputChangePasswordType!): CustomIdentityResultType
+  resetPasswordByToken(command: InputResetPasswordByTokenType!): CustomIdentityResultType
+  sendVerifyEmail(command: InputSendVerifyEmailType!): Boolean
+  confirmEmail(command: InputConfirmEmailType!): CustomIdentityResultType
+  updatePersonalData(command: InputUpdatePersonalDataType!): CustomIdentityResultType
+}
+
+# Simplified Input stubs for additional mutations (full fields available in module source)
+input InputAddBulkItemsType { storeId: String!, userId: String!, cartItems: [InputNewCartItemType]! }
+input InputChangeCartItemsQuantityType { storeId: String!, userId: String!, items: [InputCartItemQuantityType]! }
+input InputCartItemQuantityType { lineItemId: String!, quantity: Int! }
+input InputRemoveItemType { storeId: String!, userId: String!, lineItemId: String! }
+input InputRemoveItemsType { storeId: String!, userId: String!, lineItemIds: [String]! }
+input InputRemoveCouponType { storeId: String!, userId: String!, couponCode: String! }
+input InputRemoveCartAddressType { storeId: String!, userId: String!, addressId: String! }
+input InputChangeCommentType { storeId: String!, userId: String!, comment: String }
+input InputChangePurchaseOrderNumber { storeId: String!, userId: String!, purchaseOrderNumber: String }
+input InputClearCartType { storeId: String!, userId: String! }
+input InputAddGiftItemsType { storeId: String!, userId: String!, giftIds: [String]! }
+input InputRejectGiftItemsType { storeId: String!, userId: String!, giftIds: [String]! }
+input InputAddOrUpdateCartShipmentItemsType { storeId: String!, userId: String!, shipmentId: String!, items: [InputCartShipmentItemType]! }
+input InputMergeCartType { storeId: String!, userId: String!, secondCartId: String! }
+input InputRemoveCartType { storeId: String!, userId: String!, cartId: String! }
+input InputValidateCouponType { storeId: String!, userId: String!, couponCode: String! }
+
+input InputCreateWishlistType { storeId: String!, userId: String!, listName: String!, currency: String, cultureName: String, scope: WishlistScopeType, description: String }
+input InputChangeWishlistType { listId: String!, listName: String, scope: WishlistScopeType, description: String }
+input InputAddWishlistItemType { listId: String!, productId: String!, quantity: Int }
+input InputAddWishlistItemsType { listId: String!, listItems: [InputWishlistItemType]! }
+input InputWishlistItemType { productId: String!, quantity: Int }
+input InputRemoveWishlistItemType { listId: String!, lineItemId: String! }
+input InputMoveWishlistItemType { listId: String!, destinationListId: String!, lineItemId: String! }
+input InputRemoveWishlistType { listId: String! }
+input InputCloneWishlistType { listId: String!, listName: String! }
+input InputAddWishlistBulkItemType { listIds: [String]!, productId: String!, quantity: Int }
+
+input InputAddOrUpdateOrderPaymentType { orderId: String!, payment: InputOrderPaymentType! }
+input InputOrderPaymentType { id: String, outerId: String, paymentGatewayCode: String, amount: Decimal, billingAddress: InputOrderAddressType, comment: String }
+input InputOrderAddressType { id: String, city: String, countryCode: String, countryName: String, email: String, firstName: String, lastName: String, line1: String, line2: String, postalCode: String, regionId: String, phone: String, addressType: Int }
+input InputUpdateOrderDynamicPropertiesType { orderId: String!, dynamicProperties: [InputDynamicPropertyValueType]! }
+input InputUpdateOrderItemDynamicPropertiesType { orderId: String!, lineItemId: String!, dynamicProperties: [InputDynamicPropertyValueType]! }
+input InputUpdateOrderShipmentDynamicPropertiesType { orderId: String!, shipmentId: String!, dynamicProperties: [InputDynamicPropertyValueType]! }
+input InputUpdateOrderPaymentDynamicPropertiesType { orderId: String!, paymentId: String!, dynamicProperties: [InputDynamicPropertyValueType]! }
+
+input InputDeleteContactType { contactId: String! }
+input InputLockContactType { userId: String! }
+input InputUpdateMemberAddressType { memberId: String!, addresses: [InputMemberAddressType]! }
+input InputDeleteMemberAddressType { memberId: String!, addresses: [InputMemberAddressType]! }
+input InputInviteUserType { storeId: String!, organizationId: String, emails: [String]!, message: String, urlSuffix: String, roleIds: [String] }
+input InputRegisterByInvitationType { userId: String!, token: String!, firstName: String!, lastName: String!, phoneNumber: String, userName: String!, password: String! }
+input InputDeleteUserType { userNames: [String]! }
+input InputSendVerifyEmailType { storeId: String, email: String, userId: String }
+input InputConfirmEmailType { userId: String!, token: String! }
+input InputUpdatePersonalDataType { personalData: InputPersonalDataType! }
+input InputPersonalDataType { email: String, firstName: String, lastName: String, fullName: String, phoneNumber: String }
+
+type BulkCartType {
+  cart: Cart
+  errors: [ValidationError]!
+}
+
+type BulkWishlistType {
+  wishlists: [Wishlist]!
+}
+
+type MemberType {
+  id: String!
+  memberType: String!
+  name: String!
+  addresses: [MemberAddress]!
+}

@@ -1,236 +1,263 @@
 aid: virto-commerce
 name: Virto Commerce
-description: Virto Commerce is an open-source, API-first B2B e-commerce platform built on .NET Core. It provides REST and GraphQL APIs for catalog management, pricing, inventory, order management, customer organizations, marketing, payments, shipping, subscriptions, and complex B2B purchasing workflows including quotes, contracts, and approval routing. The modular architecture offers 100+ independently deployable modules covering the full commerce stack for enterprise deployments.
+description: Virto Commerce is an open-source, API-first B2B e-commerce platform built
+  on .NET Core. It provides REST and GraphQL APIs for catalog management, pricing,
+  inventory, order management, customer organizations, marketing, payments, shipping,
+  subscriptions, and complex B2B purchasing workflows including quotes, contracts,
+  and approval routing. The modular architecture offers 100+ independently deployable
+  modules covering the full commerce stack for enterprise deployments.
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/virto-commerce/refs/heads/main/apis.yml
-created: "2026-06-13"
-modified: "2026-06-13"
-specificationVersion: "0.19"
+created: '2026-06-13'
+modified: '2026-06-13'
+specificationVersion: '0.19'
 tags:
-  - B2B E-Commerce
-  - Catalog Management
-  - Order Management
-  - Pricing
-  - Inventory
-  - Shopping Cart
-  - Customer Management
-  - Marketing
-  - Payments
-  - Shipping
-  - Subscriptions
-  - Headless Commerce
-  - Open Source
-  - .NET
+- B2B E-Commerce
+- Catalog Management
+- Order Management
+- Pricing
+- Inventory
+- Shopping Cart
+- Customer Management
+- Marketing
+- Payments
+- Shipping
+- Subscriptions
+- Headless Commerce
+- Open Source
+- .NET
 apis:
-  - aid: virto-commerce:catalog
-    name: Virto Commerce Catalog API
-    description: Product information management API for managing catalogs, categories, products, variations, properties, and attributes. Supports master and virtual catalogs, multi-language content, digital and physical products, and full-text search.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-    humanURL: https://docs.virtocommerce.org/
-    baseURL: https://virtostart-demo-admin.govirto.com/api
-    tags:
-      - Catalog
-      - Products
-      - Categories
-      - PIM
-    properties:
-      - type: Documentation
-        url: https://docs.virtocommerce.org/
-      - type: OpenAPI
-        url: https://virtostart-demo-admin.govirto.com/docs/v3/VirtoCommerce.Catalog
-      - type: GitHubRepository
-        url: https://github.com/VirtoCommerce/vc-module-catalog
-  - aid: virto-commerce:pricing
-    name: Virto Commerce Pricing API
-    description: Robust pricing management API based on price lists and dynamic evaluation. Supports tier pricing, bulk pricing, contract-based pricing, personalized pricing, promotions, and price list assignments across stores and customer segments.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-    humanURL: https://docs.virtocommerce.org/
-    baseURL: https://virtostart-demo-admin.govirto.com/api
-    tags:
-      - Pricing
-      - Price Lists
-      - Tiers
-      - Promotions
-    properties:
-      - type: Documentation
-        url: https://docs.virtocommerce.org/
-      - type: OpenAPI
-        url: https://virtostart-demo-admin.govirto.com/docs/v3/VirtoCommerce.Pricing
-      - type: GitHubRepository
-        url: https://github.com/VirtoCommerce/vc-module-pricing
-  - aid: virto-commerce:inventory
-    name: Virto Commerce Inventory API
-    description: Product inventory management API for tracking stock levels, fulfillment centers, reservations, and availability across multiple warehouses and locations.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-    humanURL: https://docs.virtocommerce.org/
-    baseURL: https://virtostart-demo-admin.govirto.com/api
-    tags:
-      - Inventory
-      - Stock
-      - Warehouses
-      - Fulfillment
-    properties:
-      - type: Documentation
-        url: https://docs.virtocommerce.org/
-      - type: OpenAPI
-        url: https://virtostart-demo-admin.govirto.com/docs/v3/VirtoCommerce.Inventory
-      - type: GitHubRepository
-        url: https://github.com/VirtoCommerce/vc-module-inventory
-  - aid: virto-commerce:orders
-    name: Virto Commerce Order Management API
-    description: Document-based flexible order management API supporting complex B2B order flows. Manages orders, payments, shipments, refunds, invoices, split shipments, draft orders, and approval workflows with full audit history.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-    humanURL: https://docs.virtocommerce.org/
-    baseURL: https://virtostart-demo-admin.govirto.com/api
-    tags:
-      - Orders
-      - Payments
-      - Shipments
-      - OMS
-      - B2B
-    properties:
-      - type: Documentation
-        url: https://docs.virtocommerce.org/
-      - type: OpenAPI
-        url: https://virtostart-demo-admin.govirto.com/docs/v3/VirtoCommerce.Orders
-      - type: GitHubRepository
-        url: https://github.com/VirtoCommerce/vc-module-order
-  - aid: virto-commerce:cart
-    name: Virto Commerce Shopping Cart API
-    description: Shopping cart and checkout API supporting complex B2B cart scenarios including multi-line items, coupons, promotions, tax calculations, split shipments, and cart sharing for collaborative purchasing.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-    humanURL: https://docs.virtocommerce.org/
-    baseURL: https://virtostart-demo-admin.govirto.com/api
-    tags:
-      - Cart
-      - Checkout
-      - Shopping
-    properties:
-      - type: Documentation
-        url: https://docs.virtocommerce.org/
-      - type: OpenAPI
-        url: https://virtostart-demo-admin.govirto.com/docs/v3/VirtoCommerce.Cart
-      - type: GitHubRepository
-        url: https://github.com/VirtoCommerce/vc-module-x-cart
-  - aid: virto-commerce:customer
-    name: Virto Commerce Customer API
-    description: Customer contact and organization management API. Supports B2B company hierarchies, contacts, roles, delegated purchasing permissions, login-on-behalf, and multi-account structures for enterprise B2B commerce.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-    humanURL: https://docs.virtocommerce.org/
-    baseURL: https://virtostart-demo-admin.govirto.com/api
-    tags:
-      - Customers
-      - Contacts
-      - Organizations
-      - CRM
-      - B2B
-    properties:
-      - type: Documentation
-        url: https://docs.virtocommerce.org/
-      - type: OpenAPI
-        url: https://virtostart-demo-admin.govirto.com/docs/v3/VirtoCommerce.Customer
-      - type: GitHubRepository
-        url: https://github.com/VirtoCommerce/vc-module-customer
-  - aid: virto-commerce:marketing
-    name: Virto Commerce Marketing API
-    description: Marketing and promotions management API for dynamic content, discount rules, coupon campaigns, banners, and promotion engines applied across catalog, cart, and checkout workflows.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-    humanURL: https://docs.virtocommerce.org/
-    baseURL: https://virtostart-demo-admin.govirto.com/api
-    tags:
-      - Marketing
-      - Promotions
-      - Coupons
-      - Discounts
-    properties:
-      - type: Documentation
-        url: https://docs.virtocommerce.org/
-      - type: OpenAPI
-        url: https://virtostart-demo-admin.govirto.com/docs/v3/VirtoCommerce.Marketing
-      - type: GitHubRepository
-        url: https://github.com/VirtoCommerce/vc-module-marketing
-  - aid: virto-commerce:quotes
-    name: Virto Commerce Quotes API
-    description: Quote request and approval workflow API enabling B2B buyers to initiate quote requests online, negotiate pricing, obtain approvals, and convert approved quotes directly into orders.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-    humanURL: https://docs.virtocommerce.org/
-    baseURL: https://virtostart-demo-admin.govirto.com/api
-    tags:
-      - Quotes
-      - RFQ
-      - Approvals
-      - B2B
-    properties:
-      - type: Documentation
-        url: https://docs.virtocommerce.org/
-      - type: OpenAPI
-        url: https://virtostart-demo-admin.govirto.com/docs/v3/VirtoCommerce.Quote
-      - type: GitHubRepository
-        url: https://github.com/VirtoCommerce/vc-module-quote
-  - aid: virto-commerce:store
-    name: Virto Commerce Store API
-    description: Multi-store management API for configuring individual store settings, currencies, languages, payment methods, shipping providers, and SEO per storefront in a multi-tenant commerce architecture.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-    humanURL: https://docs.virtocommerce.org/
-    baseURL: https://virtostart-demo-admin.govirto.com/api
-    tags:
-      - Store
-      - Multi-Store
-      - Configuration
-    properties:
-      - type: Documentation
-        url: https://docs.virtocommerce.org/
-      - type: OpenAPI
-        url: https://virtostart-demo-admin.govirto.com/docs/v3/VirtoCommerce.Store
-      - type: GitHubRepository
-        url: https://github.com/VirtoCommerce/vc-module-store
-  - aid: virto-commerce:platform
-    name: Virto Commerce Platform API
-    description: Core platform REST API providing access to security, users, roles, settings, modules, jobs, notifications, export/import, and system administration functions. All platform capabilities accessible via REST and documented via Swagger/OpenAPI.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-    humanURL: https://docs.virtocommerce.org/
-    baseURL: https://virtostart-demo-admin.govirto.com/api
-    tags:
-      - Platform
-      - Security
-      - Administration
-      - Settings
-    properties:
-      - type: Documentation
-        url: https://docs.virtocommerce.org/
-      - type: OpenAPI
-        url: https://virtostart-demo-admin.govirto.com/docs/v3/VirtoCommerce.Platform
-      - type: GitHubRepository
-        url: https://github.com/VirtoCommerce/vc-platform
-common:
-  - type: Website
-    url: https://virtocommerce.com/
+- aid: virto-commerce:catalog
+  name: Virto Commerce Catalog API
+  description: Product information management API for managing catalogs, categories,
+    products, variations, properties, and attributes. Supports master and virtual
+    catalogs, multi-language content, digital and physical products, and full-text
+    search.
+  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.virtocommerce.org/
+  baseURL: https://virtostart-demo-admin.govirto.com/api
+  tags:
+  - Catalog
+  - Products
+  - Categories
+  - PIM
+  properties:
   - type: Documentation
     url: https://docs.virtocommerce.org/
-  - type: GitHubOrg
-    url: https://github.com/VirtoCommerce
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/virto-commerce/
-  - type: Blog
-    url: https://virtocommerce.com/blog
-  - type: Pricing
-    url: https://virtocommerce.com/virto-commerce-cloud
-  - type: X
-    url: https://x.com/VirtoCommerce
-  - type: Plans
-    url: plans/virto-commerce-plans-pricing.yml
-  - type: RateLimits
-    url: rate-limits/virto-commerce-rate-limits.yml
-  - type: FinOps
-    url: finops/virto-commerce-finops.yml
-  - type: SwaggerUI
-    url: https://virtostart-demo-admin.govirto.com/docs/index.html
-  - type: Support
-    url: https://help.virtocommerce.com/support/home
-  - type: Community
-    url: https://www.virtocommerce.org/
-  - type: ChangeLog
-    url: https://www.virtocommerce.org/c/news-digest/14
+  - type: OpenAPI
+    url: https://virtostart-demo-admin.govirto.com/docs/v3/VirtoCommerce.Catalog
+  - type: GitHubRepository
+    url: https://github.com/VirtoCommerce/vc-module-catalog
+  - url: graphql/virto-commerce-graphql.md
+    type: GraphQL
+- aid: virto-commerce:pricing
+  name: Virto Commerce Pricing API
+  description: Robust pricing management API based on price lists and dynamic evaluation.
+    Supports tier pricing, bulk pricing, contract-based pricing, personalized pricing,
+    promotions, and price list assignments across stores and customer segments.
+  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.virtocommerce.org/
+  baseURL: https://virtostart-demo-admin.govirto.com/api
+  tags:
+  - Pricing
+  - Price Lists
+  - Tiers
+  - Promotions
+  properties:
+  - type: Documentation
+    url: https://docs.virtocommerce.org/
+  - type: OpenAPI
+    url: https://virtostart-demo-admin.govirto.com/docs/v3/VirtoCommerce.Pricing
+  - type: GitHubRepository
+    url: https://github.com/VirtoCommerce/vc-module-pricing
+- aid: virto-commerce:inventory
+  name: Virto Commerce Inventory API
+  description: Product inventory management API for tracking stock levels, fulfillment
+    centers, reservations, and availability across multiple warehouses and locations.
+  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.virtocommerce.org/
+  baseURL: https://virtostart-demo-admin.govirto.com/api
+  tags:
+  - Inventory
+  - Stock
+  - Warehouses
+  - Fulfillment
+  properties:
+  - type: Documentation
+    url: https://docs.virtocommerce.org/
+  - type: OpenAPI
+    url: https://virtostart-demo-admin.govirto.com/docs/v3/VirtoCommerce.Inventory
+  - type: GitHubRepository
+    url: https://github.com/VirtoCommerce/vc-module-inventory
+- aid: virto-commerce:orders
+  name: Virto Commerce Order Management API
+  description: Document-based flexible order management API supporting complex B2B
+    order flows. Manages orders, payments, shipments, refunds, invoices, split shipments,
+    draft orders, and approval workflows with full audit history.
+  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.virtocommerce.org/
+  baseURL: https://virtostart-demo-admin.govirto.com/api
+  tags:
+  - Orders
+  - Payments
+  - Shipments
+  - OMS
+  - B2B
+  properties:
+  - type: Documentation
+    url: https://docs.virtocommerce.org/
+  - type: OpenAPI
+    url: https://virtostart-demo-admin.govirto.com/docs/v3/VirtoCommerce.Orders
+  - type: GitHubRepository
+    url: https://github.com/VirtoCommerce/vc-module-order
+- aid: virto-commerce:cart
+  name: Virto Commerce Shopping Cart API
+  description: Shopping cart and checkout API supporting complex B2B cart scenarios
+    including multi-line items, coupons, promotions, tax calculations, split shipments,
+    and cart sharing for collaborative purchasing.
+  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.virtocommerce.org/
+  baseURL: https://virtostart-demo-admin.govirto.com/api
+  tags:
+  - Cart
+  - Checkout
+  - Shopping
+  properties:
+  - type: Documentation
+    url: https://docs.virtocommerce.org/
+  - type: OpenAPI
+    url: https://virtostart-demo-admin.govirto.com/docs/v3/VirtoCommerce.Cart
+  - type: GitHubRepository
+    url: https://github.com/VirtoCommerce/vc-module-x-cart
+- aid: virto-commerce:customer
+  name: Virto Commerce Customer API
+  description: Customer contact and organization management API. Supports B2B company
+    hierarchies, contacts, roles, delegated purchasing permissions, login-on-behalf,
+    and multi-account structures for enterprise B2B commerce.
+  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.virtocommerce.org/
+  baseURL: https://virtostart-demo-admin.govirto.com/api
+  tags:
+  - Customers
+  - Contacts
+  - Organizations
+  - CRM
+  - B2B
+  properties:
+  - type: Documentation
+    url: https://docs.virtocommerce.org/
+  - type: OpenAPI
+    url: https://virtostart-demo-admin.govirto.com/docs/v3/VirtoCommerce.Customer
+  - type: GitHubRepository
+    url: https://github.com/VirtoCommerce/vc-module-customer
+- aid: virto-commerce:marketing
+  name: Virto Commerce Marketing API
+  description: Marketing and promotions management API for dynamic content, discount
+    rules, coupon campaigns, banners, and promotion engines applied across catalog,
+    cart, and checkout workflows.
+  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.virtocommerce.org/
+  baseURL: https://virtostart-demo-admin.govirto.com/api
+  tags:
+  - Marketing
+  - Promotions
+  - Coupons
+  - Discounts
+  properties:
+  - type: Documentation
+    url: https://docs.virtocommerce.org/
+  - type: OpenAPI
+    url: https://virtostart-demo-admin.govirto.com/docs/v3/VirtoCommerce.Marketing
+  - type: GitHubRepository
+    url: https://github.com/VirtoCommerce/vc-module-marketing
+- aid: virto-commerce:quotes
+  name: Virto Commerce Quotes API
+  description: Quote request and approval workflow API enabling B2B buyers to initiate
+    quote requests online, negotiate pricing, obtain approvals, and convert approved
+    quotes directly into orders.
+  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.virtocommerce.org/
+  baseURL: https://virtostart-demo-admin.govirto.com/api
+  tags:
+  - Quotes
+  - RFQ
+  - Approvals
+  - B2B
+  properties:
+  - type: Documentation
+    url: https://docs.virtocommerce.org/
+  - type: OpenAPI
+    url: https://virtostart-demo-admin.govirto.com/docs/v3/VirtoCommerce.Quote
+  - type: GitHubRepository
+    url: https://github.com/VirtoCommerce/vc-module-quote
+- aid: virto-commerce:store
+  name: Virto Commerce Store API
+  description: Multi-store management API for configuring individual store settings,
+    currencies, languages, payment methods, shipping providers, and SEO per storefront
+    in a multi-tenant commerce architecture.
+  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.virtocommerce.org/
+  baseURL: https://virtostart-demo-admin.govirto.com/api
+  tags:
+  - Store
+  - Multi-Store
+  - Configuration
+  properties:
+  - type: Documentation
+    url: https://docs.virtocommerce.org/
+  - type: OpenAPI
+    url: https://virtostart-demo-admin.govirto.com/docs/v3/VirtoCommerce.Store
+  - type: GitHubRepository
+    url: https://github.com/VirtoCommerce/vc-module-store
+- aid: virto-commerce:platform
+  name: Virto Commerce Platform API
+  description: Core platform REST API providing access to security, users, roles,
+    settings, modules, jobs, notifications, export/import, and system administration
+    functions. All platform capabilities accessible via REST and documented via Swagger/OpenAPI.
+  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.virtocommerce.org/
+  baseURL: https://virtostart-demo-admin.govirto.com/api
+  tags:
+  - Platform
+  - Security
+  - Administration
+  - Settings
+  properties:
+  - type: Documentation
+    url: https://docs.virtocommerce.org/
+  - type: OpenAPI
+    url: https://virtostart-demo-admin.govirto.com/docs/v3/VirtoCommerce.Platform
+  - type: GitHubRepository
+    url: https://github.com/VirtoCommerce/vc-platform
+common:
+- type: Website
+  url: https://virtocommerce.com/
+- type: Documentation
+  url: https://docs.virtocommerce.org/
+- type: GitHubOrg
+  url: https://github.com/VirtoCommerce
+- type: LinkedIn
+  url: https://www.linkedin.com/company/virto-commerce/
+- type: Blog
+  url: https://virtocommerce.com/blog
+- type: Pricing
+  url: https://virtocommerce.com/virto-commerce-cloud
+- type: X
+  url: https://x.com/VirtoCommerce
+- type: Plans
+  url: plans/virto-commerce-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/virto-commerce-rate-limits.yml
+- type: FinOps
+  url: finops/virto-commerce-finops.yml
+- type: SwaggerUI
+  url: https://virtostart-demo-admin.govirto.com/docs/index.html
+- type: Support
+  url: https://help.virtocommerce.com/support/home
+- type: Community
+  url: https://www.virtocommerce.org/
+- type: ChangeLog
+  url: https://www.virtocommerce.org/c/news-digest/14
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
