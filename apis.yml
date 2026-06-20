@@ -6,7 +6,7 @@ description: Virto Commerce is an open-source, API-first B2B e-commerce platform
   subscriptions, and complex B2B purchasing workflows including quotes, contracts,
   and approval routing. The modular architecture offers 100+ independently deployable
   modules covering the full commerce stack for enterprise deployments.
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/virto-commerce/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -33,7 +33,7 @@ apis:
     products, variations, properties, and attributes. Supports master and virtual
     catalogs, multi-language content, digital and physical products, and full-text
     search.
-  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://docs.virtocommerce.org/
   baseURL: https://virtostart-demo-admin.govirto.com/api
   tags:
@@ -55,7 +55,7 @@ apis:
   description: Robust pricing management API based on price lists and dynamic evaluation.
     Supports tier pricing, bulk pricing, contract-based pricing, personalized pricing,
     promotions, and price list assignments across stores and customer segments.
-  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://docs.virtocommerce.org/
   baseURL: https://virtostart-demo-admin.govirto.com/api
   tags:
@@ -74,7 +74,7 @@ apis:
   name: Virto Commerce Inventory API
   description: Product inventory management API for tracking stock levels, fulfillment
     centers, reservations, and availability across multiple warehouses and locations.
-  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://docs.virtocommerce.org/
   baseURL: https://virtostart-demo-admin.govirto.com/api
   tags:
@@ -94,7 +94,7 @@ apis:
   description: Document-based flexible order management API supporting complex B2B
     order flows. Manages orders, payments, shipments, refunds, invoices, split shipments,
     draft orders, and approval workflows with full audit history.
-  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://docs.virtocommerce.org/
   baseURL: https://virtostart-demo-admin.govirto.com/api
   tags:
@@ -115,7 +115,7 @@ apis:
   description: Shopping cart and checkout API supporting complex B2B cart scenarios
     including multi-line items, coupons, promotions, tax calculations, split shipments,
     and cart sharing for collaborative purchasing.
-  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://docs.virtocommerce.org/
   baseURL: https://virtostart-demo-admin.govirto.com/api
   tags:
@@ -134,7 +134,7 @@ apis:
   description: Customer contact and organization management API. Supports B2B company
     hierarchies, contacts, roles, delegated purchasing permissions, login-on-behalf,
     and multi-account structures for enterprise B2B commerce.
-  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://docs.virtocommerce.org/
   baseURL: https://virtostart-demo-admin.govirto.com/api
   tags:
@@ -155,7 +155,7 @@ apis:
   description: Marketing and promotions management API for dynamic content, discount
     rules, coupon campaigns, banners, and promotion engines applied across catalog,
     cart, and checkout workflows.
-  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://docs.virtocommerce.org/
   baseURL: https://virtostart-demo-admin.govirto.com/api
   tags:
@@ -175,7 +175,7 @@ apis:
   description: Quote request and approval workflow API enabling B2B buyers to initiate
     quote requests online, negotiate pricing, obtain approvals, and convert approved
     quotes directly into orders.
-  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://docs.virtocommerce.org/
   baseURL: https://virtostart-demo-admin.govirto.com/api
   tags:
@@ -195,7 +195,7 @@ apis:
   description: Multi-store management API for configuring individual store settings,
     currencies, languages, payment methods, shipping providers, and SEO per storefront
     in a multi-tenant commerce architecture.
-  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://docs.virtocommerce.org/
   baseURL: https://virtostart-demo-admin.govirto.com/api
   tags:
@@ -214,7 +214,7 @@ apis:
   description: Core platform REST API providing access to security, users, roles,
     settings, modules, jobs, notifications, export/import, and system administration
     functions. All platform capabilities accessible via REST and documented via Swagger/OpenAPI.
-  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://docs.virtocommerce.org/
   baseURL: https://virtostart-demo-admin.govirto.com/api
   tags:
