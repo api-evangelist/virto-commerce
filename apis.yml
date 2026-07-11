@@ -230,6 +230,10 @@ apis:
   - type: GitHubRepository
     url: https://github.com/VirtoCommerce/vc-platform
 common:
+- type: Authentication
+  url: authentication/virto-commerce-authentication.yml
+- type: OAuthScopes
+  url: scopes/virto-commerce-scopes.yml
 - type: Website
   url: https://virtocommerce.com/
 - type: Documentation

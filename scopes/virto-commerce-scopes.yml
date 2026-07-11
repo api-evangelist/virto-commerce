@@ -1,0 +1,306 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/virto-commerce-cart-openapi.json, openapi/virto-commerce-catalog-openapi.json,
+  openapi/virto-commerce-customer-openapi.json, openapi/virto-commerce-inventory-openapi.json,
+  openapi/virto-commerce-marketing-openapi.json, openapi/virto-commerce-orders-openapi.json,
+  openapi/virto-commerce-platform-openapi.json, openapi/virto-commerce-pricing-openapi.json,
+  openapi/virto-commerce-quote-openapi.json, openapi/virto-commerce-store-openapi.json
+schemes:
+- name: oauth2
+  source: openapi/virto-commerce-cart-openapi.json
+  flows:
+  - flow: password
+    tokenUrl: /connect/token
+  - flow: clientCredentials
+    tokenUrl: /connect/token
+  description: OAuth2 Resource Owner Password Grant flow
+- name: oauth2
+  source: openapi/virto-commerce-catalog-openapi.json
+  flows:
+  - flow: password
+    tokenUrl: /connect/token
+  - flow: clientCredentials
+    tokenUrl: /connect/token
+  description: OAuth2 Resource Owner Password Grant flow
+- name: oauth2
+  source: openapi/virto-commerce-customer-openapi.json
+  flows:
+  - flow: password
+    tokenUrl: /connect/token
+  - flow: clientCredentials
+    tokenUrl: /connect/token
+  description: OAuth2 Resource Owner Password Grant flow
+- name: oauth2
+  source: openapi/virto-commerce-inventory-openapi.json
+  flows:
+  - flow: password
+    tokenUrl: /connect/token
+  - flow: clientCredentials
+    tokenUrl: /connect/token
+  description: OAuth2 Resource Owner Password Grant flow
+- name: oauth2
+  source: openapi/virto-commerce-marketing-openapi.json
+  flows:
+  - flow: password
+    tokenUrl: /connect/token
+  - flow: clientCredentials
+    tokenUrl: /connect/token
+  description: OAuth2 Resource Owner Password Grant flow
+- name: oauth2
+  source: openapi/virto-commerce-orders-openapi.json
+  flows:
+  - flow: password
+    tokenUrl: /connect/token
+  - flow: clientCredentials
+    tokenUrl: /connect/token
+  description: OAuth2 Resource Owner Password Grant flow
+- name: oauth2
+  source: openapi/virto-commerce-platform-openapi.json
+  flows:
+  - flow: password
+    tokenUrl: /connect/token
+  - flow: clientCredentials
+    tokenUrl: /connect/token
+  description: OAuth2 Resource Owner Password Grant flow
+- name: oauth2
+  source: openapi/virto-commerce-pricing-openapi.json
+  flows:
+  - flow: password
+    tokenUrl: /connect/token
+  - flow: clientCredentials
+    tokenUrl: /connect/token
+  description: OAuth2 Resource Owner Password Grant flow
+- name: oauth2
+  source: openapi/virto-commerce-quote-openapi.json
+  flows:
+  - flow: password
+    tokenUrl: /connect/token
+  - flow: clientCredentials
+    tokenUrl: /connect/token
+  description: OAuth2 Resource Owner Password Grant flow
+- name: oauth2
+  source: openapi/virto-commerce-store-openapi.json
+  flows:
+  - flow: password
+    tokenUrl: /connect/token
+  - flow: clientCredentials
+    tokenUrl: /connect/token
+  description: OAuth2 Resource Owner Password Grant flow
+scopes:
+- scope: background_jobs:manage
+  sources:
+  - openapi/virto-commerce-platform-openapi.json
+- scope: cache:reset
+  sources:
+  - openapi/virto-commerce-platform-openapi.json
+- scope: cart:create
+  sources:
+  - openapi/virto-commerce-cart-openapi.json
+- scope: cart:delete
+  sources:
+  - openapi/virto-commerce-cart-openapi.json
+- scope: cart:read
+  sources:
+  - openapi/virto-commerce-cart-openapi.json
+- scope: cart:update
+  sources:
+  - openapi/virto-commerce-cart-openapi.json
+- scope: catalog:access
+  sources:
+  - openapi/virto-commerce-catalog-openapi.json
+- scope: catalog:configurations:read
+  sources:
+  - openapi/virto-commerce-catalog-openapi.json
+- scope: catalog:configurations:update
+  sources:
+  - openapi/virto-commerce-catalog-openapi.json
+- scope: catalog:create
+  sources:
+  - openapi/virto-commerce-catalog-openapi.json
+- scope: catalog:delete
+  sources:
+  - openapi/virto-commerce-catalog-openapi.json
+- scope: catalog:dictionary-property:edit
+  sources:
+  - openapi/virto-commerce-catalog-openapi.json
+- scope: catalog:read
+  sources:
+  - openapi/virto-commerce-catalog-openapi.json
+- scope: catalog:update
+  sources:
+  - openapi/virto-commerce-catalog-openapi.json
+- scope: customer:create
+  sources:
+  - openapi/virto-commerce-customer-openapi.json
+- scope: customer:delete
+  sources:
+  - openapi/virto-commerce-customer-openapi.json
+- scope: customer:invite
+  sources:
+  - openapi/virto-commerce-customer-openapi.json
+- scope: customer:read
+  sources:
+  - openapi/virto-commerce-customer-openapi.json
+- scope: customer:update
+  sources:
+  - openapi/virto-commerce-customer-openapi.json
+- scope: inventory:fulfillment:delete
+  sources:
+  - openapi/virto-commerce-inventory-openapi.json
+- scope: inventory:fulfillment:edit
+  sources:
+  - openapi/virto-commerce-inventory-openapi.json
+- scope: inventory:fulfillment:read
+  sources:
+  - openapi/virto-commerce-inventory-openapi.json
+- scope: inventory:read
+  sources:
+  - openapi/virto-commerce-inventory-openapi.json
+- scope: inventory:update
+  sources:
+  - openapi/virto-commerce-inventory-openapi.json
+- scope: marketing:create
+  sources:
+  - openapi/virto-commerce-marketing-openapi.json
+- scope: marketing:delete
+  sources:
+  - openapi/virto-commerce-marketing-openapi.json
+- scope: marketing:read
+  sources:
+  - openapi/virto-commerce-marketing-openapi.json
+- scope: marketing:update
+  sources:
+  - openapi/virto-commerce-marketing-openapi.json
+- scope: measures:access
+  sources:
+  - openapi/virto-commerce-catalog-openapi.json
+- scope: measures:create
+  sources:
+  - openapi/virto-commerce-catalog-openapi.json
+- scope: measures:delete
+  sources:
+  - openapi/virto-commerce-catalog-openapi.json
+- scope: measures:read
+  sources:
+  - openapi/virto-commerce-catalog-openapi.json
+- scope: measures:update
+  sources:
+  - openapi/virto-commerce-catalog-openapi.json
+- scope: order:capture_payment
+  sources:
+  - openapi/virto-commerce-orders-openapi.json
+- scope: order:create
+  sources:
+  - openapi/virto-commerce-orders-openapi.json
+  - openapi/virto-commerce-quote-openapi.json
+- scope: order:dashboardstatistics:view
+  sources:
+  - openapi/virto-commerce-orders-openapi.json
+- scope: order:payment:execute_callback
+  sources:
+  - openapi/virto-commerce-orders-openapi.json
+- scope: order:refund
+  sources:
+  - openapi/virto-commerce-orders-openapi.json
+- scope: order:update_shipments
+  sources:
+  - openapi/virto-commerce-orders-openapi.json
+- scope: platform:developer-tools:access
+  sources:
+  - openapi/virto-commerce-platform-openapi.json
+- scope: platform:dynamic_properties:create
+  sources:
+  - openapi/virto-commerce-platform-openapi.json
+- scope: platform:dynamic_properties:delete
+  sources:
+  - openapi/virto-commerce-platform-openapi.json
+- scope: platform:dynamic_properties:read
+  sources:
+  - openapi/virto-commerce-platform-openapi.json
+- scope: platform:dynamic_properties:update
+  sources:
+  - openapi/virto-commerce-platform-openapi.json
+- scope: platform:module:manage
+  sources:
+  - openapi/virto-commerce-platform-openapi.json
+- scope: platform:module:read
+  sources:
+  - openapi/virto-commerce-platform-openapi.json
+- scope: platform:security:confirmEmail
+  sources:
+  - openapi/virto-commerce-platform-openapi.json
+- scope: platform:security:create
+  sources:
+  - openapi/virto-commerce-platform-openapi.json
+- scope: platform:security:delete
+  sources:
+  - openapi/virto-commerce-platform-openapi.json
+- scope: platform:security:generateToken
+  sources:
+  - openapi/virto-commerce-platform-openapi.json
+- scope: platform:security:oauth_applications:create
+  sources:
+  - openapi/virto-commerce-platform-openapi.json
+- scope: platform:security:oauth_applications:delete
+  sources:
+  - openapi/virto-commerce-platform-openapi.json
+- scope: platform:security:oauth_applications:read
+  sources:
+  - openapi/virto-commerce-platform-openapi.json
+- scope: platform:security:oauth_applications:update
+  sources:
+  - openapi/virto-commerce-platform-openapi.json
+- scope: platform:security:read
+  sources:
+  - openapi/virto-commerce-platform-openapi.json
+- scope: platform:security:revokeToken
+  sources:
+  - openapi/virto-commerce-platform-openapi.json
+- scope: platform:security:update
+  sources:
+  - openapi/virto-commerce-platform-openapi.json
+- scope: platform:security:verifyEmail
+  sources:
+  - openapi/virto-commerce-platform-openapi.json
+- scope: platform:security:verifyToken
+  sources:
+  - openapi/virto-commerce-platform-openapi.json
+- scope: platform:setting:read
+  sources:
+  - openapi/virto-commerce-platform-openapi.json
+- scope: platform:setting:update
+  sources:
+  - openapi/virto-commerce-platform-openapi.json
+- scope: pricing:create
+  sources:
+  - openapi/virto-commerce-pricing-openapi.json
+- scope: pricing:delete
+  sources:
+  - openapi/virto-commerce-pricing-openapi.json
+- scope: pricing:read
+  sources:
+  - openapi/virto-commerce-pricing-openapi.json
+- scope: pricing:update
+  sources:
+  - openapi/virto-commerce-pricing-openapi.json
+- scope: quote:create
+  sources:
+  - openapi/virto-commerce-quote-openapi.json
+- scope: quote:delete
+  sources:
+  - openapi/virto-commerce-quote-openapi.json
+- scope: quote:read
+  sources:
+  - openapi/virto-commerce-quote-openapi.json
+- scope: quote:update
+  sources:
+  - openapi/virto-commerce-quote-openapi.json
+- scope: store:create
+  sources:
+  - openapi/virto-commerce-store-openapi.json
+- scope: store:read
+  sources:
+  - openapi/virto-commerce-store-openapi.json
+- scope: store:update
+  sources:
+  - openapi/virto-commerce-store-openapi.json
