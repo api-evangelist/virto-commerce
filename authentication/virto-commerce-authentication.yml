@@ -1,0 +1,102 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/virto-commerce-cart-openapi.json, openapi/virto-commerce-catalog-openapi.json,
+  openapi/virto-commerce-customer-openapi.json, openapi/virto-commerce-inventory-openapi.json,
+  openapi/virto-commerce-marketing-openapi.json, openapi/virto-commerce-orders-openapi.json,
+  openapi/virto-commerce-platform-openapi.json, openapi/virto-commerce-pricing-openapi.json,
+  openapi/virto-commerce-quote-openapi.json, openapi/virto-commerce-store-openapi.json
+summary:
+  types:
+  - apiKey
+  - http
+  - oauth2
+  api_key_in:
+  - header
+  - query
+  oauth2_flows:
+  - clientCredentials
+  - password
+schemes:
+- name: oauth2
+  type: oauth2
+  flows:
+  - flow: password
+    tokenUrl: /connect/token
+    scopes: 0
+  - flow: clientCredentials
+    tokenUrl: /connect/token
+    scopes: 0
+  description: OAuth2 Resource Owner Password Grant flow
+  sources:
+  - openapi/virto-commerce-cart-openapi.json
+  - openapi/virto-commerce-catalog-openapi.json
+  - openapi/virto-commerce-customer-openapi.json
+  - openapi/virto-commerce-inventory-openapi.json
+  - openapi/virto-commerce-marketing-openapi.json
+  - openapi/virto-commerce-orders-openapi.json
+  - openapi/virto-commerce-platform-openapi.json
+  - openapi/virto-commerce-pricing-openapi.json
+  - openapi/virto-commerce-quote-openapi.json
+  - openapi/virto-commerce-store-openapi.json
+- name: api_key
+  type: apiKey
+  in: query
+  parameter: api_key
+  description: API Key authentication
+  sources:
+  - openapi/virto-commerce-cart-openapi.json
+  - openapi/virto-commerce-catalog-openapi.json
+  - openapi/virto-commerce-customer-openapi.json
+  - openapi/virto-commerce-inventory-openapi.json
+  - openapi/virto-commerce-marketing-openapi.json
+  - openapi/virto-commerce-orders-openapi.json
+  - openapi/virto-commerce-platform-openapi.json
+  - openapi/virto-commerce-pricing-openapi.json
+  - openapi/virto-commerce-quote-openapi.json
+  - openapi/virto-commerce-store-openapi.json
+- name: api_key_header
+  type: apiKey
+  in: header
+  parameter: api_key
+  description: API Key authentication (alternative via header)
+  sources:
+  - openapi/virto-commerce-cart-openapi.json
+  - openapi/virto-commerce-catalog-openapi.json
+  - openapi/virto-commerce-customer-openapi.json
+  - openapi/virto-commerce-inventory-openapi.json
+  - openapi/virto-commerce-marketing-openapi.json
+  - openapi/virto-commerce-orders-openapi.json
+  - openapi/virto-commerce-platform-openapi.json
+  - openapi/virto-commerce-pricing-openapi.json
+  - openapi/virto-commerce-quote-openapi.json
+  - openapi/virto-commerce-store-openapi.json
+- name: http-signature
+  type: http
+  scheme: signature
+  description: HTTP Signature authentication using Authorization header
+  sources:
+  - openapi/virto-commerce-cart-openapi.json
+  - openapi/virto-commerce-catalog-openapi.json
+  - openapi/virto-commerce-customer-openapi.json
+  - openapi/virto-commerce-inventory-openapi.json
+  - openapi/virto-commerce-marketing-openapi.json
+  - openapi/virto-commerce-orders-openapi.json
+  - openapi/virto-commerce-platform-openapi.json
+  - openapi/virto-commerce-pricing-openapi.json
+  - openapi/virto-commerce-quote-openapi.json
+  - openapi/virto-commerce-store-openapi.json
+- name: basic
+  type: http
+  scheme: basic
+  description: Basic authentication using username and password
+  sources:
+  - openapi/virto-commerce-cart-openapi.json
+  - openapi/virto-commerce-catalog-openapi.json
+  - openapi/virto-commerce-customer-openapi.json
+  - openapi/virto-commerce-inventory-openapi.json
+  - openapi/virto-commerce-marketing-openapi.json
+  - openapi/virto-commerce-orders-openapi.json
+  - openapi/virto-commerce-platform-openapi.json
+  - openapi/virto-commerce-pricing-openapi.json
+  - openapi/virto-commerce-quote-openapi.json
+  - openapi/virto-commerce-store-openapi.json
