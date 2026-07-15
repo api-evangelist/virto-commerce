@@ -230,6 +230,8 @@ apis:
   - type: GitHubRepository
     url: https://github.com/VirtoCommerce/vc-platform
 common:
+- type: AgenticAccess
+  url: agentic-access/virto-commerce-agentic-access.yml
 - type: DomainSecurity
   url: security/virto-commerce-domain-security.yml
 - type: Authentication
