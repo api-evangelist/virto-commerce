@@ -1,0 +1,4911 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "VirtoCommerce.Marketing",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/marketing/contentplaces/listentries/search": {
+      "post": {
+        "tags": [
+          "Marketing"
+        ],
+        "summary": "Search content places list entries by given criteria",
+        "operationId": "MarketingModuleDynamicContent_DynamicContentPlaceListEntriesSearch",
+        "requestBody": {
+          "description": "criteria",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentPlaceSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentPlaceSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentPlaceSearchCriteria"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentListEntrySearchResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentListEntrySearchResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentListEntrySearchResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "marketing:read"
+            ]
+          },
+          {
+            "api_key": [
+              "marketing:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "marketing:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "marketing:read"
+            ]
+          },
+          {
+            "basic": [
+              "marketing:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      }
+    },
+    "/api/marketing/contentplaces/search": {
+      "post": {
+        "tags": [
+          "Marketing"
+        ],
+        "summary": "Search dynamic content places by given criteria",
+        "operationId": "MarketingModuleDynamicContent_DynamicContentPlacesSearch",
+        "requestBody": {
+          "description": "criteria",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentPlaceSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentPlaceSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentPlaceSearchCriteria"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentPlaceSearchResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentPlaceSearchResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentPlaceSearchResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "marketing:read"
+            ]
+          },
+          {
+            "api_key": [
+              "marketing:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "marketing:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "marketing:read"
+            ]
+          },
+          {
+            "basic": [
+              "marketing:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      }
+    },
+    "/api/marketing/contentitems/listentries/search": {
+      "post": {
+        "tags": [
+          "Marketing"
+        ],
+        "summary": "Search content places list entries by given criteria",
+        "operationId": "MarketingModuleDynamicContent_DynamicContentItemsEntriesSearch",
+        "requestBody": {
+          "description": "criteria",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentItemSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentItemSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentItemSearchCriteria"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentListEntrySearchResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentListEntrySearchResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentListEntrySearchResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "marketing:read"
+            ]
+          },
+          {
+            "api_key": [
+              "marketing:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "marketing:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "marketing:read"
+            ]
+          },
+          {
+            "basic": [
+              "marketing:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      }
+    },
+    "/api/marketing/contentitems/search": {
+      "post": {
+        "tags": [
+          "Marketing"
+        ],
+        "summary": "Search dynamic content items by given criteria",
+        "operationId": "MarketingModuleDynamicContent_DynamicContentItemsSearch",
+        "requestBody": {
+          "description": "criteria",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentItemSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentItemSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentItemSearchCriteria"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentItemSearchResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentItemSearchResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentItemSearchResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "marketing:read"
+            ]
+          },
+          {
+            "api_key": [
+              "marketing:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "marketing:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "marketing:read"
+            ]
+          },
+          {
+            "basic": [
+              "marketing:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      }
+    },
+    "/api/marketing/contentpublications/search": {
+      "post": {
+        "tags": [
+          "Marketing"
+        ],
+        "summary": "Search dynamic content items by given criteria",
+        "operationId": "MarketingModuleDynamicContent_DynamicContentPublicationsSearch",
+        "requestBody": {
+          "description": "criteria",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentPublicationSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentPublicationSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentPublicationSearchCriteria"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentPublicationSearchResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentPublicationSearchResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentPublicationSearchResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "marketing:read"
+            ]
+          },
+          {
+            "api_key": [
+              "marketing:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "marketing:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "marketing:read"
+            ]
+          },
+          {
+            "basic": [
+              "marketing:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      }
+    },
+    "/api/marketing/contentitems/evaluate": {
+      "post": {
+        "tags": [
+          "Marketing"
+        ],
+        "summary": "Get dynamic content for given placeholders",
+        "operationId": "MarketingModuleDynamicContent_EvaluateDynamicContent",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentEvaluationContext"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentEvaluationContext"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentEvaluationContext"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DynamicContentItem"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DynamicContentItem"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DynamicContentItem"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "marketing:read"
+            ]
+          },
+          {
+            "api_key": [
+              "marketing:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "marketing:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "marketing:read"
+            ]
+          },
+          {
+            "basic": [
+              "marketing:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      }
+    },
+    "/api/marketing/contentitems/{id}": {
+      "get": {
+        "tags": [
+          "Marketing"
+        ],
+        "summary": "Find dynamic content item object by id",
+        "description": "Return a single dynamic content item object",
+        "operationId": "MarketingModuleDynamicContent_GetDynamicContentById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "content item id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentItem"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentItem"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentItem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "marketing:read"
+            ]
+          },
+          {
+            "api_key": [
+              "marketing:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "marketing:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "marketing:read"
+            ]
+          },
+          {
+            "basic": [
+              "marketing:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      }
+    },
+    "/api/marketing/contentitems": {
+      "post": {
+        "tags": [
+          "Marketing"
+        ],
+        "summary": "Add new dynamic content item object to marketing system",
+        "operationId": "MarketingModuleDynamicContent_CreateDynamicContent",
+        "requestBody": {
+          "description": "dynamic content object that needs to be added to the dynamic content system",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentItem"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentItem"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentItem"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentItem"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentItem"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentItem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "marketing:create"
+            ]
+          },
+          {
+            "api_key": [
+              "marketing:create"
+            ]
+          },
+          {
+            "api_key_header": [
+              "marketing:create"
+            ]
+          },
+          {
+            "http-signature": [
+              "marketing:create"
+            ]
+          },
+          {
+            "basic": [
+              "marketing:create"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      },
+      "put": {
+        "tags": [
+          "Marketing"
+        ],
+        "summary": "Update an existing dynamic content item object",
+        "operationId": "MarketingModuleDynamicContent_UpdateDynamicContent",
+        "requestBody": {
+          "description": "dynamic content object that needs to be updated in the dynamic content system",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentItem"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentItem"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentItem"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "marketing:update"
+            ]
+          },
+          {
+            "api_key": [
+              "marketing:update"
+            ]
+          },
+          {
+            "api_key_header": [
+              "marketing:update"
+            ]
+          },
+          {
+            "http-signature": [
+              "marketing:update"
+            ]
+          },
+          {
+            "basic": [
+              "marketing:update"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      },
+      "delete": {
+        "tags": [
+          "Marketing"
+        ],
+        "summary": "Delete a dynamic content item objects",
+        "operationId": "MarketingModuleDynamicContent_DeleteDynamicContents",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "content item object ids for delete in the dynamic content system",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "marketing:delete"
+            ]
+          },
+          {
+            "api_key": [
+              "marketing:delete"
+            ]
+          },
+          {
+            "api_key_header": [
+              "marketing:delete"
+            ]
+          },
+          {
+            "http-signature": [
+              "marketing:delete"
+            ]
+          },
+          {
+            "basic": [
+              "marketing:delete"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      }
+    },
+    "/api/marketing/contentplaces/{id}": {
+      "get": {
+        "tags": [
+          "Marketing"
+        ],
+        "summary": "Find dynamic content place object by id",
+        "description": "Return a single dynamic content place object",
+        "operationId": "MarketingModuleDynamicContent_GetDynamicContentPlaceById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "place id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentPlace"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentPlace"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentPlace"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "marketing:read"
+            ]
+          },
+          {
+            "api_key": [
+              "marketing:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "marketing:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "marketing:read"
+            ]
+          },
+          {
+            "basic": [
+              "marketing:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      }
+    },
+    "/api/marketing/contentplaces": {
+      "post": {
+        "tags": [
+          "Marketing"
+        ],
+        "summary": "Add new dynamic content place object to marketing system",
+        "operationId": "MarketingModuleDynamicContent_CreateDynamicContentPlace",
+        "requestBody": {
+          "description": "dynamic content place object that needs to be added to the dynamic content system",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentPlace"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentPlace"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentPlace"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentPlace"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentPlace"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentPlace"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "marketing:create"
+            ]
+          },
+          {
+            "api_key": [
+              "marketing:create"
+            ]
+          },
+          {
+            "api_key_header": [
+              "marketing:create"
+            ]
+          },
+          {
+            "http-signature": [
+              "marketing:create"
+            ]
+          },
+          {
+            "basic": [
+              "marketing:create"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      },
+      "put": {
+        "tags": [
+          "Marketing"
+        ],
+        "summary": "Update a existing dynamic content place object",
+        "operationId": "MarketingModuleDynamicContent_UpdateDynamicContentPlace",
+        "requestBody": {
+          "description": "dynamic content place object that needs to be updated in the dynamic content system",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentPlace"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentPlace"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentPlace"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "marketing:update"
+            ]
+          },
+          {
+            "api_key": [
+              "marketing:update"
+            ]
+          },
+          {
+            "api_key_header": [
+              "marketing:update"
+            ]
+          },
+          {
+            "http-signature": [
+              "marketing:update"
+            ]
+          },
+          {
+            "basic": [
+              "marketing:update"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      },
+      "delete": {
+        "tags": [
+          "Marketing"
+        ],
+        "summary": "Delete a dynamic content place objects",
+        "operationId": "MarketingModuleDynamicContent_DeleteDynamicContentPlaces",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "content place object ids for delete from dynamic content system",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "marketing:delete"
+            ]
+          },
+          {
+            "api_key": [
+              "marketing:delete"
+            ]
+          },
+          {
+            "api_key_header": [
+              "marketing:delete"
+            ]
+          },
+          {
+            "http-signature": [
+              "marketing:delete"
+            ]
+          },
+          {
+            "basic": [
+              "marketing:delete"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      }
+    },
+    "/api/marketing/contentpublications/new": {
+      "get": {
+        "tags": [
+          "Marketing"
+        ],
+        "summary": "Get new dynamic content publication object",
+        "operationId": "MarketingModuleDynamicContent_GetNewDynamicPublication",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentPublication"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentPublication"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentPublication"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "marketing:create"
+            ]
+          },
+          {
+            "api_key": [
+              "marketing:create"
+            ]
+          },
+          {
+            "api_key_header": [
+              "marketing:create"
+            ]
+          },
+          {
+            "http-signature": [
+              "marketing:create"
+            ]
+          },
+          {
+            "basic": [
+              "marketing:create"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      }
+    },
+    "/api/marketing/contentpublications/{id}": {
+      "get": {
+        "tags": [
+          "Marketing"
+        ],
+        "summary": "Find dynamic content publication object by id",
+        "description": "Return a single dynamic content publication object",
+        "operationId": "MarketingModuleDynamicContent_GetDynamicContentPublicationById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "publication id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentPublication"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentPublication"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentPublication"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "marketing:read"
+            ]
+          },
+          {
+            "api_key": [
+              "marketing:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "marketing:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "marketing:read"
+            ]
+          },
+          {
+            "basic": [
+              "marketing:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      }
+    },
+    "/api/marketing/contentpublications": {
+      "post": {
+        "tags": [
+          "Marketing"
+        ],
+        "summary": "Add new dynamic content publication object to marketing system",
+        "operationId": "MarketingModuleDynamicContent_CreateDynamicContentPublication",
+        "requestBody": {
+          "description": "dynamic content publication object that needs to be added to the dynamic content system",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentPublication"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentPublication"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentPublication"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentPublication"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentPublication"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentPublication"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "marketing:create"
+            ]
+          },
+          {
+            "api_key": [
+              "marketing:create"
+            ]
+          },
+          {
+            "api_key_header": [
+              "marketing:create"
+            ]
+          },
+          {
+            "http-signature": [
+              "marketing:create"
+            ]
+          },
+          {
+            "basic": [
+              "marketing:create"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      },
+      "put": {
+        "tags": [
+          "Marketing"
+        ],
+        "summary": "Update an existing dynamic content publication object",
+        "operationId": "MarketingModuleDynamicContent_UpdateDynamicContentPublication",
+        "requestBody": {
+          "description": "dynamic content publication object that needs to be updated in the dynamic content system",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentPublication"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentPublication"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentPublication"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "marketing:update"
+            ]
+          },
+          {
+            "api_key": [
+              "marketing:update"
+            ]
+          },
+          {
+            "api_key_header": [
+              "marketing:update"
+            ]
+          },
+          {
+            "http-signature": [
+              "marketing:update"
+            ]
+          },
+          {
+            "basic": [
+              "marketing:update"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      },
+      "delete": {
+        "tags": [
+          "Marketing"
+        ],
+        "summary": "Delete a dynamic content publication objects",
+        "operationId": "MarketingModuleDynamicContent_DeleteDynamicContentPublications",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "content publication object ids for delete from dynamic content system",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "marketing:delete"
+            ]
+          },
+          {
+            "api_key": [
+              "marketing:delete"
+            ]
+          },
+          {
+            "api_key_header": [
+              "marketing:delete"
+            ]
+          },
+          {
+            "http-signature": [
+              "marketing:delete"
+            ]
+          },
+          {
+            "basic": [
+              "marketing:delete"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      }
+    },
+    "/api/marketing/contentfolders/{id}": {
+      "get": {
+        "tags": [
+          "Marketing"
+        ],
+        "summary": "Find dynamic content folder by id",
+        "description": "Return a single dynamic content folder",
+        "operationId": "MarketingModuleDynamicContent_GetDynamicContentFolderById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "folder id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentFolder"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentFolder"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentFolder"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "marketing:read"
+            ]
+          },
+          {
+            "api_key": [
+              "marketing:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "marketing:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "marketing:read"
+            ]
+          },
+          {
+            "basic": [
+              "marketing:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      }
+    },
+    "/api/marketing/contentfolders": {
+      "post": {
+        "tags": [
+          "Marketing"
+        ],
+        "summary": "Add new dynamic content folder",
+        "operationId": "MarketingModuleDynamicContent_CreateDynamicContentFolder",
+        "requestBody": {
+          "description": "dynamic content folder that needs to be added",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentFolder"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentFolder"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentFolder"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentFolder"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentFolder"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DynamicContentFolder"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "marketing:create"
+            ]
+          },
+          {
+            "api_key": [
+              "marketing:create"
+            ]
+          },
+          {
+            "api_key_header": [
+              "marketing:create"
+            ]
+          },
+          {
+            "http-signature": [
+              "marketing:create"
+            ]
+          },
+          {
+            "basic": [
+              "marketing:create"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      },
+      "put": {
+        "tags": [
+          "Marketing"
+        ],
+        "summary": "Update an existing dynamic content folder",
+        "operationId": "MarketingModuleDynamicContent_UpdateDynamicContentFolder",
+        "requestBody": {
+          "description": "dynamic content folder that needs to be updated",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentFolder"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentFolder"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/DynamicContentFolder"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "marketing:update"
+            ]
+          },
+          {
+            "api_key": [
+              "marketing:update"
+            ]
+          },
+          {
+            "api_key_header": [
+              "marketing:update"
+            ]
+          },
+          {
+            "http-signature": [
+              "marketing:update"
+            ]
+          },
+          {
+            "basic": [
+              "marketing:update"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      },
+      "delete": {
+        "tags": [
+          "Marketing"
+        ],
+        "summary": "Delete a dynamic content folders",
+        "operationId": "MarketingModuleDynamicContent_DeleteDynamicContentFolders",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "folders ids for delete",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "marketing:delete"
+            ]
+          },
+          {
+            "api_key": [
+              "marketing:delete"
+            ]
+          },
+          {
+            "api_key_header": [
+              "marketing:delete"
+            ]
+          },
+          {
+            "http-signature": [
+              "marketing:delete"
+            ]
+          },
+          {
+            "basic": [
+              "marketing:delete"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      }
+    },
+    "/api/marketing/promotions/search": {
+      "post": {
+        "tags": [
+          "Marketing"
+        ],
+        "summary": "Search dynamic content places by given criteria",
+        "operationId": "MarketingModulePromotion_PromotionsSearch",
+        "requestBody": {
+          "description": "criteria",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PromotionSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PromotionSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PromotionSearchCriteria"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PromotionSearchResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PromotionSearchResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PromotionSearchResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      }
+    },
+    "/api/marketing/promotions/evaluate": {
+      "post": {
+        "tags": [
+          "Marketing"
+        ],
+        "summary": "Evaluate promotions",
+        "operationId": "MarketingModulePromotion_EvaluatePromotions",
+        "requestBody": {
+          "description": "Promotion evaluation context",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PromotionEvaluationContext"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PromotionEvaluationContext"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PromotionEvaluationContext"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PromotionReward"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PromotionReward"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PromotionReward"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      }
+    },
+    "/api/marketing/promotions/{id}": {
+      "get": {
+        "tags": [
+          "Marketing"
+        ],
+        "summary": "Find promotion object by id",
+        "description": "Return a single promotion (dynamic or custom) object",
+        "operationId": "MarketingModulePromotion_GetPromotionById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "promotion id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Promotion"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Promotion"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Promotion"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      }
+    },
+    "/api/marketing/promotions/new": {
+      "get": {
+        "tags": [
+          "Marketing"
+        ],
+        "summary": "Get new dynamic promotion object",
+        "description": "Return a new dynamic promotion object with populated dynamic expression tree",
+        "operationId": "MarketingModulePromotion_GetNewDynamicPromotion",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Promotion"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Promotion"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Promotion"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "marketing:create"
+            ]
+          },
+          {
+            "api_key": [
+              "marketing:create"
+            ]
+          },
+          {
+            "api_key_header": [
+              "marketing:create"
+            ]
+          },
+          {
+            "http-signature": [
+              "marketing:create"
+            ]
+          },
+          {
+            "basic": [
+              "marketing:create"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      }
+    },
+    "/api/marketing/promotions": {
+      "post": {
+        "tags": [
+          "Marketing"
+        ],
+        "summary": "Add new dynamic promotion object to marketing system",
+        "operationId": "MarketingModulePromotion_CreatePromotion",
+        "requestBody": {
+          "description": "dynamic promotion object that needs to be added to the marketing system",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Promotion"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Promotion"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Promotion"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Promotion"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Promotion"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Promotion"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "marketing:create"
+            ]
+          },
+          {
+            "api_key": [
+              "marketing:create"
+            ]
+          },
+          {
+            "api_key_header": [
+              "marketing:create"
+            ]
+          },
+          {
+            "http-signature": [
+              "marketing:create"
+            ]
+          },
+          {
+            "basic": [
+              "marketing:create"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      },
+      "put": {
+        "tags": [
+          "Marketing"
+        ],
+        "summary": "Update an existing dynamic promotion object in marketing system",
+        "operationId": "MarketingModulePromotion_UpdatePromotions",
+        "requestBody": {
+          "description": ">dynamic promotion object that needs to be updated in the marketing system",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Promotion"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Promotion"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Promotion"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "marketing:update"
+            ]
+          },
+          {
+            "api_key": [
+              "marketing:update"
+            ]
+          },
+          {
+            "api_key_header": [
+              "marketing:update"
+            ]
+          },
+          {
+            "http-signature": [
+              "marketing:update"
+            ]
+          },
+          {
+            "basic": [
+              "marketing:update"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      },
+      "delete": {
+        "tags": [
+          "Marketing"
+        ],
+        "summary": "Delete promotions objects",
+        "operationId": "MarketingModulePromotion_DeletePromotions",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "promotions object ids for delete in the marketing system",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "marketing:delete"
+            ]
+          },
+          {
+            "api_key": [
+              "marketing:delete"
+            ]
+          },
+          {
+            "api_key_header": [
+              "marketing:delete"
+            ]
+          },
+          {
+            "http-signature": [
+              "marketing:delete"
+            ]
+          },
+          {
+            "basic": [
+              "marketing:delete"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      }
+    },
+    "/api/marketing/promotions/coupons/search": {
+      "post": {
+        "tags": [
+          "Marketing"
+        ],
+        "operationId": "MarketingModulePromotion_SearchCoupons",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CouponSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CouponSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CouponSearchCriteria"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CouponSearchResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CouponSearchResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CouponSearchResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      }
+    },
+    "/api/marketing/promotions/coupons/{id}": {
+      "get": {
+        "tags": [
+          "Marketing"
+        ],
+        "operationId": "MarketingModulePromotion_GetCoupon",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Coupon"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Coupon"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Coupon"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "api_key": [ ]
+          },
+          {
+            "api_key_header": [ ]
+          },
+          {
+            "http-signature": [ ]
+          },
+          {
+            "basic": [ ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      }
+    },
+    "/api/marketing/promotions/coupons/add": {
+      "post": {
+        "tags": [
+          "Marketing"
+        ],
+        "operationId": "MarketingModulePromotion_AddCoupons",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Coupon"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Coupon"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Coupon"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "marketing:update"
+            ]
+          },
+          {
+            "api_key": [
+              "marketing:update"
+            ]
+          },
+          {
+            "api_key_header": [
+              "marketing:update"
+            ]
+          },
+          {
+            "http-signature": [
+              "marketing:update"
+            ]
+          },
+          {
+            "basic": [
+              "marketing:update"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      }
+    },
+    "/api/marketing/promotions/coupons/delete": {
+      "delete": {
+        "tags": [
+          "Marketing"
+        ],
+        "operationId": "MarketingModulePromotion_DeleteCoupons",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "marketing:delete"
+            ]
+          },
+          {
+            "api_key": [
+              "marketing:delete"
+            ]
+          },
+          {
+            "api_key_header": [
+              "marketing:delete"
+            ]
+          },
+          {
+            "http-signature": [
+              "marketing:delete"
+            ]
+          },
+          {
+            "basic": [
+              "marketing:delete"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      }
+    },
+    "/api/marketing/promotions/coupons/import": {
+      "post": {
+        "tags": [
+          "Marketing"
+        ],
+        "operationId": "MarketingModulePromotion_ImportCouponsAsync",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ImportRequest"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ImportRequest"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ImportRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImportNotification"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImportNotification"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImportNotification"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "marketing:update"
+            ]
+          },
+          {
+            "api_key": [
+              "marketing:update"
+            ]
+          },
+          {
+            "api_key_header": [
+              "marketing:update"
+            ]
+          },
+          {
+            "http-signature": [
+              "marketing:update"
+            ]
+          },
+          {
+            "basic": [
+              "marketing:update"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.Marketing"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Coupon": {
+        "type": "object",
+        "properties": {
+          "maxUsesNumber": {
+            "type": "integer",
+            "description": "Restriction of total coupon usages\n0 infinitive",
+            "format": "int32"
+          },
+          "maxUsesPerUser": {
+            "type": "integer",
+            "description": "Maximum number of uses per registered user\n0 infinitive",
+            "format": "int32"
+          },
+          "expirationDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "description": "coupon code",
+            "nullable": true
+          },
+          "promotionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "totalUsesCount": {
+            "type": "integer",
+            "description": "Total number of uses",
+            "format": "int64"
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "memberId": {
+            "type": "string",
+            "description": "Register coupon for a specific customer or organization",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CouponSearchCriteria": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "codes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "promotionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "promotionIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "responseGroup": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "objectIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "keyword": {
+            "type": "string",
+            "nullable": true
+          },
+          "searchPhrase": {
+            "type": "string",
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "sort": {
+            "type": "string",
+            "nullable": true
+          },
+          "sortInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SortInfo"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
+          "skip": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "take": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CouponSearchResult": {
+        "type": "object",
+        "properties": {
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Coupon"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Currency": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Currency code may be used ISO 4217.",
+            "nullable": true
+          },
+          "cultureName": {
+            "type": "string",
+            "nullable": true
+          },
+          "englishName": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "name of the currency",
+            "nullable": true
+          },
+          "isPrimary": {
+            "type": "boolean",
+            "description": "Flag specifies that this is the primary currency"
+          },
+          "exchangeRate": {
+            "type": "number",
+            "description": "The exchange rate against the primary exchange rate of the currency.",
+            "format": "double"
+          },
+          "symbol": {
+            "type": "string",
+            "description": "Currency symbol",
+            "nullable": true
+          },
+          "customFormatting": {
+            "type": "string",
+            "description": "Custom formatting pattern",
+            "nullable": true
+          },
+          "roundingType": {
+            "type": "string",
+            "nullable": true
+          },
+          "midpointRounding": {
+            "type": "string",
+            "nullable": true
+          },
+          "decimalDigits": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Currency"
+      },
+      "DynamicContentConditionTree": {
+        "type": "object",
+        "properties": {
+          "all": {
+            "type": "boolean"
+          },
+          "not": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "availableChildren": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IConditionTree"
+            },
+            "nullable": true
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IConditionTree"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicContentEvaluationContext": {
+        "type": "object",
+        "properties": {
+          "storeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "placeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "toDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "categoryId": {
+            "type": "string",
+            "nullable": true
+          },
+          "productId": {
+            "type": "string",
+            "nullable": true
+          },
+          "contextObject": {
+            "type": "object",
+            "nullable": true
+          },
+          "geoCity": {
+            "type": "string",
+            "nullable": true
+          },
+          "geoState": {
+            "type": "string",
+            "nullable": true
+          },
+          "geoCountry": {
+            "type": "string",
+            "nullable": true
+          },
+          "geoContinent": {
+            "type": "string",
+            "nullable": true
+          },
+          "geoZipCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "geoConnectionType": {
+            "type": "string",
+            "nullable": true
+          },
+          "geoTimeZone": {
+            "type": "string",
+            "nullable": true
+          },
+          "geoIpRoutingType": {
+            "type": "string",
+            "nullable": true
+          },
+          "geoIspSecondLevel": {
+            "type": "string",
+            "nullable": true
+          },
+          "geoIspTopLevel": {
+            "type": "string",
+            "nullable": true
+          },
+          "shopperAge": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "shopperGender": {
+            "type": "string",
+            "nullable": true
+          },
+          "language": {
+            "type": "string",
+            "nullable": true
+          },
+          "userGroups": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Any tags or groups belongs to user such as VIP, Wholesaler etc",
+            "nullable": true
+          },
+          "shopperSearchedPhraseInStore": {
+            "type": "string",
+            "nullable": true
+          },
+          "shopperSearchedPhraseOnInternet": {
+            "type": "string",
+            "nullable": true
+          },
+          "currentUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "referredUrl": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicContentFolder": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "all parent folders names concatenated (Root\\Child\\Child2)",
+            "nullable": true,
+            "readOnly": true
+          },
+          "outline": {
+            "type": "string",
+            "description": "all parent folders ids concatenated (1;21;344)",
+            "nullable": true,
+            "readOnly": true
+          },
+          "parentFolderId": {
+            "type": "string",
+            "nullable": true
+          },
+          "parentFolder": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DynamicContentFolder"
+              }
+            ],
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "imageUrl": {
+            "type": "string",
+            "description": "Gets or sets the image URL.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Gets or sets the name.",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicContentItem": {
+        "type": "object",
+        "properties": {
+          "contentType": {
+            "type": "string",
+            "nullable": true
+          },
+          "priority": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "outline": {
+            "type": "string",
+            "description": "all parent folders ids concatenated (1;21;344)",
+            "nullable": true,
+            "readOnly": true
+          },
+          "path": {
+            "type": "string",
+            "description": "all parent folders names concatenated (Root\\Child\\Child2)",
+            "nullable": true,
+            "readOnly": true
+          },
+          "folderId": {
+            "type": "string",
+            "nullable": true
+          },
+          "folder": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DynamicContentFolder"
+              }
+            ],
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "dynamicProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicObjectProperty"
+            },
+            "nullable": true
+          },
+          "imageUrl": {
+            "type": "string",
+            "description": "Gets or sets the image URL.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Gets or sets the name.",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicContentItemSearchCriteria": {
+        "type": "object",
+        "properties": {
+          "folderId": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseGroup": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "objectIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "keyword": {
+            "type": "string",
+            "nullable": true
+          },
+          "searchPhrase": {
+            "type": "string",
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "sort": {
+            "type": "string",
+            "nullable": true
+          },
+          "sortInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SortInfo"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
+          "skip": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "take": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicContentItemSearchResult": {
+        "type": "object",
+        "properties": {
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicContentItem"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicContentListEntry": {
+        "type": "object",
+        "properties": {
+          "objectType": {
+            "type": "string",
+            "description": "Gets or sets the type. E.g. \"folder\", \"content-item\", \"content-place\"",
+            "nullable": true
+          },
+          "imageUrl": {
+            "type": "string",
+            "description": "Gets or sets the image URL.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Gets or sets the name.",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicContentListEntrySearchResult": {
+        "type": "object",
+        "properties": {
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicContentListEntry"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicContentPlace": {
+        "type": "object",
+        "properties": {
+          "outline": {
+            "type": "string",
+            "description": "all parent folders ids concatenated (1;21;344)",
+            "nullable": true,
+            "readOnly": true
+          },
+          "path": {
+            "type": "string",
+            "description": "all parent folders names concatenated (Root\\Child\\Child2)",
+            "nullable": true,
+            "readOnly": true
+          },
+          "folderId": {
+            "type": "string",
+            "nullable": true
+          },
+          "folder": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DynamicContentFolder"
+              }
+            ],
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "description": "Gets or sets the type. E.g. \"folder\", \"content-item\", \"content-place\"",
+            "nullable": true
+          },
+          "imageUrl": {
+            "type": "string",
+            "description": "Gets or sets the image URL.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Gets or sets the name.",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicContentPlaceSearchCriteria": {
+        "type": "object",
+        "properties": {
+          "folderId": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseGroup": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "objectIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "keyword": {
+            "type": "string",
+            "nullable": true
+          },
+          "searchPhrase": {
+            "type": "string",
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "sort": {
+            "type": "string",
+            "nullable": true
+          },
+          "sortInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SortInfo"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
+          "skip": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "take": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicContentPlaceSearchResult": {
+        "type": "object",
+        "properties": {
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicContentPlace"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicContentPublication": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "priority": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "storeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "dynamicExpression": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DynamicContentConditionTree"
+              }
+            ],
+            "nullable": true
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "contentItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicContentItem"
+            },
+            "nullable": true
+          },
+          "contentPlaces": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicContentPlace"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicContentPublicationSearchCriteria": {
+        "type": "object",
+        "properties": {
+          "onlyActive": {
+            "type": "boolean"
+          },
+          "store": {
+            "type": "string",
+            "nullable": true
+          },
+          "placeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "toDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "folderId": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseGroup": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "objectIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "keyword": {
+            "type": "string",
+            "nullable": true
+          },
+          "searchPhrase": {
+            "type": "string",
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "sort": {
+            "type": "string",
+            "nullable": true
+          },
+          "sortInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SortInfo"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
+          "skip": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "take": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicContentPublicationSearchResult": {
+        "type": "object",
+        "properties": {
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicContentPublication"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicObjectProperty": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string",
+            "nullable": true
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicPropertyObjectValue"
+            },
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "isArray": {
+            "type": "boolean"
+          },
+          "isDictionary": {
+            "type": "boolean"
+          },
+          "isMultilingual": {
+            "type": "boolean"
+          },
+          "isRequired": {
+            "type": "boolean"
+          },
+          "displayOrder": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "valueType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DynamicPropertyValueType"
+              }
+            ]
+          },
+          "displayNames": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicPropertyName"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicPropertyName": {
+        "type": "object",
+        "properties": {
+          "locale": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicPropertyObjectValue": {
+        "type": "object",
+        "properties": {
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectId": {
+            "type": "string",
+            "nullable": true
+          },
+          "locale": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "type": "object",
+            "nullable": true
+          },
+          "valueId": {
+            "type": "string",
+            "nullable": true
+          },
+          "valueType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DynamicPropertyValueType"
+              }
+            ]
+          },
+          "propertyId": {
+            "type": "string",
+            "nullable": true
+          },
+          "propertyName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DynamicPropertyValueType": {
+        "enum": [
+          "Undefined",
+          "ShortText",
+          "LongText",
+          "Integer",
+          "Decimal",
+          "DateTime",
+          "Boolean",
+          "Html",
+          "Image"
+        ],
+        "type": "string"
+      },
+      "IConditionTree": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "availableChildren": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IConditionTree"
+            },
+            "description": "List of all available children for current tree node (is used in expression designer)",
+            "nullable": true,
+            "readOnly": true
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IConditionTree"
+            },
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ImportNotification": {
+        "type": "object",
+        "properties": {
+          "finished": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "processedCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "errorCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "serverId": {
+            "type": "string",
+            "nullable": true
+          },
+          "creator": {
+            "type": "string",
+            "nullable": true
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "isNew": {
+            "type": "boolean"
+          },
+          "notifyType": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "repeatCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ImportRequest": {
+        "type": "object",
+        "properties": {
+          "fileUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "delimiter": {
+            "type": "string",
+            "nullable": true
+          },
+          "promotionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "expirationDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LocalizedString": {
+        "type": "object",
+        "properties": {
+          "values": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "nullable": true
+            },
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProductPromoEntry": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "inStockQuantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "listPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "discount": {
+            "type": "number",
+            "format": "double"
+          },
+          "catalogId": {
+            "type": "string",
+            "nullable": true
+          },
+          "categoryId": {
+            "type": "string",
+            "nullable": true
+          },
+          "productId": {
+            "type": "string",
+            "nullable": true
+          },
+          "parentId": {
+            "type": "string",
+            "nullable": true
+          },
+          "owner": {
+            "type": "object",
+            "nullable": true
+          },
+          "outline": {
+            "type": "string",
+            "nullable": true
+          },
+          "variations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductPromoEntry"
+            },
+            "nullable": true
+          },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "nullable": true
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Promotion": {
+        "type": "object",
+        "properties": {
+          "isAllowCombiningWithSelf": {
+            "type": "boolean",
+            "description": "If this flag is set to true, it allows this promotion to combine with itself.\nSpecial for case when need to return same promotion rewards for multiple coupons"
+          },
+          "dynamicExpression": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PromotionConditionAndRewardTree"
+              }
+            ],
+            "nullable": true
+          },
+          "storeIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Promotion name",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Required for UI. TODO: remove later",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "priority": {
+            "type": "integer",
+            "description": "Represents a promotion priority, for combination policies when it is necessary to select a promotion with a higher priority",
+            "format": "int32"
+          },
+          "isExclusive": {
+            "type": "boolean",
+            "description": "If a promotion with this setting is applied, no other promotions can be applied to the order."
+          },
+          "hasCoupons": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "maxUsageCount": {
+            "type": "integer",
+            "description": "Maximum redemptions for this promotion",
+            "format": "int32"
+          },
+          "maxUsageOnOrder": {
+            "type": "integer",
+            "description": "Maximum redemptions on a single order",
+            "format": "int32"
+          },
+          "maxPersonalUsageCount": {
+            "type": "integer",
+            "description": "Maximum redemptions by a single customer",
+            "format": "int32"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "outerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "isPublic": {
+            "type": "boolean"
+          },
+          "localizedLabel": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LocalizedString"
+              }
+            ],
+            "nullable": true
+          },
+          "localizedDisplayName": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LocalizedString"
+              }
+            ],
+            "nullable": true
+          },
+          "localizedDescription": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LocalizedString"
+              }
+            ],
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PromotionConditionAndRewardTree": {
+        "type": "object",
+        "properties": {
+          "all": {
+            "type": "boolean"
+          },
+          "not": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "availableChildren": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IConditionTree"
+            },
+            "nullable": true
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IConditionTree"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PromotionEvaluationContext": {
+        "type": "object",
+        "properties": {
+          "refusedGiftIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "storeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "currencyObject": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Currency"
+              }
+            ],
+            "description": "Currency",
+            "nullable": true
+          },
+          "customerId": {
+            "type": "string",
+            "description": "Contains User Id.\nThis property will be deleted after update to .NET8. Use UserId property instead.",
+            "nullable": true
+          },
+          "userId": {
+            "type": "string",
+            "nullable": true
+          },
+          "contactId": {
+            "type": "string",
+            "nullable": true
+          },
+          "organizaitonId": {
+            "type": "string",
+            "nullable": true,
+            "deprecated": true
+          },
+          "organizationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "isRegisteredUser": {
+            "type": "boolean"
+          },
+          "isFirstTimeBuyer": {
+            "type": "boolean",
+            "description": "Has user made any orders"
+          },
+          "isEveryone": {
+            "type": "boolean"
+          },
+          "cartTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "shipmentMethodCode": {
+            "type": "string",
+            "description": "Current shipment method",
+            "nullable": true
+          },
+          "shipmentMethodOption": {
+            "type": "string",
+            "nullable": true
+          },
+          "shipmentMethodPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "availableShipmentMethodCodes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "paymentMethodCode": {
+            "type": "string",
+            "description": "Current payment method",
+            "nullable": true
+          },
+          "paymentMethodPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "availablePaymentMethodCodes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "coupon": {
+            "type": "string",
+            "description": "Entered coupon",
+            "nullable": true
+          },
+          "coupons": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "cartPromoEntries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductPromoEntry"
+            },
+            "description": "List of product promo in cart",
+            "nullable": true
+          },
+          "promoEntries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductPromoEntry"
+            },
+            "description": "List of products for promo evaluation",
+            "nullable": true
+          },
+          "promoEntry": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ProductPromoEntry"
+              }
+            ],
+            "description": "Single catalog product promo entry",
+            "nullable": true
+          },
+          "contextObject": {
+            "type": "object",
+            "nullable": true
+          },
+          "geoCity": {
+            "type": "string",
+            "nullable": true
+          },
+          "geoState": {
+            "type": "string",
+            "nullable": true
+          },
+          "geoCountry": {
+            "type": "string",
+            "nullable": true
+          },
+          "geoContinent": {
+            "type": "string",
+            "nullable": true
+          },
+          "geoZipCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "geoConnectionType": {
+            "type": "string",
+            "nullable": true
+          },
+          "geoTimeZone": {
+            "type": "string",
+            "nullable": true
+          },
+          "geoIpRoutingType": {
+            "type": "string",
+            "nullable": true
+          },
+          "geoIspSecondLevel": {
+            "type": "string",
+            "nullable": true
+          },
+          "geoIspTopLevel": {
+            "type": "string",
+            "nullable": true
+          },
+          "shopperAge": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "shopperGender": {
+            "type": "string",
+            "nullable": true
+          },
+          "language": {
+            "type": "string",
+            "nullable": true
+          },
+          "userGroups": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Any tags or groups belongs to user such as VIP, Wholesaler etc",
+            "nullable": true
+          },
+          "shopperSearchedPhraseInStore": {
+            "type": "string",
+            "nullable": true
+          },
+          "shopperSearchedPhraseOnInternet": {
+            "type": "string",
+            "nullable": true
+          },
+          "currentUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "referredUrl": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PromotionReward": {
+        "type": "object",
+        "properties": {
+          "isValid": {
+            "type": "boolean",
+            "description": "Gets or sets the flag of promotion reward is valid. Also used as a flag for applicability (applied or potential)"
+          },
+          "description": {
+            "type": "string",
+            "description": "Gets or sets the value of promotion reward description",
+            "nullable": true
+          },
+          "couponAmount": {
+            "type": "number",
+            "description": "Gets or sets the value of coupon amount",
+            "format": "double"
+          },
+          "coupon": {
+            "type": "string",
+            "description": "Gets or sets the value of coupon code",
+            "nullable": true
+          },
+          "couponMinOrderAmount": {
+            "type": "number",
+            "description": "Gets or sets the value of minimum order total cost for applying coupon",
+            "format": "double",
+            "nullable": true
+          },
+          "promotionId": {
+            "type": "string",
+            "description": "Gets or sets the value of promotion id",
+            "nullable": true
+          },
+          "promotion": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Promotion"
+              }
+            ],
+            "description": "Gets or sets the promotion",
+            "nullable": true
+          },
+          "rewardType": {
+            "type": "string",
+            "description": "Gets or sets the value of promotion reward type",
+            "nullable": true
+          },
+          "amountType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RewardAmountType"
+              }
+            ],
+            "description": "Gets or sets the value of promotion reward amount type"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Gets or sets the value of promotion reward amount",
+            "format": "double"
+          },
+          "quantity": {
+            "type": "integer",
+            "description": "Gets or sets the value of line item quantity for applying promotion reward",
+            "format": "int32"
+          },
+          "lineItemId": {
+            "type": "string",
+            "description": "Gets or sets the value of line item id",
+            "nullable": true
+          },
+          "productId": {
+            "type": "string",
+            "description": "Gets or sets the value of product id",
+            "nullable": true
+          },
+          "conditionalProductId": {
+            "type": "string",
+            "description": "Conditional product\nFor N items of entry ProductId  in every Y items of entry ConditionalProductId get %X off",
+            "nullable": true
+          },
+          "categoryId": {
+            "type": "string",
+            "description": "Gets or sets the value of category id",
+            "nullable": true
+          },
+          "measureUnit": {
+            "type": "string",
+            "description": "Gets or sets the value of measurement unit",
+            "nullable": true
+          },
+          "imageUrl": {
+            "type": "string",
+            "description": "Gets or sets the value of promotion reward logo absolute URL",
+            "nullable": true
+          },
+          "shippingMethod": {
+            "type": "string",
+            "description": "Gets or sets the value of reward shipping method code",
+            "nullable": true
+          },
+          "paymentMethod": {
+            "type": "string",
+            "description": "Gets or sets the value of reward payment method code",
+            "nullable": true
+          },
+          "maxLimit": {
+            "type": "number",
+            "description": "Gets or sets the max limit for relative rewards",
+            "format": "double"
+          },
+          "forNthQuantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "inEveryNthQuantity": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "need to backward compatibility with v.2"
+      },
+      "PromotionSearchCriteria": {
+        "type": "object",
+        "properties": {
+          "onlyActive": {
+            "type": "boolean"
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PromotionStatus"
+              }
+            ],
+            "nullable": true
+          },
+          "store": {
+            "type": "string",
+            "nullable": true
+          },
+          "storeIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "isPublic": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "couponCount": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "responseGroup": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "objectIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "keyword": {
+            "type": "string",
+            "nullable": true
+          },
+          "searchPhrase": {
+            "type": "string",
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "sort": {
+            "type": "string",
+            "nullable": true
+          },
+          "sortInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SortInfo"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
+          "skip": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "take": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PromotionSearchResult": {
+        "type": "object",
+        "properties": {
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Promotion"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PromotionStatus": {
+        "enum": [
+          "All",
+          "Active",
+          "Upcoming",
+          "Archived",
+          "Deactivated"
+        ],
+        "type": "string"
+      },
+      "RewardAmountType": {
+        "enum": [
+          "Absolute",
+          "Relative"
+        ],
+        "type": "string"
+      },
+      "SortDirection": {
+        "enum": [
+          "Ascending",
+          "Descending"
+        ],
+        "type": "string"
+      },
+      "SortInfo": {
+        "type": "object",
+        "properties": {
+          "sortColumn": {
+            "type": "string",
+            "nullable": true
+          },
+          "sortDirection": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SortDirection"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "oauth2": {
+        "type": "oauth2",
+        "description": "OAuth2 Resource Owner Password Grant flow",
+        "flows": {
+          "password": {
+            "tokenUrl": "/connect/token",
+            "scopes": { }
+          },
+          "clientCredentials": {
+            "tokenUrl": "/connect/token",
+            "scopes": { }
+          }
+        }
+      },
+      "api_key": {
+        "type": "apiKey",
+        "description": "API Key authentication",
+        "name": "api_key",
+        "in": "query"
+      },
+      "api_key_header": {
+        "type": "apiKey",
+        "description": "API Key authentication (alternative via header)",
+        "name": "api_key",
+        "in": "header"
+      },
+      "http-signature": {
+        "type": "http",
+        "description": "HTTP Signature authentication using Authorization header",
+        "scheme": "signature"
+      },
+      "basic": {
+        "type": "http",
+        "description": "Basic authentication using username and password",
+        "scheme": "basic"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Marketing",
+      "description": "Marketing system with dynamic contents and promotions management"
+    }
+  ]
+}

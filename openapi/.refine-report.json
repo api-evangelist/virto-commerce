@@ -1,0 +1,32 @@
+{
+  "provider": "virto-commerce",
+  "sources": [
+    "virto-commerce-catalog-api-openapi.yml",
+    "virto-commerce-companies-and-contacts-api-openapi.yml",
+    "virto-commerce-inventory-api-openapi.yml",
+    "virto-commerce-marketing-api-openapi.yml",
+    "virto-commerce-order-management-api-openapi.yml",
+    "virto-commerce-pricing-api-openapi.yml",
+    "virto-commerce-quotes-api-openapi.yml",
+    "virto-commerce-shopping-cart-api-openapi.yml",
+    "virto-commerce-store-api-openapi.yml",
+    "virto-commerce-virtocommerce-platform-api-openapi.yml"
+  ],
+  "outputs": [
+    "virto-commerce-catalog-api-openapi.yml",
+    "virto-commerce-companies-and-contacts-api-openapi.yml",
+    "virto-commerce-inventory-api-openapi.yml",
+    "virto-commerce-marketing-api-openapi.yml",
+    "virto-commerce-order-management-api-openapi.yml",
+    "virto-commerce-pricing-api-openapi.yml",
+    "virto-commerce-quotes-api-openapi.yml",
+    "virto-commerce-shopping-cart-api-openapi.yml",
+    "virto-commerce-store-api-openapi.yml",
+    "virto-commerce-virtocommerce-platform-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
