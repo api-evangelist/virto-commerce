@@ -1,0 +1,186 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  mcp/virto-commerce-mcp.yml + https://github.com/VirtoCommerce/vc-onX-adapter/blob/main/docs/API.md
+  (Virto's own tool → REST endpoint mapping table) bound against operationIds grepped from
+  openapi/*.yml, plus the live GraphQL SDL in graphql/virto-commerce-schema.graphql
+description: >-
+  Binds every published Virto Commerce MCP tool to the REST operation(s) it actually calls.
+  Confidence is unusually high here because Virto publishes the mapping itself in
+  docs/API.md — each row below was verified by locating the documented path+method in the
+  captured OpenAPI and reading off its operationId. The tool therefore inherits that
+  operation's parameters and requestBody as its real input schema. Note that several tools
+  are COMPOSITE: they chain three or four REST calls (fetch → mutate → re-fetch), which is
+  why the rest[] lists are ordered.
+surfaces:
+  openapi:
+    files: openapi/*.yml (13 documents, 434+ operations)
+    host: https://virtostart-demo-admin.govirto.com
+    gated: false
+    note: >-
+      Specs are published anonymously via the platform's Swagger UI; the operations
+      themselves require auth (probes of /api/webhooks/events and /api/platform/modules
+      returned 401).
+  graphql:
+    endpoint: https://virtostart-demo-admin.govirto.com/graphql
+    gated: false
+    note: >-
+      Introspection succeeded anonymously (HTTP 200) when the platform's
+      GraphQL-Require-Preflight header is sent. 89 Query fields, 144 Mutations fields.
+      The xAPI is a storefront-facing projection and is NOT the surface the MCP adapter
+      calls — the adapter uses the admin REST API exclusively.
+  mcp:
+    url: null
+    transport: stdio
+    gated: true
+    note: >-
+      Local stdio only; no anonymous tools/list is possible, so tool input schemas are
+      inherited from the bound REST operations rather than read from the server.
+crosswalk:
+- tool: get-orders
+  category: orders
+  rest:
+  - OrderModule_SearchCustomerOrder
+  - CustomerModule_SearchMember
+  binding: composite
+  confidence: high
+  note: >-
+    POST /api/order/customerOrders/search then POST /api/members/search to batch-enrich the
+    customers on the result set.
+- tool: create-sales-order
+  category: orders
+  rest:
+  - CustomerModule_GetMemberById
+  - CatalogModuleIndexedSearch_SearchProducts
+  - PricingModule_EvaluatePrices
+  - OrderModule_CreateOrder
+  binding: composite
+  confidence: high
+  note: >-
+    Four-call chain: fetch the customer for enrichment, resolve SKUs to product ids via
+    searchPhrase "code:sku1,sku2,...", optionally evaluate prices with a
+    PriceEvaluationContext, then POST the order.
+- tool: update-order
+  category: orders
+  rest:
+  - OrderModule_GetById
+  - OrderModule_UpdateOrder
+  - OrderModule_GetById
+  binding: composite
+  confidence: high
+  note: Read-modify-write-reread. Also the documented substitute for a hold-order tool.
+- tool: cancel-order
+  category: orders
+  rest:
+  - OrderModule_GetById
+  - OrderModule_UpdateOrder
+  - OrderModule_GetById
+  binding: composite
+  confidence: high
+  note: >-
+    Cancellation is a field mutation on the order document, not a dedicated endpoint —
+    consistent with Virto's document-based order model.
+- tool: fulfill-order
+  category: fulfillment
+  rest:
+  - OrderModule_GetById
+  - OrderModule_UpdateOrder
+  - OrderModule_GetById
+  binding: composite
+  confidence: high
+  note: Adds a shipment to the order document, saves, re-fetches to identify the new shipment.
+- tool: get-fulfillments
+  category: fulfillment
+  rest:
+  - OrderModuleShipments_SearchOrderShipments
+  binding: direct
+  confidence: high
+  note: Called once per orderId, then filtered client-side by storeId.
+- tool: get-customers
+  category: customers
+  rest:
+  - CustomerModule_SearchMember
+  binding: direct
+  confidence: high
+  note: Email filtering is applied client-side after the search returns.
+- tool: get-products
+  category: products
+  rest:
+  - CatalogModuleIndexedSearch_SearchProducts
+  binding: direct
+  confidence: high
+- tool: get-product-variants
+  category: products
+  rest:
+  - CatalogModuleIndexedSearch_SearchProducts
+  binding: direct
+  confidence: high
+  note: Same operation as get-products; variations are extracted from the returned products.
+- tool: get-inventory
+  category: inventory
+  rest:
+  - CatalogModuleIndexedSearch_SearchProducts
+  - InventoryModule_SearchInventories
+  binding: composite
+  confidence: high
+  note: SKUs are resolved to product ids first, then availability is computed client-side.
+- tool: create-return
+  category: returns
+  rest:
+  - OrderModule_GetById
+  - Return_UpdateReturn
+  - Return_GetReturnById
+  binding: composite
+  confidence: high
+  note: >-
+    PUT /api/return is the create path (upsert). The Returns OpenAPI was harvested in this
+    pass specifically to close this row.
+- tool: get-returns
+  category: returns
+  rest:
+  - Return_SearchReturns
+  - OrderModule_GetById
+  binding: composite
+  confidence: high
+  note: Called per orderId, post-filtered client-side, then orders are fetched for enrichment.
+connection_only:
+- call: GET /health
+  operationId: null
+  note: >-
+    Used by connect() and healthCheck(). Not present in any captured module OpenAPI — the
+    platform health endpoint is not described in the per-module Swagger documents.
+- call: GET /api/stores/{storeId}
+  operationId: StoreModule_GetStoreById
+  note: Loads store configuration during connect() when `workspace` is set.
+- call: GET /api/platform/common/countries
+  operationId: null
+  note: >-
+    Builds the country lookup map during connect(). Not present in the captured
+    VirtoCommerce.Platform document; it belongs to the VirtoCommerce.Core module document,
+    which is not part of this repo's OpenAPI set.
+mcp_only: []
+mcp_only_note: >-
+  Every MCP tool resolves to public REST operations; the adapter adds no capability that the
+  REST API lacks. Its value is composition (chained read-modify-write flows) and vocabulary
+  translation (MCP order statuses on_hold/processing/pending → Virto OnHold/Processing/New).
+graphql_only:
+- fields_estimate: 233
+  note: >-
+    The xAPI exposes 89 queries and 144 mutations covering storefront concerns the MCP tools
+    do not touch at all — carts and wishlists, quotes, configured line items, loyalty, push
+    messages, purchase requests, customer reviews, CMS pages and menus. None of these are
+    reachable through the MCP surface.
+rest_only:
+  note: >-
+    The captured OpenAPI set describes 434+ admin operations across catalog, pricing,
+    inventory, orders, customers, marketing, quotes, stores, returns, webhooks, event bus and
+    the platform itself. The 12 MCP tools bind roughly 10 distinct operations, so the
+    overwhelming majority of the REST surface — including all of marketing, quotes, pricing
+    administration, webhook management and platform administration — has no MCP tool.
+coverage:
+  mcp_tools: 12
+  tools_bound_to_rest: 12
+  distinct_rest_operations_bound: 10
+  connection_calls_unmapped: 2
+  graphql_fields_total: 233
+  graphql_fields_bound_to_tools: 0

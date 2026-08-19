@@ -1,28 +1,54 @@
+generated: '2026-08-13'
+method: searched
+source: https://virtocommerce.com/pricing (read 2026-08-13); https://virtocommerce.com/virto-commerce-cloud
+plan_count: 3
+public_price_list: false
 name: Virto Commerce Plans and Pricing
-description: Virto Commerce follows a sales-led, custom-quote pricing model with no public tiers. All plans are enterprise contracts negotiated directly with the vendor. Pricing is based on deployment scale, number of modules, GMV (Gross Merchandise Value), support level, and hosting choice (cloud vs. self-hosted).
+description: Virto Commerce follows a sales-led, custom-quote pricing model with no public tiers. All
+  plans are enterprise contracts negotiated directly with the vendor. Pricing is based on deployment scale,
+  number of modules, GMV (Gross Merchandise Value), support level, and hosting choice (cloud vs. self-hosted).
 url: https://virtocommerce.com/virto-commerce-cloud
 plans:
-  - name: Open Source Community
-    description: Free self-hosted edition available on GitHub under open-source license. Includes core platform and community-supported modules. No SLA, no official support.
-    type: free
-    pricing: $0
-    notes: Full source code available at https://github.com/VirtoCommerce/vc-platform
-  - name: Virto Commerce Enterprise (Cloud)
-    description: Fully managed Kubernetes-native cloud deployment on Azure. Includes SLA-backed operations, DevOps tooling, monitoring, SOC 2 compliance, DDoS mitigation, and expert support. Pricing negotiated per contract based on GMV and scale.
-    type: enterprise
-    pricing: Custom quote (contact sales)
-    sla: 99.9% uptime
-    notes: Portable to AWS/GCP on request. Contact sales@virtocommerce.com or +1-800-980-5288
-  - name: Virto Commerce Enterprise (Self-hosted)
-    description: On-premises or private cloud deployment with enterprise license. Includes access to all stable modules, support, and updates. Pricing based on scope and support tier.
-    type: enterprise
-    pricing: Custom quote (contact sales)
-    notes: Full data ownership with self-hosted deployment option
+- name: Open Source Community
+  description: Free self-hosted edition available on GitHub under open-source license. Includes core platform
+    and community-supported modules. No SLA, no official support.
+  type: free
+  pricing: $0
+  notes: Full source code available at https://github.com/VirtoCommerce/vc-platform
+- name: Virto Commerce Enterprise (Cloud)
+  description: Fully managed Kubernetes-native cloud deployment on Azure. Includes SLA-backed operations,
+    DevOps tooling, monitoring, SOC 2 compliance, DDoS mitigation, and expert support. Pricing negotiated
+    per contract based on GMV and scale.
+  type: enterprise
+  pricing: Custom quote (contact sales)
+  sla: 99.9% uptime
+  notes: Portable to AWS/GCP on request. Contact sales@virtocommerce.com or +1-800-980-5288
+- name: Virto Commerce Enterprise (Self-hosted)
+  description: On-premises or private cloud deployment with enterprise license. Includes access to all
+    stable modules, support, and updates. Pricing based on scope and support tier.
+  type: enterprise
+  pricing: Custom quote (contact sales)
+  notes: Full data ownership with self-hosted deployment option
 billing:
-  - model: GMV-based (Gross Merchandise Value)
-  - model: Annual subscription license
-  - model: Custom scope-based pricing
+- model: GMV-based (Gross Merchandise Value)
+- model: Annual subscription license
+- model: Custom scope-based pricing
 contact:
   email: sales@virtocommerce.com
-  phone: "+1-800-980-5288"
+  phone: +1-800-980-5288
   url: https://virtocommerce.com/request-demo
+pricing_anchors:
+- model: GMV-based
+  quote: Virto Commerce subscription will start at 0.5% of GMV with 10K SKUs
+  source: https://virtocommerce.com/pricing
+- model: per-order
+  quote: Virto Commerce subscription will start at 2$ per order with 10K SKUs
+  source: https://virtocommerce.com/pricing
+additional_costs:
+- Third-party software subscriptions (vendor-dependent)
+- Implementation services (cost varies by scope)
+pricing_page_note: 'Virto publishes starting anchors but no tier table: "Considering every business has
+  unique needs, a uniform pricing approach is not the right path forward." Every plan is a negotiated
+  contract. plan_count counts the three named commercial shapes — open-source community, managed cloud,
+  self-hosted enterprise — not published price points, of which there are two starting anchors and no
+  tiers.'

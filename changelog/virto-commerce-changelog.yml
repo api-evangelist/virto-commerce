@@ -1,0 +1,100 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://github.com/VirtoCommerce/vc-platform/releases (read via the GitHub API on
+  2026-08-13), https://www.virtocommerce.org/c/news-digest/,
+  https://github.com/VirtoCommerce/vc-release-notes
+description: >-
+  Virto Commerce's change record is release-driven, not endpoint-driven. Because the platform
+  is installable software rather than a hosted API, every change lands as a dated,
+  semver-tagged GitHub release on vc-platform (and independently on each of the ~100 module
+  repositories), with release notes generated from merged PRs. Three release lines are
+  maintained in parallel and receive the same fixes on the same day — 3.10xx (current),
+  3.1039.x and 3.1007.x (maintenance) — which is how Virto ships a backport without breaking
+  older deployments. A human-readable monthly digest is published separately on the community
+  forum, and an interactive release-notes deck lives in the vc-release-notes repository.
+scheme: semver
+version_scheme_note: >-
+  Versions are MAJOR.MINOR.PATCH where MINOR is a monotonically increasing platform build
+  number (3.1058.0), not a feature-set version. The API itself is unversioned in the URL —
+  paths are /api/<module>/... with no version segment — so platform releases, not API
+  versions, are the unit of change. See lifecycle/virto-commerce-lifecycle.yml.
+current_version: 3.1058.0
+current_version_date: '2026-08-07'
+release_lines:
+- line: '3.10xx'
+  role: current
+  latest: 3.1058.0
+  latest_date: '2026-08-07'
+- line: 3.1039.x
+  role: maintenance
+  latest: 3.1039.9
+  latest_date: '2026-08-07'
+- line: 3.1007.x
+  role: maintenance
+  latest: 3.1007.24
+  latest_date: '2026-08-07'
+cadence: >-
+  Multiple releases per week on the current line (7 releases between 2026-07-29 and
+  2026-08-07), with fixes backported to both maintenance lines the same day.
+sources:
+- name: Platform releases
+  url: https://github.com/VirtoCommerce/vc-platform/releases
+  format: GitHub releases with generated notes, grouped as Development / Bug fixes
+  machine_readable: true
+- name: Monthly news digest
+  url: https://www.virtocommerce.org/c/news-digest/
+  format: Community forum thread per month
+  machine_readable: false
+- name: Interactive release notes
+  url: https://github.com/VirtoCommerce/vc-release-notes
+  format: >-
+    Monthly decks with business-impact framing, T-shirt sizing, and a backlog builder that
+    exports selections to Markdown for Jira/Linear/GitHub Issues.
+  machine_readable: false
+- name: Per-module releases
+  url: https://github.com/orgs/VirtoCommerce/repositories
+  format: Each of the ~100 vc-module-* repositories tags its own releases independently.
+  machine_readable: true
+entries:
+- version: 3.1058.0
+  date: '2026-08-07'
+  breaking: false
+  highlights:
+  - 'Bug fix: user cache corruption on update (#3077)'
+  note: Same fix released simultaneously as 3.1039.9 and 3.1007.24 on the maintenance lines.
+- version: 3.1057.0
+  date: '2026-08-06'
+  breaking: false
+  highlights:
+  - 'Development: streaming JSON content hash for cache keys (#3095)'
+  - 'Bug fix: BackgroundJobs configuration in appsettings'
+- version: 3.1056.0
+  date: '2026-08-04'
+  breaking: false
+  highlights:
+  - 'Bug fix: capture the cache change token before the load, not after it (#3094)'
+- version: 3.1055.0
+  date: '2026-08-03'
+  breaking: false
+  highlights:
+  - 'Bug fix: 500 errors when a setting is registered as one ValueType but the database or config stores another (#3089)'
+- version: 3.1054.0
+  date: '2026-08-03'
+  breaking: false
+- version: 3.1053.0
+  date: '2026-08-03'
+  breaking: false
+- version: 3.1052.0
+  date: '2026-07-29'
+  breaking: false
+window: >-
+  Recent window only — the six most recent current-line releases plus the two same-day
+  maintenance backports. The full history is on the releases page.
+notes:
+- >-
+  No breaking change appears in the captured window; every entry is a fix or an internal
+  development change.
+- >-
+  Related first-party lines carry their own changelogs: vc-shell v2.4.0 (2026-08-04),
+  vc-build 3.1001.0 (2026-07-24). See packages/ and cli/.

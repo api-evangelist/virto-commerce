@@ -1,0 +1,114 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  openapi/*.yml + graphql/virto-commerce-schema.graphql (deprecation markers),
+  https://github.com/VirtoCommerce/vc-platform/releases, https://virtocommerce.com/pricing,
+  plus live probes recorded below
+description: >-
+  Virto Commerce's lifecycle model is a software-release lifecycle, not an API-version
+  lifecycle. The REST paths carry no version segment and there is no published API deprecation
+  policy, sunset window, or Deprecation/Sunset header support. What DOES exist is a
+  disciplined release train — three concurrently-maintained platform lines receiving the same
+  fix on the same day — and in-band deprecation markers in the contracts themselves, which is
+  where a client actually learns something is going away.
+versioning:
+  url_versioning: false
+  scheme: >-
+    Unversioned REST paths (/api/<module>/<resource>). info.version is "v1" in all 13 module
+    documents, which is a Swagger document name rather than an API version.
+  unit_of_change: platform/module release (semver, e.g. 3.1058.0)
+  current_version: 3.1058.0
+  current_version_date: '2026-08-07'
+  maintained_lines:
+  - '3.10xx (current)'
+  - 3.1039.x
+  - 3.1007.x
+  note: >-
+    Because the software is self-hosted, the version a caller is talking to is whatever the
+    operator installed. Two Virto deployments can expose materially different API surfaces:
+    the reference deployment probed for this repo has 85 modules installed out of ~100
+    published.
+deprecation:
+  policy_published: false
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  evidence: >-
+    No deprecation or sunset policy page exists on virtocommerce.com or
+    docs.virtocommerce.org, and no Deprecation or Sunset response header appears in any of the
+    13 OpenAPI documents or on any live response observed on 2026-08-13.
+  in_band_markers:
+    openapi:
+      deprecated_operations: 0
+      deprecated_properties: 3
+      detail:
+      - schema: Contact.selectedAddressId
+        api: companies-and-contacts
+      - schema: UserSearchCriteria.lasLoginDate
+        api: virtocommerce-platform
+        note: The deprecated field is itself a typo of lastLoginDate, kept for compatibility.
+      - schema: PromotionEvaluationContext.organizaitonId
+        api: marketing
+        note: Also a typo (organizaiton), retained and deprecated rather than removed.
+    graphql:
+      deprecated_fields: 9
+      with_reason: 9
+      examples:
+      - field: Mutations.requestPasswordReset
+        reason: Deprecated. Use sendPasswordResetEmail command.
+      - field: MemberType.address
+        reason: Use addresses field instead.
+      - field: StoreType.quotesEnabled
+        reason: Use Quotes.EnableQuotes public property instead.
+      - field: StoreType.subscriptionEnabled
+        reason: Use Subscription.EnableSubscriptions public property instead.
+      - field: StoreType.createAnonymousOrderEnabled
+        reason: Use XOrder.CreateAnonymousOrderEnabled public property instead.
+      note: >-
+        Every GraphQL deprecation carries a machine-readable replacement instruction. The xAPI
+        is the only Virto surface where a client can programmatically discover both that a
+        field is going away and what to use instead.
+  no_pointer_note: >-
+    No `Deprecation` pointer is emitted in apis.yml. Deprecation markers exist inside the
+    contracts, but the provider publishes no deprecation POLICY, which is what that check
+    asserts.
+status_page:
+  published: false
+  probes:
+  - url: https://status.virtocommerce.com/
+    status: 000
+    note: DNS does not resolve.
+  - url: https://virtocommerce.statuspage.io
+    status: 200
+    note: >-
+      FALSE POSITIVE — the subdomain is unclaimed and 301s to
+      atlassian.com/software/statuspage (Atlassian's own marketing page, title "Real-Time
+      Incident Communication with Statuspage"). It is not a Virto status page.
+  - url: https://status.govirto.com
+    status: 404
+  checked: '2026-08-13'
+  no_pointer_note: >-
+    No `StatusPage` pointer is emitted. For a self-hosted platform this is defensible —
+    availability belongs to the operator — but Virto Cloud is a managed offering with a
+    published 99.9% SLA and no public status surface behind it.
+sla:
+  published: true
+  target: 99.9% uptime
+  scope: Virto Commerce Cloud (managed Kubernetes deployment)
+  source: plans/virto-commerce-plans-pricing.yml
+  note: Self-hosted deployments carry no vendor SLA.
+support_lifecycle:
+  eol_policy_published: false
+  note: >-
+    No published end-of-support dates for platform lines. That two maintenance lines
+    (3.1039.x, 3.1007.x) still receive same-day backports is the only observable support
+    signal.
+release_channels:
+- name: stable module bundle
+  note: Thoroughly tested module set included in the enterprise license.
+- name: individual module releases
+  note: Each vc-module-* repository tags releases independently; operators choose versions.
+- name: prerelease
+  note: 'Alpha channel exists (example: vc-build 3.1002.0-alpha.298, 2026-07-24).'
+changelog: changelog/virto-commerce-changelog.yml

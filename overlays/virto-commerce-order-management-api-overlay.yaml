@@ -1,0 +1,56 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements — VirtoCommerce.Cart Catalog Order Management API
+  version: 1.0.0
+extends: virto-commerce-order-management-api-openapi.yml
+x-generated: '2026-08-13'
+x-method: generated
+x-source: openapi/virto-commerce-order-management-api-openapi.yml + well-known/virto-commerce-openid-configuration.json
+  + conventions/virto-commerce-conventions.yml
+actions:
+- target: $.info
+  description: Record the publisher and the point of contact the platform document itself carries.
+  update:
+    contact:
+      name: Virto Commerce
+      url: https://virtocommerce.com
+      email: support@virtocommerce.com
+- target: $
+  description: Virto Commerce is self-hosted, so the server is templated on the operator platform host.
+    The default is Virto's own public reference deployment, the host it links from its published llms.txt.
+  update:
+    servers:
+    - url: https://{platformHost}
+      description: Virto Commerce Platform instance (operator-hosted)
+      variables:
+        platformHost:
+          default: virtostart-demo-admin.govirto.com
+          description: Host of the Virto Commerce Platform deployment being called.
+- target: $.info
+  description: Cross-link the derived runtime-semantics artifacts so a consumer of this spec can find
+    the conventions, error semantics and lifecycle facts the spec itself does not carry.
+  update:
+    x-api-evangelist:
+      conventions: conventions/virto-commerce-conventions.yml
+      errors: errors/virto-commerce-problem-types.yml
+      authentication: authentication/virto-commerce-authentication.yml
+      lifecycle: lifecycle/virto-commerce-lifecycle.yml
+      data-model: data-model/virto-commerce-data-model.yml
+      rate-limits: rate-limits/virto-commerce-rate-limits.yml
+- target: $.info
+  description: 'State the runtime facts the generated spec omits: no idempotency mechanism, no rate-limit
+    headers, offset paging via skip/take in a POST search body, and empty 4xx bodies.'
+  update:
+    x-runtime-semantics:
+      idempotency: none — no idempotency key on any operation; retries of POST can duplicate
+      pagination: offset — skip/take/sort inside a *SearchCriteria POST body; response envelope {totalCount,
+        results[]}
+      rate_limit_headers: none declared or observed; throttling is operator-configured at the gateway
+      error_bodies: 401 and 403 return empty bodies; only POST /connect/token has a named error schema
+        (OpenIddictResponse)
+      content_negotiation: 'send Accept: application/json explicitly — text/plain and text/json are also
+        advertised'
+- target: $.tags[?(@.name=='Order Management')]
+  description: Confirm the tag description carried from the platform module document.
+  update:
+    x-module: VirtoCommerce.OrderManagement

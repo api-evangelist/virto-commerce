@@ -1,0 +1,136 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://github.com/VirtoCommerce/vc-onX-adapter (README + docs/API.md + docs/LIMITATIONS.md),
+  https://www.npmjs.com/package/@virtocommerce/mcp-onx,
+  https://www.npmjs.com/package/@virtocommerce/cof-mcp,
+  https://github.com/VirtoCommerce/vc-module-mcp-server
+name: Virto Commerce MCP
+status: published
+description: >-
+  Virto Commerce ships a real, published MCP surface, and it is a LOCAL STDIO one. The
+  supported path is the Commerce Operations Foundation (COF) MCP server run over stdio with
+  Virto's own adapter (@virtocommerce/mcp-onx) loaded into it; the adapter then calls a
+  Virto Commerce Platform instance over its REST API using an api_key header. There is no
+  Virto-hosted remote MCP endpoint an agent can POST to: the platform is self-hosted, so the
+  "server" is always something the operator runs, either as the npx stdio process below or —
+  separately — by installing the experimental vc-module-mcp-server module into their own
+  platform deployment, which then exposes /api/mcp on THEIR host.
+deployment:
+  mode: local-stdio
+  endpoint: null
+  install: >-
+    npx --package=@virtocommerce/cof-mcp --package=@virtocommerce/mcp-onx --yes cof-mcp
+  package: https://www.npmjs.com/package/@virtocommerce/mcp-onx
+  auth: api-key
+  verified: searched
+  note: >-
+    Install command is quoted verbatim from the vc-onX-adapter README's Claude Desktop
+    configuration block. The process is configured with environment variables
+    ADAPTER_TYPE=npm, ADAPTER_PACKAGE=@virtocommerce/mcp-onx and an ADAPTER_CONFIG JSON blob
+    carrying apiUrl / apiKey / workspace. mode is local-stdio and not `both`: no
+    Virto-operated https endpoint exists for an MCP client to call.
+transport: stdio
+authentication:
+  type: api-key
+  header: api_key
+  note: >-
+    The adapter authenticates to the target Virto Commerce Platform with a platform API key
+    sent in the `api_key` header — the same api_key security scheme declared in the module
+    OpenAPI documents in openapi/. Required Virto permissions, per the adapter docs: Order
+    (Read/Search/Create/Update), Shipment (Search), Customer/Members (Read/Search), Catalog
+    (Search), Inventory (Search), Platform (Read, for the countries list), Store (Read, when
+    workspace is set) and optionally Pricing (Evaluate).
+configuration:
+- name: apiUrl
+  required: true
+  description: Virto Commerce Platform URL (the operator's own instance).
+- name: apiKey
+  required: true
+  description: Platform API key, sent in the api_key header.
+- name: workspace
+  required: false
+  description: Store ID. Scopes orders/shipments and auto-detects the catalog.
+- name: catalogId
+  required: false
+  description: Catalog ID for product searches; auto-detected from the store when workspace is set.
+- name: timeout
+  required: false
+  default: 30000
+  description: Request timeout in milliseconds.
+- name: retryAttempts
+  required: false
+  default: 3
+  description: Max retry attempts for failed requests.
+- name: debugMode
+  required: false
+  default: false
+  description: Log all API requests/responses to stderr.
+tools:
+- name: create-sales-order
+  category: orders
+- name: update-order
+  category: orders
+- name: cancel-order
+  category: orders
+- name: get-orders
+  category: orders
+- name: fulfill-order
+  category: fulfillment
+- name: get-fulfillments
+  category: fulfillment
+- name: get-customers
+  category: customers
+- name: get-products
+  category: products
+- name: get-product-variants
+  category: products
+- name: get-inventory
+  category: inventory
+- name: create-return
+  category: returns
+- name: get-returns
+  category: returns
+tool_count: 12
+tool_note: >-
+  Virto's README states "13 tools" in prose but its own Supported Operations table lists the
+  12 named above. Tool names are quoted verbatim from that table. Input schemas were NOT
+  captured: the server is stdio-only, so there is no anonymous endpoint to run tools/list
+  against — schemas require running the process locally with a real platform API key.
+  Rather than guess, each tool's real parameters are recorded indirectly in
+  mcp/virto-commerce-tool-crosswalk.yml, which binds every tool to the backing REST
+  operationId whose requestBody it composes.
+alternative_servers:
+- name: vc-module-mcp-server
+  url: https://github.com/VirtoCommerce/vc-module-mcp-server
+  kind: platform module (self-hosted, in-process)
+  endpoints:
+  - POST /api/mcp
+  - POST /api/mcp/sse
+  - GET /api/mcp/status
+  - GET /api/mcp/tools
+  - POST /api/mcp/tools/call
+  status: experimental
+  verified: probed
+  probe:
+    url: https://virtostart-demo-admin.govirto.com/api/mcp/status
+    http_status: 404
+    fetched: '2026-08-13'
+  note: >-
+    A second, different MCP path: an installable platform module that exposes MCP over
+    SSE from the operator's OWN platform host. It is NOT installed on Virto's reference
+    deployment (every /api/mcp* path returns 404 there, probed above), its README documents a
+    single tool (search_customer_orders), and its last push was 2025-05-28. Recorded as an
+    alternative, not as the deployment: the endpoint paths above only exist once an operator
+    installs the module on their own domain, so no reachable endpoint URL is asserted here.
+- name: '@virtocommerce/cof-mcp'
+  url: https://github.com/cof-org/mcp
+  kind: the COF MCP server binary the adapter plugs into
+  note: >-
+    Published under Virto's own @virtocommerce npm scope (v1.0.0, 2026-02-26) but developed
+    upstream by the Commerce Operations Foundation. Virto's install instructions name this
+    exact package, so it is treated as first-party distribution of third-party code.
+limitations:
+- >-
+  No dedicated hold-order tool; the adapter documents using update-order with status
+  on_hold / processing, mapped to Virto's OnHold / Processing / New order statuses.

@@ -1,0 +1,159 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://virtocommerce.com/blog/press-release-soc-certificate,
+  well-known/virto-commerce-openid-configuration.json (probed 2026-08-13),
+  https://github.com/VirtoCommerce/vc-module-event-bus,
+  https://github.com/VirtoCommerce/vc-module-gdpr, openapi/*.yml, graphql/
+description: >-
+  Which cross-cutting standards Virto Commerce actually conforms to, each with the evidence
+  that establishes it. Conformance is strong on the identity axis — the platform ships
+  OpenIddict and serves a complete OIDC discovery document plus RFC 8414 metadata with PKCE —
+  and on the event axis via CloudEvents. It is absent on the HTTP-semantics axis: no RFC 9457
+  problem details, no RFC 8594 sunset signalling, no RFC 9110 rate-limit headers, no
+  idempotency.
+standards:
+- id: oauth2
+  name: OAuth 2.0 (RFC 6749)
+  conforms: true
+  evidence: >-
+    Token endpoint POST /connect/token declared in the platform OpenAPI with password and
+    client_credentials flows; OpenIddictResponse error schema follows RFC 6749 §5.2
+    (error / errorDescription / errorUri). Grants advertised by the live discovery document:
+    password, refresh_token, client_credentials, authorization_code, plus Virto-specific
+    impersonate and external_sign_in.
+- id: oidc
+  name: OpenID Connect Discovery 1.0
+  conforms: true
+  evidence: >-
+    GET /.well-known/openid-configuration returns HTTP 200 with issuer,
+    authorization_endpoint, token_endpoint, userinfo_endpoint, end_session_endpoint, jwks_uri,
+    response_types_supported [code], id_token_signing_alg_values_supported [RS256],
+    subject_types_supported [public], scopes_supported [openid, offline_access]. Captured
+    verbatim in well-known/.
+  caveat: >-
+    jwks_uri points at /.well-known/jwks rather than the conventional /.well-known/jwks.json —
+    self-consistent and discoverable, but non-conventional.
+- id: rfc8414
+  name: OAuth 2.0 Authorization Server Metadata (RFC 8414)
+  conforms: true
+  evidence: >-
+    GET /.well-known/oauth-authorization-server returns HTTP 200 with a document
+    byte-identical to the OIDC discovery response.
+- id: pkce
+  name: PKCE (RFC 7636)
+  conforms: true
+  evidence: 'code_challenge_methods_supported: ["plain", "S256"] in the live discovery document.'
+- id: rfc7519
+  name: JSON Web Token
+  conforms: true
+  evidence: RS256-signed tokens; JWKS served at /.well-known/jwks (HTTP 200, probed).
+- id: private_key_jwt
+  name: Private Key JWT client authentication (RFC 7523)
+  conforms: true
+  evidence: 'token_endpoint_auth_methods_supported includes private_key_jwt, alongside client_secret_post and client_secret_basic.'
+- id: cloudevents
+  name: CloudEvents
+  conforms: true
+  evidence: >-
+    The Event Bus module's Azure Event Grid provider "emits events using the CloudEvents
+    specification", per the module's own README. See asyncapi/virto-commerce-webhooks.yml.
+  scope: Event Bus module only (not the Webhooks module, which posts raw JSON event payloads).
+- id: openapi
+  name: OpenAPI 3.0.4
+  conforms: true
+  evidence: >-
+    All 13 captured module documents declare openapi 3.0.4, generated per module by the
+    platform and served from /docs/<Module>/swagger.json on any deployment. vc-build ships
+    SwaggerValidation and ValidateSwaggerSchema targets that gate this in CI.
+- id: graphql
+  name: GraphQL (introspection + SDL)
+  conforms: true
+  evidence: >-
+    Full __schema introspection succeeded anonymously against the reference deployment on
+    2026-08-13 (435 types). Deprecations are expressed with @deprecated + reason.
+  caveat: >-
+    A non-standard GraphQL-Require-Preflight request header is required by the server's CSRF
+    guard; without it the server returns 400 with extensions.code CSRF_PROTECTION.
+- id: soc2
+  name: SOC 2 Type II
+  conforms: true
+  evidence: >-
+    Virto Commerce published a press release stating it "renewed the SOC 2 Type II
+    Certification for Virto Cloud for the audit period 2025", the third consecutive year.
+  scope: Virto Cloud (managed offering) — not self-hosted deployments.
+  url: https://virtocommerce.com/blog/press-release-soc-certificate
+  auditor: not named in the announcement
+  caveat: >-
+    The certification is announced in a blog post. No trust center, no report request portal,
+    and no other named certification (ISO 27001, PCI DSS, HIPAA, FedRAMP) is published.
+- id: gdpr
+  name: GDPR (data subject rights tooling)
+  conforms: partial
+  evidence: >-
+    A first-party GDPR module ships and is installed on the reference deployment
+    (VirtoCommerce.GDPR appears in the module Swagger index), providing data export and
+    erasure operations. This is capability, not certification.
+- id: rfc9457
+  name: Problem Details for HTTP APIs (RFC 9457/7807)
+  conforms: false
+  evidence: >-
+    No application/problem+json media type anywhere in the 13 documents. Only one 4xx body has
+    a named schema, and several declared error bodies are typed as a bare string. See errors/.
+- id: rfc8594
+  name: Sunset HTTP Header (RFC 8594)
+  conforms: false
+  evidence: No Sunset or Deprecation header in any spec or live response. See lifecycle/.
+- id: idempotency
+  name: Idempotency keys (draft-ietf-httpapi-idempotency-key-header)
+  conforms: false
+  evidence: >-
+    Zero occurrences across 452 operations; mutations are read-modify-write rather than
+    repeatable. See conventions/.
+- id: ratelimit-headers
+  name: RateLimit header fields for HTTP
+  conforms: false
+  evidence: >-
+    No RateLimit-*, X-RateLimit-* or Retry-After header declared or observed. Rate limiting is
+    the operator's responsibility at their own gateway. See rate-limits/.
+- id: rfc9116
+  name: security.txt (RFC 9116)
+  conforms: false
+  evidence: >-
+    /.well-known/security.txt returns 404 on all three Virto hosts, and no SECURITY.md exists
+    in the GitHub organization or in vc-platform / vc-frontend / vc-shell.
+- id: a2a
+  name: A2A Agent Card
+  conforms: false
+  evidence: >-
+    /.well-known/agent-card.json and /.well-known/agent.json return 404 on all three hosts
+    (probed 2026-08-13).
+- id: llmstxt
+  name: llms.txt
+  conforms: true
+  evidence: >-
+    docs.virtocommerce.org/llms.txt returns HTTP 200 text/plain — a genuine, hand-authored
+    hub with six product sub-indexes. Captured verbatim in llms/.
+  caveat: >-
+    Every sub-index link in the published hub points at
+    raw.githubusercontent.com/VirtoCommerce/vc-docs/master/..., and that branch does not exist
+    — the repository's default branch is `main`. All six links 404 as published.
+- id: mcp
+  name: Model Context Protocol
+  conforms: true
+  evidence: >-
+    Published first-party adapter (@virtocommerce/mcp-onx) for the COF MCP server, 12 tools,
+    stdio transport. See mcp/.
+security_headers:
+  observed: true
+  source: 'live response, https://virtostart-demo-admin.govirto.com, 2026-08-13'
+  present:
+  - Strict-Transport-Security (max-age=31536000; includeSubDomains)
+  - X-Frame-Options DENY
+  - X-Content-Type-Options nosniff
+  - Referrer-Policy strict-origin-when-cross-origin
+  - "Content-Security-Policy (object-src 'none'; form-action 'self'; frame-ancestors 'self')"
+summary:
+  conforms: 12
+  partial: 1
+  does_not_conform: 6

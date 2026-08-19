@@ -1,0 +1,1161 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "VirtoCommerce.Cart Catalog Pricing API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Pricing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Evaluate prices by given context",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/pricing/evaluate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Evaluate prices by given context"
+        },
+        {
+          "info": {
+            "name": "Evaluate pricelists by given context",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/pricing/pricelists/evaluate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Evaluate pricelists by given context"
+        },
+        {
+          "info": {
+            "name": "Get pricelist assignment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/pricing/assignments/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Pricelist assignment id"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get pricelist assignment"
+        },
+        {
+          "info": {
+            "name": "Partial update for the specified pricelist assignment by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/pricing/assignments/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "PricelistAssignment id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Partial update for the specified pricelist assignment by id"
+        },
+        {
+          "info": {
+            "name": "Get pricelist assignment by outer id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/pricing/assignments/outer/:outerId",
+            "params": [
+              {
+                "name": "outerId",
+                "value": "",
+                "type": "path",
+                "description": "Pricelist assignment outer id"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get pricelist assignment by outer id"
+        },
+        {
+          "info": {
+            "name": "Get a new pricelist assignment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/pricing/assignments/new",
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get a new pricelist assignment object. Create new pricelist assignment, but does not save one."
+        },
+        {
+          "info": {
+            "name": "Get pricelists",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/pricing/pricelists",
+            "params": [
+              {
+                "name": "Currencies",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ResponseGroup",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ObjectType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ObjectTypes",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ObjectIds",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "Keyword",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "SearchPhrase",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "LanguageCode",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "Sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "SortInfos",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "Skip",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "Take",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get all pricelists for all catalogs."
+        },
+        {
+          "info": {
+            "name": "Create pricelist",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/pricing/pricelists",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create pricelist"
+        },
+        {
+          "info": {
+            "name": "Update pricelist",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/pricing/pricelists",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update pricelist"
+        },
+        {
+          "info": {
+            "name": "Delete pricelists",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/pricing/pricelists",
+            "params": [
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query",
+                "description": "An array of pricelist ids"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete pricelists by given array of pricelist ids."
+        },
+        {
+          "info": {
+            "name": "Search pricelist assignments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/pricing/assignments",
+            "params": [
+              {
+                "name": "PriceListId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "CatalogIds",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "StoreIds",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "PriceListIds",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ResponseGroup",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ObjectType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ObjectTypes",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ObjectIds",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "Keyword",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "SearchPhrase",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "LanguageCode",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "Sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "SortInfos",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "Skip",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "Take",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Search price list assignments by given criteria"
+        },
+        {
+          "info": {
+            "name": "Create pricelist assignment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/pricing/assignments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create pricelist assignment"
+        },
+        {
+          "info": {
+            "name": "Update pricelist assignment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/pricing/assignments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update pricelist assignment"
+        },
+        {
+          "info": {
+            "name": "Delete pricelist assignments",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/pricing/assignments",
+            "params": [
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query",
+                "description": "An array of pricelist assignment ids"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete pricelist assignment by given array of ids."
+        },
+        {
+          "info": {
+            "name": "Search product prices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/catalog/products/prices/search",
+            "params": [
+              {
+                "name": "GroupByProducts",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "PriceListId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "PriceListIds",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ProductId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ProductIds",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ModifiedSince",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ResponseGroup",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ObjectType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ObjectTypes",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ObjectIds",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "Keyword",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "SearchPhrase",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "LanguageCode",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "Sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "SortInfos",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "Skip",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "Take",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Search product prices"
+        },
+        {
+          "info": {
+            "name": "Search product prices",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/catalog/products/prices/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Search product prices"
+        },
+        {
+          "info": {
+            "name": "Evaluate  product prices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/products/:productId/prices",
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "Product id"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get an array of valid product prices for each currency."
+        },
+        {
+          "info": {
+            "name": "Update product prices",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/products/:productId/prices",
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update product prices"
+        },
+        {
+          "info": {
+            "name": "Evaluate product prices for demand catalog",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/products/:productId/:catalogId/pricesWidget",
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "Product id"
+              },
+              {
+                "name": "catalogId",
+                "value": "",
+                "type": "path",
+                "description": "Catalog id"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get an array of valid product prices for each currency."
+        },
+        {
+          "info": {
+            "name": "Update product prices",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/products/prices",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update product prices"
+        },
+        {
+          "info": {
+            "name": "Get all price lists for product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/catalog/products/:productId/pricelists",
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "Product id"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get all price lists for given product."
+        },
+        {
+          "info": {
+            "name": "Get pricelist",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/pricing/pricelists/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Pricelist id"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get pricelist"
+        },
+        {
+          "info": {
+            "name": "Partial update for the specified Pricelist by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/pricing/pricelists/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Pricelist id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Partial update for the specified Pricelist by id"
+        },
+        {
+          "info": {
+            "name": "Get pricelist by outer id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/pricing/pricelists/outer/:outerId",
+            "params": [
+              {
+                "name": "outerId",
+                "value": "",
+                "type": "path",
+                "description": "Pricelist outer id"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get pricelist by outer id"
+        },
+        {
+          "info": {
+            "name": "Get pricelist in short mode (without assignments to avoid redundant assignments read)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/pricing/pricelistsshort/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Pricelist id"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get pricelist in short mode (without assignments to avoid redundant assignments read)"
+        },
+        {
+          "info": {
+            "name": "Get pricelist by outer id in short mode (without assignments)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/pricing/pricelistsshort/outer/:outerId",
+            "params": [
+              {
+                "name": "outerId",
+                "value": "",
+                "type": "path",
+                "description": "Pricelist outer id"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get pricelist by outer id in short mode (without assignments)"
+        },
+        {
+          "info": {
+            "name": "Delete pricelist assignments",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/pricing/filteredAssignments",
+            "params": [
+              {
+                "name": "PriceListId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "CatalogIds",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "StoreIds",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "PriceListIds",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ResponseGroup",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ObjectType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ObjectTypes",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ObjectIds",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "Keyword",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "SearchPhrase",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "LanguageCode",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "Sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "SortInfos",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "Skip",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "Take",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete pricelist assignments by given criteria."
+        },
+        {
+          "info": {
+            "name": "Delete all prices for specified product in specified price list",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/pricing/pricelists/:pricelistId/products/prices",
+            "params": [
+              {
+                "name": "pricelistId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "productIds",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete all prices for specified product in specified price list"
+        },
+        {
+          "info": {
+            "name": "Delete price by ids",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/pricing/products/prices",
+            "params": [
+              {
+                "name": "priceIds",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete price by ids"
+        },
+        {
+          "info": {
+            "name": "Merge base and priority price list and returns MergedPriceGroup.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/pricing/mergedpricegroups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Merge base and priority price list and returns MergedPriceGroup."
+        },
+        {
+          "info": {
+            "name": "Merge base and priority price list and returns MergedPrice.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/pricing/mergedprices",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Merge base and priority price list and returns MergedPrice."
+        },
+        {
+          "info": {
+            "name": "Partial update for the specified ProductPrice by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/products/prices/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ProductPrice id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Partial update for the specified ProductPrice by id"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

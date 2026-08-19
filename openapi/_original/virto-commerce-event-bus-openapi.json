@@ -1,0 +1,1582 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "VirtoCommerce.EventBus",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/eventbus/connections/search": {
+      "post": {
+        "tags": [
+          "Event Bus module"
+        ],
+        "summary": "Search for existing connections",
+        "operationId": "Connections_SearchConnections",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ProviderConnectionSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ProviderConnectionSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ProviderConnectionSearchCriteria"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProviderConnectionSearchResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProviderConnectionSearchResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProviderConnectionSearchResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "eventbus:subscriptions:read"
+            ]
+          },
+          {
+            "api_key": [
+              "eventbus:subscriptions:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "eventbus:subscriptions:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "eventbus:subscriptions:read"
+            ]
+          },
+          {
+            "basic": [
+              "eventbus:subscriptions:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.EventBus"
+      }
+    },
+    "/api/eventbus/connections/{name}": {
+      "get": {
+        "tags": [
+          "Event Bus module"
+        ],
+        "summary": "Get existing connection",
+        "operationId": "Connections_GetConnectionByName",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProviderConnection"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProviderConnection"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProviderConnection"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "eventbus:subscriptions:read"
+            ]
+          },
+          {
+            "api_key": [
+              "eventbus:subscriptions:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "eventbus:subscriptions:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "eventbus:subscriptions:read"
+            ]
+          },
+          {
+            "basic": [
+              "eventbus:subscriptions:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.EventBus"
+      },
+      "delete": {
+        "tags": [
+          "Event Bus module"
+        ],
+        "summary": "Delete existing connection by name (DB-registered only)",
+        "operationId": "Connections_DeleteConnection",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "eventbus:subscriptions:delete"
+            ]
+          },
+          {
+            "api_key": [
+              "eventbus:subscriptions:delete"
+            ]
+          },
+          {
+            "api_key_header": [
+              "eventbus:subscriptions:delete"
+            ]
+          },
+          {
+            "http-signature": [
+              "eventbus:subscriptions:delete"
+            ]
+          },
+          {
+            "basic": [
+              "eventbus:subscriptions:delete"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.EventBus"
+      }
+    },
+    "/api/eventbus/connections": {
+      "post": {
+        "tags": [
+          "Event Bus module"
+        ],
+        "summary": "Create new provider connection in the database",
+        "operationId": "Connections_CreateConnection",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ProviderConnectionRequest"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ProviderConnectionRequest"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ProviderConnectionRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "eventbus:subscriptions:\u0441reate"
+            ]
+          },
+          {
+            "api_key": [
+              "eventbus:subscriptions:\u0441reate"
+            ]
+          },
+          {
+            "api_key_header": [
+              "eventbus:subscriptions:\u0441reate"
+            ]
+          },
+          {
+            "http-signature": [
+              "eventbus:subscriptions:\u0441reate"
+            ]
+          },
+          {
+            "basic": [
+              "eventbus:subscriptions:\u0441reate"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.EventBus"
+      },
+      "put": {
+        "tags": [
+          "Event Bus module"
+        ],
+        "summary": "Update existing connection (DB-registered only)",
+        "operationId": "Connections_UpdateConnection",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ProviderConnectionRequest"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ProviderConnectionRequest"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ProviderConnectionRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "eventbus:subscriptions:update"
+            ]
+          },
+          {
+            "api_key": [
+              "eventbus:subscriptions:update"
+            ]
+          },
+          {
+            "api_key_header": [
+              "eventbus:subscriptions:update"
+            ]
+          },
+          {
+            "http-signature": [
+              "eventbus:subscriptions:update"
+            ]
+          },
+          {
+            "basic": [
+              "eventbus:subscriptions:update"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.EventBus"
+      }
+    },
+    "/api/eventbus/logs/search": {
+      "post": {
+        "tags": [
+          "Event Bus module"
+        ],
+        "summary": "Search for provider connection logs/fails",
+        "operationId": "ConnectionsLog_SearchProviderConnectionLog",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ProviderConnectionLogSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ProviderConnectionLogSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ProviderConnectionLogSearchCriteria"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProviderConnectionLogSearchResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProviderConnectionLogSearchResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProviderConnectionLogSearchResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "eventbus:subscriptions:\u0441reate"
+            ]
+          },
+          {
+            "api_key": [
+              "eventbus:subscriptions:\u0441reate"
+            ]
+          },
+          {
+            "api_key_header": [
+              "eventbus:subscriptions:\u0441reate"
+            ]
+          },
+          {
+            "http-signature": [
+              "eventbus:subscriptions:\u0441reate"
+            ]
+          },
+          {
+            "basic": [
+              "eventbus:subscriptions:\u0441reate"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.EventBus"
+      }
+    },
+    "/api/eventbus/events": {
+      "get": {
+        "tags": [
+          "Event Bus module"
+        ],
+        "summary": "Enlist all domain events page by page",
+        "operationId": "Subscriptions_Get",
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "take",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "eventbus:events:read"
+            ]
+          },
+          {
+            "api_key": [
+              "eventbus:events:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "eventbus:events:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "eventbus:events:read"
+            ]
+          },
+          {
+            "basic": [
+              "eventbus:events:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.EventBus"
+      }
+    },
+    "/api/eventbus/subscriptions/search": {
+      "post": {
+        "tags": [
+          "Event Bus module"
+        ],
+        "summary": "Search for existing subscriptions (DB registered + configuration registered)",
+        "operationId": "Subscriptions_SearchSubscriptions",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SubscriptionSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SubscriptionSearchCriteria"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SubscriptionSearchCriteria"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriptionSearchResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriptionSearchResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriptionSearchResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "eventbus:subscriptions:read"
+            ]
+          },
+          {
+            "api_key": [
+              "eventbus:subscriptions:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "eventbus:subscriptions:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "eventbus:subscriptions:read"
+            ]
+          },
+          {
+            "basic": [
+              "eventbus:subscriptions:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.EventBus"
+      }
+    },
+    "/api/eventbus/subscriptions/{name}": {
+      "get": {
+        "tags": [
+          "Event Bus module"
+        ],
+        "summary": "Get specific subscription by name",
+        "operationId": "Subscriptions_GetSubscriptionById",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subscription"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subscription"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subscription"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "eventbus:subscriptions:read"
+            ]
+          },
+          {
+            "api_key": [
+              "eventbus:subscriptions:read"
+            ]
+          },
+          {
+            "api_key_header": [
+              "eventbus:subscriptions:read"
+            ]
+          },
+          {
+            "http-signature": [
+              "eventbus:subscriptions:read"
+            ]
+          },
+          {
+            "basic": [
+              "eventbus:subscriptions:read"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.EventBus"
+      },
+      "delete": {
+        "tags": [
+          "Event Bus module"
+        ],
+        "summary": "Delete existing subscription by name (DB-registered only)",
+        "operationId": "Subscriptions_DeleteSubscription",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "eventbus:subscriptions:delete"
+            ]
+          },
+          {
+            "api_key": [
+              "eventbus:subscriptions:delete"
+            ]
+          },
+          {
+            "api_key_header": [
+              "eventbus:subscriptions:delete"
+            ]
+          },
+          {
+            "http-signature": [
+              "eventbus:subscriptions:delete"
+            ]
+          },
+          {
+            "basic": [
+              "eventbus:subscriptions:delete"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.EventBus"
+      }
+    },
+    "/api/eventbus/subscriptions": {
+      "post": {
+        "tags": [
+          "Event Bus module"
+        ],
+        "summary": "Register new subscription in the database",
+        "operationId": "Subscriptions_CreateSubscription",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SubscriptionRequest"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SubscriptionRequest"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SubscriptionRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "eventbus:subscriptions:\u0441reate"
+            ]
+          },
+          {
+            "api_key": [
+              "eventbus:subscriptions:\u0441reate"
+            ]
+          },
+          {
+            "api_key_header": [
+              "eventbus:subscriptions:\u0441reate"
+            ]
+          },
+          {
+            "http-signature": [
+              "eventbus:subscriptions:\u0441reate"
+            ]
+          },
+          {
+            "basic": [
+              "eventbus:subscriptions:\u0441reate"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.EventBus"
+      },
+      "put": {
+        "tags": [
+          "Event Bus module"
+        ],
+        "summary": "Update existing subscription (DB-registered only)",
+        "operationId": "Subscriptions_UpdateSubscription",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SubscriptionRequest"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SubscriptionRequest"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SubscriptionRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "eventbus:subscriptions:update"
+            ]
+          },
+          {
+            "api_key": [
+              "eventbus:subscriptions:update"
+            ]
+          },
+          {
+            "api_key_header": [
+              "eventbus:subscriptions:update"
+            ]
+          },
+          {
+            "http-signature": [
+              "eventbus:subscriptions:update"
+            ]
+          },
+          {
+            "basic": [
+              "eventbus:subscriptions:update"
+            ]
+          }
+        ],
+        "x-virtocommerce-module-id": "VirtoCommerce.EventBus"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ProviderConnection": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "providerName": {
+            "type": "string",
+            "nullable": true
+          },
+          "connectionOptionsSerialized": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProviderConnectionLog": {
+        "type": "object",
+        "properties": {
+          "providerName": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "errorPayload": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProviderConnectionLogSearchCriteria": {
+        "type": "object",
+        "properties": {
+          "providerConnectionName": {
+            "type": "string",
+            "nullable": true
+          },
+          "startCreatedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endCreatedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "responseGroup": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "objectIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "keyword": {
+            "type": "string",
+            "nullable": true
+          },
+          "searchPhrase": {
+            "type": "string",
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "sort": {
+            "type": "string",
+            "nullable": true
+          },
+          "sortInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SortInfo"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
+          "skip": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "take": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProviderConnectionLogSearchResult": {
+        "type": "object",
+        "properties": {
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProviderConnectionLog"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProviderConnectionRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "providerName": {
+            "type": "string",
+            "nullable": true
+          },
+          "connectionOptionsSerialized": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProviderConnectionSearchCriteria": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "providerName": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseGroup": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "objectIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "keyword": {
+            "type": "string",
+            "nullable": true
+          },
+          "searchPhrase": {
+            "type": "string",
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "sort": {
+            "type": "string",
+            "nullable": true
+          },
+          "sortInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SortInfo"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
+          "skip": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "take": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProviderConnectionSearchResult": {
+        "type": "object",
+        "properties": {
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProviderConnection"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SortDirection": {
+        "enum": [
+          "Ascending",
+          "Descending"
+        ],
+        "type": "string"
+      },
+      "SortInfo": {
+        "type": "object",
+        "properties": {
+          "sortColumn": {
+            "type": "string",
+            "nullable": true
+          },
+          "sortDirection": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SortDirection"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "Subscription": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "connectionName": {
+            "type": "string",
+            "nullable": true
+          },
+          "jsonPathFilter": {
+            "type": "string",
+            "nullable": true
+          },
+          "payloadTransformationTemplate": {
+            "type": "string",
+            "nullable": true
+          },
+          "eventSettingsSerialized": {
+            "type": "string",
+            "nullable": true
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SubscriptionEvent"
+            },
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SubscriptionEvent": {
+        "type": "object",
+        "properties": {
+          "subscriptionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "eventId": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SubscriptionEventRequest": {
+        "type": "object",
+        "properties": {
+          "eventId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SubscriptionRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "connectionName": {
+            "type": "string",
+            "nullable": true
+          },
+          "jsonPathFilter": {
+            "type": "string",
+            "nullable": true
+          },
+          "payloadTransformationTemplate": {
+            "type": "string",
+            "nullable": true
+          },
+          "eventSettingsSerialized": {
+            "type": "string",
+            "nullable": true
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SubscriptionEventRequest"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SubscriptionSearchCriteria": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "connectionName": {
+            "type": "string",
+            "nullable": true
+          },
+          "eventIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "responseGroup": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "objectTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "objectIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "keyword": {
+            "type": "string",
+            "nullable": true
+          },
+          "searchPhrase": {
+            "type": "string",
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "sort": {
+            "type": "string",
+            "nullable": true
+          },
+          "sortInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SortInfo"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
+          "skip": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "take": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SubscriptionSearchResult": {
+        "type": "object",
+        "properties": {
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Subscription"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "oauth2": {
+        "type": "oauth2",
+        "description": "OAuth2 Resource Owner Password Grant flow",
+        "flows": {
+          "password": {
+            "tokenUrl": "/connect/token",
+            "scopes": {}
+          },
+          "clientCredentials": {
+            "tokenUrl": "/connect/token",
+            "scopes": {}
+          }
+        }
+      },
+      "api_key": {
+        "type": "apiKey",
+        "description": "API Key authentication",
+        "name": "api_key",
+        "in": "query"
+      },
+      "api_key_header": {
+        "type": "apiKey",
+        "description": "API Key authentication (alternative via header)",
+        "name": "api_key",
+        "in": "header"
+      },
+      "http-signature": {
+        "type": "http",
+        "description": "HTTP Signature authentication using Authorization header",
+        "scheme": "signature"
+      },
+      "basic": {
+        "type": "http",
+        "description": "Basic authentication using username and password",
+        "scheme": "basic"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Event Bus module",
+      "description": "The module enables you to be notified of new messages or changes via a Message Queue of your choice"
+    }
+  ]
+}

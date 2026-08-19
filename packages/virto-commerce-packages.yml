@@ -1,0 +1,167 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  registry metadata read live on 2026-08-13 from api.nuget.org (registration index) and
+  registry.npmjs.org, plus github.com/VirtoCommerce release tags
+description: >-
+  Virto Commerce is a self-hosted .NET commerce platform, so its "SDK" surface is not a set of
+  thin HTTP client wrappers — it is the platform itself, shipped as first-party NuGet packages
+  you compile against, plus first-party npm packages for the Vue 3 admin framework (VC-Shell)
+  and tooling. Every package below is published by Virto Commerce under the VirtoCommerce
+  NuGet prefix or the @virtocommerce / @vc-shell npm scopes and is verifiably first-party.
+  There is no first-party Python, Ruby, Go, PHP or Java client library — those ecosystems are
+  not served, which is the honest gap for anyone integrating from outside .NET/JS.
+packages:
+- name: VirtoCommerce.Platform.Core
+  language: dotnet
+  registry: nuget
+  url: https://www.nuget.org/packages/VirtoCommerce.Platform.Core
+  official: true
+  version: 3.1058.0
+  published: '2026-08-07'
+  note: >-
+    Core platform abstractions (domain events, settings, security, module framework). The
+    package every Virto module compiles against. 15 versions listed in the registration index.
+- name: VirtoCommerce.Xapi.Core
+  language: dotnet
+  registry: nuget
+  url: https://www.nuget.org/packages/VirtoCommerce.Xapi.Core
+  official: true
+  version: 3.1017.0
+  published: '2026-08-13'
+  note: >-
+    Experience API (xAPI) core — the GraphQL layer's building blocks. Published the same day
+    this artifact was written, so the GraphQL surface is actively shipping.
+- name: VirtoCommerce.GlobalTool
+  language: dotnet
+  registry: nuget
+  url: https://www.nuget.org/packages/VirtoCommerce.GlobalTool
+  official: true
+  version: 3.1001.0
+  published: '2026-07-24'
+  note: >-
+    The vc-build CLI, distributed as a .NET global tool. See cli/virto-commerce-cli.yml.
+    A 3.1002.0-alpha.298 prerelease was tagged the same day on GitHub.
+- name: VirtoCommerce.Tools
+  language: dotnet
+  registry: nuget
+  url: https://www.nuget.org/packages/VirtoCommerce.Tools
+  official: true
+  version: 3.1007.0
+  published: '2026-06-19'
+  note: Shared helper library (SEO/URL builders and related utilities).
+- name: VirtoCommerce.CoreModule.Core
+  language: dotnet
+  registry: nuget
+  url: https://www.nuget.org/packages/VirtoCommerce.CoreModule.Core
+  official: true
+  version: 3.1007.0
+  published: '2026-06-19'
+  note: Core commerce domain model (currencies, fulfillment, tax, seo abstractions).
+- name: VirtoCommerce.CatalogModule.Core
+  language: dotnet
+  registry: nuget
+  url: https://www.nuget.org/packages/VirtoCommerce.CatalogModule.Core
+  official: true
+  version: 3.1040.0
+  published: '2026-08-04'
+  note: Catalog domain model — the contract behind the Catalog API in openapi/.
+- name: VirtoCommerce.OrdersModule.Core
+  language: dotnet
+  registry: nuget
+  url: https://www.nuget.org/packages/VirtoCommerce.OrdersModule.Core
+  official: true
+  version: 3.1013.0
+  published: '2026-07-23'
+  note: Order domain model — the contract behind the Order Management API in openapi/.
+- name: VirtoCommerce.CustomerModule.Core
+  language: dotnet
+  registry: nuget
+  url: https://www.nuget.org/packages/VirtoCommerce.CustomerModule.Core
+  official: true
+  version: 3.1022.0
+  published: '2026-08-07'
+  note: Member/organization domain model behind the Companies and Contacts API.
+- name: '@vc-shell/framework'
+  language: javascript
+  registry: npm
+  url: https://www.npmjs.com/package/@vc-shell/framework
+  repository: https://github.com/VirtoCommerce/vc-shell
+  official: true
+  version: 2.4.0
+  published: '2026-08-04'
+  note: >-
+    VC-Shell — the Vue 3 + TypeScript framework for building custom back-office applications
+    against the platform APIs. See components/virto-commerce-components.yml.
+- name: '@vc-shell/create-vc-app'
+  language: javascript
+  registry: npm
+  url: https://www.npmjs.com/package/@vc-shell/create-vc-app
+  repository: https://github.com/VirtoCommerce/vc-shell
+  official: true
+  version: 2.4.0
+  published: '2026-08-04'
+  note: Scaffolder for a new VC-Shell application (`npm init @vc-shell/vc-app`).
+- name: '@vc-shell/api-client-generator'
+  language: javascript
+  registry: npm
+  url: https://www.npmjs.com/package/@vc-shell/api-client-generator
+  repository: https://github.com/VirtoCommerce/vc-shell
+  official: true
+  version: 2.4.0
+  published: '2026-08-04'
+  note: >-
+    Generates TypeScript API clients from the platform module Swagger documents — the closest
+    thing Virto ships to a generated JS SDK. It consumes the same
+    /docs/<Module>/swagger.json documents captured in openapi/_original/.
+- name: '@vc-shell/config-generator'
+  language: javascript
+  registry: npm
+  url: https://www.npmjs.com/package/@vc-shell/config-generator
+  repository: https://github.com/VirtoCommerce/vc-shell
+  official: true
+  version: 2.4.0
+  published: '2026-08-04'
+  note: Vite configuration generator for VC-Shell applications.
+- name: '@virtocommerce/mcp-onx'
+  language: javascript
+  registry: npm
+  url: https://www.npmjs.com/package/@virtocommerce/mcp-onx
+  repository: https://github.com/VirtoCommerce/vc-onX-adapter
+  official: true
+  version: 1.0.2
+  published: '2026-05-05'
+  note: >-
+    Virto Commerce adapter for the Commerce Operations Foundation (COF) MCP server. See
+    mcp/virto-commerce-mcp.yml. Three months behind the platform's release cadence.
+- name: '@virtocommerce/cof-mcp'
+  language: javascript
+  registry: npm
+  url: https://www.npmjs.com/package/@virtocommerce/cof-mcp
+  repository: https://github.com/cof-org/mcp
+  official: true
+  version: 1.0.0
+  published: '2026-02-26'
+  note: >-
+    The COF MCP server itself, published under Virto's own @virtocommerce npm scope but
+    developed upstream at github.com/cof-org/mcp (Commerce Operations Foundation). First-party
+    distribution, third-party source — recorded here because Virto's install instructions name
+    this exact package. Still on its initial 1.0.0 release.
+absent:
+- language: python
+  note: No first-party Python client published on PyPI.
+- language: ruby
+  note: No first-party Ruby client published on RubyGems.
+- language: go
+  note: No first-party Go module published.
+- language: php
+  note: No first-party PHP client published on Packagist.
+- language: java
+  note: No first-party Java/Kotlin client published on Maven Central.
+notes:
+- >-
+  Consumers outside .NET integrate over the REST APIs in openapi/ or the GraphQL xAPI in
+  graphql/ directly; no generated multi-language SDK family exists.
+- >-
+  Currency is healthy on the .NET and VC-Shell lines (releases within days of this probe) and
+  weakest on the MCP line (@virtocommerce/cof-mcp last published 2026-02-26).

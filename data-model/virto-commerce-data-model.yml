@@ -1,0 +1,219 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  openapi/*.yml — components.schemas $ref links and *Id reference fields across all 13
+  captured documents — cross-checked against graphql/virto-commerce-schema.graphql
+description: >-
+  Entity-relationship graph of the Virto Commerce commerce core, computed from the OpenAPI
+  component schemas rather than from prose. Three structural facts dominate and are worth
+  reading before the entity list: (1) references between aggregates are BARE STRING IDs, never
+  embedded objects or hyperlinks — customerId, storeId, catalogId — so a client always
+  resolves them with a second call; (2) every top-level entity carries outerId, a first-class
+  slot for the id of the same record in an external system, which is how Virto expects to be
+  integrated rather than owned; (3) orders, quotes and payments are DOCUMENTS that carry their
+  own line items, addresses, shipments, payments, discounts and tax details inline, which is
+  why mutations are read-modify-write on the whole document.
+id_conventions:
+  primary_key: id (string)
+  external_correlation: outerId (string) — present on catalog, category, product, member, contact, organization, store, price, pricelist, promotion, order and payment
+  cross_aggregate_reference: bare '<entity>Id' string field; no $ref, no URL, no prefix scheme
+  note: >-
+    Unlike Stripe-style prefixed ids (cus_, ord_), Virto ids are opaque GUID strings with no
+    type prefix, so an id alone does not tell you what it points at.
+universal_extensions:
+- field: dynamicProperties
+  type: DynamicObjectProperty[]
+  note: >-
+    Admin-defined typed custom fields. Attached to order, cart, quote, member, contact,
+    organization and store. The platform's extension mechanism.
+- field: seoInfos
+  type: SeoInfo[]
+  note: Attached to catalog, category, product, store and member.
+- field: operationsLog
+  type: OperationLog[]
+  note: Change audit trail on order, quote and payment documents.
+entities:
+- name: CustomerOrder
+  api: order-management
+  kind: document aggregate
+  relationships:
+  - {type: belongs_to, via: customerId, to: Member/Contact}
+  - {type: belongs_to, via: organizationId, to: Organization}
+  - {type: belongs_to, via: storeId, to: Store}
+  - {type: belongs_to, via: shoppingCartId, to: ShoppingCart}
+  - {type: belongs_to, via: subscriptionId, to: Subscription}
+  - {type: belongs_to, via: employeeId, to: Contact}
+  - {type: belongs_to, via: channelId, to: Channel}
+  - {type: belongs_to, via: parentOperationId, to: CustomerOrder}
+  - {type: has_many, via: items, to: OrderLineItem}
+  - {type: has_many, via: shipments, to: OrderShipment}
+  - {type: has_many, via: inPayments, to: PaymentIn}
+  - {type: has_many, via: addresses, to: OrderAddress}
+  - {type: has_many, via: discounts, to: Discount}
+  - {type: has_many, via: taxDetails, to: TaxDetail}
+  - {type: has_many, via: feeDetails, to: FeeDetail}
+  - {type: has_many, via: operationsLog, to: OperationLog}
+- name: ShoppingCart
+  api: shopping-cart
+  kind: document aggregate
+  relationships:
+  - {type: belongs_to, via: customerId, to: Member/Contact}
+  - {type: belongs_to, via: organizationId, to: Organization}
+  - {type: belongs_to, via: storeId, to: Store}
+  - {type: belongs_to, via: checkoutId, to: Checkout}
+  - {type: has_many, via: items, to: CartLineItem}
+  - {type: has_many, via: shipments, to: CartShipment}
+  - {type: has_many, via: payments, to: Payment}
+  - {type: has_many, via: addresses, to: CartAddress}
+  - {type: has_many, via: sharingSettings, to: CartSharingSetting}
+  note: >-
+    Cart → order is an explicit conversion (shoppingCartId is retained on the order; the
+    GraphQL mutation createOrderFromCart performs it).
+- name: QuoteRequest
+  api: quotes
+  kind: document aggregate
+  relationships:
+  - {type: belongs_to, via: customerId, to: Member/Contact}
+  - {type: belongs_to, via: organizationId, to: Organization}
+  - {type: belongs_to, via: storeId, to: Store}
+  - {type: has_many, via: items, to: QuoteItem}
+  - {type: has_many, via: attachments, to: QuoteAttachment}
+  - {type: has_many, via: addresses, to: QuoteAddress}
+  note: The B2B negotiation aggregate; converts to cart/order (createQuoteFromCart in the xAPI).
+- name: PaymentIn
+  api: order-management
+  kind: document aggregate
+  relationships:
+  - {type: belongs_to, via: orderId, to: CustomerOrder}
+  - {type: belongs_to, via: customerId, to: Member/Contact}
+  - {type: belongs_to, via: vendorId, to: Organization}
+  - {type: has_many, via: transactions, to: PaymentGatewayTransaction}
+  - {type: has_many, via: refunds, to: Refund}
+  - {type: has_many, via: captures, to: Capture}
+- name: Return
+  api: returns
+  kind: document aggregate
+  relationships:
+  - {type: belongs_to, via: orderId, to: CustomerOrder}
+  - {type: has_many, via: lineItems, to: ReturnLineItem}
+- name: CatalogProduct
+  api: catalog
+  kind: master data
+  relationships:
+  - {type: belongs_to, via: catalogId, to: Catalog}
+  - {type: belongs_to, via: categoryId, to: Category}
+  - {type: belongs_to, via: mainProductId, to: CatalogProduct}
+  - {type: belongs_to, via: titularItemId, to: CatalogProduct}
+  - {type: has_many, via: variations, to: Variation}
+  - {type: has_many, via: properties, to: Property}
+  - {type: has_many, via: images, to: Image}
+  - {type: has_many, via: assets, to: Asset}
+  - {type: has_many, via: associations, to: ProductAssociation}
+  - {type: has_many, via: reviews, to: EditorialReview}
+  - {type: has_many, via: outlines, to: Outline}
+  note: >-
+    Variants are self-referential — a variation is a CatalogProduct pointing at
+    mainProductId — so product and SKU are the same type.
+- name: Category
+  api: catalog
+  kind: master data
+  relationships:
+  - {type: belongs_to, via: catalogId, to: Catalog}
+  - {type: belongs_to, via: parentId, to: Category}
+  - {type: has_many, via: links, to: CategoryLink}
+  - {type: has_many, via: outlines, to: Outline}
+  note: Self-referential tree; Outline materializes the resolved path for search/SEO.
+- name: Catalog
+  api: catalog
+  kind: master data
+  relationships:
+  - {type: has_many, via: languages, to: CatalogLanguage}
+  - {type: has_many, via: propertyGroups, to: PropertyGroup}
+  - {type: has_many, via: properties, to: Property}
+- name: Member
+  api: companies-and-contacts
+  kind: polymorphic base
+  subtypes: [Contact, Organization, Vendor, Employee]
+  relationships:
+  - {type: has_many, via: addresses, to: CustomerAddress}
+  - {type: has_many, via: notes, to: Note}
+  note: >-
+    Member is the discriminated base for every party in the system. This is why the MCP
+    adapter's get-customers tool binds to CustomerModule_SearchMember rather than a
+    customer-specific endpoint.
+- name: Contact
+  api: companies-and-contacts
+  kind: member subtype
+  relationships:
+  - {type: belongs_to, via: defaultOrganizationId, to: Organization}
+  - {type: belongs_to, via: currentOrganizationId, to: Organization}
+  - {type: belongs_to, via: defaultShippingAddressId, to: CustomerAddress}
+  - {type: belongs_to, via: defaultBillingAddressId, to: CustomerAddress}
+  - {type: has_many, via: securityAccounts, to: ApplicationUser}
+  note: >-
+    currentOrganizationId vs defaultOrganizationId is the B2B buy-on-behalf-of mechanism — one
+    person acting for several organizations.
+- name: Organization
+  api: companies-and-contacts
+  kind: member subtype
+  relationships:
+  - {type: belongs_to, via: parentId, to: Organization}
+  - {type: belongs_to, via: ownerId, to: Contact}
+  note: Self-referential hierarchy — the parent/child company tree B2B purchasing depends on.
+- name: Store
+  api: store
+  kind: configuration
+  relationships:
+  - {type: belongs_to, via: mainFulfillmentCenterId, to: FulfillmentCenter}
+  - {type: has_many, via: additionalFulfillmentCenterIds, to: FulfillmentCenter}
+  - {type: belongs_to, via: mainReturnsFulfillmentCenterId, to: FulfillmentCenter}
+  - {type: has_many, via: returnsFulfillmentCenterIds, to: FulfillmentCenter}
+  - {type: has_many, via: settings, to: ObjectSettingEntry}
+  note: >-
+    Store is the multi-tenancy axis. Nearly every search criteria accepts storeId/storeIds, and
+    the MCP adapter's `workspace` option is a store id.
+- name: Pricelist
+  api: pricing
+  kind: master data
+  relationships:
+  - {type: has_many, via: prices, to: Price}
+  - {type: has_many, via: assignments, to: PricelistAssignment}
+- name: Price
+  api: pricing
+  kind: master data
+  relationships:
+  - {type: belongs_to, via: pricelistId, to: Pricelist}
+  - {type: belongs_to, via: productId, to: CatalogProduct}
+  note: >-
+    Contract pricing is evaluated, not looked up — PricingModule_EvaluatePrices takes a
+    PriceEvaluationContext (storeId, catalogId, currency, customerId).
+- name: Promotion
+  api: marketing
+  kind: rules
+  relationships:
+  - {type: has_many, via: storeIds, to: Store}
+- name: Webhook
+  api: webhooks
+  kind: integration config
+  relationships:
+  - {type: has_many, via: events, to: WebhookEvent}
+  - {type: has_many, via: payloads, to: WebHookPayload}
+- name: Subscription
+  api: event-bus
+  kind: integration config
+  relationships:
+  - {type: has_many, via: events, to: SubscriptionEvent}
+  note: >-
+    Event Bus subscription, not the commerce Subscription (recurring orders) entity — the
+    Subscription module is a separate module not captured in this repo's OpenAPI set.
+absent_from_captured_specs:
+- Inventory
+- Shipment
+- LineItem
+absent_note: >-
+  These names resolve to module-specific schema names in the captured documents
+  (InventoryInfo, OrderShipment/CartShipment, OrderLineItem/CartLineItem/QuoteItem) rather than
+  to shared types. Line items are NOT a shared type across aggregates: cart, order and quote
+  each define their own, which is a real source of mapping work in any integration.
+render: null
+render_note: No subway/ diagram exists for this provider yet.

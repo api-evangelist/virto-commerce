@@ -1,0 +1,44 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.virtocommerce.org/llms.txt
+file: virto-commerce-llms.txt
+http_status: 200
+content_type: text/plain
+bytes: 5936
+description: >-
+  Virto Commerce publishes a real, hand-authored llms.txt hub — captured verbatim, unmodified.
+  It is a genuinely good one: a bootstrap section with copy-paste directives for an agent, six
+  product sub-indexes (Platform, Frontend, Marketplace, VC-Shell, Cloud, Rosetta), an audience
+  split for product owners vs solution developers, and a cross-vendor "Rosetta" index that maps
+  Virto vocabulary onto Shopify, Adobe Commerce, commercetools and BigCommerce.
+finding:
+  issue: every sub-index link in the published hub 404s
+  detail: >-
+    All six product sub-indexes are published as
+    https://raw.githubusercontent.com/VirtoCommerce/vc-docs/master/docs/llms/<name>.txt. The
+    vc-docs repository's default branch is `main`, and no `master` branch exists. Probed
+    2026-08-13: the `master` URL returns HTTP 404, the identical `main` URL returns HTTP 200
+    with the real content (platform.txt, 22,751 bytes).
+  affects:
+  - platform.txt
+  - frontend.txt
+  - marketplace.txt
+  - vc-shell.txt
+  - cloud.txt
+  - rosetta.txt
+  consequence: >-
+    An agent that follows the hub exactly as published — including the two bootstrap prompt
+    directives Virto tells users to paste — retrieves nothing. The content exists and is good;
+    the branch name in every link is wrong.
+  fix: s/vc-docs/master/vc-docs/main/ in llms.txt
+  evidence:
+  - url: https://raw.githubusercontent.com/VirtoCommerce/vc-docs/master/docs/llms/platform.txt
+    status: 404
+  - url: https://raw.githubusercontent.com/VirtoCommerce/vc-docs/main/docs/llms/platform.txt
+    status: 200
+notes:
+- >-
+  The file is stored verbatim, so the broken links are preserved as published rather than
+  silently corrected. The correction belongs to the provider.
+- >-
+  llms-full.txt is not published by Virto and none is generated here.

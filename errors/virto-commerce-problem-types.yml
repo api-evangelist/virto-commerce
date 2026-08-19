@@ -1,0 +1,108 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  openapi/*.yml (13 documents, 452 operations) — every declared 4xx/5xx response — plus the
+  live 401 and 405 responses observed on https://virtostart-demo-admin.govirto.com on
+  2026-08-13
+format: none
+problem_json: false
+description: >-
+  Virto Commerce publishes no error-code registry and no RFC 9457 problem+json envelope. What
+  the generated OpenAPI documents declare is a uniform authorization pair — 401 and 403 on
+  426 of 452 operations — and almost nothing else: five operations declare a 400, two declare
+  a 404, and exactly one 4xx body anywhere in the catalog has a named schema. Failure
+  semantics are therefore ASP.NET Core defaults rather than a designed API contract, which is
+  the honest finding here. This artifact records what IS declared; it does not invent codes.
+coverage:
+  operations_total: 452
+  declare_401: 426
+  declare_403: 426
+  declare_400: 5
+  declare_404: 2
+  declare_5xx: 0
+  named_error_schemas: 1
+problem_types:
+- status: 401
+  title: Unauthorized
+  declared_on: 426 operations
+  format: >-
+    Empty body. Observed live: GET /api/webhooks/events, GET /api/eventbus/events and
+    GET /api/platform/modules each returned 401 with a zero-length body and no
+    WWW-Authenticate challenge document.
+  cause: >-
+    Missing or expired bearer token, or a missing api_key. Tokens are issued at
+    POST /connect/token.
+  remediation: >-
+    Obtain a token via the password or client_credentials grant, or send a platform API key in
+    the api_key header. See authentication/virto-commerce-authentication.yml.
+  verified: probed
+- status: 403
+  title: Forbidden
+  declared_on: 426 operations
+  format: Empty body.
+  cause: >-
+    Authenticated, but the principal lacks the module permission the operation requires. Virto
+    permissions are fine-grained, colon-namespaced strings (for example webhooks:read,
+    webhooks:update, webhooks:delete, webhooks:feed:read).
+  remediation: >-
+    Grant the required permission to the caller's role in the platform's Security section. The
+    per-operation permission is not expressed in the OpenAPI — it lives in the module source
+    and, for the MCP adapter, in its own docs/PERMISSIONS.md.
+- status: 400
+  title: Bad Request
+  declared_on: 5 operations
+  format: >-
+    A bare JSON string on POST /api/catalog/videos/create (schema type string, offered as
+    application/json, text/json and text/plain). ASP.NET Core's ValidationProblemDetails shape
+    is what model-binding failures actually return, but it is not declared in the spec.
+  cause: Invalid payload, malformed search criteria, or a failed model-binding validation.
+  remediation: Correct the request body against the referenced component schema.
+- status: 400
+  title: OAuth token error
+  declared_on: POST /connect/token
+  schema: OpenIddictResponse
+  format: >-
+    The only named error schema in the catalog. OAuth 2.0 standard error envelope — fields
+    error, errorDescription, errorUri, plus the full token-response shape.
+  cause: >-
+    invalid_grant, invalid_client, unsupported_grant_type and the rest of the OpenIddict
+    error set.
+  remediation: Fix the grant/credentials; the errorDescription field carries the specific reason.
+  standard: RFC 6749 §5.2
+- status: 404
+  title: Not Found
+  declared_on: 2 operations
+  format: Empty body.
+  cause: Entity id does not exist, or is outside the caller's store/catalog scope.
+  remediation: Verify the id, and the storeId/catalogId scoping on search operations.
+- status: 405
+  title: Method Not Allowed
+  declared_on: 0 operations
+  format: >-
+    Empty body with an Allow header. Observed live: POST /api/platform/modules returned 405
+    with `allow: GET`.
+  cause: Correct path, wrong HTTP method.
+  remediation: Read the Allow header.
+  verified: probed
+graphql_errors:
+  envelope: 'GraphQL standard: { errors: [{ message, extensions: { code, codes[] } }] }'
+  example_observed:
+    code: CSRF_PROTECTION
+    message: "This request requires a non-empty header from the following list: 'GraphQL-Require-Preflight'."
+    http_status: 400
+  note: >-
+    The xAPI returns machine-readable extensions.code values, so the GraphQL surface has
+    strictly better error semantics than the REST surface. Content-Type on error is
+    application/graphql-response+json.
+gaps:
+- >-
+  No 5xx response is declared on any operation in any of the 13 documents.
+- >-
+  No error-code catalog, error reference page, or per-error documentation URL is published
+  anywhere on docs.virtocommerce.org.
+- >-
+  Permission requirements — the actual cause of nearly every 403 — are not expressed in the
+  OpenAPI, so a client cannot tell in advance which permission an operation needs.
+- >-
+  Error bodies advertised as application/json are frequently typed as a bare `string` rather
+  than an object, so a client cannot parse them structurally.

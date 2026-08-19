@@ -1,29 +1,53 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.virtocommerce.org/platform/developer-guide/ ; plus a live unauthenticated response
+  from https://virtostart-demo-admin.govirto.com observed 2026-08-13, and a scan of all 13 OpenAPI documents
+  for rate-limit response headers
+limit_count: 0
 name: Virto Commerce Rate Limits
-description: Virto Commerce is an open-source, self-hosted or privately managed cloud platform. Rate limits are not imposed by the vendor at the API level by default; they are configured at the infrastructure level by the operator (via Kubernetes ingress controllers, Azure API Management, or custom middleware). No publicly documented rate limit thresholds are published.
+description: Virto Commerce is an open-source, self-hosted or privately managed cloud platform. Rate limits
+  are not imposed by the vendor at the API level by default; they are configured at the infrastructure
+  level by the operator (via Kubernetes ingress controllers, Azure API Management, or custom middleware).
+  No publicly documented rate limit thresholds are published.
 url: https://docs.virtocommerce.org/platform/developer-guide/
 enforcement: operator-configured
 limits:
-  - scope: REST API (default platform)
-    limit: No vendor-imposed default limit
-    notes: Operators configure rate limiting at the reverse proxy or API gateway layer (e.g., Azure API Management, NGINX ingress, or custom ASP.NET middleware)
-  - scope: GraphQL Experience API (XAPI)
-    limit: No vendor-imposed default limit
-    notes: Same infrastructure-level configuration applies
-  - scope: Order documents per order
-    limit: 20 documents per order (default configurable)
-    notes: Soft limit on related documents (payments, shipments, refunds) per order object; configurable in platform settings
-  - scope: Search indexing
-    limit: Configurable via ScalableIndexation module
-    notes: Large catalog indexing supports scalable batch configuration
+- scope: REST API (default platform)
+  limit: No vendor-imposed default limit
+  notes: Operators configure rate limiting at the reverse proxy or API gateway layer (e.g., Azure API
+    Management, NGINX ingress, or custom ASP.NET middleware)
+- scope: GraphQL Experience API (XAPI)
+  limit: No vendor-imposed default limit
+  notes: Same infrastructure-level configuration applies
+- scope: Order documents per order
+  limit: 20 documents per order (default configurable)
+  notes: Soft limit on related documents (payments, shipments, refunds) per order object; configurable
+    in platform settings
+- scope: Search indexing
+  limit: Configurable via ScalableIndexation module
+  notes: Large catalog indexing supports scalable batch configuration
 authentication:
-  - type: API Key
-    description: API keys created per integration, partner, or developer. Passed as a header or query parameter on all requests.
-    url: https://docs.virtocommerce.org/platform/developer-guide/Fundamentals/Security/authentication/api-key-authentication/
-  - type: OAuth 2.0 / OpenID Connect
-    description: Token-based authentication using OpenIddict. Short-lived JWTs issued for user and service accounts.
-  - type: ASP.NET Core Identity
-    description: Built-in identity provider for platform users and roles.
+- type: API Key
+  description: API keys created per integration, partner, or developer. Passed as a header or query parameter
+    on all requests.
+  url: https://docs.virtocommerce.org/platform/developer-guide/Fundamentals/Security/authentication/api-key-authentication/
+- type: OAuth 2.0 / OpenID Connect
+  description: Token-based authentication using OpenIddict. Short-lived JWTs issued for user and service
+    accounts.
+- type: ASP.NET Core Identity
+  description: Built-in identity provider for platform users and roles.
 notes:
-  - Virto Commerce Cloud (managed) may apply custom rate limits defined in customer SLA contracts.
-  - For self-hosted deployments, operators are responsible for implementing rate limiting policies.
-  - SOC 2 Type II certified infrastructure for cloud deployments.
+- Virto Commerce Cloud (managed) may apply custom rate limits defined in customer SLA contracts.
+- For self-hosted deployments, operators are responsible for implementing rate limiting policies.
+- SOC 2 Type II certified infrastructure for cloud deployments.
+response_headers:
+  ratelimit: []
+  retry_after: false
+  status_on_exhaustion: null
+  evidence: No RateLimit-*, X-RateLimit-* or Retry-After header is declared on any of the 452 operations
+    in the 13 captured OpenAPI documents, and none appeared on a live response from the reference deployment
+    on 2026-08-13. An agent therefore gets no runtime backoff signal from this API at all — if an operator
+    has put a gateway in front of it, the 429 will arrive with no guidance on when to retry.
+limit_count_note: limit_count is 0 because Virto publishes no vendor-enforced numeric limit. The entries
+  in limits[] below record where limiting actually happens (operator infrastructure) and one soft platform
+  default; none of them is a documented request-rate threshold a client can plan against.

@@ -1,0 +1,86 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://github.com/VirtoCommerce/vc-shell (README.md, read 2026-08-13),
+  https://vc-shell-storybook.govirto.com/,
+  https://www.npmjs.com/package/@vc-shell/framework,
+  https://raw.githubusercontent.com/VirtoCommerce/vc-docs/master/docs/llms/vc-shell.txt
+description: >-
+  Virto Commerce's client-side component surface is VC-Shell — a first-party Vue 3 design
+  system and application framework for building back-office (admin) applications against the
+  platform APIs. It is a developer-installed component library, not a set of drop-in
+  embeddable widgets or hosted iframes: there are no script-tag elements or hosted checkout
+  surfaces to embed in a third-party page. A published Storybook is the live component
+  reference. The customer-facing side is served instead by vc-frontend, a full Vue 3 storefront
+  application rather than a component library.
+families:
+- name: VC-Shell framework
+  package: '@vc-shell/framework'
+  registry: npm
+  version: 2.4.0
+  published: '2026-08-04'
+  repository: https://github.com/VirtoCommerce/vc-shell
+  storybook: https://vc-shell-storybook.govirto.com/
+  license: VC-OSL
+  kind: component library (bundled, not CDN-hosted)
+  organization: Atomic Design — atoms, molecules, organisms
+  description: >-
+    Vue 3 + TypeScript component library and application shell. Tailwind CSS 3 (tw- prefix)
+    with SCSS custom properties, Vite 6 build, accessibility audited with axe-core against
+    WCAG 2.2 A/AA over every Storybook story.
+  notable_components:
+  - name: Blade navigation
+    note: >-
+      Stacked-panel navigation paradigm driven by the useBlade() composable — the framework's
+      defining interaction model.
+  - name: VcDataTable
+    note: >-
+      Compositional table with a declarative <VcColumn> API, virtual scroll, column switching,
+      global filters, inline editing, row grouping, drag-and-drop reorder, and state
+      persistence to localStorage or the URL query.
+  - name: VcScheduler
+    note: Calendar organism with Month grid and Day/Week timeline views, event lanes, drag-to-edit.
+  - name: Rich text editor
+    note: Tiptap 3 based, with tables, images, links and markdown.
+  - name: Dashboard and widgets
+    note: GridStack-based dashboard with a customizable, keyboard-rearrangeable widget system.
+  capabilities:
+  - Dynamic module system — runtime-loaded Vue plugins with semver compatibility, extension points and Module Federation remotes
+  - Declarative keyboard shortcuts with OS-aware tooltips
+  - i18n via vue-i18n 11
+  - Mobile-first responsive variants
+  - Core composables for API clients, assets, notifications, settings and permissions
+- name: VC-Shell tooling
+  kind: build/scaffold tooling for the component surface
+  packages:
+  - name: '@vc-shell/create-vc-app'
+    version: 2.4.0
+    published: '2026-08-04'
+    note: Application scaffolder (`npm init @vc-shell/vc-app`).
+  - name: '@vc-shell/api-client-generator'
+    version: 2.4.0
+    published: '2026-08-04'
+    note: >-
+      Generates typed API clients from the platform's per-module Swagger documents — the same
+      documents captured in openapi/_original/.
+  - name: '@vc-shell/config-generator'
+    version: 2.4.0
+    published: '2026-08-04'
+    note: Vite configuration generator.
+loaders: []
+loader_note: >-
+  No CDN loader, script tag, or unpkg/jsDelivr distribution is published. Components are
+  consumed as npm dependencies and bundled by the consuming application, so there is no
+  unpinned CDN build for a consumer to worry about.
+related_surfaces:
+- name: vc-frontend
+  url: https://github.com/VirtoCommerce/vc-frontend
+  kind: storefront application (not a component library)
+  note: >-
+    Vue 3 B2B/B2C storefront SPA that talks to the GraphQL xAPI. Distributed as a repository to
+    fork and theme, not as an npm component package. Live reference deployment:
+    https://virtostart-demo-store.govirto.com/
+- name: Virto Pages / Page Builder
+  url: https://github.com/VirtoCommerce/vc-module-pagebuilder
+  kind: platform module
+  note: Visual page composition inside the admin, not an embeddable third-party component.

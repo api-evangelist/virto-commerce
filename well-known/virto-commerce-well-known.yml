@@ -1,0 +1,118 @@
+generated: '2026-08-13'
+method: probed
+source: live HTTP probes of every apis.yml host on 2026-08-13
+description: >-
+  Well-known discovery surface for Virto Commerce. Virto Commerce is an installable,
+  self-hosted / privately-hosted .NET platform, so the well-known documents are served by
+  each deployed PLATFORM instance rather than by the marketing site. The probe below uses
+  Virto's own reference deployment (virtostart-demo-admin.govirto.com — the host every
+  apis.yml baseURL points at and the host that serves the live Swagger UI Virto links from
+  its docs). That instance serves a full OpenID Connect discovery document and an
+  RFC 8414 OAuth 2.0 authorization-server metadata document from the OpenIddict-based
+  identity stack that ships with the platform. The corporate site (virtocommerce.com) and
+  the documentation site (docs.virtocommerce.org) serve nothing under /.well-known/.
+hosts:
+- host: virtostart-demo-admin.govirto.com
+  role: platform / API host (reference deployment)
+  paths:
+  - path: /.well-known/openid-configuration
+    status: 200
+    content_type: application/json;charset=UTF-8
+    file: virto-commerce-openid-configuration.json
+    note: >-
+      Full OIDC discovery document. issuer https://virtostart-demo-admin.govirto.com/,
+      token_endpoint /connect/token, authorization_endpoint /connect/authorize,
+      userinfo_endpoint /connect/userinfo, end_session_endpoint /connect/logout,
+      jwks_uri /.well-known/jwks. grant_types_supported includes password, refresh_token,
+      client_credentials, authorization_code plus two Virto-specific grants (impersonate,
+      external_sign_in). PKCE S256 supported.
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    content_type: application/json;charset=UTF-8
+    file: virto-commerce-oauth-authorization-server.json
+    note: RFC 8414 metadata; byte-identical to the OIDC discovery document on this deployment.
+  - path: /.well-known/jwks
+    status: 200
+    content_type: application/json
+    file: null
+    note: >-
+      JWKS is served, but at the non-standard /.well-known/jwks path advertised by
+      jwks_uri (not /.well-known/jwks.json). Signing keys are deployment-specific, so the
+      key material is intentionally NOT captured in this repo.
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: virtocommerce.com
+  role: corporate site
+  note: >-
+    Every /.well-known/* path returns HTTP 404 with the site's HTML 404 body. No document
+    is served.
+  paths:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: docs.virtocommerce.org
+  role: documentation site
+  paths:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /llms.txt
+    status: 200
+    content_type: text/plain
+    file: ../llms/virto-commerce-llms.txt
+    note: >-
+      A real, provider-authored llms.txt hub (5,936 bytes) is served here even though the
+      HTML documentation pages themselves answer 403 to non-browser clients behind
+      Cloudflare. Captured verbatim in llms/.
+findings:
+  security_txt: false
+  openid_configuration: true
+  oauth_authorization_server: true
+  api_catalog: false
+  ai_plugin: false
+  agent_card: false
+  llms_txt: true
+notes:
+- >-
+  The OIDC/OAuth documents are a genuine served surface, but they are per-deployment: a
+  self-hosted Virto Commerce installation serves the same two documents from its own host.
+  The issuer recorded here is Virto's reference deployment, not a single multi-tenant
+  authorization server.
+- >-
+  No security.txt is published on any Virto host, and no SECURITY.md exists in the
+  VirtoCommerce GitHub organization or in vc-platform / vc-frontend / vc-shell (all 404).
+  No vulnerability-disclosure pointer is emitted for this provider.

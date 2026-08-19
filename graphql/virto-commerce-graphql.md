@@ -17,14 +17,33 @@ The GraphQL layer is implemented across a set of open-source modules:
 POST /graphql
 ```
 
-Demo / sandbox:
+Virto's own public reference deployment (verified live, 2026-08-13):
 ```
-https://demo.virtocommerce.com/graphql
+https://virtostart-demo-admin.govirto.com/graphql
 ```
+
+> Corrected 2026-08-13: an earlier revision of this file listed
+> `https://demo.virtocommerce.com/graphql`. That host 301s to `https://virtocommerce.com/`
+> and serves no GraphQL endpoint.
+
+**Required header.** The platform enforces CSRF protection on `/graphql`. A request without a
+non-empty `GraphQL-Require-Preflight` header is rejected with HTTP 400 and
+`extensions.code: CSRF_PROTECTION`:
+
+```
+POST /graphql
+Content-Type: application/json
+GraphQL-Require-Preflight: 1
+```
+
+Introspection is open on the reference deployment — the full `__schema` document was retrieved
+anonymously on 2026-08-13 (435 types, 89 `Query` fields, 144 `Mutations` fields, plus a
+`Subscriptions` root). The resulting SDL is captured verbatim in
+`graphql/virto-commerce-schema.graphql`.
 
 A GraphQL Playground (GraphiQL) is available at:
 ```
-https://<your-store>/graphql/ui
+https://<your-platform-host>/graphql/ui
 ```
 
 ## Authentication

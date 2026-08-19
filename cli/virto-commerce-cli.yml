@@ -1,0 +1,120 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://github.com/VirtoCommerce/vc-build (README.md, read 2026-08-13) +
+  https://www.nuget.org/packages/VirtoCommerce.GlobalTool +
+  https://docs.virtocommerce.org/platform/developer-guide/CLI-tools/overview/
+name: vc-build
+full_name: VirtoCommerce.GlobalTool
+description: >-
+  vc-build is Virto Commerce's official CLI, distributed as a .NET global tool and powered by
+  nuke.build (a C#-DSL build automation engine). It is an operator/developer tool rather than
+  an API client: it installs and updates the platform and its modules, builds and bundles
+  module projects, runs tests, creates and pushes NuGet packages, drives release/hotfix
+  branching, and validates module Swagger schemas. There is no CLI for calling the commerce
+  APIs themselves — that surface is the REST APIs in openapi/ and the GraphQL xAPI.
+url: https://github.com/VirtoCommerce/vc-build
+docs: https://docs.virtocommerce.org/platform/developer-guide/CLI-tools/overview/
+version: 3.1001.0
+published: '2026-07-24'
+package: VirtoCommerce.GlobalTool
+registry: nuget
+install:
+- method: dotnet-tool
+  command: dotnet tool install VirtoCommerce.GlobalTool -g
+- method: dotnet-tool-update
+  command: dotnet tool update VirtoCommerce.GlobalTool -g
+- method: verify
+  command: dotnet tool list -g
+invocation: vc-build
+help: vc-build help <TargetName>
+prerequisites:
+- .NET SDK
+- Node.js
+- Git SCM
+command_groups:
+- group: package management
+  description: Install, update and uninstall the platform application and its modules.
+  targets:
+  - Install
+  - InstallPlatform
+  - InstallModules
+  - Uninstall
+  - Update
+  - UpdateManifest
+  - GetManifestGit
+  - PublishManifestGit
+  - PublishModuleManifest
+- group: build automation
+  description: Build and bundle a module project (managed and scripted parts).
+  targets:
+  - Init
+  - InitPlatform
+  - Restore
+  - Compile
+  - Clean
+  - ClearTemp
+  - Compress
+  - WebPackBuild
+  - MassPullAndBuild
+- group: test and quality
+  description: Discover and run solution unit tests; run static analysis via SonarCloud.
+  targets:
+  - Test
+  - StartAnalyzer
+  - SonarQubeStart
+  - SonarQubeEnd
+- group: packaging and publishing
+  description: Create and push NuGet packages to a public or private registry.
+  targets:
+  - Pack
+  - Publish
+  - PublishPackages
+- group: release management
+  description: Version bumps and GitFlow-style release/hotfix flows.
+  targets:
+  - ChangeVersion
+  - IncrementMinor
+  - IncrementPatch
+  - StartRelease
+  - CompleteRelease
+  - QuickRelease
+  - Release
+  - StartHotfix
+  - CompleteHotfix
+- group: api contract validation
+  description: >-
+    Validate a module's generated Swagger document — the mechanism that keeps the per-module
+    OpenAPI documents in openapi/_original/ well formed.
+  targets:
+  - SwaggerValidation
+  - ValidateSwaggerSchema
+- group: data migration
+  description: >-
+    Platform cold-start optimization and idempotent EF migration SQL generation (documented as
+    work in progress).
+  targets:
+  - GrabMigrator
+key_flows:
+- name: install a platform and modules
+  commands:
+  - vc-build install
+  - vc-build install -platform -version <version>
+  - vc-build install -module <module> -version <version>
+- name: build and test a module
+  commands:
+  - vc-build Compile
+  - vc-build Test
+- name: cut a release
+  commands:
+  - vc-build StartRelease
+  - vc-build CompleteRelease
+notes:
+- >-
+  A second, narrower CLI exists on the front-end side: `npm init @vc-shell/vc-app` scaffolds a
+  VC-Shell back-office application. It is recorded in packages/ and components/ rather than
+  here because it is a scaffolder, not a platform CLI.
+- >-
+  The README's "Before you start" section still names .NET SDK 5.x and Node.js 12.x while the
+  platform itself has moved to .NET 10 (per Virto's own llms.txt) — the prerequisite list is
+  stale even though the tool ships monthly.

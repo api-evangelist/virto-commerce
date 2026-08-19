@@ -1,0 +1,129 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://github.com/VirtoCommerce/vc-module-webhooks (README, read 2026-08-13),
+  https://github.com/VirtoCommerce/vc-module-event-bus (README, read 2026-08-13),
+  openapi/virto-commerce-webhooks-api-openapi.yml and
+  openapi/virto-commerce-event-bus-api-openapi.yml (both harvested live from
+  https://virtostart-demo-admin.govirto.com/docs/<Module>/swagger.json on 2026-08-13)
+asyncapi_published: false
+asyncapi_note: >-
+  No AsyncAPI document is published by Virto Commerce — not in the GitHub organization, not on
+  the docs site, and not at /asyncapi.yaml on any host. None is fabricated here. What Virto
+  does publish is a fully-managed event surface with its own REST control plane, captured
+  below and in the two OpenAPI documents harvested in this pass.
+description: >-
+  Virto Commerce ships TWO distinct, first-party event surfaces, and they are not the same
+  product. The Webhooks module delivers HTTP POST callbacks to endpoints an operator
+  configures. The Event Bus module forwards the same domain events to a message queue (Azure
+  Event Grid out of the box) as CloudEvents. Both discover their event catalog at RUNTIME by
+  reflecting over every DomainEvent/IEvent type in the installed modules, which is why no
+  static event list can be published: the catalog is a function of which of the ~100 modules a
+  given deployment has installed. Both are administered through REST, and both control-plane
+  APIs are now captured in openapi/.
+surfaces:
+- name: Webhooks
+  kind: HTTP callback delivery
+  module: https://github.com/VirtoCommerce/vc-module-webhooks
+  openapi: openapi/virto-commerce-webhooks-api-openapi.yml
+  transport: HTTP POST with a JSON-serialized event body
+  event_discovery: >-
+    Resolves all DomainEvent types from the platform and installed modules at runtime.
+    GET /api/webhooks/events (operationId WebHooks_GetAllRegisteredEvents) returns the live
+    catalog for a given deployment.
+  event_catalog_captured: false
+  event_catalog_note: >-
+    GET /api/webhooks/events returned HTTP 401 on an anonymous probe of the reference
+    deployment (2026-08-13). The event list is authenticated and deployment-specific, so no
+    event names are asserted here.
+  payload_composition: >-
+    Selective — a webhook subscription names the specific entity properties to include in the
+    body, with access to PREVIOUS values for change tracking. GET /api/webhooks/properties
+    (WebHooks_GetEventObjectProperties) enumerates the selectable properties for an event.
+  authentication_to_endpoint:
+  - None
+  - HTTP Basic
+  - Bearer Token
+  - Custom Header
+  signing: >-
+    No HMAC payload signature is offered. Receiver-side authenticity relies on the shared
+    Basic/Bearer/custom-header credential the operator configures — weaker than a signed-body
+    scheme, and worth knowing before building a public receiver.
+  delivery:
+    retries: 3 (configurable via Webhooks.General.SendRetryCount)
+    backoff: exponential, 2^(n-1) minutes — 1, 2, 4
+    engine: Polly retry policy over Hangfire background jobs
+    debounce: 5 seconds
+    batch_size: 20
+  observability:
+    feed: >-
+      Every attempt — success or failure — is persisted as a WebhookFeedEntry recording
+      request/response headers, body, HTTP status, error message and attempt count.
+    api: POST /api/webhooks/feed/search (WebHooks_SearchWebhookFeed)
+    retention: Webhooks.General.LatestErrorCount (default 5 recent errors per webhook)
+  manual_trigger: POST /api/webhooks/send (WebHooks_Run)
+  permissions:
+  - webhooks:access
+  - webhooks:read
+  - webhooks:update
+  - webhooks:delete
+  - webhooks:feed:read
+  operations:
+  - WebHooks_Search
+  - WebHooks_GetWebhookById
+  - WebHooks_SaveWebhooks
+  - WebHooks_DeleteWebHooks
+  - WebHooks_Run
+  - WebHooks_GetAllRegisteredEvents
+  - WebHooks_GetEventObjectProperties
+  - WebHooks_SearchWebhookFeed
+  - WebHooks_DeleteWebHookFeeds
+- name: Event Bus
+  kind: message-queue forwarding
+  module: https://github.com/VirtoCommerce/vc-module-event-bus
+  openapi: openapi/virto-commerce-event-bus-api-openapi.yml
+  transport: provider connection — Azure Event Grid built in, pluggable provider model
+  data_format: CloudEvents
+  data_format_evidence: >-
+    "the Azure Event Grid provider emits events using the CloudEvents specification" — module
+    README.
+  event_discovery: >-
+    Scans all loaded assemblies at startup and exposes every IEvent implementation as
+    subscribable. GET /api/eventbus/events (Subscriptions_Get) returns the live catalog;
+    anonymous probe returned HTTP 401 (2026-08-13).
+  filtering: JsonPath expression per subscription (JsonPathFilter, default "$" = match all)
+  transformation: Scriban/Liquid template per subscription (PayloadTransformationTemplate)
+  configuration_sources:
+  - appsettings.json (EventBus:Connections, EventBus:Subscriptions)
+  - runtime via REST API (database-backed)
+  observability: >-
+    Failed deliveries persist as provider connection logs with status, error message and
+    payload — POST /api/eventbus/logs/search.
+  operations:
+  - Connections_SearchConnections
+  - Connections_GetConnectionByName
+  - Connections_CreateConnection
+  - Connections_UpdateConnection
+  - Connections_DeleteConnection
+  - Subscriptions_Get
+  - Subscriptions_SearchSubscriptions
+  - Subscriptions_GetSubscriptionById
+  - Subscriptions_CreateSubscription
+  - Subscriptions_UpdateSubscription
+  - Subscriptions_DeleteSubscription
+  - ConnectionsLog_SearchProviderConnectionLog
+related:
+- name: Push Messages
+  module: https://github.com/VirtoCommerce/vc-module-push-messages
+  note: >-
+    In-app notification fan-out to storefront users, surfaced in the xAPI as pushMessages
+    queries and a Subscriptions root type in the GraphQL SDL. Operator-to-user messaging, not
+    a system integration event surface.
+- name: Notifications
+  module: https://github.com/VirtoCommerce/vc-module-notification
+  note: Templated email/SMS delivery, not a webhook surface.
+gaps:
+- No AsyncAPI document, so the event surface is not machine-readable as an event contract.
+- No published static event catalog — the list is per-deployment and requires an authenticated call.
+- No payload signing (HMAC) on outbound webhooks.
+- No documented replay/dead-letter mechanism beyond the retry policy and the audit feed.

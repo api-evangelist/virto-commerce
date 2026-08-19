@@ -1,0 +1,163 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  openapi/*.yml (13 documents, 452 operations), graphql/virto-commerce-schema.graphql,
+  well-known/virto-commerce-openid-configuration.json, and live response headers observed on
+  https://virtostart-demo-admin.govirto.com on 2026-08-13
+description: >-
+  Cross-cutting runtime semantics of the Virto Commerce admin REST API, derived from the
+  platform's own generated OpenAPI documents plus live probes. Virto Commerce is ASP.NET
+  Core software you host yourself, and the conventions reflect that: a search-by-POST idiom
+  with skip/take paging, a responseGroup flag for field expansion, document-shaped
+  read-modify-write updates, and no vendor-imposed runtime governance layer (no rate-limit
+  headers, no idempotency keys) because that layer is the operator's to add at their own
+  gateway.
+auth:
+  style: bearer-jwt
+  schemes_declared:
+  - name: oauth2
+    type: oauth2
+    flows: [password, clientCredentials]
+    token_url: /connect/token
+  - name: api_key
+    type: apiKey
+    in: query
+  - name: api_key_header
+    type: apiKey
+    in: header
+  - name: http-signature
+    type: http
+  - name: basic
+    type: http
+  note: >-
+    All five schemes are declared in all 13 module documents (they are emitted by the shared
+    platform Swagger generator, not per module). The OIDC discovery document additionally
+    advertises authorization_code with PKCE S256, refresh_token, and two Virto-specific
+    grants — impersonate and external_sign_in. See authentication/ and scopes/.
+  detail: authentication/virto-commerce-authentication.yml
+idempotency:
+  supported: false
+  header: null
+  evidence: >-
+    Zero occurrences of any idempotency key, header or parameter across all 13 OpenAPI
+    documents and 452 operations; nothing in the platform docs describes one.
+  practical_effect: >-
+    Retrying a failed POST /api/order/customerOrders can create a duplicate order. The
+    platform's own MCP adapter works around this by using a read-modify-write pattern
+    (GET → PUT → GET) for mutations rather than repeatable POSTs.
+  note: >-
+    No Idempotency pointer is emitted in apis.yml for this provider. Recording the absence is
+    the finding.
+pagination:
+  style: offset (skip/take) inside a POST search-criteria body
+  request:
+    transport: >-
+      Most collection reads are POST /api/<module>/<entity>/search with a *SearchCriteria JSON
+      body rather than GET with query parameters.
+    params:
+    - name: skip
+      type: integer
+      description: Zero-based offset of the first record to return.
+    - name: take
+      type: integer
+      description: Page size.
+    - name: sort
+      type: string
+      description: Sort expression; a structured sortInfos array is also accepted.
+    schema_count: 46
+    schema_note: 46 distinct *SearchCriteria schemas expose the same skip/take/sort triple.
+  response:
+    envelope: '{ totalCount, results[] }'
+    fields:
+    - totalCount
+    - results
+    note: >-
+      No cursor, no next/previous links, no Link header. Deep paging is offset-based and the
+      caller computes the next page from totalCount.
+field_expansion:
+  supported: true
+  mechanism: responseGroup
+  params:
+  - responseGroup
+  - respGroup
+  - ResponseGroup
+  description: >-
+    A bit-flag string (e.g. "WithProducts, WithProperties") that widens or narrows the
+    serialized graph of the returned entity. Present on 29 operations plus most search
+    criteria bodies.
+  caveat: >-
+    The same concept is spelled three different ways across modules — responseGroup,
+    respGroup and ResponseGroup — so a generic client cannot bind it uniformly.
+metadata:
+  supported: true
+  mechanism: dynamic properties
+  description: >-
+    Virto's extension model is Dynamic Properties: typed, admin-defined custom fields attached
+    to any entity, with a dedicated REST surface and dedicated GraphQL mutations
+    (updateCartDynamicProperties, updateOrderDynamicProperties, updateMemberDynamicProperties
+    and eight more). Types are enumerated by DynamicPropertyValueTypes in the SDL.
+  also: outerId — a first-class external-system correlation id on most entities, with
+    dedicated lookup operations such as StoreModule_GetStoreByOuterId.
+request_tracing:
+  request_id_header: null
+  observed_headers:
+  - request-context (Azure Application Insights correlation, e.g. appId=cid-v1:...)
+  note: >-
+    No client-supplied request-id convention is documented. Server-side correlation is via
+    Application Insights when the ApplicationInsights module is installed.
+versioning:
+  url_versioning: false
+  scheme: >-
+    Unversioned paths — /api/<module>/<resource>, no /v1/ segment. The unit of change is the
+    platform/module release (semver, e.g. 3.1058.0), not an API version.
+  spec_version_field: info.version = "v1" in every module document (a Swagger doc name, not an API version)
+  detail: lifecycle/virto-commerce-lifecycle.yml
+error_envelope:
+  format: non-standard
+  problem_json: false
+  description: >-
+    Responses are not RFC 9457 problem+json. 4xx/5xx bodies are largely undeclared in the
+    generated specs: of 452 operations, 426 declare 401 and 403, but only 5 declare a 400 and
+    2 declare a 404, and only one error body has a named schema (OpenIddictResponse on the
+    token endpoint). In practice ASP.NET Core's ProblemDetails/validation shape is what is
+    returned for model-binding failures.
+  detail: errors/virto-commerce-problem-types.yml
+content_negotiation:
+  response_media_types:
+  - application/json
+  - text/json
+  - text/plain
+  note: >-
+    Every JSON operation also advertises text/plain and text/json — an artifact of the default
+    ASP.NET Core output formatter set, not a deliberate content-negotiation design. Clients
+    should send Accept: application/json explicitly.
+rate_limit_signaling:
+  headers: []
+  status_on_exhaustion: null
+  evidence: >-
+    No RateLimit-*, X-RateLimit-* or Retry-After header appears in any OpenAPI response
+    definition, and none was observed on a live response from the reference deployment on
+    2026-08-13.
+  detail: rate-limits/virto-commerce-rate-limits.yml
+security_headers_observed:
+  source: 'live response from https://virtostart-demo-admin.govirto.com/api/platform/modules, 2026-08-13'
+  headers:
+  - 'strict-transport-security: max-age=31536000; includeSubDomains'
+  - 'x-frame-options: DENY'
+  - 'x-content-type-options: nosniff'
+  - 'referrer-policy: strict-origin-when-cross-origin'
+  - "content-security-policy: object-src 'none'; form-action 'self'; frame-ancestors 'self'"
+graphql:
+  endpoint: /graphql
+  csrf: >-
+    The platform requires a non-empty GraphQL-Require-Preflight request header; without it the
+    server answers 400 with extensions.code CSRF_PROTECTION. This is a real client
+    requirement, not an error condition.
+  paging: Relay-style connection arguments (first/after) alongside Virto's own filter/sort args.
+cross_links:
+  errors: errors/virto-commerce-problem-types.yml
+  lifecycle: lifecycle/virto-commerce-lifecycle.yml
+  authentication: authentication/virto-commerce-authentication.yml
+  scopes: scopes/virto-commerce-scopes.yml
+  rate_limits: rate-limits/virto-commerce-rate-limits.yml
+  webhooks: asyncapi/virto-commerce-webhooks.yml

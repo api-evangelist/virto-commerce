@@ -1,0 +1,104 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://raw.githubusercontent.com/VirtoCommerce/vc-docs/main/docs/llms/platform.txt,
+  https://github.com/VirtoCommerce/start-local (README, read 2026-08-13),
+  https://virtostart-demo-admin.govirto.com/docs/index.html and
+  https://virtostart-demo-store.govirto.com/ (both probed HTTP 200 on 2026-08-13)
+description: >-
+  Virto Commerce has no test-vs-live key model — there is no hosted multi-tenant API to be in
+  "test mode" against. Its sandbox is a whole running instance, offered three ways: a public
+  read-only reference deployment Virto operates and links from its own docs, a one-command
+  local stack, and a Docker-based module development environment. That distinction matters
+  for anyone integrating: you cannot get a test key from a signup form, you stand up an
+  instance.
+test_live_separation:
+  model: none
+  key_prefixes: []
+  note: >-
+    Platform API keys and OAuth clients carry no mode prefix and no mode flag. Isolation is by
+    deployment (and, within a deployment, by store), not by credential.
+environments:
+- name: Virto public reference deployment (admin)
+  url: https://virtostart-demo-admin.govirto.com/
+  swagger_ui: https://virtostart-demo-admin.govirto.com/docs/index.html
+  graphql: https://virtostart-demo-admin.govirto.com/graphql
+  status: live
+  http_status: 200
+  probed: '2026-08-13'
+  anonymous_access:
+    module_swagger_documents: true
+    graphql_introspection: true
+    oidc_discovery: true
+    data_operations: false
+  note: >-
+    Virto links this host from its own published llms.txt as the "REST API live reference".
+    All 85 installed module Swagger documents and full GraphQL introspection are readable
+    anonymously; every data operation probed returned 401. Credentials for this hosted
+    instance are NOT published, so it is a contract-reading sandbox, not a call-it sandbox.
+- name: Virto public reference deployment (storefront)
+  url: https://virtostart-demo-store.govirto.com/
+  status: live
+  http_status: 200
+  probed: '2026-08-13'
+  note: The customer-facing vc-frontend experience running against the same platform.
+- name: start-local
+  url: https://github.com/VirtoCommerce/start-local
+  kind: local full stack
+  description: >-
+    PowerShell script that runs the Virto Commerce backend, frontend, database server, Redis,
+    Elasticsearch and Kibana on a developer machine.
+  endpoints:
+  - 'Frontend: http://localhost:80'
+  - 'Backend/platform: http://localhost:8090'
+  seed_credentials:
+    username: admin
+    password: store
+    note: >-
+      Published default for a locally-installed instance; the platform prompts for a change on
+      first login. Quoted verbatim from Virto's own README — not a secret, and not usable
+      against any hosted environment.
+  generated_secrets:
+    note: >-
+      DB_PASSWORD, REDIS_PASSWORD, ELASTIC_PASSWORD and KIBANA_PASSWORD are randomly generated
+      at setup by the script, not published.
+- name: Docker module development environment
+  url: https://github.com/VirtoCommerce/vc-module-training-docker
+  kind: containerized dev environment
+  note: >-
+    Containerized platform + modules + a custom module for build-and-test iteration. Referenced
+    from the docs' "Modules development via Docker" how-to.
+- name: sample data
+  url: https://github.com/VirtoCommerce/vc-sample-data
+  kind: fixtures
+  note: >-
+    The sample data files used by every initial platform installation — Virto's equivalent of
+    a fixture set. This is where the demo catalog, stores and members come from.
+test_data:
+  test_cards: []
+  test_accounts: []
+  note: >-
+    No test card numbers, magic identifiers or hosted test tokens are published. Payment
+    testing happens against the sandbox of whichever gateway module is installed
+    (AuthorizeNet, CyberSource, Datatrans, Skyflow), using THAT vendor's test values — Virto
+    publishes none of its own.
+time_simulation:
+  supported: false
+  note: No test clocks or time-travel fixtures.
+triggers:
+  webhooks: POST /api/webhooks/send (WebHooks_Run) fires a webhook on demand for testing.
+  note: See asyncapi/virto-commerce-webhooks.yml.
+test_tooling:
+- name: vc-testing-module
+  url: https://github.com/VirtoCommerce/vc-testing-module
+  note: >-
+    First-party Playwright + Python end-to-end test framework covering both the API and UI
+    layers of the platform.
+- name: vc-build Test target
+  note: Discovers and runs all solution unit tests. See cli/virto-commerce-cli.yml.
+signup:
+  self_serve: false
+  note: >-
+    Access to a Virto-hosted environment goes through a sales conversation
+    (https://virtocommerce.com/request-demo, https://virtocommerce.com/request-license). The
+    self-serve path is the open-source install.

@@ -1,0 +1,57 @@
+generated: '2026-08-13'
+method: generated
+source: >-
+  Generated from openapi/*.yml (every operationId referenced below was verified present in a
+  captured spec before the skill was written), graphql/virto-commerce-schema.graphql,
+  conventions/, errors/, data-model/ and mcp/virto-commerce-tool-crosswalk.yml
+description: >-
+  Packaged Agent Skills for Virto Commerce. Each one is a marquee operator flow grounded in
+  real operationIds, and each carries the platform-specific rules an agent gets wrong by
+  default: there is no global API host, prices must be evaluated rather than read, there are no
+  idempotency keys, and a 403 is a missing permission rather than a bad request. No
+  provider-published skills or AGENTS.md exist in the VirtoCommerce GitHub organization, so
+  these are generated rather than searched.
+skills:
+- name: virto-commerce-authenticate
+  file: virto-commerce-authenticate.md
+  api: Virto Commerce Platform API
+  summary: >-
+    Establish the deployment's base URL, choose between the OAuth2 grants and the platform API
+    key, and read 401 vs 403 correctly.
+  operations: 2
+- name: virto-commerce-place-b2b-order
+  file: virto-commerce-place-b2b-order.md
+  api: Virto Commerce Order Management API
+  summary: >-
+    Buyer resolution → SKU resolution → contract price evaluation → order document creation,
+    plus safe retry without idempotency keys. Mirrors the chain Virto's own MCP adapter runs.
+  operations: 8
+- name: virto-commerce-quote-to-order
+  file: virto-commerce-quote-to-order.md
+  api: Virto Commerce Quotes API
+  summary: >-
+    The B2B negotiation loop: create a quote, recalculate after concessions, move status, and
+    convert server-side so negotiated prices survive.
+  operations: 8
+- name: virto-commerce-catalog-and-availability
+  file: virto-commerce-catalog-and-availability.md
+  api: Virto Commerce Catalog API
+  summary: >-
+    Can this buyer get this product, at what price, from where — indexed search, variation
+    resolution, per-fulfillment-center inventory, and evaluated pricing.
+  operations: 11
+- name: virto-commerce-subscribe-to-events
+  file: virto-commerce-subscribe-to-events.md
+  api: Virto Commerce Webhooks API
+  summary: >-
+    Discover the runtime event catalog, register a webhook with selective payload composition,
+    verify through the audit feed, or route the same events to a queue as CloudEvents.
+  operations: 10
+notes:
+- >-
+  Every skill states the same non-obvious precondition first: Virto Commerce is self-hosted, so
+  the base URL is the operator's own platform host. An agent that assumes a vendor API host
+  fails before its first call.
+- >-
+  Skills deliberately do not paper over gaps. Missing idempotency, unsigned webhooks, empty 4xx
+  bodies and undiscoverable permissions are called out where they will actually bite.
