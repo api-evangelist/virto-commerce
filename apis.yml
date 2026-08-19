@@ -22,7 +22,7 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/virto-comm
 url: https://raw.githubusercontent.com/api-evangelist/virto-commerce/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-08-13'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 tags:
 - B2B E-Commerce
 - Catalog Management
