@@ -34,6 +34,28 @@ tags:
 - Marketing
 - Payments
 - Shipping
+- Subscription
+- Headless Commerce
+- Open-Source
+- .NET
+- Webhook
+- Event-Driven
+- CloudEvents
+- GraphQL
+- Returns
+- MCP
+- B2B Quotes
+tags_raw:
+- B2B E-Commerce
+- Catalog Management
+- Order Management
+- Pricing
+- Inventory
+- Shopping Cart
+- Customer Management
+- Marketing
+- Payments
+- Shipping
 - Subscriptions
 - Headless Commerce
 - Open Source
@@ -430,6 +452,8 @@ apis:
   humanURL: https://docs.virtocommerce.org/
   baseURL: https://virtostart-demo-admin.govirto.com/api
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
