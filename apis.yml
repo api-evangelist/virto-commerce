@@ -298,11 +298,12 @@ apis:
     url: https://github.com/VirtoCommerce/vc-platform
 - aid: virto-commerce:virto-commerce-quotes-api
   name: Virto Commerce Quotes API
-  description: Quoter enables business users to execute quote requests online. Once initiated, an online
-    conversation takes place with internal users who interact with the business user's request. The internal
-    user can set prices for quantity breaks or discounts. The quote is then made available to the business
-    user online. The business user can accept the quote and place the order, continue the conversation,
-    or reject the quote.
+  description: >-
+    Quoter enables business users to execute quote requests online. Once initiated, an online conversation
+    takes place with internal users who interact with the business user's request. The internal user can
+    set prices for quantity breaks or discounts. The quote is then made available to the business user
+    online. The business user can accept the quote and place the order, continue the conversation, or
+    reject the quote.
   humanURL: https://docs.virtocommerce.org/
   baseURL: https://virtostart-demo-admin.govirto.com/api
   tags:
@@ -446,9 +447,10 @@ apis:
     url: https://github.com/VirtoCommerce/vc-platform
 - aid: virto-commerce:virto-commerce-webhooks-api
   name: Virto Commerce Webhooks API
-  description: Register HTTP webhooks against the platform domain-event catalog, compose the payload from
-    selected entity properties (including previous values), fire test deliveries, and audit every delivery
-    attempt through the webhook feed.
+  description: >-
+    Register HTTP webhooks against the platform domain-event catalog, compose the payload from selected
+    entity properties (including previous values), fire test deliveries, and audit every delivery attempt
+    through the webhook feed.
   humanURL: https://docs.virtocommerce.org/
   baseURL: https://virtostart-demo-admin.govirto.com/api
   tags:
@@ -472,36 +474,11 @@ apis:
   - *id010
   - *id011
   - *id012
-- aid: virto-commerce:virto-commerce-event-bus-api
-  name: Virto Commerce Event Bus API
-  description: Forward platform domain events to an external message queue as CloudEvents. Manage provider
-    connections (Azure Event Grid built in), subscriptions with JsonPath filtering and Liquid payload
-    transformation, and the connection error log.
-  humanURL: https://docs.virtocommerce.org/
-  baseURL: https://virtostart-demo-admin.govirto.com/api
-  tags:
-  - Event Bus
-  properties:
-  - type: OpenAPI
-    url: openapi/virto-commerce-event-bus-api-openapi.yml
-  - type: Overlay
-    url: overlays/virto-commerce-event-bus-api-overlay.yaml
-  - *id001
-  - *id002
-  - *id003
-  - *id004
-  - *id005
-  - *id006
-  - *id007
-  - *id008
-  - *id009
-  - *id010
-  - *id011
-  - *id012
 - aid: virto-commerce:virto-commerce-returns-api
   name: Virto Commerce Returns API
-  description: 'Return management: search returns, read a return by id, create or update a return against
-    an order, and read the quantities still available to return.'
+  description: >-
+    Return management: search returns, read a return by id, create or update a return against an order,
+    and read the quantities still available to return.
   humanURL: https://docs.virtocommerce.org/
   baseURL: https://virtostart-demo-admin.govirto.com/api
   tags:
@@ -523,7 +500,44 @@ apis:
   - *id010
   - *id011
   - *id012
+- aid: virto-commerce:virto-commerce-event-bus-module-api
+  name: Virto Commerce Event Bus module API
+  description: >-
+    The module enables you to be notified of new messages or changes via a Message Queue of your choice
+  humanURL: https://docs.virtocommerce.org/
+  baseURL: https://virtostart-demo-admin.govirto.com/api
+  tags:
+  - Event Bus module
+  properties:
+  - type: OpenAPI
+    url: openapi/virto-commerce-event-bus-module-api-openapi.yml
+  - type: Documentation
+    url: https://docs.virtocommerce.org/
+  - type: GitHubRepository
+    url: https://github.com/VirtoCommerce/vc-module-catalog
+  - type: GraphQL
+    url: graphql/virto-commerce-graphql.md
+  - type: GitHubRepository
+    url: https://github.com/VirtoCommerce/vc-module-pricing
+  - type: GitHubRepository
+    url: https://github.com/VirtoCommerce/vc-module-inventory
+  - type: GitHubRepository
+    url: https://github.com/VirtoCommerce/vc-module-order
+  - type: GitHubRepository
+    url: https://github.com/VirtoCommerce/vc-module-x-cart
+  - type: GitHubRepository
+    url: https://github.com/VirtoCommerce/vc-module-customer
+  - type: GitHubRepository
+    url: https://github.com/VirtoCommerce/vc-module-marketing
+  - type: GitHubRepository
+    url: https://github.com/VirtoCommerce/vc-module-quote
+  - type: GitHubRepository
+    url: https://github.com/VirtoCommerce/vc-module-store
+  - type: GitHubRepository
+    url: https://github.com/VirtoCommerce/vc-platform
 common:
+- type: Overlay
+  url: overlays/virto-commerce-event-bus-api-overlay.yaml
 - type: AgenticAccess
   url: agentic-access/virto-commerce-agentic-access.yml
 - type: DomainSecurity
