@@ -1,0 +1,88 @@
+slug: virto-commerce
+provider: Virto Commerce
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Transportation & Logistics
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 7
+edges:
+- tag: Companies and Contacts
+  spec_file: virto-commerce-companies-and-contacts-api-openapi.yml
+  capability_id: BC-420.10
+  capability_id_l1: BC-420
+  capability_name: Customer Data Management
+  confidence: 0.85
+  evidence: '"Get organizations", "Create new member (can be any object inherited from Member type)",
+    schemas Contact, Member, CustomerAddress, MembersSearchCriteria'
+  reason: CRUD and search over customer organizations, contacts and member records with addresses and
+    roles — customer master data management for a B2B commerce platform.
+- tag: Pricing
+  spec_file: virto-commerce-pricing-api-openapi.yml
+  capability_id: BC-440.20
+  capability_id_l1: BC-440
+  capability_name: Price List Management
+  confidence: 0.85
+  evidence: '"Evaluate prices by given context", "Create pricelist", "Search pricelist assignments"; schemas
+    PricelistSearchResult, PriceEvaluationContext'
+  reason: Creates, assigns and evaluates price lists for products — price book maintenance and price determination,
+    i.e. price list management within pricing.
+- tag: Inventory
+  spec_file: virto-commerce-inventory-api-openapi.yml
+  capability_id: BC-530
+  capability_id_l1: BC-530
+  capability_name: Inventory Management
+  confidence: 0.8
+  evidence: '"Search inventories by given criteria", "Get inventories of product", "Update inventory",
+    "Search fulfillment centers registered in the system"'
+  reason: Manages product on-hand inventory per fulfilment centre — inventory management. Operations mix
+    stock-level reads/updates with fulfilment-centre master setup, so only the L1 is asserted.
+- tag: Quotes
+  spec_file: virto-commerce-quotes-api-openapi.yml
+  capability_id: BC-410.40
+  capability_id_l1: BC-410
+  capability_name: Quote & Configuration Management
+  confidence: 0.8
+  evidence: operations "QuoteModule_Create", "QuoteModule_CalculateTotals", "QuoteModule_CreateOrderFromQuote",
+    "QuoteModule_UpdateStatus" on /api/quote/requests
+  reason: B2B quote request lifecycle with totals calculation, status transitions and conversion of an
+    approved quote into an order — configure/price/quote in the sales process.
+- tag: Order Management
+  spec_file: virto-commerce-order-management-api-openapi.yml
+  capability_id: BC-520.40
+  capability_id_l1: BC-520
+  capability_name: Order Fulfilment Management
+  confidence: 0.75
+  evidence: '"Search customer orders by given criteria", "Create new customer order based on shopping
+    cart.", "Get new shipment for specified customer order", schema CustomerOrder'
+  reason: Full customer order lifecycle including creation from cart, totals recalculation, payment processing
+    and shipment creation — order capture and fulfilment orchestration. Some payment-processing overlap
+    keeps confidence short of maximal.
+- tag: Catalog
+  spec_file: virto-commerce-catalog-api-openapi.yml
+  capability_id: BC-820
+  capability_id_l1: BC-820
+  capability_name: Product Lifecycle Management
+  confidence: 0.7
+  evidence: '"Easily manage your products, categories, variations, and properties"; schemas ProductConfigurationOption,
+    EditorialReview, CategoryDescription, ProductAssociationSearchCriteria'
+  reason: 'This is product catalog/PIM: maintaining product records, categories, properties, variants
+    and associations. Closest candidate is Product Lifecycle Management; the operations cover specification
+    and variant/configuration aspects without cleanly matching one L2.'
+- tag: Marketing
+  spec_file: virto-commerce-marketing-api-openapi.yml
+  capability_id: BC-400
+  capability_id_l1: BC-400
+  capability_name: Marketing Management
+  confidence: 0.7
+  evidence: '"Add new dynamic content item object to marketing system", "Get dynamic content for given
+    placeholders"; schemas Promotion, CouponSearchResult, DynamicContentPublication'
+  reason: The module manages marketing dynamic content placements plus promotions and coupons. The content-placement
+    operations dominate but the promotion/coupon schemas straddle discount management, so only the marketing
+    L1 is asserted.

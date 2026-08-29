@@ -549,6 +549,9 @@ apis:
   - type: GitHubRepository
     url: https://github.com/VirtoCommerce/vc-platform
 common:
+- type: CapabilityMap
+  url: capabilities/virto-commerce-capability-edges.yml
+  name: Virto Commerce Business Capability Map
 - type: IssueTracker
   url: https://github.com/VirtoCommerce/vc-module-catalog/issues
 - type: Releases
