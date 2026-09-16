@@ -3,10 +3,7 @@
   "feeds": [
     {
       "source": "https://www.linkedin.com/company/virto-commerce/",
-      "feed_url": "https://www.linkedin.com/company/virto-commerce/",
-      "title": "",
-      "saved": 0,
-      "method": "none"
+      "error": "HTTPError"
     },
     {
       "source": "https://virtocommerce.com/blog/feed/",
@@ -16,7 +13,7 @@
       "method": "feed"
     }
   ],
-  "fetched": "2026-09-06T19:17:18Z",
+  "fetched": "2026-09-13T13:00:00Z",
   "post_count": 54,
   "feed_nature": "undetermined",
   "feed_nature_basis": null,
