@@ -531,78 +531,6 @@ paths:
       x-virtocommerce-module-id: VirtoCommerce.EventBus
 components:
   schemas:
-    ProviderConnectionRequest:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        providerName:
-          type:
-          - string
-          - 'null'
-        connectionOptionsSerialized:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ProviderConnectionSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ProviderConnection'
-      additionalProperties: false
-    SubscriptionRequest:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        connectionName:
-          type:
-          - string
-          - 'null'
-        jsonPathFilter:
-          type:
-          - string
-          - 'null'
-        payloadTransformationTemplate:
-          type:
-          - string
-          - 'null'
-        eventSettingsSerialized:
-          type:
-          - string
-          - 'null'
-        events:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SubscriptionEventRequest'
-      additionalProperties: false
-    SubscriptionSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Subscription'
-      additionalProperties: false
     ProviderConnectionLogSearchCriteria:
       type: object
       properties:
@@ -620,135 +548,6 @@ components:
           - string
           - 'null'
           format: date-time
-        responseGroup:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-        objectTypes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        objectIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        keyword:
-          type:
-          - string
-          - 'null'
-        searchPhrase:
-          type:
-          - string
-          - 'null'
-        languageCode:
-          type:
-          - string
-          - 'null'
-        sort:
-          type:
-          - string
-          - 'null'
-        sortInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
-    SortInfo:
-      type: object
-      properties:
-        sortColumn:
-          type:
-          - string
-          - 'null'
-        sortDirection:
-          allOf:
-          - $ref: '#/components/schemas/SortDirection'
-      additionalProperties: false
-    SubscriptionEventRequest:
-      type: object
-      properties:
-        eventId:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ProviderConnectionLog:
-      type: object
-      properties:
-        providerName:
-          type:
-          - string
-          - 'null'
-        status:
-          type: integer
-          format: int32
-        errorMessage:
-          type:
-          - string
-          - 'null'
-        errorPayload:
-          type:
-          - string
-          - 'null'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    SubscriptionSearchCriteria:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        connectionName:
-          type:
-          - string
-          - 'null'
-        eventIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
         responseGroup:
           type:
           - string
@@ -853,7 +652,12 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    ProviderConnectionLogSearchResult:
+    SortDirection:
+      enum:
+      - Ascending
+      - Descending
+      type: string
+    ProviderConnectionSearchResult:
       type: object
       properties:
         totalCount:
@@ -864,13 +668,57 @@ components:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/ProviderConnectionLog'
+            $ref: '#/components/schemas/ProviderConnection'
       additionalProperties: false
-    SortDirection:
-      enum:
-      - Ascending
-      - Descending
-      type: string
+    SubscriptionSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Subscription'
+      additionalProperties: false
+    SubscriptionEvent:
+      type: object
+      properties:
+        subscriptionId:
+          type:
+          - string
+          - 'null'
+        eventId:
+          type:
+          - string
+          - 'null'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     ProviderConnection:
       type: object
       properties:
@@ -972,14 +820,21 @@ components:
           type: integer
           format: int32
       additionalProperties: false
-    SubscriptionEvent:
+    ProviderConnectionLog:
       type: object
       properties:
-        subscriptionId:
+        providerName:
           type:
           - string
           - 'null'
-        eventId:
+        status:
+          type: integer
+          format: int32
+        errorMessage:
+          type:
+          - string
+          - 'null'
+        errorPayload:
           type:
           - string
           - 'null'
@@ -1007,6 +862,151 @@ components:
           type:
           - string
           - 'null'
+      additionalProperties: false
+    ProviderConnectionRequest:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        providerName:
+          type:
+          - string
+          - 'null'
+        connectionOptionsSerialized:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    SubscriptionEventRequest:
+      type: object
+      properties:
+        eventId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    SubscriptionRequest:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        connectionName:
+          type:
+          - string
+          - 'null'
+        jsonPathFilter:
+          type:
+          - string
+          - 'null'
+        payloadTransformationTemplate:
+          type:
+          - string
+          - 'null'
+        eventSettingsSerialized:
+          type:
+          - string
+          - 'null'
+        events:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SubscriptionEventRequest'
+      additionalProperties: false
+    ProviderConnectionLogSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ProviderConnectionLog'
+      additionalProperties: false
+    SortInfo:
+      type: object
+      properties:
+        sortColumn:
+          type:
+          - string
+          - 'null'
+        sortDirection:
+          allOf:
+          - $ref: '#/components/schemas/SortDirection'
+      additionalProperties: false
+    SubscriptionSearchCriteria:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        connectionName:
+          type:
+          - string
+          - 'null'
+        eventIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
       additionalProperties: false
   securitySchemes:
     oauth2:

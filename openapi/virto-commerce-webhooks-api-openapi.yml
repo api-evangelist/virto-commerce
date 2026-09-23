@@ -1,15 +1,17 @@
-openapi: 3.0.4
+openapi: 3.2.0
 info:
-  title: Virto Commerce Webhooks API
+  title: VirtoCommerce. Webhooks API
   version: v1
-  description: 'Manage user defined webhooks: subscribe to platform domain events and deliver HTTP POST
-    notifications to configured endpoints.'
+  description: Manage user defined webhooks
+tags:
+- name: Webhooks
+  description: Manage user defined webhooks
 paths:
   /api/webhooks/{id}:
     get:
       tags:
       - Webhooks
-      summary: Gets VirtoCommerce.WebhooksModule.Core.Models.Webhook by id.
+      summary: Gets VirtoCommerce.WebhooksModule.Core.Models.Webhook by id
       operationId: WebHooks_GetWebhookById
       parameters:
       - name: id
@@ -151,7 +153,7 @@ paths:
     delete:
       tags:
       - Webhooks
-      summary: Delete webHookFeeds by ids.
+      summary: Delete webHookFeeds by ids
       operationId: WebHooks_DeleteWebHookFeeds
       parameters:
       - name: ids
@@ -184,7 +186,7 @@ paths:
     post:
       tags:
       - Webhooks
-      summary: Creates or updates the webhooks.
+      summary: Creates or updates the webhooks
       operationId: WebHooks_SaveWebhooks
       requestBody:
         description: Webhooks to save.
@@ -242,7 +244,7 @@ paths:
     delete:
       tags:
       - Webhooks
-      summary: Deletes webhooks by ids.
+      summary: Deletes webhooks by ids
       operationId: WebHooks_DeleteWebHooks
       parameters:
       - name: ids
@@ -320,7 +322,7 @@ paths:
     get:
       tags:
       - Webhooks
-      summary: Gets all registered events that could trigger webhook notification.
+      summary: Gets all registered events that could trigger webhook notification
       operationId: WebHooks_GetAllRegisteredEvents
       responses:
         '200':
@@ -396,211 +398,75 @@ paths:
       - basic:
         - webhooks:read
       x-virtocommerce-module-id: VirtoCommerce.WebHooks
+      summary: Web hooks get event object properties
+      x-summary-source: derived
 components:
   schemas:
-    AuthenticationType:
-      enum:
-      - None
-      - Basic
-      - BearerToken
-      - CustomHeader
-      type: string
-    EventObjectProperties:
-      type: object
-      properties:
-        discovered:
-          type: boolean
-        properties:
-          type: array
-          items:
-            type: string
-          nullable: true
-      additionalProperties: false
-    RegisteredEvent:
-      type: object
-      properties:
-        eventType:
-          type: string
-          nullable: true
-        displayName:
-          type: string
-          nullable: true
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    SortDirection:
-      enum:
-      - Ascending
-      - Descending
-      type: string
-    SortInfo:
-      type: object
-      properties:
-        sortColumn:
-          type: string
-          nullable: true
-        sortDirection:
-          allOf:
-          - $ref: '#/components/schemas/SortDirection'
-      additionalProperties: false
-    WebHookFeedSearchResult:
+    WebhookSearchResult:
       type: object
       properties:
         totalCount:
           type: integer
           format: int32
         results:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
-            $ref: '#/components/schemas/WebhookFeedEntry'
-          nullable: true
+            $ref: '#/components/schemas/Webhook'
       additionalProperties: false
     WebHookPayload:
       type: object
       properties:
         eventPropertyName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         webHookId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         createdDate:
           type: string
           format: date-time
         modifiedDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         createdBy:
           maxLength: 64
           minLength: 0
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         modifiedBy:
           maxLength: 64
           minLength: 0
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         id:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: false
-    Webhook:
-      type: object
-      properties:
-        name:
-          type: string
-          nullable: true
-        url:
-          type: string
-          nullable: true
-        contentType:
-          type: string
-          nullable: true
-        authType:
-          allOf:
-          - $ref: '#/components/schemas/AuthenticationType'
-        basicUsername:
-          type: string
-          nullable: true
-        basicPassword:
-          type: string
-          nullable: true
-        bearerToken:
-          type: string
-          nullable: true
-        customHttpHeaderName:
-          type: string
-          nullable: true
-        customHttpHeaderValue:
-          type: string
-          nullable: true
-        isActive:
-          type: boolean
-        successCount:
-          type: integer
-          format: int64
-        errorCount:
-          type: integer
-          format: int64
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/WebhookEvent'
-          nullable: true
-        requestParams:
-          allOf:
-          - $ref: '#/components/schemas/WebhookHttpParams'
-          nullable: true
-        payloads:
-          type: array
-          items:
-            $ref: '#/components/schemas/WebHookPayload'
-          nullable: true
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type: string
-          format: date-time
-          nullable: true
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    WebhookEvent:
-      type: object
-      properties:
-        webHookId:
-          type: string
-          nullable: true
-        eventId:
-          type: string
-          nullable: true
-        displayName:
-          type: string
-          nullable: true
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type: string
-          format: date-time
-          nullable: true
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
+    SortDirection:
+      enum:
+      - Ascending
+      - Descending
+      type: string
     WebhookFeedEntry:
       type: object
       properties:
         webHookId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         eventId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         attemptCount:
           type: integer
           format: int32
@@ -611,99 +477,156 @@ components:
           type: integer
           format: int32
         error:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         requestHeaders:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         requestBody:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         responseHeaders:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         responseBody:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         createdDate:
           type: string
           format: date-time
         modifiedDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         createdBy:
           maxLength: 64
           minLength: 0
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         modifiedBy:
           maxLength: 64
           minLength: 0
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         id:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: false
+    RegisteredEvent:
+      type: object
+      properties:
+        eventType:
+          type:
+          - string
+          - 'null'
+        displayName:
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    EventObjectProperties:
+      type: object
+      properties:
+        discovered:
+          type: boolean
+        properties:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+      additionalProperties: false
+    AuthenticationType:
+      enum:
+      - None
+      - Basic
+      - BearerToken
+      - CustomHeader
+      type: string
     WebhookFeedSearchCriteria:
       type: object
       properties:
         webHookIds:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
-          nullable: true
         eventIds:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
-          nullable: true
         statuses:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: integer
             format: int32
-          nullable: true
         recordTypes:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: integer
             format: int32
-          nullable: true
         responseGroup:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         objectType:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         objectTypes:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
-          nullable: true
         objectIds:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
-          nullable: true
         keyword:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         searchPhrase:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         languageCode:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         sort:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         sortInfos:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/SortInfo'
-          nullable: true
           readOnly: true
         skip:
           type: integer
@@ -712,82 +635,171 @@ components:
           type: integer
           format: int32
       additionalProperties: false
-    WebhookHttpParams:
-      type: object
-      properties:
-        headers:
-          type: object
-          additionalProperties:
-            type: string
-            nullable: true
-          nullable: true
-        body:
-          type: string
-          nullable: true
-      additionalProperties: false
-    WebhookSearchCriteria:
-      type: object
-      properties:
-        isActive:
-          type: boolean
-          nullable: true
-        eventIds:
-          type: array
-          items:
-            type: string
-          nullable: true
-        responseGroup:
-          type: string
-          nullable: true
-        objectType:
-          type: string
-          nullable: true
-        objectTypes:
-          type: array
-          items:
-            type: string
-          nullable: true
-        objectIds:
-          type: array
-          items:
-            type: string
-          nullable: true
-        keyword:
-          type: string
-          nullable: true
-        searchPhrase:
-          type: string
-          nullable: true
-        languageCode:
-          type: string
-          nullable: true
-        sort:
-          type: string
-          nullable: true
-        sortInfos:
-          type: array
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          nullable: true
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
-    WebhookSearchResult:
+    WebHookFeedSearchResult:
       type: object
       properties:
         totalCount:
           type: integer
           format: int32
         results:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
-            $ref: '#/components/schemas/Webhook'
-          nullable: true
+            $ref: '#/components/schemas/WebhookFeedEntry'
+      additionalProperties: false
+    Webhook:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        url:
+          type:
+          - string
+          - 'null'
+        contentType:
+          type:
+          - string
+          - 'null'
+        authType:
+          allOf:
+          - $ref: '#/components/schemas/AuthenticationType'
+        basicUsername:
+          type:
+          - string
+          - 'null'
+        basicPassword:
+          type:
+          - string
+          - 'null'
+        bearerToken:
+          type:
+          - string
+          - 'null'
+        customHttpHeaderName:
+          type:
+          - string
+          - 'null'
+        customHttpHeaderValue:
+          type:
+          - string
+          - 'null'
+        isActive:
+          type: boolean
+        successCount:
+          type: integer
+          format: int64
+        errorCount:
+          type: integer
+          format: int64
+        events:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/WebhookEvent'
+        requestParams:
+          allOf:
+          - $ref: '#/components/schemas/WebhookHttpParams'
+        payloads:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/WebHookPayload'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    WebhookEvent:
+      type: object
+      properties:
+        webHookId:
+          type:
+          - string
+          - 'null'
+        eventId:
+          type:
+          - string
+          - 'null'
+        displayName:
+          type:
+          - string
+          - 'null'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    WebhookHttpParams:
+      type: object
+      properties:
+        headers:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        body:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    SortInfo:
+      type: object
+      properties:
+        sortColumn:
+          type:
+          - string
+          - 'null'
+        sortDirection:
+          allOf:
+          - $ref: '#/components/schemas/SortDirection'
       additionalProperties: false
     WebhookSendResponse:
       type: object
@@ -796,14 +808,77 @@ components:
           type: integer
           format: int32
         error:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         responseParams:
           allOf:
           - $ref: '#/components/schemas/WebhookHttpParams'
-          nullable: true
         isSuccessfull:
           type: boolean
+      additionalProperties: false
+    WebhookSearchCriteria:
+      type: object
+      properties:
+        isActive:
+          type:
+          - boolean
+          - 'null'
+        eventIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
       additionalProperties: false
   securitySchemes:
     oauth2:
@@ -834,6 +909,3 @@ components:
       type: http
       description: Basic authentication using username and password
       scheme: basic
-tags:
-- name: Webhooks
-  description: Manage user defined webhooks

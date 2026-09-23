@@ -1,9 +1,11 @@
-openapi: 3.0.4
+openapi: 3.2.0
 info:
-  title: Virto Commerce Returns API
+  title: VirtoCommerce.Return Returns API
   version: v1
-  description: 'Return management: search returns, fetch a return by id, create or update a return, and
-    read the quantities still available to return against an order.'
+  description: Return management module
+tags:
+- name: Returns
+  description: Return management module
 paths:
   /api/return/search:
     post:
@@ -53,6 +55,8 @@ paths:
       - basic:
         - return:read
       x-virtocommerce-module-id: VirtoCommerce.Return
+      summary: Return search returns
+      x-summary-source: derived
   /api/return/{id}:
     get:
       tags:
@@ -93,6 +97,8 @@ paths:
       - basic:
         - return:read
       x-virtocommerce-module-id: VirtoCommerce.Return
+      summary: Return get return by id
+      x-summary-source: derived
   /api/return:
     put:
       tags:
@@ -131,6 +137,8 @@ paths:
       - basic:
         - return:update
       x-virtocommerce-module-id: VirtoCommerce.Return
+      summary: Return update return
+      x-summary-source: derived
     delete:
       tags:
       - Returns
@@ -161,6 +169,8 @@ paths:
       - basic:
         - return:delete
       x-virtocommerce-module-id: VirtoCommerce.Return
+      summary: Return delete return
+      x-summary-source: derived
   /api/return/available-quantities/{orderId}:
     get:
       tags:
@@ -210,76 +220,135 @@ paths:
       - basic:
         - return:read
       x-virtocommerce-module-id: VirtoCommerce.Return
+      summary: Return get available quantities
+      x-summary-source: derived
 components:
   schemas:
-    AddressType:
-      enum:
-      - Undefined
-      - Billing
-      - Shipping
-      - BillingAndShipping
-      - Pickup
-      type: string
-    CancelledState:
-      enum:
-      - Undefined
-      - Requested
-      - Completed
-      type: string
-    Capture:
+    RefundItem:
+      type: object
+      properties:
+        quantity:
+          type: integer
+          format: int32
+        lineItemId:
+          type:
+          - string
+          - 'null'
+        lineItem:
+          allOf:
+          - $ref: '#/components/schemas/OrderLineItem'
+        refundId:
+          type:
+          - string
+          - 'null'
+        outerId:
+          type:
+          - string
+          - 'null'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Refund:
       type: object
       properties:
         objectType:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         amount:
           type: number
           format: double
+        reasonCode:
+          allOf:
+          - $ref: '#/components/schemas/RefundReasonCode'
+        refundStatus:
+          allOf:
+          - $ref: '#/components/schemas/RefundStatus'
+        reasonMessage:
+          type:
+          - string
+          - 'null'
+        rejectReasonMessage:
+          type:
+          - string
+          - 'null'
         vendorId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         transactionId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         customerOrderId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         paymentId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         items:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
-            $ref: '#/components/schemas/CaptureItem'
-          nullable: true
-        closeTransaction:
-          type: boolean
+            $ref: '#/components/schemas/RefundItem'
         operationType:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         parentOperationId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         number:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         isApproved:
           type: boolean
         status:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         comment:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         currency:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         sum:
           type: number
           format: double
         outerId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         cancelledState:
           allOf:
           - $ref: '#/components/schemas/CancelledState'
@@ -288,43 +357,1186 @@ components:
           type: boolean
           description: Used by payment provides to indicate that cancellation operation has completed
         cancelledDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         cancelReason:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         dynamicProperties:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/DynamicObjectProperty'
-          nullable: true
         operationsLog:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/OperationLog'
-          nullable: true
         createdDate:
           type: string
           format: date-time
         modifiedDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         createdBy:
           maxLength: 64
           minLength: 0
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         modifiedBy:
           maxLength: 64
           minLength: 0
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         id:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: false
+    OrderTotal:
+      type: object
+      properties:
+        currencyCode:
+          type:
+          - string
+          - 'null'
+        total:
+          type: number
+          format: double
+        subTotal:
+          type: number
+          format: double
+        taxTotal:
+          type: number
+          format: double
+        discountTotal:
+          type: number
+          format: double
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PaymentMethod:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        logoUrl:
+          type:
+          - string
+          - 'null'
+        isActive:
+          type: boolean
+        priority:
+          type: integer
+          format: int32
+        isAvailableForPartial:
+          type: boolean
+        allowDeferredPayment:
+          type: boolean
+        currency:
+          type:
+          - string
+          - 'null'
+        price:
+          type: number
+          format: double
+        priceWithTax:
+          type: number
+          format: double
+          readOnly: true
+        total:
+          type: number
+          format: double
+          readOnly: true
+        totalWithTax:
+          type: number
+          format: double
+          readOnly: true
+        discountAmount:
+          type: number
+          format: double
+        discountAmountWithTax:
+          type: number
+          format: double
+          readOnly: true
+        allowCartPayment:
+          type: boolean
+          readOnly: true
+        storeId:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        typeName:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        settings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ObjectSettingEntry'
+        taxType:
+          type:
+          - string
+          - 'null'
+        taxTotal:
+          type: number
+          format: double
+          readOnly: true
+        taxPercentRate:
+          type: number
+          format: double
+        taxDetails:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/TaxDetail'
+        localizedName:
+          allOf:
+          - $ref: '#/components/schemas/LocalizedString'
+        paymentMethodType:
+          allOf:
+          - $ref: '#/components/schemas/PaymentMethodType'
+          readOnly: true
+        paymentMethodGroupType:
+          allOf:
+          - $ref: '#/components/schemas/PaymentMethodGroupType'
+          readOnly: true
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ReturnSearchCriteria:
+      type: object
+      properties:
+        orderId:
+          type:
+          - string
+          - 'null'
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
+      additionalProperties: false
+    OrderAddress:
+      type: object
+      properties:
+        addressType:
+          allOf:
+          - $ref: '#/components/schemas/AddressType'
+        key:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        organization:
+          type:
+          - string
+          - 'null'
+        countryCode:
+          type:
+          - string
+          - 'null'
+        countryName:
+          type:
+          - string
+          - 'null'
+        city:
+          type:
+          - string
+          - 'null'
+        postalCode:
+          type:
+          - string
+          - 'null'
+        zip:
+          type:
+          - string
+          - 'null'
+        line1:
+          type:
+          - string
+          - 'null'
+        line2:
+          type:
+          - string
+          - 'null'
+        regionId:
+          type:
+          - string
+          - 'null'
+        regionName:
+          type:
+          - string
+          - 'null'
+        firstName:
+          type:
+          - string
+          - 'null'
+        middleName:
+          type:
+          - string
+          - 'null'
+        lastName:
+          type:
+          - string
+          - 'null'
+        phone:
+          type:
+          - string
+          - 'null'
+        email:
+          type:
+          - string
+          - 'null'
+        outerId:
+          type:
+          - string
+          - 'null'
+        isDefault:
+          type: boolean
+        description:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ShippingMethod:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        logoUrl:
+          type:
+          - string
+          - 'null'
+        isActive:
+          type: boolean
+        priority:
+          type: integer
+          format: int32
+        taxType:
+          type:
+          - string
+          - 'null'
+        storeId:
+          type:
+          - string
+          - 'null'
+        settings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ObjectSettingEntry'
+        typeName:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PaymentMethodType:
+      enum:
+      - Unknown
+      - Standard
+      - Redirection
+      - PreparedForm
+      type: string
+    RefundReasonCode:
+      enum:
+      - Duplicate
+      - Fraudulent
+      - RequestedByCustomer
+      - Other
+      type: string
+    LocalizedString:
+      type: object
+      properties:
+        values:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+          readOnly: true
+      additionalProperties: false
+    DynamicPropertyValueType:
+      enum:
+      - Undefined
+      - ShortText
+      - LongText
+      - Integer
+      - Decimal
+      - DateTime
+      - Boolean
+      - Html
+      - Image
+      type: string
+    PaymentIn:
+      type: object
+      properties:
+        orderId:
+          type:
+          - string
+          - 'null'
+        purpose:
+          type:
+          - string
+          - 'null'
+        gatewayCode:
+          type:
+          - string
+          - 'null'
+          description: Payment method (gateway) code
+        paymentMethod:
+          allOf:
+          - $ref: '#/components/schemas/PaymentMethod'
+          description: Payment method contains additional payment method information
+        organizationId:
+          type:
+          - string
+          - 'null'
+        organizationName:
+          type:
+          - string
+          - 'null'
+        customerId:
+          type:
+          - string
+          - 'null'
+        customerName:
+          type:
+          - string
+          - 'null'
+        incomingDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        billingAddress:
+          allOf:
+          - $ref: '#/components/schemas/OrderAddress'
+        paymentStatus:
+          allOf:
+          - $ref: '#/components/schemas/PaymentStatus'
+        authorizedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        capturedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        voidedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        processPaymentResult:
+          allOf:
+          - $ref: '#/components/schemas/ProcessPaymentRequestResult'
+        price:
+          type: number
+          format: double
+        priceWithTax:
+          type: number
+          format: double
+        total:
+          type: number
+          format: double
+        totalWithTax:
+          type: number
+          format: double
+        discountAmount:
+          type: number
+          format: double
+        discountAmountWithTax:
+          type: number
+          format: double
+        objectType:
+          type:
+          - string
+          - 'null'
+        feeDetails:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/FeeDetail'
+        vendorId:
+          type:
+          - string
+          - 'null'
+        taxType:
+          type:
+          - string
+          - 'null'
+          description: Tax category or type
+        taxTotal:
+          type: number
+          format: double
+        taxPercentRate:
+          type: number
+          format: double
+        taxDetails:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/TaxDetail'
+        discounts:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Discount'
+        transactions:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PaymentGatewayTransaction'
+        refunds:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Refund'
+        captures:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Capture'
+        operationType:
+          type:
+          - string
+          - 'null'
+        parentOperationId:
+          type:
+          - string
+          - 'null'
+        number:
+          type:
+          - string
+          - 'null'
+        isApproved:
+          type: boolean
+        status:
+          type:
+          - string
+          - 'null'
+        comment:
+          type:
+          - string
+          - 'null'
+        currency:
+          type:
+          - string
+          - 'null'
+        sum:
+          type: number
+          format: double
+        outerId:
+          type:
+          - string
+          - 'null'
+        cancelledState:
+          allOf:
+          - $ref: '#/components/schemas/CancelledState'
+          description: For system use to handle canellation flow
+        isCancelled:
+          type: boolean
+          description: Used by payment provides to indicate that cancellation operation has completed
+        cancelledDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        cancelReason:
+          type:
+          - string
+          - 'null'
+        dynamicProperties:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicObjectProperty'
+        operationsLog:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OperationLog'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ReturnLineItem:
+      type: object
+      properties:
+        returnId:
+          type:
+          - string
+          - 'null'
+        orderLineItemId:
+          type:
+          - string
+          - 'null'
+        quantity:
+          type: integer
+          format: int32
+        availableQuantity:
+          type: integer
+          format: int32
+        price:
+          type: number
+          format: double
+        reason:
+          type:
+          - string
+          - 'null'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ObjectSettingEntry:
+      type: object
+      properties:
+        itHasValues:
+          type: boolean
+          readOnly: true
+        objectId:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        isReadOnly:
+          type: boolean
+        value:
+          type:
+          - object
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+        restartRequired:
+          type: boolean
+        moduleId:
+          type:
+          - string
+          - 'null'
+        groupName:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        displayName:
+          type:
+          - string
+          - 'null'
+        isRequired:
+          type: boolean
+        isHidden:
+          type: boolean
+        isPublic:
+          type: boolean
+        valueType:
+          allOf:
+          - $ref: '#/components/schemas/SettingValueType'
+        allowedValues:
+          type:
+          - array
+          - 'null'
+          items:
+            type: object
+        defaultValue:
+          type:
+          - object
+          - 'null'
+        isDictionary:
+          type: boolean
+        isLocalizable:
+          type: boolean
+        tenant:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    SettingValueType:
+      enum:
+      - ShortText
+      - LongText
+      - Integer
+      - Decimal
+      - DateTime
+      - Boolean
+      - SecureString
+      - Json
+      - PositiveInteger
+      - Cron
+      type: string
+    RefundStatus:
+      enum:
+      - Pending
+      - Rejected
+      - Processed
+      type: string
+    OrderLineItem:
+      type: object
+      properties:
+        customerOrderId:
+          type:
+          - string
+          - 'null'
+          description: 'Not mapped for updates: updates to this property are ignored by CRUD services.'
+          readOnly: true
+        priceId:
+          type:
+          - string
+          - 'null'
+          description: Price id
+        currency:
+          type:
+          - string
+          - 'null'
+        price:
+          type: number
+          description: unit price without discount and tax
+          format: double
+        priceWithTax:
+          type: number
+          format: double
+        listTotal:
+          type: number
+          format: double
+        listTotalWithTax:
+          type: number
+          format: double
+        placedPrice:
+          type: number
+          description: Resulting price with discount for one unit
+          format: double
+        placedPriceWithTax:
+          type: number
+          format: double
+        extendedPrice:
+          type: number
+          format: double
+        extendedPriceWithTax:
+          type: number
+          format: double
+        discountAmount:
+          type: number
+          description: Gets the value of the single qty line item discount amount
+          format: double
+        isDiscountAmountRounded:
+          type: boolean
+          description: 'Indicates whether the discount amount per item was rounded according to the currency settings.
+
+            If false, DiscountAmount and PlacedPrice should not be visible to the customer, as these values may be incorrect;
+
+            in this case, DiscountTotal and ExtendedPrice should be used.'
+        discountAmountWithTax:
+          type: number
+          format: double
+        discountTotal:
+          type: number
+          format: double
+        discountTotalWithTax:
+          type: number
+          format: double
+        fee:
+          type: number
+          format: double
+        feeWithTax:
+          type: number
+          format: double
+        taxType:
+          type:
+          - string
+          - 'null'
+          description: Tax category or type
+        taxTotal:
+          type: number
+          format: double
+        taxPercentRate:
+          type: number
+          format: double
+        reserveQuantity:
+          type: integer
+          description: Reserve quantity
+          format: int32
+        quantity:
+          type: integer
+          format: int32
+        productId:
+          type:
+          - string
+          - 'null'
+        sku:
+          type:
+          - string
+          - 'null'
+        productType:
+          type:
+          - string
+          - 'null'
+        catalogId:
+          type:
+          - string
+          - 'null'
+        categoryId:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        productOuterId:
+          type:
+          - string
+          - 'null'
+        comment:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - string
+          - 'null'
+        imageUrl:
+          type:
+          - string
+          - 'null'
+        isGift:
+          type:
+          - boolean
+          - 'null'
+        shippingMethodCode:
+          type:
+          - string
+          - 'null'
+        fulfillmentLocationCode:
+          type:
+          - string
+          - 'null'
+        fulfillmentCenterId:
+          type:
+          - string
+          - 'null'
+        fulfillmentCenterName:
+          type:
+          - string
+          - 'null'
+        outerId:
+          type:
+          - string
+          - 'null'
+        feeDetails:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/FeeDetail'
+        vendorId:
+          type:
+          - string
+          - 'null'
+        isConfigured:
+          type: boolean
+        weightUnit:
+          type:
+          - string
+          - 'null'
+        weight:
+          type:
+          - number
+          - 'null'
+          format: double
+        measureUnit:
+          type:
+          - string
+          - 'null'
+        height:
+          type:
+          - number
+          - 'null'
+          format: double
+        length:
+          type:
+          - number
+          - 'null'
+          format: double
+        width:
+          type:
+          - number
+          - 'null'
+          format: double
+        isCancelled:
+          type: boolean
+        cancelledDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        cancelReason:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        dynamicProperties:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicObjectProperty'
+        discounts:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Discount'
+        taxDetails:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/TaxDetail'
+        configurationItems:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OrderConfigurationItem'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Return:
+      type: object
+      properties:
+        number:
+          type:
+          - string
+          - 'null'
+        orderId:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - string
+          - 'null'
+        resolution:
+          type:
+          - string
+          - 'null'
+        order:
+          allOf:
+          - $ref: '#/components/schemas/CustomerOrder'
+        lineItems:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ReturnLineItem'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    OrderConfigurationItem:
+      type: object
+      properties:
+        lineItemId:
+          type:
+          - string
+          - 'null'
+        customerOrderId:
+          type:
+          - string
+          - 'null'
+          description: 'Not mapped for updates: updates to this property are ignored by CRUD services.'
+          readOnly: true
+        productId:
+          type:
+          - string
+          - 'null'
+        sectionId:
+          type:
+          - string
+          - 'null'
+        sectionName:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        sku:
+          type:
+          - string
+          - 'null'
+        quantity:
+          type: integer
+          format: int32
+        price:
+          type: number
+          format: double
+        salePrice:
+          type: number
+          format: double
+        extendedPrice:
+          type: number
+          format: double
+          readOnly: true
+        imageUrl:
+          type:
+          - string
+          - 'null'
+        catalogId:
+          type:
+          - string
+          - 'null'
+        categoryId:
+          type:
+          - string
+          - 'null'
+        type:
+          type:
+          - string
+          - 'null'
+        customText:
+          type:
+          - string
+          - 'null'
+        files:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OrderConfigurationItemFile'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    AddressType:
+      enum:
+      - Undefined
+      - Billing
+      - Shipping
+      - BillingAndShipping
+      - Pickup
+      type: string
     CaptureItem:
       type: object
       properties:
@@ -332,146 +1544,565 @@ components:
           type: integer
           format: int32
         lineItemId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         lineItem:
           allOf:
           - $ref: '#/components/schemas/OrderLineItem'
-          nullable: true
         captureId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         outerId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         createdDate:
           type: string
           format: date-time
         modifiedDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         createdBy:
           maxLength: 64
           minLength: 0
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         modifiedBy:
           maxLength: 64
           minLength: 0
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    OrderShipmentItem:
+      type: object
+      properties:
+        lineItemId:
+          type:
+          - string
+          - 'null'
+        lineItem:
+          allOf:
+          - $ref: '#/components/schemas/OrderLineItem'
+        barCode:
+          type:
+          - string
+          - 'null'
+        quantity:
+          type: integer
+          format: int32
+        outerId:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - string
+          - 'null'
+        createdDate:
           type: string
-          nullable: true
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ProcessPaymentRequestResult:
+      type: object
+      properties:
+        redirectUrl:
+          type:
+          - string
+          - 'null'
+        htmlForm:
+          type:
+          - string
+          - 'null'
+        outerId:
+          type:
+          - string
+          - 'null'
+        paymentMethod:
+          allOf:
+          - $ref: '#/components/schemas/PaymentMethod'
+        isSuccess:
+          type: boolean
+        errorMessage:
+          type:
+          - string
+          - 'null'
+        newPaymentStatus:
+          allOf:
+          - $ref: '#/components/schemas/PaymentStatus'
+        publicParameters:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+      additionalProperties: false
+    OrderConfigurationItemFile:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        url:
+          type:
+          - string
+          - 'null'
+        contentType:
+          type:
+          - string
+          - 'null'
+        size:
+          type: integer
+          format: int64
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Capture:
+      type: object
+      properties:
+        objectType:
+          type:
+          - string
+          - 'null'
+        amount:
+          type: number
+          format: double
+        vendorId:
+          type:
+          - string
+          - 'null'
+        transactionId:
+          type:
+          - string
+          - 'null'
+        customerOrderId:
+          type:
+          - string
+          - 'null'
+        paymentId:
+          type:
+          - string
+          - 'null'
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CaptureItem'
+        closeTransaction:
+          type: boolean
+        operationType:
+          type:
+          - string
+          - 'null'
+        parentOperationId:
+          type:
+          - string
+          - 'null'
+        number:
+          type:
+          - string
+          - 'null'
+        isApproved:
+          type: boolean
+        status:
+          type:
+          - string
+          - 'null'
+        comment:
+          type:
+          - string
+          - 'null'
+        currency:
+          type:
+          - string
+          - 'null'
+        sum:
+          type: number
+          format: double
+        outerId:
+          type:
+          - string
+          - 'null'
+        cancelledState:
+          allOf:
+          - $ref: '#/components/schemas/CancelledState'
+          description: For system use to handle canellation flow
+        isCancelled:
+          type: boolean
+          description: Used by payment provides to indicate that cancellation operation has completed
+        cancelledDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        cancelReason:
+          type:
+          - string
+          - 'null'
+        dynamicProperties:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicObjectProperty'
+        operationsLog:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OperationLog'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Discount:
+      type: object
+      properties:
+        promotionId:
+          type:
+          - string
+          - 'null'
+        currency:
+          type:
+          - string
+          - 'null'
+        discountAmount:
+          type: number
+          format: double
+        discountAmountWithTax:
+          type: number
+          format: double
+        coupon:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    FeeDetail:
+      type: object
+      properties:
+        feeId:
+          type:
+          - string
+          - 'null'
+        currency:
+          type:
+          - string
+          - 'null'
+        amount:
+          type: number
+          format: double
+        description:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    DynamicObjectProperty:
+      type: object
+      properties:
+        objectId:
+          type:
+          - string
+          - 'null'
+        values:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicPropertyObjectValue'
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        isArray:
+          type: boolean
+        isDictionary:
+          type: boolean
+        isMultilingual:
+          type: boolean
+        isRequired:
+          type: boolean
+        displayOrder:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        valueType:
+          allOf:
+          - $ref: '#/components/schemas/DynamicPropertyValueType'
+        displayNames:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicPropertyName'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CancelledState:
+      enum:
+      - Undefined
+      - Requested
+      - Completed
+      type: string
+    DynamicPropertyName:
+      type: object
+      properties:
+        locale:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     CustomerOrder:
       type: object
       properties:
         rowVersion:
-          type: string
+          type:
+          - string
+          - 'null'
           format: byte
-          nullable: true
         customerId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         customerName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         channelId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         storeId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         storeName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         organizationId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         organizationName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         employeeId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         employeeName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         shoppingCartId:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The base shopping cart ID the order was created with
-          nullable: true
         isPrototype:
           type: boolean
           description: This checkbox determines whether the order is a prototype
         purchaseOrderNumber:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The order internal number provided by customer
-          nullable: true
         subscriptionNumber:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Number of subscription associated with this order
-          nullable: true
         subscriptionId:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The ID of subscription associated with this order
-          nullable: true
         objectType:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         addresses:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/OrderAddress'
-          nullable: true
         inPayments:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/PaymentIn'
-          nullable: true
         items:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/OrderLineItem'
-          nullable: true
         shipments:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/OrderShipment'
-          nullable: true
         feeDetails:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/FeeDetail'
-          nullable: true
         relevanceScore:
-          type: number
+          type:
+          - number
+          - 'null'
           format: double
-          nullable: true
         discounts:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/Discount'
-          nullable: true
         discountAmount:
           type: number
-          description: "When a discount is applied to the order, the tax calculation has already been\
-            \ applied and is shown in the tax field.\nTherefore, the discount will not be taking tax into\
-            \ account. \nFor instance, if the cart subtotal is $100, and the tax subtotal is $15, a 10%\
-            \ discount will yield a total of $105 ($100 subtotal – $10 discount + $15 tax)."
+          description: "When a discount is applied to the order, the tax calculation has already been applied and is shown in the tax field.\nTherefore, the discount will not be taking tax into account. \nFor instance, if the cart subtotal is $100, and the tax subtotal is $15, a 10% discount will yield a total of $105 ($100 subtotal – $10 discount + $15 tax)."
           format: double
         taxDetails:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/TaxDetail'
-          nullable: true
         scopes:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
-          nullable: true
         total:
           type: number
           description: Order grand total
@@ -554,13 +2185,11 @@ components:
           format: double
         discountTotal:
           type: number
-          description: Amount of the discount amounts of items, shipments and payments, and the order
-            discount amount
+          description: Amount of the discount amounts of items, shipments and payments, and the order discount amount
           format: double
         discountTotalWithTax:
           type: number
-          description: Amount of the discount amounts with tax of items, shipments and payments, and the
-            order discount amount with tax
+          description: Amount of the discount amounts with tax of items, shipments and payments, and the order discount amount with tax
           format: double
         fee:
           type: number
@@ -589,51 +2218,60 @@ components:
         isAnonymous:
           type: boolean
         orderTotals:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/OrderTotal'
-          nullable: true
         taxType:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Tax category or type
-          nullable: true
         taxTotal:
           type: number
-          description: Amount of tax totals for items, shipments, and payments without the order discount
-            amount with tax factor applied
+          description: Amount of tax totals for items, shipments, and payments without the order discount amount with tax factor applied
           format: double
         taxPercentRate:
           type: number
           format: double
         languageCode:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         operationType:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         parentOperationId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         number:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         isApproved:
           type: boolean
         status:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         comment:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         currency:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         sum:
           type: number
           format: double
         outerId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         cancelledState:
           allOf:
           - $ref: '#/components/schemas/CancelledState'
@@ -642,181 +2280,139 @@ components:
           type: boolean
           description: Used by payment provides to indicate that cancellation operation has completed
         cancelledDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         cancelReason:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         dynamicProperties:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/DynamicObjectProperty'
-          nullable: true
         operationsLog:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/OperationLog'
-          nullable: true
         createdDate:
           type: string
           format: date-time
         modifiedDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         createdBy:
           maxLength: 64
           minLength: 0
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         modifiedBy:
           maxLength: 64
           minLength: 0
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         id:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: false
-    Discount:
+    ShipmentPackage:
       type: object
       properties:
-        promotionId:
-          type: string
-          nullable: true
-        currency:
-          type: string
-          nullable: true
-        discountAmount:
-          type: number
-          format: double
-        discountAmountWithTax:
-          type: number
-          format: double
-        coupon:
-          type: string
-          nullable: true
-        description:
-          type: string
-          nullable: true
-        name:
-          type: string
-          nullable: true
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    DynamicObjectProperty:
-      type: object
-      properties:
-        objectId:
-          type: string
-          nullable: true
-        values:
-          type: array
+        barCode:
+          type:
+          - string
+          - 'null'
+        packageType:
+          type:
+          - string
+          - 'null'
+        items:
+          type:
+          - array
+          - 'null'
           items:
-            $ref: '#/components/schemas/DynamicPropertyObjectValue'
-          nullable: true
-        name:
-          type: string
-          nullable: true
-        description:
-          type: string
-          nullable: true
-        objectType:
-          type: string
-          nullable: true
-        isArray:
-          type: boolean
-        isDictionary:
-          type: boolean
-        isMultilingual:
-          type: boolean
-        isRequired:
-          type: boolean
-        displayOrder:
-          type: integer
-          format: int32
-          nullable: true
-        valueType:
-          allOf:
-          - $ref: '#/components/schemas/DynamicPropertyValueType'
-        displayNames:
-          type: array
-          items:
-            $ref: '#/components/schemas/DynamicPropertyName'
-          nullable: true
+            $ref: '#/components/schemas/OrderShipmentItem'
+        weightUnit:
+          type:
+          - string
+          - 'null'
+        weight:
+          type:
+          - number
+          - 'null'
+          format: double
+        measureUnit:
+          type:
+          - string
+          - 'null'
+        height:
+          type:
+          - number
+          - 'null'
+          format: double
+        length:
+          type:
+          - number
+          - 'null'
+          format: double
+        width:
+          type:
+          - number
+          - 'null'
+          format: double
         createdDate:
           type: string
           format: date-time
         modifiedDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         createdBy:
           maxLength: 64
           minLength: 0
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         modifiedBy:
           maxLength: 64
           minLength: 0
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         id:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: false
-    DynamicPropertyName:
-      type: object
-      properties:
-        locale:
-          type: string
-          nullable: true
-        name:
-          type: string
-          nullable: true
-      additionalProperties: false
-    DynamicPropertyObjectValue:
-      type: object
-      properties:
-        objectType:
-          type: string
-          nullable: true
-        objectId:
-          type: string
-          nullable: true
-        locale:
-          type: string
-          nullable: true
-        value:
-          type: object
-          nullable: true
-        valueId:
-          type: string
-          nullable: true
-        valueType:
-          allOf:
-          - $ref: '#/components/schemas/DynamicPropertyValueType'
-        propertyId:
-          type: string
-          nullable: true
-        propertyName:
-          type: string
-          nullable: true
-      additionalProperties: false
-    DynamicPropertyValueType:
+    SortDirection:
       enum:
-      - Undefined
-      - ShortText
-      - LongText
-      - Integer
-      - Decimal
-      - DateTime
-      - Boolean
-      - Html
-      - Image
+      - Ascending
+      - Descending
+      type: string
+    PaymentStatus:
+      enum:
+      - New
+      - Pending
+      - Authorized
+      - Paid
+      - PartiallyRefunded
+      - Refunded
+      - Voided
+      - Custom
+      - Cancelled
+      - Declined
+      - Error
       type: string
     EntryState:
       enum:
@@ -826,654 +2422,243 @@ components:
       - Deleted
       - Modified
       type: string
-    FeeDetail:
-      type: object
-      properties:
-        feeId:
-          type: string
-          nullable: true
-        currency:
-          type: string
-          nullable: true
-        amount:
-          type: number
-          format: double
-        description:
-          type: string
-          nullable: true
-      additionalProperties: false
-    IOperation:
-      type: object
-      properties:
-        operationType:
-          type: string
-          nullable: true
-        number:
-          type: string
-          nullable: true
-        isApproved:
-          type: boolean
-        status:
-          type: string
-          nullable: true
-        comment:
-          type: string
-          nullable: true
-        currency:
-          type: string
-          nullable: true
-        parentOperationId:
-          type: string
-          nullable: true
-        childrenOperations:
-          type: array
-          items:
-            $ref: '#/components/schemas/IOperation'
-          nullable: true
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    LocalizedString:
-      type: object
-      properties:
-        values:
-          type: object
-          additionalProperties:
-            type: string
-            nullable: true
-          nullable: true
-          readOnly: true
-      additionalProperties: false
-    ObjectSettingEntry:
-      type: object
-      properties:
-        itHasValues:
-          type: boolean
-          readOnly: true
-        objectId:
-          type: string
-          nullable: true
-        objectType:
-          type: string
-          nullable: true
-        isReadOnly:
-          type: boolean
-        value:
-          type: object
-          nullable: true
-        id:
-          type: string
-          nullable: true
-        restartRequired:
-          type: boolean
-        moduleId:
-          type: string
-          nullable: true
-        groupName:
-          type: string
-          nullable: true
-        name:
-          type: string
-          nullable: true
-        displayName:
-          type: string
-          nullable: true
-        isRequired:
-          type: boolean
-        isHidden:
-          type: boolean
-        isPublic:
-          type: boolean
-        valueType:
-          allOf:
-          - $ref: '#/components/schemas/SettingValueType'
-        allowedValues:
-          type: array
-          items:
-            type: object
-          nullable: true
-        defaultValue:
-          type: object
-          nullable: true
-        isDictionary:
-          type: boolean
-        isLocalizable:
-          type: boolean
-        tenant:
-          type: string
-          nullable: true
-      additionalProperties: false
     OperationLog:
       type: object
       properties:
         objectType:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         objectId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         operationType:
           allOf:
           - $ref: '#/components/schemas/EntryState'
         detail:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         createdDate:
           type: string
           format: date-time
         modifiedDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         createdBy:
           maxLength: 64
           minLength: 0
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         modifiedBy:
           maxLength: 64
           minLength: 0
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         id:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: false
-    OrderAddress:
+    PaymentGatewayTransaction:
       type: object
       properties:
-        addressType:
-          allOf:
-          - $ref: '#/components/schemas/AddressType'
-        key:
-          type: string
-          nullable: true
-        name:
-          type: string
-          nullable: true
-        organization:
-          type: string
-          nullable: true
-        countryCode:
-          type: string
-          nullable: true
-        countryName:
-          type: string
-          nullable: true
-        city:
-          type: string
-          nullable: true
-        postalCode:
-          type: string
-          nullable: true
-        zip:
-          type: string
-          nullable: true
-        line1:
-          type: string
-          nullable: true
-        line2:
-          type: string
-          nullable: true
-        regionId:
-          type: string
-          nullable: true
-        regionName:
-          type: string
-          nullable: true
-        firstName:
-          type: string
-          nullable: true
-        middleName:
-          type: string
-          nullable: true
-        lastName:
-          type: string
-          nullable: true
-        phone:
-          type: string
-          nullable: true
-        email:
-          type: string
-          nullable: true
-        outerId:
-          type: string
-          nullable: true
-        isDefault:
+        amount:
+          type: number
+          format: double
+        currencyCode:
+          type:
+          - string
+          - 'null'
+        isProcessed:
           type: boolean
-        description:
-          type: string
-          nullable: true
-      additionalProperties: false
-    OrderConfigurationItem:
-      type: object
-      properties:
-        lineItemId:
-          type: string
-          nullable: true
-        customerOrderId:
-          type: string
-          description: 'Not mapped for updates: updates to this property are ignored by CRUD services.'
-          nullable: true
-          readOnly: true
-        productId:
-          type: string
-          nullable: true
-        sectionId:
-          type: string
-          nullable: true
-        sectionName:
-          type: string
-          nullable: true
-        name:
-          type: string
-          nullable: true
-        sku:
-          type: string
-          nullable: true
-        quantity:
+          description: Flag represent that current transaction is processed
+        processedDate:
+          type:
+          - string
+          - 'null'
+          description: Date when this transaction was handled
+          format: date-time
+        processError:
+          type:
+          - string
+          - 'null'
+        processAttemptCount:
           type: integer
           format: int32
-        price:
-          type: number
-          format: double
-        salePrice:
-          type: number
-          format: double
-        extendedPrice:
-          type: number
-          format: double
-          readOnly: true
-        imageUrl:
-          type: string
-          nullable: true
-        catalogId:
-          type: string
-          nullable: true
-        categoryId:
-          type: string
-          nullable: true
+        requestData:
+          type:
+          - string
+          - 'null'
+          description: Raw request data
+        responseData:
+          type:
+          - string
+          - 'null'
+          description: Raw response data
+        responseCode:
+          type:
+          - string
+          - 'null'
+          description: Gateway or VC response status code
+        gatewayIpAddress:
+          type:
+          - string
+          - 'null'
+          description: Gateway IP address
         type:
-          type: string
-          nullable: true
-        customText:
-          type: string
-          nullable: true
-        files:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderConfigurationItemFile'
-          nullable: true
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type: string
-          format: date-time
-          nullable: true
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    OrderConfigurationItemFile:
-      type: object
-      properties:
-        name:
-          type: string
-          nullable: true
-        url:
-          type: string
-          nullable: true
-        contentType:
-          type: string
-          nullable: true
-        size:
-          type: integer
-          format: int64
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type: string
-          format: date-time
-          nullable: true
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    OrderLineItem:
-      type: object
-      properties:
-        customerOrderId:
-          type: string
-          description: 'Not mapped for updates: updates to this property are ignored by CRUD services.'
-          nullable: true
-          readOnly: true
-        priceId:
-          type: string
-          description: Price id
-          nullable: true
-        currency:
-          type: string
-          nullable: true
-        price:
-          type: number
-          description: unit price without discount and tax
-          format: double
-        priceWithTax:
-          type: number
-          format: double
-        listTotal:
-          type: number
-          format: double
-        listTotalWithTax:
-          type: number
-          format: double
-        placedPrice:
-          type: number
-          description: Resulting price with discount for one unit
-          format: double
-        placedPriceWithTax:
-          type: number
-          format: double
-        extendedPrice:
-          type: number
-          format: double
-        extendedPriceWithTax:
-          type: number
-          format: double
-        discountAmount:
-          type: number
-          description: Gets the value of the single qty line item discount amount
-          format: double
-        isDiscountAmountRounded:
-          type: boolean
-          description: 'Indicates whether the discount amount per item was rounded according to the currency
-            settings.
-
-            If false, DiscountAmount and PlacedPrice should not be visible to the customer, as these values
-            may be incorrect;
-
-            in this case, DiscountTotal and ExtendedPrice should be used.'
-        discountAmountWithTax:
-          type: number
-          format: double
-        discountTotal:
-          type: number
-          format: double
-        discountTotalWithTax:
-          type: number
-          format: double
-        fee:
-          type: number
-          format: double
-        feeWithTax:
-          type: number
-          format: double
-        taxType:
-          type: string
-          description: Tax category or type
-          nullable: true
-        taxTotal:
-          type: number
-          format: double
-        taxPercentRate:
-          type: number
-          format: double
-        reserveQuantity:
-          type: integer
-          description: Reserve quantity
-          format: int32
-        quantity:
-          type: integer
-          format: int32
-        productId:
-          type: string
-          nullable: true
-        sku:
-          type: string
-          nullable: true
-        productType:
-          type: string
-          nullable: true
-        catalogId:
-          type: string
-          nullable: true
-        categoryId:
-          type: string
-          nullable: true
-        name:
-          type: string
-          nullable: true
-        productOuterId:
-          type: string
-          nullable: true
-        comment:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
+          description: "The type of payment interaction.The payment can be Capture or CheckReceived. \nThe value also includes customer payment interactions such as Website, Call, Store, or Unknown."
         status:
-          type: string
-          nullable: true
-        imageUrl:
-          type: string
-          nullable: true
-        isGift:
-          type: boolean
-          nullable: true
-        shippingMethodCode:
-          type: string
-          nullable: true
-        fulfillmentLocationCode:
-          type: string
-          nullable: true
-        fulfillmentCenterId:
-          type: string
-          nullable: true
-        fulfillmentCenterName:
-          type: string
-          nullable: true
-        outerId:
-          type: string
-          nullable: true
-        feeDetails:
-          type: array
-          items:
-            $ref: '#/components/schemas/FeeDetail'
-          nullable: true
-        vendorId:
-          type: string
-          nullable: true
-        isConfigured:
-          type: boolean
-        weightUnit:
-          type: string
-          nullable: true
-        weight:
-          type: number
-          format: double
-          nullable: true
-        measureUnit:
-          type: string
-          nullable: true
-        height:
-          type: number
-          format: double
-          nullable: true
-        length:
-          type: number
-          format: double
-          nullable: true
-        width:
-          type: number
-          format: double
-          nullable: true
-        isCancelled:
-          type: boolean
-        cancelledDate:
-          type: string
-          format: date-time
-          nullable: true
-        cancelReason:
-          type: string
-          nullable: true
-        objectType:
-          type: string
-          nullable: true
-          readOnly: true
-        dynamicProperties:
-          type: array
-          items:
-            $ref: '#/components/schemas/DynamicObjectProperty'
-          nullable: true
-        discounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Discount'
-          nullable: true
-        taxDetails:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaxDetail'
-          nullable: true
-        configurationItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderConfigurationItem'
-          nullable: true
+          type:
+          - string
+          - 'null'
+          description: '"Active", "Expired", and "Inactive" or other'
+        note:
+          type:
+          - string
+          - 'null'
         createdDate:
           type: string
           format: date-time
         modifiedDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         createdBy:
           maxLength: 64
           minLength: 0
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         modifiedBy:
           maxLength: 64
           minLength: 0
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         id:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     OrderShipment:
       type: object
       properties:
         organizationId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         organizationName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         fulfillmentCenterId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         fulfillmentCenterName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         employeeId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         employeeName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         shipmentMethodCode:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Current shipment method code
-          nullable: true
         shipmentMethodOption:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Current shipment option code
-          nullable: true
         shippingMethod:
           allOf:
           - $ref: '#/components/schemas/ShippingMethod'
           description: Shipment method contains additional shipment method information
-          nullable: true
         customerOrderId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         customerOrder:
           allOf:
           - $ref: '#/components/schemas/CustomerOrder'
-          nullable: true
         items:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/OrderShipmentItem'
-          nullable: true
         packages:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/ShipmentPackage'
-          nullable: true
         inPayments:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/PaymentIn'
-          nullable: true
         feeDetails:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/FeeDetail'
-          nullable: true
         weightUnit:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         weight:
-          type: number
+          type:
+          - number
+          - 'null'
           format: double
-          nullable: true
         measureUnit:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         height:
-          type: number
+          type:
+          - number
+          - 'null'
           format: double
-          nullable: true
         length:
-          type: number
+          type:
+          - number
+          - 'null'
           format: double
-          nullable: true
         width:
-          type: number
+          type:
+          - number
+          - 'null'
           format: double
-          nullable: true
         discounts:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/Discount'
-          nullable: true
         deliveryAddress:
           allOf:
           - $ref: '#/components/schemas/OrderAddress'
-          nullable: true
         price:
           type: number
           format: double
@@ -1493,8 +2678,9 @@ components:
           type: number
           format: double
         pickupLocationId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         fee:
           type: number
           format: double
@@ -1502,26 +2688,32 @@ components:
           type: number
           format: double
         trackingNumber:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Tracking information
-          nullable: true
         trackingUrl:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         deliveryDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         objectType:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         vendorId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         taxType:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Tax category or type
-          nullable: true
         taxTotal:
           type: number
           format: double
@@ -1529,36 +2721,44 @@ components:
           type: number
           format: double
         taxDetails:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/TaxDetail'
-          nullable: true
         operationType:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         parentOperationId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         number:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         isApproved:
           type: boolean
         status:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         comment:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         currency:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         sum:
           type: number
           format: double
         outerId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         cancelledState:
           allOf:
           - $ref: '#/components/schemas/CancelledState'
@@ -1567,466 +2767,50 @@ components:
           type: boolean
           description: Used by payment provides to indicate that cancellation operation has completed
         cancelledDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         cancelReason:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         dynamicProperties:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/DynamicObjectProperty'
-          nullable: true
         operationsLog:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/OperationLog'
-          nullable: true
         createdDate:
           type: string
           format: date-time
         modifiedDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         createdBy:
           maxLength: 64
           minLength: 0
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         modifiedBy:
           maxLength: 64
           minLength: 0
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    OrderShipmentItem:
-      type: object
-      properties:
-        lineItemId:
-          type: string
-          nullable: true
-        lineItem:
-          allOf:
-          - $ref: '#/components/schemas/OrderLineItem'
-          nullable: true
-        barCode:
-          type: string
-          nullable: true
-        quantity:
-          type: integer
-          format: int32
-        outerId:
-          type: string
-          nullable: true
-        status:
-          type: string
-          nullable: true
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type: string
-          format: date-time
-          nullable: true
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    OrderTotal:
-      type: object
-      properties:
-        currencyCode:
-          type: string
-          nullable: true
-        total:
-          type: number
-          format: double
-        subTotal:
-          type: number
-          format: double
-        taxTotal:
-          type: number
-          format: double
-        discountTotal:
-          type: number
-          format: double
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    PaymentGatewayTransaction:
-      type: object
-      properties:
-        amount:
-          type: number
-          format: double
-        currencyCode:
-          type: string
-          nullable: true
-        isProcessed:
-          type: boolean
-          description: Flag represent that current transaction is processed
-        processedDate:
-          type: string
-          description: Date when this transaction was handled
-          format: date-time
-          nullable: true
-        processError:
-          type: string
-          nullable: true
-        processAttemptCount:
-          type: integer
-          format: int32
-        requestData:
-          type: string
-          description: Raw request data
-          nullable: true
-        responseData:
-          type: string
-          description: Raw response data
-          nullable: true
-        responseCode:
-          type: string
-          description: Gateway or VC response status code
-          nullable: true
-        gatewayIpAddress:
-          type: string
-          description: Gateway IP address
-          nullable: true
-        type:
-          type: string
-          description: "The type of payment interaction.The payment can be Capture or CheckReceived. \n\
-            The value also includes customer payment interactions such as Website, Call, Store, or Unknown."
-          nullable: true
-        status:
-          type: string
-          description: '"Active", "Expired", and "Inactive" or other'
-          nullable: true
-        note:
-          type: string
-          nullable: true
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type: string
-          format: date-time
-          nullable: true
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    PaymentIn:
-      type: object
-      properties:
-        orderId:
-          type: string
-          nullable: true
-        purpose:
-          type: string
-          nullable: true
-        gatewayCode:
-          type: string
-          description: Payment method (gateway) code
-          nullable: true
-        paymentMethod:
-          allOf:
-          - $ref: '#/components/schemas/PaymentMethod'
-          description: Payment method contains additional payment method information
-          nullable: true
-        organizationId:
-          type: string
-          nullable: true
-        organizationName:
-          type: string
-          nullable: true
-        customerId:
-          type: string
-          nullable: true
-        customerName:
-          type: string
-          nullable: true
-        incomingDate:
-          type: string
-          format: date-time
-          nullable: true
-        billingAddress:
-          allOf:
-          - $ref: '#/components/schemas/OrderAddress'
-          nullable: true
-        paymentStatus:
-          allOf:
-          - $ref: '#/components/schemas/PaymentStatus'
-        authorizedDate:
-          type: string
-          format: date-time
-          nullable: true
-        capturedDate:
-          type: string
-          format: date-time
-          nullable: true
-        voidedDate:
-          type: string
-          format: date-time
-          nullable: true
-        processPaymentResult:
-          allOf:
-          - $ref: '#/components/schemas/ProcessPaymentRequestResult'
-          nullable: true
-        price:
-          type: number
-          format: double
-        priceWithTax:
-          type: number
-          format: double
-        total:
-          type: number
-          format: double
-        totalWithTax:
-          type: number
-          format: double
-        discountAmount:
-          type: number
-          format: double
-        discountAmountWithTax:
-          type: number
-          format: double
-        objectType:
-          type: string
-          nullable: true
-        feeDetails:
-          type: array
-          items:
-            $ref: '#/components/schemas/FeeDetail'
-          nullable: true
-        vendorId:
-          type: string
-          nullable: true
-        taxType:
-          type: string
-          description: Tax category or type
-          nullable: true
-        taxTotal:
-          type: number
-          format: double
-        taxPercentRate:
-          type: number
-          format: double
-        taxDetails:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaxDetail'
-          nullable: true
-        discounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Discount'
-          nullable: true
-        transactions:
-          type: array
-          items:
-            $ref: '#/components/schemas/PaymentGatewayTransaction'
-          nullable: true
-        refunds:
-          type: array
-          items:
-            $ref: '#/components/schemas/Refund'
-          nullable: true
-        captures:
-          type: array
-          items:
-            $ref: '#/components/schemas/Capture'
-          nullable: true
-        operationType:
-          type: string
-          nullable: true
-        parentOperationId:
-          type: string
-          nullable: true
-        number:
-          type: string
-          nullable: true
-        isApproved:
-          type: boolean
-        status:
-          type: string
-          nullable: true
-        comment:
-          type: string
-          nullable: true
-        currency:
-          type: string
-          nullable: true
-        sum:
-          type: number
-          format: double
-        outerId:
-          type: string
-          nullable: true
-        cancelledState:
-          allOf:
-          - $ref: '#/components/schemas/CancelledState'
-          description: For system use to handle canellation flow
-        isCancelled:
-          type: boolean
-          description: Used by payment provides to indicate that cancellation operation has completed
-        cancelledDate:
-          type: string
-          format: date-time
-          nullable: true
-        cancelReason:
-          type: string
-          nullable: true
-        dynamicProperties:
-          type: array
-          items:
-            $ref: '#/components/schemas/DynamicObjectProperty'
-          nullable: true
-        operationsLog:
-          type: array
-          items:
-            $ref: '#/components/schemas/OperationLog'
-          nullable: true
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type: string
-          format: date-time
-          nullable: true
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    PaymentMethod:
-      type: object
-      properties:
-        code:
-          type: string
-          nullable: true
-        name:
-          type: string
-          nullable: true
-        logoUrl:
-          type: string
-          nullable: true
-        isActive:
-          type: boolean
-        priority:
-          type: integer
-          format: int32
-        isAvailableForPartial:
-          type: boolean
-        allowDeferredPayment:
-          type: boolean
-        currency:
-          type: string
-          nullable: true
-        price:
-          type: number
-          format: double
-        priceWithTax:
-          type: number
-          format: double
-          readOnly: true
-        total:
-          type: number
-          format: double
-          readOnly: true
-        totalWithTax:
-          type: number
-          format: double
-          readOnly: true
-        discountAmount:
-          type: number
-          format: double
-        discountAmountWithTax:
-          type: number
-          format: double
-          readOnly: true
-        allowCartPayment:
-          type: boolean
-          readOnly: true
-        storeId:
-          type: string
-          nullable: true
-        description:
-          type: string
-          nullable: true
-        typeName:
-          type: string
-          nullable: true
-          readOnly: true
-        settings:
-          type: array
-          items:
-            $ref: '#/components/schemas/ObjectSettingEntry'
-          nullable: true
-        taxType:
-          type: string
-          nullable: true
-        taxTotal:
-          type: number
-          format: double
-          readOnly: true
-        taxPercentRate:
-          type: number
-          format: double
-        taxDetails:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaxDetail'
-          nullable: true
-        localizedName:
-          allOf:
-          - $ref: '#/components/schemas/LocalizedString'
-          nullable: true
-        paymentMethodType:
-          allOf:
-          - $ref: '#/components/schemas/PaymentMethodType'
-          readOnly: true
-        paymentMethodGroupType:
-          allOf:
-          - $ref: '#/components/schemas/PaymentMethodGroupType'
-          readOnly: true
-        id:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     PaymentMethodGroupType:
       enum:
@@ -2035,474 +2819,13 @@ components:
       - Alternative
       - Manual
       type: string
-    PaymentMethodType:
-      enum:
-      - Unknown
-      - Standard
-      - Redirection
-      - PreparedForm
-      type: string
-    PaymentStatus:
-      enum:
-      - New
-      - Pending
-      - Authorized
-      - Paid
-      - PartiallyRefunded
-      - Refunded
-      - Voided
-      - Custom
-      - Cancelled
-      - Declined
-      - Error
-      type: string
-    ProcessPaymentRequestResult:
-      type: object
-      properties:
-        redirectUrl:
-          type: string
-          nullable: true
-        htmlForm:
-          type: string
-          nullable: true
-        outerId:
-          type: string
-          nullable: true
-        paymentMethod:
-          allOf:
-          - $ref: '#/components/schemas/PaymentMethod'
-          nullable: true
-        isSuccess:
-          type: boolean
-        errorMessage:
-          type: string
-          nullable: true
-        newPaymentStatus:
-          allOf:
-          - $ref: '#/components/schemas/PaymentStatus'
-        publicParameters:
-          type: object
-          additionalProperties:
-            type: string
-            nullable: true
-          nullable: true
-      additionalProperties: false
-    Refund:
-      type: object
-      properties:
-        objectType:
-          type: string
-          nullable: true
-        amount:
-          type: number
-          format: double
-        reasonCode:
-          allOf:
-          - $ref: '#/components/schemas/RefundReasonCode'
-        refundStatus:
-          allOf:
-          - $ref: '#/components/schemas/RefundStatus'
-        reasonMessage:
-          type: string
-          nullable: true
-        rejectReasonMessage:
-          type: string
-          nullable: true
-        vendorId:
-          type: string
-          nullable: true
-        transactionId:
-          type: string
-          nullable: true
-        customerOrderId:
-          type: string
-          nullable: true
-        paymentId:
-          type: string
-          nullable: true
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/RefundItem'
-          nullable: true
-        operationType:
-          type: string
-          nullable: true
-        parentOperationId:
-          type: string
-          nullable: true
-        number:
-          type: string
-          nullable: true
-        isApproved:
-          type: boolean
-        status:
-          type: string
-          nullable: true
-        comment:
-          type: string
-          nullable: true
-        currency:
-          type: string
-          nullable: true
-        sum:
-          type: number
-          format: double
-        outerId:
-          type: string
-          nullable: true
-        cancelledState:
-          allOf:
-          - $ref: '#/components/schemas/CancelledState'
-          description: For system use to handle canellation flow
-        isCancelled:
-          type: boolean
-          description: Used by payment provides to indicate that cancellation operation has completed
-        cancelledDate:
-          type: string
-          format: date-time
-          nullable: true
-        cancelReason:
-          type: string
-          nullable: true
-        dynamicProperties:
-          type: array
-          items:
-            $ref: '#/components/schemas/DynamicObjectProperty'
-          nullable: true
-        operationsLog:
-          type: array
-          items:
-            $ref: '#/components/schemas/OperationLog'
-          nullable: true
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type: string
-          format: date-time
-          nullable: true
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    RefundItem:
-      type: object
-      properties:
-        quantity:
-          type: integer
-          format: int32
-        lineItemId:
-          type: string
-          nullable: true
-        lineItem:
-          allOf:
-          - $ref: '#/components/schemas/OrderLineItem'
-          nullable: true
-        refundId:
-          type: string
-          nullable: true
-        outerId:
-          type: string
-          nullable: true
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type: string
-          format: date-time
-          nullable: true
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    RefundReasonCode:
-      enum:
-      - Duplicate
-      - Fraudulent
-      - RequestedByCustomer
-      - Other
-      type: string
-    RefundStatus:
-      enum:
-      - Pending
-      - Rejected
-      - Processed
-      type: string
-    Return:
-      type: object
-      properties:
-        number:
-          type: string
-          nullable: true
-        orderId:
-          type: string
-          nullable: true
-        status:
-          type: string
-          nullable: true
-        resolution:
-          type: string
-          nullable: true
-        order:
-          allOf:
-          - $ref: '#/components/schemas/CustomerOrder'
-          nullable: true
-        lineItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReturnLineItem'
-          nullable: true
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type: string
-          format: date-time
-          nullable: true
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    ReturnLineItem:
-      type: object
-      properties:
-        returnId:
-          type: string
-          nullable: true
-        orderLineItemId:
-          type: string
-          nullable: true
-        quantity:
-          type: integer
-          format: int32
-        availableQuantity:
-          type: integer
-          format: int32
-        price:
-          type: number
-          format: double
-        reason:
-          type: string
-          nullable: true
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type: string
-          format: date-time
-          nullable: true
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    ReturnSearchCriteria:
-      type: object
-      properties:
-        orderId:
-          type: string
-          nullable: true
-        responseGroup:
-          type: string
-          nullable: true
-        objectType:
-          type: string
-          nullable: true
-        objectTypes:
-          type: array
-          items:
-            type: string
-          nullable: true
-        objectIds:
-          type: array
-          items:
-            type: string
-          nullable: true
-        keyword:
-          type: string
-          nullable: true
-        searchPhrase:
-          type: string
-          nullable: true
-        languageCode:
-          type: string
-          nullable: true
-        sort:
-          type: string
-          nullable: true
-        sortInfos:
-          type: array
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          nullable: true
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
-    SettingValueType:
-      enum:
-      - ShortText
-      - LongText
-      - Integer
-      - Decimal
-      - DateTime
-      - Boolean
-      - SecureString
-      - Json
-      - PositiveInteger
-      - Cron
-      type: string
-    ShipmentPackage:
-      type: object
-      properties:
-        barCode:
-          type: string
-          nullable: true
-        packageType:
-          type: string
-          nullable: true
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderShipmentItem'
-          nullable: true
-        weightUnit:
-          type: string
-          nullable: true
-        weight:
-          type: number
-          format: double
-          nullable: true
-        measureUnit:
-          type: string
-          nullable: true
-        height:
-          type: number
-          format: double
-          nullable: true
-        length:
-          type: number
-          format: double
-          nullable: true
-        width:
-          type: number
-          format: double
-          nullable: true
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type: string
-          format: date-time
-          nullable: true
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    ShippingMethod:
-      type: object
-      properties:
-        code:
-          type: string
-          nullable: true
-        name:
-          type: string
-          nullable: true
-        description:
-          type: string
-          nullable: true
-        logoUrl:
-          type: string
-          nullable: true
-        isActive:
-          type: boolean
-        priority:
-          type: integer
-          format: int32
-        taxType:
-          type: string
-          nullable: true
-        storeId:
-          type: string
-          nullable: true
-        settings:
-          type: array
-          items:
-            $ref: '#/components/schemas/ObjectSettingEntry'
-          nullable: true
-        typeName:
-          type: string
-          nullable: true
-          readOnly: true
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    SortDirection:
-      enum:
-      - Ascending
-      - Descending
-      type: string
     SortInfo:
       type: object
       properties:
         sortColumn:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         sortDirection:
           allOf:
           - $ref: '#/components/schemas/SortDirection'
@@ -2517,8 +2840,44 @@ components:
           type: number
           format: double
         name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    DynamicPropertyObjectValue:
+      type: object
+      properties:
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectId:
+          type:
+          - string
+          - 'null'
+        locale:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - object
+          - 'null'
+        valueId:
+          type:
+          - string
+          - 'null'
+        valueType:
+          allOf:
+          - $ref: '#/components/schemas/DynamicPropertyValueType'
+        propertyId:
+          type:
+          - string
+          - 'null'
+        propertyName:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
   securitySchemes:
     oauth2:
@@ -2549,6 +2908,3 @@ components:
       type: http
       description: Basic authentication using username and password
       scheme: basic
-tags:
-- name: Returns
-  description: Return management module

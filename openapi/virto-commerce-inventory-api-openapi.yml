@@ -1,8 +1,8 @@
-openapi: 3.0.4
+openapi: 3.2.0
 info:
-  title: VirtoCommerce.Cart Catalog Inventory API
+  title: VirtoCommerce. Inventory API
   version: v1
-  description: Easily manage your products, categories, variations, and properties
+  description: Simplify inventory management functionality
 tags:
 - name: Inventory
   description: Simplify inventory management functionality
@@ -812,221 +812,24 @@ paths:
       x-virtocommerce-module-id: VirtoCommerce.Inventory
 components:
   schemas:
-    DynamicObjectProperty:
-      type: object
-      properties:
-        objectId:
-          type: string
-          nullable: true
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/DynamicPropertyObjectValue'
-          nullable: true
-        name:
-          type: string
-          nullable: true
-        description:
-          type: string
-          nullable: true
-        objectType:
-          type: string
-          nullable: true
-        isArray:
-          type: boolean
-        isDictionary:
-          type: boolean
-        isMultilingual:
-          type: boolean
-        isRequired:
-          type: boolean
-        displayOrder:
-          type: integer
-          format: int32
-          nullable: true
-        valueType:
-          allOf:
-          - $ref: '#/components/schemas/DynamicPropertyValueType'
-        displayNames:
-          type: array
-          items:
-            $ref: '#/components/schemas/DynamicPropertyName'
-          nullable: true
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type: string
-          format: date-time
-          nullable: true
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    Operation:
-      type: object
-      properties:
-        value:
-          type: object
-          nullable: true
-        path:
-          type: string
-          nullable: true
-        op:
-          type: string
-          nullable: true
-        from:
-          type: string
-          nullable: true
-      additionalProperties: false
-    SortInfo:
-      type: object
-      properties:
-        sortColumn:
-          type: string
-          nullable: true
-        sortDirection:
-          allOf:
-          - $ref: '#/components/schemas/SortDirection'
-      additionalProperties: false
-    InventorySearchCriteria:
-      type: object
-      properties:
-        fulfillmentCenterIds:
-          type: array
-          items:
-            type: string
-          nullable: true
-        productIds:
-          type: array
-          items:
-            type: string
-          nullable: true
-        responseGroup:
-          type: string
-          nullable: true
-        objectType:
-          type: string
-          nullable: true
-        objectTypes:
-          type: array
-          items:
-            type: string
-          nullable: true
-        objectIds:
-          type: array
-          items:
-            type: string
-          nullable: true
-        keyword:
-          type: string
-          nullable: true
-        searchPhrase:
-          type: string
-          nullable: true
-        languageCode:
-          type: string
-          nullable: true
-        sort:
-          type: string
-          nullable: true
-        sortInfos:
-          type: array
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          nullable: true
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
-    FulfillmentCenterSearchCriteria:
-      type: object
-      properties:
-        outerId:
-          type: string
-          nullable: true
-        organizationId:
-          type: string
-          nullable: true
-        responseGroup:
-          type: string
-          nullable: true
-        objectType:
-          type: string
-          nullable: true
-        objectTypes:
-          type: array
-          items:
-            type: string
-          nullable: true
-        objectIds:
-          type: array
-          items:
-            type: string
-          nullable: true
-        keyword:
-          type: string
-          nullable: true
-        searchPhrase:
-          type: string
-          nullable: true
-        languageCode:
-          type: string
-          nullable: true
-        sort:
-          type: string
-          nullable: true
-        sortInfos:
-          type: array
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          nullable: true
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
-    AddressType:
-      enum:
-      - Undefined
-      - Billing
-      - Shipping
-      - BillingAndShipping
-      - Pickup
-      type: string
     InventoryInfo:
       type: object
       properties:
         fulfillmentCenterId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         fulfillmentCenterName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         fulfillmentCenter:
           allOf:
           - $ref: '#/components/schemas/FulfillmentCenter'
-          nullable: true
         productId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         inStockQuantity:
           type: integer
           format: int64
@@ -1050,70 +853,131 @@ components:
           type: integer
           format: int64
         preorderAvailabilityDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         backorderAvailabilityDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         status:
           allOf:
           - $ref: '#/components/schemas/InventoryStatus'
         outerId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         createdDate:
           type: string
           format: date-time
         modifiedDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         createdBy:
           maxLength: 64
           minLength: 0
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         modifiedBy:
           maxLength: 64
           minLength: 0
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         id:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: false
-    FulfillmentCenterSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/FulfillmentCenter'
-          nullable: true
-      additionalProperties: false
-    InventoryInfoSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/InventoryInfo'
-          nullable: true
-      additionalProperties: false
+    AddressType:
+      enum:
+      - Undefined
+      - Billing
+      - Shipping
+      - BillingAndShipping
+      - Pickup
+      type: string
+    SortDirection:
+      enum:
+      - Ascending
+      - Descending
+      type: string
     InventoryStatus:
       enum:
       - Disabled
       - Enabled
       - Ignored
       type: string
+    InventorySearchCriteria:
+      type: object
+      properties:
+        fulfillmentCenterIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        productIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
+      additionalProperties: false
     DynamicPropertyValueType:
       enum:
       - Undefined
@@ -1126,118 +990,125 @@ components:
       - Html
       - Image
       type: string
-    InventoryAddress:
+    FulfillmentCenter:
       type: object
       properties:
-        addressType:
-          allOf:
-          - $ref: '#/components/schemas/AddressType'
-        key:
-          type: string
-          nullable: true
         name:
-          type: string
-          nullable: true
-        organization:
-          type: string
-          nullable: true
-        countryCode:
-          type: string
-          nullable: true
-        countryName:
-          type: string
-          nullable: true
-        city:
-          type: string
-          nullable: true
-        postalCode:
-          type: string
-          nullable: true
-        zip:
-          type: string
-          nullable: true
-        line1:
-          type: string
-          nullable: true
-        line2:
-          type: string
-          nullable: true
-        regionId:
-          type: string
-          nullable: true
-        regionName:
-          type: string
-          nullable: true
-        firstName:
-          type: string
-          nullable: true
-        middleName:
-          type: string
-          nullable: true
-        lastName:
-          type: string
-          nullable: true
-        phone:
-          type: string
-          nullable: true
-        email:
-          type: string
-          nullable: true
-        outerId:
-          type: string
-          nullable: true
-        isDefault:
-          type: boolean
+          type:
+          - string
+          - 'null'
         description:
+          type:
+          - string
+          - 'null'
+        shortDescription:
+          type:
+          - string
+          - 'null'
+        geoLocation:
+          type:
+          - string
+          - 'null'
+        address:
+          allOf:
+          - $ref: '#/components/schemas/InventoryAddress'
+        outerId:
+          type:
+          - string
+          - 'null'
+        organizationId:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        dynamicProperties:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicObjectProperty'
+        createdDate:
           type: string
-          nullable: true
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
-    ProductInventorySearchCriteria:
+    FulfillmentCenterSearchCriteria:
       type: object
       properties:
-        productId:
-          type: string
-          nullable: true
-        productIds:
-          type: array
-          items:
-            type: string
-          nullable: true
-        withInventoryOnly:
-          type: boolean
+        outerId:
+          type:
+          - string
+          - 'null'
+        organizationId:
+          type:
+          - string
+          - 'null'
         responseGroup:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         objectType:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         objectTypes:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
-          nullable: true
         objectIds:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
-          nullable: true
         keyword:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         searchPhrase:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         languageCode:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         sort:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         sortInfos:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/SortInfo'
-          nullable: true
           readOnly: true
         skip:
           type: integer
@@ -1246,103 +1117,331 @@ components:
           type: integer
           format: int32
       additionalProperties: false
-    FulfillmentCenter:
+    ProductInventorySearchCriteria:
       type: object
       properties:
-        name:
-          type: string
-          nullable: true
-        description:
-          type: string
-          nullable: true
-        shortDescription:
-          type: string
-          nullable: true
-        geoLocation:
-          type: string
-          nullable: true
-        address:
-          allOf:
-          - $ref: '#/components/schemas/InventoryAddress'
-          nullable: true
-        outerId:
-          type: string
-          nullable: true
-        organizationId:
-          type: string
-          nullable: true
-        objectType:
-          type: string
-          nullable: true
-          readOnly: true
-        dynamicProperties:
-          type: array
+        productId:
+          type:
+          - string
+          - 'null'
+        productIds:
+          type:
+          - array
+          - 'null'
           items:
-            $ref: '#/components/schemas/DynamicObjectProperty'
-          nullable: true
+            type: string
+        withInventoryOnly:
+          type: boolean
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
+      additionalProperties: false
+    DynamicObjectProperty:
+      type: object
+      properties:
+        objectId:
+          type:
+          - string
+          - 'null'
+        values:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicPropertyObjectValue'
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        isArray:
+          type: boolean
+        isDictionary:
+          type: boolean
+        isMultilingual:
+          type: boolean
+        isRequired:
+          type: boolean
+        displayOrder:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        valueType:
+          allOf:
+          - $ref: '#/components/schemas/DynamicPropertyValueType'
+        displayNames:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicPropertyName'
         createdDate:
           type: string
           format: date-time
         modifiedDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         createdBy:
           maxLength: 64
           minLength: 0
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         modifiedBy:
           maxLength: 64
           minLength: 0
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         id:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Operation:
+      type: object
+      properties:
+        value:
+          type:
+          - object
+          - 'null'
+        path:
+          type:
+          - string
+          - 'null'
+        op:
+          type:
+          - string
+          - 'null'
+        from:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    InventoryAddress:
+      type: object
+      properties:
+        addressType:
+          allOf:
+          - $ref: '#/components/schemas/AddressType'
+        key:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        organization:
+          type:
+          - string
+          - 'null'
+        countryCode:
+          type:
+          - string
+          - 'null'
+        countryName:
+          type:
+          - string
+          - 'null'
+        city:
+          type:
+          - string
+          - 'null'
+        postalCode:
+          type:
+          - string
+          - 'null'
+        zip:
+          type:
+          - string
+          - 'null'
+        line1:
+          type:
+          - string
+          - 'null'
+        line2:
+          type:
+          - string
+          - 'null'
+        regionId:
+          type:
+          - string
+          - 'null'
+        regionName:
+          type:
+          - string
+          - 'null'
+        firstName:
+          type:
+          - string
+          - 'null'
+        middleName:
+          type:
+          - string
+          - 'null'
+        lastName:
+          type:
+          - string
+          - 'null'
+        phone:
+          type:
+          - string
+          - 'null'
+        email:
+          type:
+          - string
+          - 'null'
+        outerId:
+          type:
+          - string
+          - 'null'
+        isDefault:
+          type: boolean
+        description:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    InventoryInfoSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/InventoryInfo'
       additionalProperties: false
     DynamicPropertyName:
       type: object
       properties:
         locale:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: false
-    SortDirection:
-      enum:
-      - Ascending
-      - Descending
-      type: string
+    SortInfo:
+      type: object
+      properties:
+        sortColumn:
+          type:
+          - string
+          - 'null'
+        sortDirection:
+          allOf:
+          - $ref: '#/components/schemas/SortDirection'
+      additionalProperties: false
     DynamicPropertyObjectValue:
       type: object
       properties:
         objectType:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         objectId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         locale:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         value:
-          type: object
-          nullable: true
+          type:
+          - object
+          - 'null'
         valueId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         valueType:
           allOf:
           - $ref: '#/components/schemas/DynamicPropertyValueType'
         propertyId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         propertyName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    FulfillmentCenterSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/FulfillmentCenter'
       additionalProperties: false
   securitySchemes:
     oauth2:

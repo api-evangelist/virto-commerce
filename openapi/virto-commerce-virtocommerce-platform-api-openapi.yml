@@ -1,8 +1,16 @@
-openapi: 3.0.4
+openapi: 3.2.0
 info:
-  title: VirtoCommerce.Cart Catalog VirtoCommerce Platform API
+  title: Virto Commerce Solution REST API Documentation…
+  description: Virto Commerce provides API documentation in two formats, JSON and YAML, with schema files generated as swagger.json and swagger.yaml. To ensure secure access, authorization filters can be applied using a specific key to grant access. This allows authorized users to securely interact with the API and access the necessary resources while maintaining confidentiality and data integrity.
+  termsOfService: https://virtocommerce.com/terms
+  contact:
+    name: Virto Commerce
+    url: https://virtocommerce.com
+    email: support@virtocommerce.com
+  license:
+    name: Virto Commerce Open Software License 3.0
+    url: https://virtocommerce.com/open-source-license
   version: v1
-  description: Easily manage your products, categories, variations, and properties
 tags:
 - name: VirtoCommerce Platform
   description: B2B Innovation Platform
@@ -37,6 +45,8 @@ paths:
         '200':
           description: OK
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: External sign in sign in
+      x-summary-source: derived
   /externalsignin/signout:
     get:
       tags:
@@ -55,6 +65,8 @@ paths:
         '200':
           description: OK
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: External sign in sign out
+      x-summary-source: derived
   /externalsignin/callback:
     get:
       tags:
@@ -69,6 +81,8 @@ paths:
         '200':
           description: OK
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: External sign in sign in callback
+      x-summary-source: derived
   /externalsignin/providers:
     get:
       tags:
@@ -94,30 +108,13 @@ paths:
                 items:
                   $ref: '#/components/schemas/ExternalSignInProviderInfo'
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: External sign in get external login providers
+      x-summary-source: derived
   /api/apps/{appId}/manifest:
     get:
       tags:
       - VirtoCommerce Platform
-      summary: 'Returns the host app''s plugin manifest.
-
-
-        In production: cacheable — responds 304 on matching
-
-        `If-None-Match`. The descriptor is built and hashed once at the
-
-        service layer (VirtoCommerce.Platform.Core.Modularity.IAppManifestService) and cached for the
-
-        process lifetime, so 304 cache-hits short-circuit without touching the
-
-        filesystem.
-
-        In Development: `Cache-Control: no-store` is emitted and the 304
-
-        fast path is skipped — every request returns 200 with a freshly built
-
-        body. This makes `yarn build` in a plugin folder visible on the
-
-        next page reload without restarting the platform.'
+      summary: Returns the host app's plugin manifest.
       operationId: AppManifest_GetManifest
       parameters:
       - name: appId
@@ -143,22 +140,7 @@ paths:
     post:
       tags:
       - VirtoCommerce Platform
-      summary: 'Force-invalidate the manifest cache for every `appId`. The next
-
-        call to `GET /api/apps/{appId}/manifest` will rebuild the
-
-        descriptor from disk, picking up any plugin changes since the last
-
-        build (new module installs, drop-in plugin replacements, plugin
-
-        rebuilds).
-
-
-        In Development this isn''t normally needed (the service bypasses its
-
-        cache anyway), but the endpoint works in any environment for
-
-        operators who want to refresh without restarting the platform.'
+      summary: Force-invalidate the manifest cache for every `appId`.
       operationId: AppManifest_InvalidateManifestCache
       responses:
         '204':
@@ -183,7 +165,7 @@ paths:
     get:
       tags:
       - VirtoCommerce Platform
-      summary: Gets the list of available apps, filtered by user permissions.
+      summary: Gets the list of available apps, filtered by user permissions
       operationId: Apps_GetApps
       responses:
         '200':
@@ -214,6 +196,8 @@ paths:
         '200':
           description: OK
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Authorization revoke current user token
+      x-summary-source: derived
   /connect/token:
     post:
       tags:
@@ -254,6 +238,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/OpenIddictResponse'
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Authorization exchange
+      x-summary-source: derived
   /connect/authorize:
     get:
       tags:
@@ -263,6 +249,8 @@ paths:
         '200':
           description: OK
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Authorization authorize
+      x-summary-source: derived
     post:
       tags:
       - VirtoCommerce Platform
@@ -271,6 +259,8 @@ paths:
         '200':
           description: OK
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Authorization authorize
+      x-summary-source: derived
   /connect/userinfo:
     get:
       tags:
@@ -280,6 +270,8 @@ paths:
         '200':
           description: OK
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Authorization userinfo
+      x-summary-source: derived
     post:
       tags:
       - VirtoCommerce Platform
@@ -288,6 +280,8 @@ paths:
         '200':
           description: OK
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Authorization userinfo
+      x-summary-source: derived
   /connect/logout:
     get:
       tags:
@@ -297,6 +291,8 @@ paths:
         '200':
           description: OK
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Authorization logout
+      x-summary-source: derived
   /api/changes/force:
     post:
       tags:
@@ -351,13 +347,13 @@ paths:
       - basic:
         - cache:reset
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Change log reset platform cache
+      x-summary-source: derived
   /api/changes/lastmodifieddate:
     get:
       tags:
       - VirtoCommerce Platform
-      summary: 'Get last modified date for given scope
-
-        Used for signal of what something changed and for cache invalidation in external platform clients'
+      summary: Get last modified date for given scope Used for signal of what something…
       operationId: ChangeLog_GetLastModifiedDate
       parameters:
       - name: scope
@@ -412,6 +408,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/ChangedEntitiesResponse'
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Change log get changed entities
+      x-summary-source: derived
   /api/changes/changed-entities/reset:
     post:
       tags:
@@ -453,6 +451,8 @@ paths:
       - basic:
         - cache:reset
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Change log reset changed entities
+      x-summary-source: derived
   /api/platform/changelog/search:
     post:
       tags:
@@ -502,6 +502,8 @@ paths:
       - http-signature: []
       - basic: []
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Change log search changes
+      x-summary-source: derived
   /api/platform/changelog/v2/search:
     post:
       tags:
@@ -545,6 +547,8 @@ paths:
       - http-signature: []
       - basic: []
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Change log search changes V2
+      x-summary-source: derived
   /api/platform/changelog/{type}/changes:
     get:
       tags:
@@ -596,6 +600,8 @@ paths:
       - http-signature: []
       - basic: []
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Change log search type change history
+      x-summary-source: derived
   /api/platform/developer-tools:
     get:
       tags:
@@ -636,6 +642,8 @@ paths:
       - basic:
         - platform:developer-tools:access
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Developer tools get developer tools
+      x-summary-source: derived
   /api/platform/diagnostics/systeminfo:
     get:
       tags:
@@ -665,6 +673,8 @@ paths:
       - http-signature: []
       - basic: []
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Diagnostics get system info
+      x-summary-source: derived
   /api/platform/diagnostics/errors:
     get:
       tags:
@@ -757,6 +767,8 @@ paths:
       - basic:
         - platform:dynamic_properties:read
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Dynamic properties get all dynamic properties
+      x-summary-source: derived
     post:
       tags:
       - VirtoCommerce Platform
@@ -930,7 +942,7 @@ paths:
     post:
       tags:
       - VirtoCommerce Platform
-      summary: Does nothing. Just a way to expose DynamicObjectProperty thru Swagger.
+      summary: Does nothing. Just a way to expose DynamicObjectProperty thru Swagger
       operationId: DynamicProperties_ExposeDynamicObjectProperty
       responses:
         '200':
@@ -992,6 +1004,8 @@ paths:
       - basic:
         - platform:dynamic_properties:read
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Dynamic properties get all dictionary items
+      x-summary-source: derived
     post:
       tags:
       - VirtoCommerce Platform
@@ -1189,6 +1203,8 @@ paths:
       - basic:
         - platform:setting:read
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Localizable settings get settings and languages
+      x-summary-source: derived
   /api/platform/localizable-settings/{name}/dictionary-items/{language}/values:
     get:
       tags:
@@ -1240,6 +1256,8 @@ paths:
       - basic:
         - platform:setting:read
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Localizable settings get dictionary values
+      x-summary-source: derived
   /api/platform/localizable-settings/{name}/dictionary-items:
     post:
       tags:
@@ -1287,6 +1305,8 @@ paths:
       - basic:
         - platform:setting:update
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Localizable settings save dictionary items
+      x-summary-source: derived
     delete:
       tags:
       - VirtoCommerce Platform
@@ -1322,6 +1342,8 @@ paths:
       - basic:
         - platform:setting:update
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Localizable settings delete dictionary items
+      x-summary-source: derived
   /api/platform/modules/reload:
     post:
       tags:
@@ -1961,7 +1983,7 @@ paths:
     get:
       tags:
       - VirtoCommerce Platform
-      summary: Validate that a specific module version package exists at the download URL.
+      summary: Validate that a specific module version package exists at the download URL
       operationId: Modules_ValidateModuleVersion
       parameters:
       - name: moduleId
@@ -2009,9 +2031,7 @@ paths:
     post:
       tags:
       - VirtoCommerce Platform
-      summary: 'Install a specific version of a module.
-
-        Validates the package URL, registers the custom version, and schedules installation.'
+      summary: Install a specific version of a module.
       operationId: Modules_InstallModuleVersion
       parameters:
       - name: moduleId
@@ -2061,7 +2081,7 @@ paths:
     post:
       tags:
       - VirtoCommerce Platform
-      summary: Install the latest available version of a module.
+      summary: Install the latest available version of a module
       operationId: Modules_InstallModule
       parameters:
       - name: moduleId
@@ -2103,7 +2123,7 @@ paths:
     post:
       tags:
       - VirtoCommerce Platform
-      summary: Uninstall a module.
+      summary: Uninstall a module
       operationId: Modules_UninstallSingleModule
       parameters:
       - name: moduleId
@@ -2175,6 +2195,8 @@ paths:
       - basic:
         - platform:security:oauth_applications:create
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: OAuth apps new
+      x-summary-source: derived
   /api/platform/oauthapps:
     post:
       tags:
@@ -2223,6 +2245,8 @@ paths:
       - basic:
         - platform:security:oauth_applications:update
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: OAuth apps save async
+      x-summary-source: derived
     delete:
       tags:
       - VirtoCommerce Platform
@@ -2253,6 +2277,8 @@ paths:
       - basic:
         - platform:security:oauth_applications:delete
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: OAuth apps delete async
+      x-summary-source: derived
   /api/platform/oauthapps/search:
     post:
       tags:
@@ -2301,6 +2327,8 @@ paths:
       - basic:
         - platform:security:oauth_applications:read
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: OAuth apps search async
+      x-summary-source: derived
   /api/platform/pushnotifications:
     post:
       tags:
@@ -2418,6 +2446,8 @@ paths:
       - basic:
         - platform:security:read
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Security search user sessions
+      x-summary-source: derived
   /api/platform/security/users/{userId}/sessions/{id}:
     delete:
       tags:
@@ -2453,6 +2483,8 @@ paths:
       - basic:
         - platform:security:revokeToken
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Security terminate user session
+      x-summary-source: derived
   /api/platform/security/users/{userId}/sessions:
     delete:
       tags:
@@ -2483,6 +2515,8 @@ paths:
       - basic:
         - platform:security:revokeToken
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Security terminate all user sessions
+      x-summary-source: derived
   /api/platform/security/login:
     post:
       tags:
@@ -2584,6 +2618,8 @@ paths:
       - http-signature: []
       - basic: []
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Security userinfo
+      x-summary-source: derived
   /api/platform/security/permissions:
     get:
       tags:
@@ -3204,7 +3240,7 @@ paths:
     post:
       tags:
       - VirtoCommerce Platform
-      summary: Change password for current user.
+      summary: Change password for current user
       operationId: Security_ChangeCurrentUserPassword
       requestBody:
         description: Old and new passwords.
@@ -3449,7 +3485,7 @@ paths:
     post:
       tags:
       - VirtoCommerce Platform
-      summary: Send email with instructions on how to reset user password.
+      summary: Send email with instructions on how to reset user password
       description: Verifies provided userName and (if succeeded) sends email.
       operationId: Security_RequestPasswordReset
       parameters:
@@ -3492,6 +3528,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/IdentityResult'
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Security validate password
+      x-summary-source: derived
   /api/platform/security/validateuserpassword:
     post:
       tags:
@@ -3540,6 +3578,8 @@ paths:
       - basic:
         - platform:security:update
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Security validate user password
+      x-summary-source: derived
   /api/platform/security/users/{id}/locked:
     get:
       tags:
@@ -3747,6 +3787,8 @@ paths:
       - basic:
         - platform:security:read
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Security get user api keys
+      x-summary-source: derived
   /api/platform/security/users/apikeys:
     post:
       tags:
@@ -3801,6 +3843,8 @@ paths:
       - basic:
         - platform:security:update
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Security save user api key
+      x-summary-source: derived
     put:
       tags:
       - VirtoCommerce Platform
@@ -3854,6 +3898,8 @@ paths:
       - basic:
         - platform:security:update
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Security update user api key
+      x-summary-source: derived
     delete:
       tags:
       - VirtoCommerce Platform
@@ -3900,6 +3946,8 @@ paths:
       - basic:
         - platform:security:delete
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Security delete user api keys
+      x-summary-source: derived
   /api/platform/security/logintypes:
     get:
       tags:
@@ -4012,6 +4060,8 @@ paths:
       - basic:
         - platform:security:confirmEmail
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Security confirm email
+      x-summary-source: derived
   /api/platform/security/users/{userId}/generateChangeEmailToken:
     get:
       tags:
@@ -4056,6 +4106,8 @@ paths:
       - basic:
         - platform:security:generateToken
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Security generate change email token
+      x-summary-source: derived
   /api/platform/security/users/{userId}/generateEmailConfirmationToken:
     get:
       tags:
@@ -4096,6 +4148,8 @@ paths:
       - basic:
         - platform:security:generateToken
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Security generate email confirmation token
+      x-summary-source: derived
   /api/platform/security/users/{userId}/generatePasswordResetToken:
     get:
       tags:
@@ -4136,6 +4190,8 @@ paths:
       - basic:
         - platform:security:generateToken
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Security generate password reset token
+      x-summary-source: derived
   /api/platform/security/users/{userId}/generateToken:
     get:
       tags:
@@ -4184,6 +4240,8 @@ paths:
       - basic:
         - platform:security:generateToken
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Security generate user token
+      x-summary-source: derived
   /api/platform/security/users/{userId}/verifyToken:
     post:
       tags:
@@ -4238,6 +4296,8 @@ paths:
       - basic:
         - platform:security:verifyToken
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Security verify user token
+      x-summary-source: derived
   /api/platform/settings:
     get:
       tags:
@@ -4443,15 +4503,7 @@ paths:
     get:
       tags:
       - VirtoCommerce Platform
-      summary: 'Get global settings values as a flat { name: value } dictionary.
-
-        Optional moduleId narrows the response to a single
-
-        module''s settings — same filter as M:VirtoCommerce.Platform.Web.Controllers.Api.SettingsV2Controller.GetGlobalSchema(System.String,System.String), so
-
-        a frontend can read+use one module''s values in one round-trip
-
-        without a follow-up /schema lookup.'
+      summary: 'Get global settings values as a flat { name: value } dictionary.'
       operationId: SettingsV2_GetGlobalValues
       parameters:
       - name: modifiedOnly
@@ -4528,13 +4580,13 @@ paths:
       - basic:
         - platform:setting:update
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Settings V2 save global values
+      x-summary-source: derived
   /api/platform/settings/v2/tenant/{tenantType}/schema:
     get:
       tags:
       - VirtoCommerce Platform
-      summary: 'Get tenant settings schema (metadata only, no values).
-
-        Schema depends only on tenantType registration, not on a specific tenant instance.'
+      summary: Get tenant settings schema (metadata only, no values).
       operationId: SettingsV2_GetTenantSchema
       parameters:
       - name: tenantType
@@ -4579,11 +4631,7 @@ paths:
     get:
       tags:
       - VirtoCommerce Platform
-      summary: 'Get tenant settings values as a flat { name: value } dictionary.
-
-        Optional moduleId narrows the response to a single
-
-        module''s settings.'
+      summary: 'Get tenant settings values as a flat { name: value } dictionary.'
       operationId: SettingsV2_GetTenantValues
       parameters:
       - name: tenantType
@@ -4680,19 +4728,13 @@ paths:
       - basic:
         - platform:setting:update
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Settings V2 save tenant values
+      x-summary-source: derived
   /api/platform/settings/v2/me/schema:
     get:
       tags:
       - VirtoCommerce Platform
-      summary: 'Get the current user''s UserProfile settings schema (metadata only).
-
-        Schema is the same for every user — it''s defined by the
-
-        platform''s UserProfile-tenant registration. Optionally filter
-
-        by moduleId so a frontend only fetches its own module''s
-
-        per-user settings.'
+      summary: Get the current user's UserProfile settings schema (metadata only).
       operationId: SettingsV2_GetMeSchema
       parameters:
       - name: moduleId
@@ -4727,15 +4769,7 @@ paths:
     get:
       tags:
       - VirtoCommerce Platform
-      summary: 'Get the current user''s effective UserProfile settings values
-
-        as a flat { name: value } dictionary. Optional moduleId
-
-        narrows the response to a single module''s per-user settings — same
-
-        filter M:VirtoCommerce.Platform.Web.Controllers.Api.SettingsV2Controller.GetMeSchema(System.String,System.String) accepts, so a frontend can do a
-
-        single round-trip read without a follow-up /me/schema lookup.'
+      summary: Get the current user's effective UserProfile settings values as a flat { name…
       operationId: SettingsV2_GetMeValues
       parameters:
       - name: modifiedOnly
@@ -4802,143 +4836,73 @@ paths:
       - http-signature: []
       - basic: []
       x-virtocommerce-module-id: VirtoCommerce.Platform
+      summary: Settings V2 save me values
+      x-summary-source: derived
 components:
   schemas:
-    DynamicPropertyDictionaryItem:
-      type: object
-      properties:
-        propertyId:
-          type: string
-          nullable: true
-        name:
-          type: string
-          nullable: true
-        displayNames:
-          type: array
-          items:
-            $ref: '#/components/schemas/DynamicPropertyDictionaryItemName'
-          nullable: true
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type: string
-          format: date-time
-          nullable: true
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    AppManifestResponse:
-      type: object
-      properties:
-        appId:
-          type: string
-          description: Echo of the requested app id (e.g. `vc-shell-marketplace`, `system-operations`, `platform`).
-          nullable: true
-        version:
-          type: string
-          description: 'Version of the host app — taken from the running platform when
-
-            VirtoCommerce.Platform.Web.Model.Modularity.AppManifestResponse.AppId is the reserved `platform` id, otherwise
-
-            from the module that declares the `<app>` in its
-
-            `module.manifest`. Useful for clients that want to surface the
-
-            host''s version (e.g. footer banner, support diagnostics) without
-
-            a second round-trip.'
-          nullable: true
-        title:
-          type: string
-          description: 'Display title of the host app, taken from the owning module''s
-
-            `<app>` declaration in `module.manifest`.'
-          nullable: true
-        plugins:
-          type: array
-          items:
-            $ref: '#/components/schemas/PluginEntry'
-          description: 'Plugins to load, in topological dependency order of their owning modules.
-
-            Already filtered by current user permissions and (for Module Federation
-
-            hosts) by host-app discovery folder convention.'
-          nullable: true
-      additionalProperties: false
-      description: 'Response shape for `GET /api/apps/{appId}/manifest`.
-
-        Returns the host app metadata plus a topologically ordered, permission-filtered
-
-        list of plugins the host should load.'
-    UserLockedResult:
-      type: object
-      properties:
-        locked:
-          type: boolean
-      additionalProperties: false
     PushNotificationSearchCriteria:
       type: object
       properties:
         ids:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
-          nullable: true
         onlyNew:
           type: boolean
         startDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         endDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         responseGroup:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         objectType:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         objectTypes:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
-          nullable: true
         objectIds:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
-          nullable: true
         keyword:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         searchPhrase:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         languageCode:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         sort:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         sortInfos:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/SortInfo'
-          nullable: true
           readOnly: true
         skip:
           type: integer
@@ -4946,222 +4910,82 @@ components:
         take:
           type: integer
           format: int32
-      additionalProperties: false
-    ChangeLogSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/OperationLog'
-          nullable: true
-      additionalProperties: false
-    IdentityResult:
-      type: object
-      properties:
-        succeeded:
-          type: boolean
-          readOnly: true
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/IdentityError'
-          nullable: true
-          readOnly: true
-      additionalProperties: false
-    SecurityResult:
-      type: object
-      properties:
-        succeeded:
-          type: boolean
-        errors:
-          type: array
-          items:
-            type: string
-          nullable: true
-      additionalProperties: false
-    Job:
-      type: object
-      properties:
-        state:
-          type: string
-          nullable: true
-        completed:
-          type: boolean
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    RoleSearchCriteria:
-      type: object
-      properties:
-        responseGroup:
-          type: string
-          nullable: true
-        objectType:
-          type: string
-          nullable: true
-        objectTypes:
-          type: array
-          items:
-            type: string
-          nullable: true
-        objectIds:
-          type: array
-          items:
-            type: string
-          nullable: true
-        keyword:
-          type: string
-          nullable: true
-        searchPhrase:
-          type: string
-          nullable: true
-        languageCode:
-          type: string
-          nullable: true
-        sort:
-          type: string
-          nullable: true
-        sortInfos:
-          type: array
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          nullable: true
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
-    OperationLog:
-      type: object
-      properties:
-        objectType:
-          type: string
-          nullable: true
-        objectId:
-          type: string
-          nullable: true
-        operationType:
-          allOf:
-          - $ref: '#/components/schemas/EntryState'
-        detail:
-          type: string
-          nullable: true
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type: string
-          format: date-time
-          nullable: true
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    DynamicPropertyDictionaryItemSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/DynamicPropertyDictionaryItem'
-          nullable: true
-      additionalProperties: false
-    PushNotificationSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        newCount:
-          type: integer
-          format: int32
-        notifyEvents:
-          type: array
-          items:
-            $ref: '#/components/schemas/PushNotification'
-          nullable: true
       additionalProperties: false
     ModuleDescriptor:
       type: object
       properties:
         version:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         platformVersion:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         title:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         description:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         authors:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
-          nullable: true
         owners:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
-          nullable: true
         licenseUrl:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         projectUrl:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         iconUrl:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         requireLicenseAcceptance:
           type: boolean
         releaseNotes:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         copyright:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         tags:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         groups:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
-          nullable: true
         dependencies:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/ModuleIdentity'
-          nullable: true
         validationErrors:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
-          nullable: true
         isRemovable:
           type: boolean
         isInstalled:
@@ -5169,32 +4993,148 @@ components:
         installedVersion:
           allOf:
           - $ref: '#/components/schemas/ModuleIdentity'
-          nullable: true
         packageUrl:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         id:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: false
+    PluginEntry:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: 'Unique plugin id within the (host app, request) tuple.
+
+            Defaults to the owning .NET module id (e.g. `VirtoCommerce.MarketplaceReviews`).'
+        version:
+          type:
+          - string
+          - 'null'
+          description: Plugin version. Defaults to the parent module version.
+        entry:
+          allOf:
+          - $ref: '#/components/schemas/ContentFile'
+          description: 'The plugin''s primary file. For Module Federation plugins this is the
+
+            federation entry (`remoteEntry.js`). For the legacy AngularJS host
+
+            it is the module bundle (`dist/app.js`). Always a script.'
+        contentFiles:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ContentFile'
+          description: 'Additional assets the host should preload alongside VirtoCommerce.Platform.Web.Model.Modularity.PluginEntry.Entry
+
+            (typically stylesheets). Each carries its own type so a generic loader
+
+            can dispatch on it.'
+        remote:
+          allOf:
+          - $ref: '#/components/schemas/PluginRemote'
+          description: Module Federation coordinates. `null` for the legacy AngularJS host.
+      additionalProperties: false
+      description: 'One plugin contribution to a host app, returned by
+
+        `GET /api/apps/{appId}/manifest`.'
+    OAuthAppSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OpenIddictApplicationDescriptor'
+      additionalProperties: false
+    ChangePasswordRequest:
+      type: object
+      properties:
+        userName:
+          type:
+          - string
+          - 'null'
+        oldPassword:
+          type:
+          - string
+          - 'null'
+        newPassword:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    LoginType:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        hasLoginForm:
+          type: boolean
+        authenticationType:
+          type:
+          - string
+          - 'null'
+        priority:
+          type: integer
+          format: int32
+      additionalProperties: false
+    DynamicPropertyDictionaryItemName:
+      type: object
+      properties:
+        locale:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    SettingValueType:
+      enum:
+      - ShortText
+      - LongText
+      - Integer
+      - Decimal
+      - DateTime
+      - Boolean
+      - SecureString
+      - Json
+      - PositiveInteger
+      type: string
     AppDescriptor:
       type: object
       properties:
         title:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         description:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         iconUrl:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         relativeUrl:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         permission:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         placement:
           allOf:
           - $ref: '#/components/schemas/AppPlacement'
@@ -5209,137 +5149,760 @@ components:
 
             contract for backwards compatibility.'
         id:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: false
-    DeveloperToolDescriptor:
+    UserLockedResult:
       type: object
       properties:
-        name:
-          type: string
-          nullable: true
-        url:
-          type: string
-          nullable: true
-        isExternal:
+        locked:
           type: boolean
-        sortOrder:
+      additionalProperties: false
+    CryptoProviderCache:
+      type: object
+      additionalProperties: false
+    VerifyTokenRequest:
+      type: object
+      properties:
+        tokenProvider:
+          type:
+          - string
+          - 'null'
+        purpose:
+          type:
+          - string
+          - 'null'
+        token:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    OAuthAppSearchCriteria:
+      type: object
+      properties:
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
           type: integer
           format: int32
-        permission:
-          type: string
-          nullable: true
+        take:
+          type: integer
+          format: int32
       additionalProperties: false
-    OpenIddictApplicationDescriptor:
-      type: object
-      properties:
-        applicationType:
-          type: string
-          nullable: true
-        clientId:
-          type: string
-          nullable: true
-        clientSecret:
-          type: string
-          nullable: true
-        clientType:
-          type: string
-          nullable: true
-        consentType:
-          type: string
-          nullable: true
-        displayName:
-          type: string
-          nullable: true
-        displayNames:
-          type: object
-          additionalProperties:
-            type: string
-          nullable: true
-          readOnly: true
-        jsonWebKeySet:
-          allOf:
-          - $ref: '#/components/schemas/JsonWebKeySet'
-          nullable: true
-        permissions:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-          nullable: true
-          readOnly: true
-        postLogoutRedirectUris:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-            format: uri
-          nullable: true
-          readOnly: true
-        properties:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/JsonElement'
-          nullable: true
-          readOnly: true
-        redirectUris:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-            format: uri
-          nullable: true
-          readOnly: true
-        requirements:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-          nullable: true
-          readOnly: true
-        settings:
-          type: object
-          additionalProperties:
-            type: string
-          nullable: true
-          readOnly: true
-      additionalProperties: false
-    ResetPasswordConfirmRequest:
-      type: object
-      properties:
-        token:
-          type: string
-          nullable: true
-        newPassword:
-          type: string
-          nullable: true
-      additionalProperties: false
-    ModuleInstallRequest:
+    ModuleIdentity:
       type: object
       properties:
         id:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         version:
+          allOf:
+          - $ref: '#/components/schemas/SemanticVersion'
+        optional:
+          type: boolean
+      additionalProperties: false
+    JsonValueKind:
+      enum:
+      - Undefined
+      - Object
+      - Array
+      - String
+      - Number
+      - 'True'
+      - 'False'
+      - 'Null'
+      type: string
+    DynamicPropertyName:
+      type: object
+      properties:
+        locale:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    IdentityResult:
+      type: object
+      properties:
+        succeeded:
+          type: boolean
+          readOnly: true
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IdentityError'
+          readOnly: true
+      additionalProperties: false
+    ProgressMessageLevel:
+      enum:
+      - Info
+      - Warning
+      - Debug
+      - Error
+      type: string
+    ValidatePasswordResetTokenRequest:
+      type: object
+      properties:
+        token:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    UserSessionSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UserSession'
+      additionalProperties: false
+    LocalizedValue:
+      type: object
+      properties:
+        languageCode:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    JsonElement:
+      type: object
+      properties:
+        valueKind:
+          allOf:
+          - $ref: '#/components/schemas/JsonValueKind'
+          readOnly: true
+      additionalProperties: false
+    DynamicPropertySearchCriteria:
+      type: object
+      properties:
+        typeName:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
+      additionalProperties: false
+    ApplicationUserLogin:
+      type: object
+      properties:
+        loginProvider:
+          type:
+          - string
+          - 'null'
+        providerKey:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    UserSession:
+      type: object
+      properties:
+        sessionGroupId:
+          type:
+          - string
+          - 'null'
+        createdDate:
           type: string
-          nullable: true
+          format: date-time
+        expirationDate:
+          type: string
+          format: date-time
+        ipAddress:
+          type:
+          - string
+          - 'null'
+        userAgent:
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    DynamicPropertyDictionaryItem:
+      type: object
+      properties:
+        propertyId:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        displayNames:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicPropertyDictionaryItemName'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    DynamicProperty:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        isArray:
+          type: boolean
+        isDictionary:
+          type: boolean
+        isMultilingual:
+          type: boolean
+        isRequired:
+          type: boolean
+        displayOrder:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        valueType:
+          allOf:
+          - $ref: '#/components/schemas/DynamicPropertyValueType'
+        displayNames:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicPropertyName'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    DynamicPropertySearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicProperty'
+      additionalProperties: false
+    UserApiKey:
+      type: object
+      properties:
+        apiKey:
+          type:
+          - string
+          - 'null'
+        userName:
+          type:
+          - string
+          - 'null'
+        userId:
+          type:
+          - string
+          - 'null'
+        isActive:
+          type: boolean
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ApplicationUser:
+      type: object
+      properties:
+        storeId:
+          type:
+          - string
+          - 'null'
+        memberId:
+          type:
+          - string
+          - 'null'
+        isAdministrator:
+          type: boolean
+        photoUrl:
+          type:
+          - string
+          - 'null'
+        userType:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - string
+          - 'null'
+        password:
+          type:
+          - string
+          - 'null'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          type:
+          - string
+          - 'null'
+        roles:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Role'
+        logins:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ApplicationUserLogin'
+        passwordExpired:
+          type: boolean
+        lastPasswordChangedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        lastPasswordChangeRequestDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        lastLoginDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        id:
+          type:
+          - string
+          - 'null'
+        userName:
+          type:
+          - string
+          - 'null'
+        normalizedUserName:
+          type:
+          - string
+          - 'null'
+        email:
+          type:
+          - string
+          - 'null'
+        normalizedEmail:
+          type:
+          - string
+          - 'null'
+        emailConfirmed:
+          type: boolean
+        passwordHash:
+          type:
+          - string
+          - 'null'
+        securityStamp:
+          type:
+          - string
+          - 'null'
+        concurrencyStamp:
+          type:
+          - string
+          - 'null'
+        phoneNumber:
+          type:
+          - string
+          - 'null'
+        phoneNumberConfirmed:
+          type: boolean
+        twoFactorEnabled:
+          type: boolean
+        lockoutEnd:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        lockoutEnabled:
+          type: boolean
+        accessFailedCount:
+          type: integer
+          format: int32
+      additionalProperties: false
+    License:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        customerName:
+          type:
+          - string
+          - 'null'
+        customerEmail:
+          type:
+          - string
+          - 'null'
+        expirationDate:
+          type: string
+          format: date-time
+        rawLicense:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    UserDetail:
+      type: object
+      properties:
+        permissions:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        userName:
+          type:
+          - string
+          - 'null'
+        isAdministrator:
+          type: boolean
+        passwordExpired:
+          type: boolean
+        daysTillPasswordExpiry:
+          type: integer
+          format: int32
+        authenticationMethod:
+          type:
+          - string
+          - 'null'
+        isSsoAuthenticationMethod:
+          type: boolean
+        memberId:
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ContentFile:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: 'Asset kind. See VirtoCommerce.Platform.Core.Modularity.ContentFileTypes
+
+            for the canonical values. Lower-case string so the JSON contract is
+
+            stable against future C# enum renames.'
+        path:
+          type:
+          - string
+          - 'null'
+          description: 'Absolute URL path served by the platform''s static-file middleware,
+
+            e.g. `/modules/$(VirtoCommerce.Catalog)/dist/app.js`.'
+        hash:
+          type:
+          - string
+          - 'null'
+          description: 'Cache-busting hash (`?v={hash}`). Stable across requests as long
+
+            as the file''s last-write time is unchanged. `null` when the file
+
+            doesn''t exist on disk (e.g. a manifest reference that fell back to
+
+            convention defaults).'
+      additionalProperties: false
+      description: 'One asset belonging to a plugin (script, stylesheet, etc.). Carries the
+
+        information a client-side loader needs to build the right HTML element
+
+        with proper cache busting.'
+    ChangedEntitiesResponse:
+      type: object
+      properties:
+        entities:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ChangedEntity'
+      additionalProperties: false
+    UserSessionSearchCriteria:
+      type: object
+      properties:
+        userId:
+          type:
+          - string
+          - 'null'
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
+      additionalProperties: false
+    IdentityError:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     ModulePushNotification:
       type: object
       properties:
         started:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         finished:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         progressLog:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/ProgressMessage'
-          nullable: true
         totalCount:
           type: integer
           format: int32
@@ -5348,306 +5911,349 @@ components:
           format: int32
           readOnly: true
         serverId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         creator:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         created:
           type: string
           format: date-time
         isNew:
           type: boolean
         notifyType:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         description:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         title:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         repeatCount:
           type: integer
           format: int32
         id:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: false
-    ObjectSettingEntry:
+    SecurityResult:
       type: object
       properties:
-        itHasValues:
+        succeeded:
+          type: boolean
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+      additionalProperties: false
+    ExternalSignInProviderInfo:
+      type: object
+      properties:
+        authenticationType:
+          type:
+          - string
+          - 'null'
+        displayName:
+          type:
+          - string
+          - 'null'
+        logoUrl:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    JsonWebKey:
+      type: object
+      properties:
+        additionalData:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - object
+            - 'null'
+          readOnly: true
+        alg:
+          type:
+          - string
+          - 'null'
+        crv:
+          type:
+          - string
+          - 'null'
+        d:
+          type:
+          - string
+          - 'null'
+        dp:
+          type:
+          - string
+          - 'null'
+        dq:
+          type:
+          - string
+          - 'null'
+        e:
+          type:
+          - string
+          - 'null'
+        k:
+          type:
+          - string
+          - 'null'
+        keyId:
+          type:
+          - string
+          - 'null'
+        keyOps:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          readOnly: true
+        kid:
+          type:
+          - string
+          - 'null'
+        kty:
+          type:
+          - string
+          - 'null'
+        n:
+          type:
+          - string
+          - 'null'
+        oth:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          readOnly: true
+        p:
+          type:
+          - string
+          - 'null'
+        q:
+          type:
+          - string
+          - 'null'
+        qi:
+          type:
+          - string
+          - 'null'
+        use:
+          type:
+          - string
+          - 'null'
+        x:
+          type:
+          - string
+          - 'null'
+        x5c:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          readOnly: true
+        x5t:
+          type:
+          - string
+          - 'null'
+        x5tS256:
+          type:
+          - string
+          - 'null'
+        x5u:
+          type:
+          - string
+          - 'null'
+        y:
+          type:
+          - string
+          - 'null'
+        keySize:
+          type: integer
+          format: int32
+          readOnly: true
+        hasPrivateKey:
           type: boolean
           readOnly: true
-        objectId:
-          type: string
-          nullable: true
-        objectType:
-          type: string
-          nullable: true
-        isReadOnly:
-          type: boolean
-        value:
-          type: object
-          nullable: true
-        id:
-          type: string
-          nullable: true
-        restartRequired:
-          type: boolean
-        moduleId:
-          type: string
-          nullable: true
-        groupName:
-          type: string
-          nullable: true
-        name:
-          type: string
-          nullable: true
-        displayName:
-          type: string
-          nullable: true
-        isRequired:
-          type: boolean
-        isHidden:
-          type: boolean
-        isPublic:
-          type: boolean
-        valueType:
+        cryptoProviderFactory:
           allOf:
-          - $ref: '#/components/schemas/SettingValueType'
-        allowedValues:
-          type: array
-          items:
-            type: object
-          nullable: true
-        defaultValue:
-          type: object
-          nullable: true
-        isDictionary:
-          type: boolean
-        isLocalizable:
-          type: boolean
-        tenant:
-          type: string
-          nullable: true
+          - $ref: '#/components/schemas/CryptoProviderFactory'
       additionalProperties: false
-    ContentFile:
+    CryptoProviderFactory:
+      type: object
+      properties:
+        cryptoProviderCache:
+          allOf:
+          - $ref: '#/components/schemas/CryptoProviderCache'
+          readOnly: true
+        customCryptoProvider:
+          allOf:
+          - $ref: '#/components/schemas/ICryptoProvider'
+        cacheSignatureProviders:
+          type: boolean
+          default: true
+        signatureProviderObjectPoolCacheSize:
+          type: integer
+          format: int32
+      additionalProperties: false
+    ModuleInstallRequest:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+        version:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PermissionScope:
       type: object
       properties:
         type:
-          type: string
-          description: 'Asset kind. See VirtoCommerce.Platform.Core.Modularity.ContentFileTypes
-
-            for the canonical values. Lower-case string so the JSON contract is
-
-            stable against future C# enum renames.'
-          nullable: true
-        path:
-          type: string
-          description: 'Absolute URL path served by the platform''s static-file middleware,
-
-            e.g. `/modules/$(VirtoCommerce.Catalog)/dist/app.js`.'
-          nullable: true
-        hash:
-          type: string
-          description: 'Cache-busting hash (`?v={hash}`). Stable across requests as long
-
-            as the file''s last-write time is unchanged. `null` when the file
-
-            doesn''t exist on disk (e.g. a manifest reference that fell back to
-
-            convention defaults).'
-          nullable: true
+          type:
+          - string
+          - 'null'
+        label:
+          type:
+          - string
+          - 'null'
+        scope:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
-      description: 'One asset belonging to a plugin (script, stylesheet, etc.). Carries the
-
-        information a client-side loader needs to build the right HTML element
-
-        with proper cache busting.'
     ResetPasswordRequest:
       type: object
       properties:
         newPassword:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         forcePasswordChangeOnNextSignIn:
           type: boolean
       additionalProperties: false
-    Permission:
+    OperationLog:
+      type: object
+      properties:
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectId:
+          type:
+          - string
+          - 'null'
+        operationType:
+          allOf:
+          - $ref: '#/components/schemas/EntryState'
+        detail:
+          type:
+          - string
+          - 'null'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    DeveloperToolDescriptor:
       type: object
       properties:
         name:
-          type: string
-          nullable: true
-        moduleId:
-          type: string
-          nullable: true
-        groupName:
-          type: string
-          nullable: true
-        assignedScopes:
-          type: array
-          items:
-            $ref: '#/components/schemas/PermissionScope'
-          nullable: true
-        availableScopes:
-          type: array
-          items:
-            $ref: '#/components/schemas/PermissionScope'
-          nullable: true
-          readOnly: true
-      additionalProperties: false
-    DynamicPropertyValueType:
-      enum:
-      - Undefined
-      - ShortText
-      - LongText
-      - Integer
-      - Decimal
-      - DateTime
-      - Boolean
-      - Html
-      - Image
-      type: string
-    UserApiKey:
-      type: object
-      properties:
-        apiKey:
-          type: string
-          nullable: true
-        userName:
-          type: string
-          nullable: true
-        userId:
-          type: string
-          nullable: true
-        isActive:
+          type:
+          - string
+          - 'null'
+        url:
+          type:
+          - string
+          - 'null'
+        isExternal:
           type: boolean
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type: string
-          format: date-time
-          nullable: true
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    ApplicationUser:
-      type: object
-      properties:
-        storeId:
-          type: string
-          nullable: true
-        memberId:
-          type: string
-          nullable: true
-        isAdministrator:
-          type: boolean
-        photoUrl:
-          type: string
-          nullable: true
-        userType:
-          type: string
-          nullable: true
-        status:
-          type: string
-          nullable: true
-        password:
-          type: string
-          nullable: true
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type: string
-          format: date-time
-          nullable: true
-        createdBy:
-          type: string
-          nullable: true
-        modifiedBy:
-          type: string
-          nullable: true
-        roles:
-          type: array
-          items:
-            $ref: '#/components/schemas/Role'
-          nullable: true
-        logins:
-          type: array
-          items:
-            $ref: '#/components/schemas/ApplicationUserLogin'
-          nullable: true
-        passwordExpired:
-          type: boolean
-        lastPasswordChangedDate:
-          type: string
-          format: date-time
-          nullable: true
-        lastPasswordChangeRequestDate:
-          type: string
-          format: date-time
-          nullable: true
-        lastLoginDate:
-          type: string
-          format: date-time
-          nullable: true
-        id:
-          type: string
-          nullable: true
-        userName:
-          type: string
-          nullable: true
-        normalizedUserName:
-          type: string
-          nullable: true
-        email:
-          type: string
-          nullable: true
-        normalizedEmail:
-          type: string
-          nullable: true
-        emailConfirmed:
-          type: boolean
-        passwordHash:
-          type: string
-          nullable: true
-        securityStamp:
-          type: string
-          nullable: true
-        concurrencyStamp:
-          type: string
-          nullable: true
-        phoneNumber:
-          type: string
-          nullable: true
-        phoneNumberConfirmed:
-          type: boolean
-        twoFactorEnabled:
-          type: boolean
-        lockoutEnd:
-          type: string
-          format: date-time
-          nullable: true
-        lockoutEnabled:
-          type: boolean
-        accessFailedCount:
+        sortOrder:
           type: integer
           format: int32
+        permission:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Role:
+      type: object
+      properties:
+        description:
+          type:
+          - string
+          - 'null'
+        permissions:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Permission'
+        id:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        normalizedName:
+          type:
+          - string
+          - 'null'
+        concurrencyStamp:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    SortInfo:
+      type: object
+      properties:
+        sortColumn:
+          type:
+          - string
+          - 'null'
+        sortDirection:
+          allOf:
+          - $ref: '#/components/schemas/SortDirection'
       additionalProperties: false
     SemanticVersion:
       type: object
@@ -5665,635 +6271,25 @@ components:
           format: int32
           readOnly: true
         prerelease:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           readOnly: true
       additionalProperties: false
-    JsonWebKey:
+    ConfirmEmailRequest:
       type: object
       properties:
-        additionalData:
-          type: object
-          additionalProperties:
-            type: object
-            nullable: true
-          nullable: true
-          readOnly: true
-        alg:
-          type: string
-          nullable: true
-        crv:
-          type: string
-          nullable: true
-        d:
-          type: string
-          nullable: true
-        dp:
-          type: string
-          nullable: true
-        dq:
-          type: string
-          nullable: true
-        e:
-          type: string
-          nullable: true
-        k:
-          type: string
-          nullable: true
-        keyId:
-          type: string
-          nullable: true
-        keyOps:
-          type: array
-          items:
-            type: string
-          nullable: true
-          readOnly: true
-        kid:
-          type: string
-          nullable: true
-        kty:
-          type: string
-          nullable: true
-        n:
-          type: string
-          nullable: true
-        oth:
-          type: array
-          items:
-            type: string
-          nullable: true
-          readOnly: true
-        p:
-          type: string
-          nullable: true
-        q:
-          type: string
-          nullable: true
-        qi:
-          type: string
-          nullable: true
-        use:
-          type: string
-          nullable: true
-        x:
-          type: string
-          nullable: true
-        x5c:
-          type: array
-          items:
-            type: string
-          nullable: true
-          readOnly: true
-        x5t:
-          type: string
-          nullable: true
-        x5tS256:
-          type: string
-          nullable: true
-        x5u:
-          type: string
-          nullable: true
-        y:
-          type: string
-          nullable: true
-        keySize:
-          type: integer
-          format: int32
-          readOnly: true
-        hasPrivateKey:
-          type: boolean
-          readOnly: true
-        cryptoProviderFactory:
-          allOf:
-          - $ref: '#/components/schemas/CryptoProviderFactory'
-          nullable: true
+        token:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
-    CryptoProviderCache:
-      type: object
-      additionalProperties: false
-    LastModifiedResponse:
-      type: object
-      properties:
-        scope:
-          type: string
-          nullable: true
-        lastModifiedDate:
-          type: string
-          format: date-time
-      additionalProperties: false
-    JsonWebKeySet:
-      type: object
-      properties:
-        additionalData:
-          type: object
-          additionalProperties:
-            type: object
-            nullable: true
-          nullable: true
-          readOnly: true
-        keys:
-          type: array
-          items:
-            $ref: '#/components/schemas/JsonWebKey'
-          nullable: true
-          readOnly: true
-        skipUnresolvedJsonWebKeys:
-          type: boolean
-          default: true
-        jsonData:
-          type: string
-          nullable: true
-      additionalProperties: false
-    JsonValueKind:
+    AppPlacement:
       enum:
-      - Undefined
-      - Object
-      - Array
-      - String
-      - Number
-      - 'True'
-      - 'False'
-      - 'Null'
+      - AppMenu
+      - MainMenu
+      - Hidden
       type: string
-    LocalizableSetting:
-      type: object
-      properties:
-        name:
-          type: string
-          nullable: true
-        isLocalizable:
-          type: boolean
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DictionaryItem'
-          nullable: true
-      additionalProperties: false
-    ApplicationUserLogin:
-      type: object
-      properties:
-        loginProvider:
-          type: string
-          nullable: true
-        providerKey:
-          type: string
-          nullable: true
-      additionalProperties: false
-    Claim:
-      type: object
-      properties:
-        issuer:
-          type: string
-          nullable: true
-        originalIssuer:
-          type: string
-          nullable: true
-        properties:
-          type: object
-          additionalProperties:
-            type: string
-          nullable: true
-          readOnly: true
-        subject:
-          allOf:
-          - $ref: '#/components/schemas/ClaimsIdentity'
-          nullable: true
-        type:
-          type: string
-          nullable: true
-        value:
-          type: string
-          nullable: true
-        valueType:
-          type: string
-          nullable: true
-      additionalProperties: false
-    ClaimsIdentity:
-      type: object
-      properties:
-        authenticationType:
-          type: string
-          nullable: true
-        isAuthenticated:
-          type: boolean
-          readOnly: true
-        actor:
-          allOf:
-          - $ref: '#/components/schemas/ClaimsIdentity'
-          nullable: true
-        bootstrapContext:
-          type: object
-          nullable: true
-        claims:
-          type: array
-          items:
-            $ref: '#/components/schemas/Claim'
-          nullable: true
-        label:
-          type: string
-          nullable: true
-        name:
-          type: string
-          nullable: true
-          readOnly: true
-        nameClaimType:
-          type: string
-          nullable: true
-          readOnly: true
-        roleClaimType:
-          type: string
-          nullable: true
-          readOnly: true
-      additionalProperties: false
-    LocalizedValue:
-      type: object
-      properties:
-        languageCode:
-          type: string
-          nullable: true
-        value:
-          type: string
-          nullable: true
-      additionalProperties: false
-    Role:
-      type: object
-      properties:
-        description:
-          type: string
-          nullable: true
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Permission'
-          nullable: true
-        id:
-          type: string
-          nullable: true
-        name:
-          type: string
-          nullable: true
-        normalizedName:
-          type: string
-          nullable: true
-        concurrencyStamp:
-          type: string
-          nullable: true
-      additionalProperties: false
-    PushNotification:
-      type: object
-      properties:
-        serverId:
-          type: string
-          nullable: true
-        creator:
-          type: string
-          nullable: true
-        created:
-          type: string
-          format: date-time
-        isNew:
-          type: boolean
-        notifyType:
-          type: string
-          nullable: true
-        description:
-          type: string
-          nullable: true
-        title:
-          type: string
-          nullable: true
-        repeatCount:
-          type: integer
-          format: int32
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    ProgressMessage:
-      type: object
-      properties:
-        message:
-          type: string
-          nullable: true
-        level:
-          allOf:
-          - $ref: '#/components/schemas/ProgressMessageLevel'
-      additionalProperties: false
-    UserSessionSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserSession'
-          nullable: true
-      additionalProperties: false
-    LocalizableSettingsAndLanguages:
-      type: object
-      properties:
-        settings:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocalizableSetting'
-          nullable: true
-        languages:
-          type: array
-          items:
-            type: string
-          nullable: true
-      additionalProperties: false
-    PermissionScope:
-      type: object
-      properties:
-        type:
-          type: string
-          nullable: true
-        label:
-          type: string
-          nullable: true
-        scope:
-          type: string
-          nullable: true
-      additionalProperties: false
-    UserSearchResult:
-      type: object
-      properties:
-        users:
-          type: array
-          items:
-            $ref: '#/components/schemas/ApplicationUser'
-          nullable: true
-          readOnly: true
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/ApplicationUser'
-          nullable: true
-      additionalProperties: false
-    ChangedEntitiesResponse:
-      type: object
-      properties:
-        entities:
-          type: array
-          items:
-            $ref: '#/components/schemas/ChangedEntity'
-          nullable: true
-      additionalProperties: false
-    JsonElement:
-      type: object
-      properties:
-        valueKind:
-          allOf:
-          - $ref: '#/components/schemas/JsonValueKind'
-          readOnly: true
-      additionalProperties: false
-    SortInfo:
-      type: object
-      properties:
-        sortColumn:
-          type: string
-          nullable: true
-        sortDirection:
-          allOf:
-          - $ref: '#/components/schemas/SortDirection'
-      additionalProperties: false
-    ModuleAutoInstallPushNotification:
-      type: object
-      properties:
-        started:
-          type: string
-          format: date-time
-          nullable: true
-        finished:
-          type: string
-          format: date-time
-          nullable: true
-        progressLog:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProgressMessage'
-          nullable: true
-        totalCount:
-          type: integer
-          format: int32
-        errorCount:
-          type: integer
-          format: int32
-          readOnly: true
-        serverId:
-          type: string
-          nullable: true
-        creator:
-          type: string
-          nullable: true
-        created:
-          type: string
-          format: date-time
-        isNew:
-          type: boolean
-        notifyType:
-          type: string
-          nullable: true
-        description:
-          type: string
-          nullable: true
-        title:
-          type: string
-          nullable: true
-        repeatCount:
-          type: integer
-          format: int32
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    LoginType:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-        hasLoginForm:
-          type: boolean
-        authenticationType:
-          type: string
-          nullable: true
-        priority:
-          type: integer
-          format: int32
-      additionalProperties: false
-    ProgressMessageLevel:
-      enum:
-      - Info
-      - Warning
-      - Debug
-      - Error
-      type: string
-    UserSessionSearchCriteria:
-      type: object
-      properties:
-        userId:
-          type: string
-          nullable: true
-        responseGroup:
-          type: string
-          nullable: true
-        objectType:
-          type: string
-          nullable: true
-        objectTypes:
-          type: array
-          items:
-            type: string
-          nullable: true
-        objectIds:
-          type: array
-          items:
-            type: string
-          nullable: true
-        keyword:
-          type: string
-          nullable: true
-        searchPhrase:
-          type: string
-          nullable: true
-        languageCode:
-          type: string
-          nullable: true
-        sort:
-          type: string
-          nullable: true
-        sortInfos:
-          type: array
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          nullable: true
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
-    DynamicPropertyName:
-      type: object
-      properties:
-        locale:
-          type: string
-          nullable: true
-        name:
-          type: string
-          nullable: true
-      additionalProperties: false
-    DynamicPropertySearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/DynamicProperty'
-          nullable: true
-      additionalProperties: false
-    UserSearchCriteria:
-      type: object
-      properties:
-        memberId:
-          type: string
-          nullable: true
-        memberIds:
-          type: array
-          items:
-            type: string
-          nullable: true
-        modifiedSinceDate:
-          type: string
-          format: date-time
-          nullable: true
-        roles:
-          type: array
-          items:
-            type: string
-          nullable: true
-        lasLoginDate:
-          type: string
-          format: date-time
-          nullable: true
-          deprecated: true
-        onlyUnlocked:
-          type: boolean
-        onlyLocked:
-          type: boolean
-        emailConfirmed:
-          type: boolean
-          nullable: true
-        userType:
-          type: string
-          nullable: true
-        status:
-          type: string
-          nullable: true
-        storeId:
-          type: string
-          nullable: true
-        loginStartDate:
-          type: string
-          format: date-time
-          nullable: true
-        loginEndDate:
-          type: string
-          format: date-time
-          nullable: true
-        responseGroup:
-          type: string
-          nullable: true
-        objectType:
-          type: string
-          nullable: true
-        objectTypes:
-          type: array
-          items:
-            type: string
-          nullable: true
-        objectIds:
-          type: array
-          items:
-            type: string
-          nullable: true
-        keyword:
-          type: string
-          nullable: true
-        searchPhrase:
-          type: string
-          nullable: true
-        languageCode:
-          type: string
-          nullable: true
-        sort:
-          type: string
-          nullable: true
-        sortInfos:
-          type: array
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          nullable: true
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
     SignInResult:
       type: object
       properties:
@@ -6310,136 +6306,114 @@ components:
           type: boolean
           readOnly: true
       additionalProperties: false
-    RoleSearchResult:
+    AppManifestResponse:
       type: object
       properties:
-        roles:
-          type: array
+        appId:
+          type:
+          - string
+          - 'null'
+          description: Echo of the requested app id (e.g. `vc-shell-marketplace`, `system-operations`, `platform`).
+        version:
+          type:
+          - string
+          - 'null'
+          description: 'Version of the host app — taken from the running platform when
+
+            VirtoCommerce.Platform.Web.Model.Modularity.AppManifestResponse.AppId is the reserved `platform` id, otherwise
+
+            from the module that declares the `<app>` in its
+
+            `module.manifest`. Useful for clients that want to surface the
+
+            host''s version (e.g. footer banner, support diagnostics) without
+
+            a second round-trip.'
+        title:
+          type:
+          - string
+          - 'null'
+          description: 'Display title of the host app, taken from the owning module''s
+
+            `<app>` declaration in `module.manifest`.'
+        plugins:
+          type:
+          - array
+          - 'null'
           items:
-            $ref: '#/components/schemas/Role'
-          nullable: true
-          readOnly: true
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Role'
-          nullable: true
+            $ref: '#/components/schemas/PluginEntry'
+          description: 'Plugins to load, in topological dependency order of their owning modules.
+
+            Already filtered by current user permissions and (for Module Federation
+
+            hosts) by host-app discovery folder convention.'
       additionalProperties: false
-    OpenIddictResponse:
-      type: object
-      properties:
-        accessToken:
-          type: string
-          nullable: true
-        code:
-          type: string
-          nullable: true
-        deviceCode:
-          type: string
-          nullable: true
-        error:
-          type: string
-          nullable: true
-        errorDescription:
-          type: string
-          nullable: true
-        errorUri:
-          type: string
-          nullable: true
-        expiresIn:
-          type: integer
-          format: int64
-          nullable: true
-        idToken:
-          type: string
-          nullable: true
-        iss:
-          type: string
-          nullable: true
-        issuedTokenType:
-          type: string
-          nullable: true
-        refreshToken:
-          type: string
-          nullable: true
-        requestUri:
-          type: string
-          nullable: true
-        scope:
-          type: string
-          nullable: true
-        state:
-          type: string
-          nullable: true
-        tokenType:
-          type: string
-          nullable: true
-        userCode:
-          type: string
-          nullable: true
-        verificationUri:
-          type: string
-          nullable: true
-        verificationUriComplete:
-          type: string
-          nullable: true
-        count:
-          type: integer
-          format: int32
-          readOnly: true
-      additionalProperties: false
+      description: 'Response shape for `GET /api/apps/{appId}/manifest`.
+
+        Returns the host app metadata plus a topologically ordered, permission-filtered
+
+        list of plugins the host should load.'
     ChangeLogSearchCriteria:
       type: object
       properties:
         operationTypes:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/EntryState'
-          nullable: true
         startDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         endDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         responseGroup:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         objectType:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         objectTypes:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
-          nullable: true
         objectIds:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
-          nullable: true
         keyword:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         searchPhrase:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         languageCode:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         sort:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         sortInfos:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/SortInfo'
-          nullable: true
           readOnly: true
         skip:
           type: integer
@@ -6448,169 +6422,543 @@ components:
           type: integer
           format: int32
       additionalProperties: false
-    PluginEntry:
-      type: object
-      properties:
-        id:
-          type: string
-          description: 'Unique plugin id within the (host app, request) tuple.
-
-            Defaults to the owning .NET module id (e.g. `VirtoCommerce.MarketplaceReviews`).'
-          nullable: true
-        version:
-          type: string
-          description: Plugin version. Defaults to the parent module version.
-          nullable: true
-        entry:
-          allOf:
-          - $ref: '#/components/schemas/ContentFile'
-          description: 'The plugin''s primary file. For Module Federation plugins this is the
-
-            federation entry (`remoteEntry.js`). For the legacy AngularJS host
-
-            it is the module bundle (`dist/app.js`). Always a script.'
-          nullable: true
-        contentFiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/ContentFile'
-          description: 'Additional assets the host should preload alongside VirtoCommerce.Platform.Web.Model.Modularity.PluginEntry.Entry
-
-            (typically stylesheets). Each carries its own type so a generic loader
-
-            can dispatch on it.'
-          nullable: true
-        remote:
-          allOf:
-          - $ref: '#/components/schemas/PluginRemote'
-          description: Module Federation coordinates. `null` for the legacy AngularJS host.
-          nullable: true
-      additionalProperties: false
-      description: 'One plugin contribution to a host app, returned by
-
-        `GET /api/apps/{appId}/manifest`.'
-    OAuthAppSearchResult:
+    DynamicPropertyDictionaryItemSearchResult:
       type: object
       properties:
         totalCount:
           type: integer
           format: int32
         results:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
-            $ref: '#/components/schemas/OpenIddictApplicationDescriptor'
-          nullable: true
+            $ref: '#/components/schemas/DynamicPropertyDictionaryItem'
       additionalProperties: false
-    UserDetail:
+    OpenIddictApplicationDescriptor:
       type: object
       properties:
+        applicationType:
+          type:
+          - string
+          - 'null'
+        clientId:
+          type:
+          - string
+          - 'null'
+        clientSecret:
+          type:
+          - string
+          - 'null'
+        clientType:
+          type:
+          - string
+          - 'null'
+        consentType:
+          type:
+          - string
+          - 'null'
+        displayName:
+          type:
+          - string
+          - 'null'
+        displayNames:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+          readOnly: true
+        jsonWebKeySet:
+          allOf:
+          - $ref: '#/components/schemas/JsonWebKeySet'
         permissions:
-          type: array
+          uniqueItems: true
+          type:
+          - array
+          - 'null'
           items:
             type: string
-          nullable: true
-        userName:
-          type: string
-          nullable: true
-        isAdministrator:
+          readOnly: true
+        postLogoutRedirectUris:
+          uniqueItems: true
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            format: uri
+          readOnly: true
+        properties:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            $ref: '#/components/schemas/JsonElement'
+          readOnly: true
+        redirectUris:
+          uniqueItems: true
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            format: uri
+          readOnly: true
+        requirements:
+          uniqueItems: true
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          readOnly: true
+        settings:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+          readOnly: true
+      additionalProperties: false
+    UserSearchCriteria:
+      type: object
+      properties:
+        memberId:
+          type:
+          - string
+          - 'null'
+        memberIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        modifiedSinceDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        roles:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        lasLoginDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          deprecated: true
+        onlyUnlocked:
           type: boolean
-        passwordExpired:
+        onlyLocked:
           type: boolean
-        daysTillPasswordExpiry:
+        emailConfirmed:
+          type:
+          - boolean
+          - 'null'
+        userType:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - string
+          - 'null'
+        storeId:
+          type:
+          - string
+          - 'null'
+        loginStartDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        loginEndDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
           type: integer
           format: int32
-        authenticationMethod:
-          type: string
-          nullable: true
-        isSsoAuthenticationMethod:
-          type: boolean
-        memberId:
-          type: string
-          nullable: true
-        id:
-          type: string
-          nullable: true
+        take:
+          type: integer
+          format: int32
       additionalProperties: false
+    LocalizableSettingsAndLanguages:
+      type: object
+      properties:
+        settings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/LocalizableSetting'
+        languages:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+      additionalProperties: false
+    KeyValue:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Job:
+      type: object
+      properties:
+        state:
+          type:
+          - string
+          - 'null'
+        completed:
+          type: boolean
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    SortDirection:
+      enum:
+      - Ascending
+      - Descending
+      type: string
     LoginRequest:
       type: object
       properties:
         userName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         password:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         rememberMe:
           type: boolean
       additionalProperties: false
-    ConfirmEmailRequest:
+    RoleSearchResult:
+      type: object
+      properties:
+        roles:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Role'
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Role'
+      additionalProperties: false
+    UserSearchResult:
+      type: object
+      properties:
+        users:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ApplicationUser'
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ApplicationUser'
+      additionalProperties: false
+    ResetPasswordConfirmRequest:
       type: object
       properties:
         token:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
+        newPassword:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
-    UserSession:
+    ChangedEntitiesRequest:
       type: object
       properties:
-        sessionGroupId:
-          type: string
-          nullable: true
-        createdDate:
+        entityNames:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        modifiedSince:
           type: string
           format: date-time
-        expirationDate:
-          type: string
-          format: date-time
-        ipAddress:
-          type: string
-          nullable: true
-        userAgent:
-          type: string
-          nullable: true
-        id:
-          type: string
-          nullable: true
       additionalProperties: false
-    PluginRemote:
+    DynamicPropertyObjectValue:
+      type: object
+      properties:
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectId:
+          type:
+          - string
+          - 'null'
+        locale:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - object
+          - 'null'
+        valueId:
+          type:
+          - string
+          - 'null'
+        valueType:
+          allOf:
+          - $ref: '#/components/schemas/DynamicPropertyValueType'
+        propertyId:
+          type:
+          - string
+          - 'null'
+        propertyName:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ICryptoProvider:
+      type: object
+      additionalProperties: false
+    ProgressMessage:
+      type: object
+      properties:
+        message:
+          type:
+          - string
+          - 'null'
+        level:
+          allOf:
+          - $ref: '#/components/schemas/ProgressMessageLevel'
+      additionalProperties: false
+    RoleSearchCriteria:
+      type: object
+      properties:
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
+      additionalProperties: false
+    JsonWebKeySet:
+      type: object
+      properties:
+        additionalData:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - object
+            - 'null'
+          readOnly: true
+        keys:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/JsonWebKey'
+          readOnly: true
+        skipUnresolvedJsonWebKeys:
+          type: boolean
+          default: true
+        jsonData:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Permission:
       type: object
       properties:
         name:
-          type: string
-          nullable: true
-        exposed:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
+        moduleId:
+          type:
+          - string
+          - 'null'
+        groupName:
+          type:
+          - string
+          - 'null'
+        assignedScopes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PermissionScope'
+        availableScopes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PermissionScope'
+          readOnly: true
       additionalProperties: false
-      description: 'Module Federation remote coordinates for a plugin. Mirrors the shape
-
-        expected by `@module-federation/runtime`.'
+    DynamicPropertyValueType:
+      enum:
+      - Undefined
+      - ShortText
+      - LongText
+      - Integer
+      - Decimal
+      - DateTime
+      - Boolean
+      - Html
+      - Image
+      type: string
     SettingPropertySchema:
       type: object
       properties:
         name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         displayName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         groupName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         moduleId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         valueType:
           allOf:
           - $ref: '#/components/schemas/SettingValueType'
         defaultValue:
-          type: object
-          nullable: true
+          type:
+          - object
+          - 'null'
         allowedValues:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: object
-          nullable: true
         isRequired:
           type: boolean
         isReadOnly:
@@ -6622,47 +6970,61 @@ components:
         restartRequired:
           type: boolean
         assignedToTenants:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
-          nullable: true
       additionalProperties: false
-    OAuthAppSearchCriteria:
+    DynamicPropertyDictionaryItemSearchCriteria:
       type: object
       properties:
+        propertyId:
+          type:
+          - string
+          - 'null'
         responseGroup:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         objectType:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         objectTypes:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
-          nullable: true
         objectIds:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
-          nullable: true
         keyword:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         searchPhrase:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         languageCode:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         sort:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         sortInfos:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/SortInfo'
-          nullable: true
           readOnly: true
         skip:
           type: integer
@@ -6671,124 +7033,239 @@ components:
           type: integer
           format: int32
       additionalProperties: false
-    KeyValue:
+    ObjectSettingEntry:
       type: object
       properties:
-        key:
-          type: string
-          nullable: true
+        itHasValues:
+          type: boolean
+          readOnly: true
+        objectId:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        isReadOnly:
+          type: boolean
         value:
-          type: string
-          nullable: true
-      additionalProperties: false
-    DynamicPropertyDictionaryItemName:
-      type: object
-      properties:
-        locale:
-          type: string
-          nullable: true
+          type:
+          - object
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+        restartRequired:
+          type: boolean
+        moduleId:
+          type:
+          - string
+          - 'null'
+        groupName:
+          type:
+          - string
+          - 'null'
         name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
+        displayName:
+          type:
+          - string
+          - 'null'
+        isRequired:
+          type: boolean
+        isHidden:
+          type: boolean
+        isPublic:
+          type: boolean
+        valueType:
+          allOf:
+          - $ref: '#/components/schemas/SettingValueType'
+        allowedValues:
+          type:
+          - array
+          - 'null'
+          items:
+            type: object
+        defaultValue:
+          type:
+          - object
+          - 'null'
+        isDictionary:
+          type: boolean
+        isLocalizable:
+          type: boolean
+        tenant:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
-    ChangedEntitiesRequest:
+    OpenIddictResponse:
       type: object
       properties:
-        entityNames:
-          type: array
-          items:
-            type: string
-          nullable: true
-        modifiedSince:
-          type: string
-          format: date-time
+        accessToken:
+          type:
+          - string
+          - 'null'
+        code:
+          type:
+          - string
+          - 'null'
+        deviceCode:
+          type:
+          - string
+          - 'null'
+        error:
+          type:
+          - string
+          - 'null'
+        errorDescription:
+          type:
+          - string
+          - 'null'
+        errorUri:
+          type:
+          - string
+          - 'null'
+        expiresIn:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        idToken:
+          type:
+          - string
+          - 'null'
+        iss:
+          type:
+          - string
+          - 'null'
+        issuedTokenType:
+          type:
+          - string
+          - 'null'
+        refreshToken:
+          type:
+          - string
+          - 'null'
+        requestUri:
+          type:
+          - string
+          - 'null'
+        scope:
+          type:
+          - string
+          - 'null'
+        state:
+          type:
+          - string
+          - 'null'
+        tokenType:
+          type:
+          - string
+          - 'null'
+        userCode:
+          type:
+          - string
+          - 'null'
+        verificationUri:
+          type:
+          - string
+          - 'null'
+        verificationUriComplete:
+          type:
+          - string
+          - 'null'
+        count:
+          type: integer
+          format: int32
+          readOnly: true
       additionalProperties: false
-    AppPlacement:
-      enum:
-      - AppMenu
-      - MainMenu
-      - Hidden
-      type: string
-    ExternalSignInProviderInfo:
+    ClaimsIdentity:
       type: object
       properties:
         authenticationType:
-          type: string
-          nullable: true
-        displayName:
-          type: string
-          nullable: true
-        logoUrl:
-          type: string
-          nullable: true
-      additionalProperties: false
-    CryptoProviderFactory:
-      type: object
-      properties:
-        cryptoProviderCache:
-          allOf:
-          - $ref: '#/components/schemas/CryptoProviderCache'
-          nullable: true
-          readOnly: true
-        customCryptoProvider:
-          allOf:
-          - $ref: '#/components/schemas/ICryptoProvider'
-          nullable: true
-        cacheSignatureProviders:
+          type:
+          - string
+          - 'null'
+        isAuthenticated:
           type: boolean
-          default: true
-        signatureProviderObjectPoolCacheSize:
-          type: integer
-          format: int32
+          readOnly: true
+        actor:
+          allOf:
+          - $ref: '#/components/schemas/ClaimsIdentity'
+        bootstrapContext:
+          type:
+          - object
+          - 'null'
+        claims:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Claim'
+        label:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        nameClaimType:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        roleClaimType:
+          type:
+          - string
+          - 'null'
+          readOnly: true
       additionalProperties: false
-    DynamicPropertyObjectValue:
+    DictionaryItem:
       type: object
       properties:
-        objectType:
-          type: string
-          nullable: true
-        objectId:
-          type: string
-          nullable: true
-        locale:
-          type: string
-          nullable: true
-        value:
-          type: object
-          nullable: true
-        valueId:
-          type: string
-          nullable: true
-        valueType:
-          allOf:
-          - $ref: '#/components/schemas/DynamicPropertyValueType'
-        propertyId:
-          type: string
-          nullable: true
-        propertyName:
-          type: string
-          nullable: true
+        alias:
+          type:
+          - string
+          - 'null'
+        localizedValues:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/LocalizedValue'
       additionalProperties: false
     DynamicObjectProperty:
       type: object
       properties:
         objectId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         values:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/DynamicPropertyObjectValue'
-          nullable: true
         name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         description:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         objectType:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         isArray:
           type: boolean
         isDictionary:
@@ -6798,37 +7275,198 @@ components:
         isRequired:
           type: boolean
         displayOrder:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
         valueType:
           allOf:
           - $ref: '#/components/schemas/DynamicPropertyValueType'
         displayNames:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/DynamicPropertyName'
-          nullable: true
         createdDate:
           type: string
           format: date-time
         modifiedDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         createdBy:
           maxLength: 64
           minLength: 0
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         modifiedBy:
           maxLength: 64
           minLength: 0
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ChangeLogSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OperationLog'
+      additionalProperties: false
+    LastModifiedResponse:
+      type: object
+      properties:
+        scope:
+          type:
+          - string
+          - 'null'
+        lastModifiedDate:
           type: string
-          nullable: true
+          format: date-time
+      additionalProperties: false
+    SystemInfo:
+      type: object
+      properties:
+        platformVersion:
+          type:
+          - string
+          - 'null'
+        license:
+          allOf:
+          - $ref: '#/components/schemas/License'
+        installedModules:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ModuleDescriptor'
+        version:
+          type:
+          - string
+          - 'null'
+        is64BitOperatingSystem:
+          type: boolean
+        is64BitProcess:
+          type: boolean
+        databaseProvider:
+          type:
+          - string
+          - 'null'
+        environmentName:
+          type:
+          - string
+          - 'null'
+        runtimeIdentifier:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    LocalizableSetting:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        isLocalizable:
+          type: boolean
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DictionaryItem'
+      additionalProperties: false
+    ChangedEntity:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        modifiedDate:
+          type: string
+          format: date-time
+      additionalProperties: false
+    PluginRemote:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        exposed:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      description: 'Module Federation remote coordinates for a plugin. Mirrors the shape
+
+        expected by `@module-federation/runtime`.'
+    PushNotificationSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        newCount:
+          type: integer
+          format: int32
+        notifyEvents:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PushNotification'
+      additionalProperties: false
+    PushNotification:
+      type: object
+      properties:
+        serverId:
+          type:
+          - string
+          - 'null'
+        creator:
+          type:
+          - string
+          - 'null'
+        created:
+          type: string
+          format: date-time
+        isNew:
+          type: boolean
+        notifyType:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        repeatCount:
+          type: integer
+          format: int32
+        id:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     EntryState:
       enum:
@@ -6838,302 +7476,98 @@ components:
       - Deleted
       - Modified
       type: string
-    DictionaryItem:
+    Claim:
       type: object
       properties:
-        alias:
-          type: string
-          nullable: true
-        localizedValues:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocalizedValue'
-          nullable: true
-      additionalProperties: false
-    DynamicProperty:
-      type: object
-      properties:
-        name:
-          type: string
-          nullable: true
-        description:
-          type: string
-          nullable: true
-        objectType:
-          type: string
-          nullable: true
-        isArray:
-          type: boolean
-        isDictionary:
-          type: boolean
-        isMultilingual:
-          type: boolean
-        isRequired:
-          type: boolean
-        displayOrder:
-          type: integer
-          format: int32
-          nullable: true
-        valueType:
-          allOf:
-          - $ref: '#/components/schemas/DynamicPropertyValueType'
-        displayNames:
-          type: array
-          items:
-            $ref: '#/components/schemas/DynamicPropertyName'
-          nullable: true
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type: string
-          format: date-time
-          nullable: true
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    DynamicPropertySearchCriteria:
-      type: object
-      properties:
-        typeName:
-          type: string
-          nullable: true
-          readOnly: true
-        responseGroup:
-          type: string
-          nullable: true
-        objectType:
-          type: string
-          nullable: true
-        objectTypes:
-          type: array
-          items:
+        issuer:
+          type:
+          - string
+          - 'null'
+        originalIssuer:
+          type:
+          - string
+          - 'null'
+        properties:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
             type: string
-          nullable: true
-        objectIds:
-          type: array
-          items:
-            type: string
-          nullable: true
-        keyword:
-          type: string
-          nullable: true
-        searchPhrase:
-          type: string
-          nullable: true
-        languageCode:
-          type: string
-          nullable: true
-        sort:
-          type: string
-          nullable: true
-        sortInfos:
-          type: array
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          nullable: true
           readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
-    SettingValueType:
-      enum:
-      - ShortText
-      - LongText
-      - Integer
-      - Decimal
-      - DateTime
-      - Boolean
-      - SecureString
-      - Json
-      - PositiveInteger
-      type: string
-    ModuleIdentity:
-      type: object
-      properties:
-        id:
-          type: string
-          nullable: true
-        version:
+        subject:
           allOf:
-          - $ref: '#/components/schemas/SemanticVersion'
-          nullable: true
-        optional:
-          type: boolean
-      additionalProperties: false
-    License:
-      type: object
-      properties:
+          - $ref: '#/components/schemas/ClaimsIdentity'
         type:
-          type: string
-          nullable: true
-        customerName:
-          type: string
-          nullable: true
-        customerEmail:
-          type: string
-          nullable: true
-        expirationDate:
-          type: string
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+        valueType:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ModuleAutoInstallPushNotification:
+      type: object
+      properties:
+        started:
+          type:
+          - string
+          - 'null'
           format: date-time
-        rawLicense:
-          type: string
-          nullable: true
-      additionalProperties: false
-    VerifyTokenRequest:
-      type: object
-      properties:
-        tokenProvider:
-          type: string
-          nullable: true
-        purpose:
-          type: string
-          nullable: true
-        token:
-          type: string
-          nullable: true
-      additionalProperties: false
-    ChangePasswordRequest:
-      type: object
-      properties:
-        userName:
-          type: string
-          nullable: true
-        oldPassword:
-          type: string
-          nullable: true
-        newPassword:
-          type: string
-          nullable: true
-      additionalProperties: false
-    SortDirection:
-      enum:
-      - Ascending
-      - Descending
-      type: string
-    IdentityError:
-      type: object
-      properties:
-        code:
-          type: string
-          nullable: true
-        description:
-          type: string
-          nullable: true
-      additionalProperties: false
-    ValidatePasswordResetTokenRequest:
-      type: object
-      properties:
-        token:
-          type: string
-          nullable: true
-      additionalProperties: false
-    ICryptoProvider:
-      type: object
-      additionalProperties: false
-    DynamicPropertyDictionaryItemSearchCriteria:
-      type: object
-      properties:
-        propertyId:
-          type: string
-          nullable: true
-        responseGroup:
-          type: string
-          nullable: true
-        objectType:
-          type: string
-          nullable: true
-        objectTypes:
-          type: array
+        finished:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        progressLog:
+          type:
+          - array
+          - 'null'
           items:
-            type: string
-          nullable: true
-        objectIds:
-          type: array
-          items:
-            type: string
-          nullable: true
-        keyword:
-          type: string
-          nullable: true
-        searchPhrase:
-          type: string
-          nullable: true
-        languageCode:
-          type: string
-          nullable: true
-        sort:
-          type: string
-          nullable: true
-        sortInfos:
-          type: array
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          nullable: true
+            $ref: '#/components/schemas/ProgressMessage'
+        totalCount:
+          type: integer
+          format: int32
+        errorCount:
+          type: integer
+          format: int32
           readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
-    SystemInfo:
-      type: object
-      properties:
-        platformVersion:
-          type: string
-          nullable: true
-        license:
-          allOf:
-          - $ref: '#/components/schemas/License'
-          nullable: true
-        installedModules:
-          type: array
-          items:
-            $ref: '#/components/schemas/ModuleDescriptor'
-          nullable: true
-        version:
-          type: string
-          nullable: true
-        is64BitOperatingSystem:
-          type: boolean
-        is64BitProcess:
-          type: boolean
-        databaseProvider:
-          type: string
-          nullable: true
-        environmentName:
-          type: string
-          nullable: true
-        runtimeIdentifier:
-          type: string
-          nullable: true
-      additionalProperties: false
-    ChangedEntity:
-      type: object
-      properties:
-        name:
-          type: string
-          nullable: true
-        modifiedDate:
+        serverId:
+          type:
+          - string
+          - 'null'
+        creator:
+          type:
+          - string
+          - 'null'
+        created:
           type: string
           format: date-time
+        isNew:
+          type: boolean
+        notifyType:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        repeatCount:
+          type: integer
+          format: int32
+        id:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
   securitySchemes:
     oauth2:

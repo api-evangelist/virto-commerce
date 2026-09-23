@@ -1,8 +1,8 @@
-openapi: 3.0.4
+openapi: 3.2.0
 info:
-  title: VirtoCommerce.Cart Catalog Marketing API
+  title: VirtoCommerce. Marketing API
   version: v1
-  description: Easily manage your products, categories, variations, and properties
+  description: Marketing system with dynamic contents and promotions management
 tags:
 - name: Marketing
   description: Marketing system with dynamic contents and promotions management
@@ -1337,6 +1337,8 @@ paths:
       - http-signature: []
       - basic: []
       x-virtocommerce-module-id: VirtoCommerce.Marketing
+      summary: Marketing module promotion search coupons
+      x-summary-source: derived
   /api/marketing/promotions/coupons/{id}:
     get:
       tags:
@@ -1372,6 +1374,8 @@ paths:
       - http-signature: []
       - basic: []
       x-virtocommerce-module-id: VirtoCommerce.Marketing
+      summary: Marketing module promotion get coupon
+      x-summary-source: derived
   /api/marketing/promotions/coupons/add:
     post:
       tags:
@@ -1413,6 +1417,8 @@ paths:
       - basic:
         - marketing:update
       x-virtocommerce-module-id: VirtoCommerce.Marketing
+      summary: Marketing module promotion add coupons
+      x-summary-source: derived
   /api/marketing/promotions/coupons/delete:
     delete:
       tags:
@@ -1444,6 +1450,8 @@ paths:
       - basic:
         - marketing:delete
       x-virtocommerce-module-id: VirtoCommerce.Marketing
+      summary: Marketing module promotion delete coupons
+      x-summary-source: derived
   /api/marketing/promotions/coupons/import:
     post:
       tags:
@@ -1492,74 +1500,726 @@ paths:
       - basic:
         - marketing:update
       x-virtocommerce-module-id: VirtoCommerce.Marketing
+      summary: Marketing module promotion import coupons async
+      x-summary-source: derived
 components:
   schemas:
-    DynamicContentItem:
+    PromotionEvaluationContext:
       type: object
       properties:
-        contentType:
-          type: string
-          nullable: true
-        priority:
+        refusedGiftIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        storeId:
+          type:
+          - string
+          - 'null'
+        currency:
+          type:
+          - string
+          - 'null'
+        currencyObject:
+          allOf:
+          - $ref: '#/components/schemas/Currency'
+          description: Currency
+        customerId:
+          type:
+          - string
+          - 'null'
+          description: 'Contains User Id.
+
+            This property will be deleted after update to .NET8. Use UserId property instead.'
+        userId:
+          type:
+          - string
+          - 'null'
+        contactId:
+          type:
+          - string
+          - 'null'
+        organizaitonId:
+          type:
+          - string
+          - 'null'
+          deprecated: true
+        organizationId:
+          type:
+          - string
+          - 'null'
+        isRegisteredUser:
+          type: boolean
+        isFirstTimeBuyer:
+          type: boolean
+          description: Has user made any orders
+        isEveryone:
+          type: boolean
+        cartTotal:
+          type: number
+          format: double
+        shipmentMethodCode:
+          type:
+          - string
+          - 'null'
+          description: Current shipment method
+        shipmentMethodOption:
+          type:
+          - string
+          - 'null'
+        shipmentMethodPrice:
+          type: number
+          format: double
+        availableShipmentMethodCodes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        paymentMethodCode:
+          type:
+          - string
+          - 'null'
+          description: Current payment method
+        paymentMethodPrice:
+          type: number
+          format: double
+        availablePaymentMethodCodes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        coupon:
+          type:
+          - string
+          - 'null'
+          description: Entered coupon
+        coupons:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        cartPromoEntries:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ProductPromoEntry'
+          description: List of product promo in cart
+        promoEntries:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ProductPromoEntry'
+          description: List of products for promo evaluation
+        promoEntry:
+          allOf:
+          - $ref: '#/components/schemas/ProductPromoEntry'
+          description: Single catalog product promo entry
+        contextObject:
+          type:
+          - object
+          - 'null'
+        geoCity:
+          type:
+          - string
+          - 'null'
+        geoState:
+          type:
+          - string
+          - 'null'
+        geoCountry:
+          type:
+          - string
+          - 'null'
+        geoContinent:
+          type:
+          - string
+          - 'null'
+        geoZipCode:
+          type:
+          - string
+          - 'null'
+        geoConnectionType:
+          type:
+          - string
+          - 'null'
+        geoTimeZone:
+          type:
+          - string
+          - 'null'
+        geoIpRoutingType:
+          type:
+          - string
+          - 'null'
+        geoIspSecondLevel:
+          type:
+          - string
+          - 'null'
+        geoIspTopLevel:
+          type:
+          - string
+          - 'null'
+        shopperAge:
           type: integer
           format: int32
-        outline:
-          type: string
-          description: all parent folders ids concatenated (1;21;344)
-          nullable: true
-          readOnly: true
+        shopperGender:
+          type:
+          - string
+          - 'null'
+        language:
+          type:
+          - string
+          - 'null'
+        userGroups:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Any tags or groups belongs to user such as VIP, Wholesaler etc
+        shopperSearchedPhraseInStore:
+          type:
+          - string
+          - 'null'
+        shopperSearchedPhraseOnInternet:
+          type:
+          - string
+          - 'null'
+        currentUrl:
+          type:
+          - string
+          - 'null'
+        referredUrl:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    DynamicContentListEntrySearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicContentListEntry'
+      additionalProperties: false
+    DynamicContentFolder:
+      type: object
+      properties:
         path:
-          type: string
+          type:
+          - string
+          - 'null'
           description: all parent folders names concatenated (Root\Child\Child2)
-          nullable: true
           readOnly: true
-        folderId:
-          type: string
-          nullable: true
-        folder:
+        outline:
+          type:
+          - string
+          - 'null'
+          description: all parent folders ids concatenated (1;21;344)
+          readOnly: true
+        parentFolderId:
+          type:
+          - string
+          - 'null'
+        parentFolder:
           allOf:
           - $ref: '#/components/schemas/DynamicContentFolder'
-          nullable: true
         objectType:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           readOnly: true
-        dynamicProperties:
-          type: array
-          items:
-            $ref: '#/components/schemas/DynamicObjectProperty'
-          nullable: true
         imageUrl:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Gets or sets the image URL.
-          nullable: true
         name:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Gets or sets the name.
-          nullable: true
         description:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         createdDate:
           type: string
           format: date-time
         modifiedDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         createdBy:
           maxLength: 64
           minLength: 0
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         modifiedBy:
           maxLength: 64
           minLength: 0
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    DynamicContentConditionTree:
+      type: object
+      properties:
+        all:
+          type: boolean
+        not:
+          type: boolean
+        id:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        availableChildren:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IConditionTree'
+        children:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IConditionTree'
+      additionalProperties: false
+    DynamicContentPublicationSearchCriteria:
+      type: object
+      properties:
+        onlyActive:
+          type: boolean
+        store:
+          type:
+          - string
+          - 'null'
+        placeName:
+          type:
+          - string
+          - 'null'
+        toDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        folderId:
+          type:
+          - string
+          - 'null'
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
+      additionalProperties: false
+    ImportRequest:
+      type: object
+      properties:
+        fileUrl:
+          type:
+          - string
+          - 'null'
+        delimiter:
+          type:
+          - string
+          - 'null'
+        promotionId:
+          type:
+          - string
+          - 'null'
+        expirationDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+      additionalProperties: false
+    DynamicContentPublication:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        priority:
+          type: integer
+          format: int32
+        isActive:
+          type: boolean
+        storeId:
+          type:
+          - string
+          - 'null'
+        dynamicExpression:
+          allOf:
+          - $ref: '#/components/schemas/DynamicContentConditionTree'
+        startDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        endDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        outerId:
+          type:
+          - string
+          - 'null'
+        contentItems:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicContentItem'
+        contentPlaces:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicContentPlace'
+        createdDate:
           type: string
-          nullable: true
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    DynamicContentEvaluationContext:
+      type: object
+      properties:
+        storeId:
+          type:
+          - string
+          - 'null'
+        placeName:
+          type:
+          - string
+          - 'null'
+        tags:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        toDate:
+          type: string
+          format: date-time
+        categoryId:
+          type:
+          - string
+          - 'null'
+        productId:
+          type:
+          - string
+          - 'null'
+        contextObject:
+          type:
+          - object
+          - 'null'
+        geoCity:
+          type:
+          - string
+          - 'null'
+        geoState:
+          type:
+          - string
+          - 'null'
+        geoCountry:
+          type:
+          - string
+          - 'null'
+        geoContinent:
+          type:
+          - string
+          - 'null'
+        geoZipCode:
+          type:
+          - string
+          - 'null'
+        geoConnectionType:
+          type:
+          - string
+          - 'null'
+        geoTimeZone:
+          type:
+          - string
+          - 'null'
+        geoIpRoutingType:
+          type:
+          - string
+          - 'null'
+        geoIspSecondLevel:
+          type:
+          - string
+          - 'null'
+        geoIspTopLevel:
+          type:
+          - string
+          - 'null'
+        shopperAge:
+          type: integer
+          format: int32
+        shopperGender:
+          type:
+          - string
+          - 'null'
+        language:
+          type:
+          - string
+          - 'null'
+        userGroups:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Any tags or groups belongs to user such as VIP, Wholesaler etc
+        shopperSearchedPhraseInStore:
+          type:
+          - string
+          - 'null'
+        shopperSearchedPhraseOnInternet:
+          type:
+          - string
+          - 'null'
+        currentUrl:
+          type:
+          - string
+          - 'null'
+        referredUrl:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Currency:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+          description: Currency code may be used ISO 4217.
+        cultureName:
+          type:
+          - string
+          - 'null'
+        englishName:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+          description: name of the currency
+        isPrimary:
+          type: boolean
+          description: Flag specifies that this is the primary currency
+        exchangeRate:
+          type: number
+          description: The exchange rate against the primary exchange rate of the currency.
+          format: double
+        symbol:
+          type:
+          - string
+          - 'null'
+          description: Currency symbol
+        customFormatting:
+          type:
+          - string
+          - 'null'
+          description: Custom formatting pattern
+        roundingType:
+          type:
+          - string
+          - 'null'
+        midpointRounding:
+          type:
+          - string
+          - 'null'
+        decimalDigits:
+          type: integer
+          format: int32
+      additionalProperties: false
+      description: Currency
+    Coupon:
+      type: object
+      properties:
+        maxUsesNumber:
+          type: integer
+          description: 'Restriction of total coupon usages
+
+            0 infinitive'
+          format: int32
+        maxUsesPerUser:
+          type: integer
+          description: 'Maximum number of uses per registered user
+
+            0 infinitive'
+          format: int32
+        expirationDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        code:
+          type:
+          - string
+          - 'null'
+          description: coupon code
+        promotionId:
+          type:
+          - string
+          - 'null'
+        totalUsesCount:
+          type: integer
+          description: Total number of uses
+          format: int64
+        outerId:
+          type:
+          - string
+          - 'null'
+        memberId:
+          type:
+          - string
+          - 'null'
+          description: Register coupon for a specific customer or organization
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    LocalizedString:
+      type: object
+      properties:
+        values:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+          readOnly: true
+      additionalProperties: false
+    DynamicContentPublicationSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicContentPublication'
       additionalProperties: false
     DynamicPropertyValueType:
       enum:
@@ -1573,583 +2233,55 @@ components:
       - Html
       - Image
       type: string
-    PromotionConditionAndRewardTree:
-      type: object
-      properties:
-        all:
-          type: boolean
-        not:
-          type: boolean
-        id:
-          type: string
-          nullable: true
-          readOnly: true
-        availableChildren:
-          type: array
-          items:
-            $ref: '#/components/schemas/IConditionTree'
-          nullable: true
-        children:
-          type: array
-          items:
-            $ref: '#/components/schemas/IConditionTree'
-          nullable: true
-      additionalProperties: false
-    DynamicContentListEntrySearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/DynamicContentListEntry'
-          nullable: true
-      additionalProperties: false
-    PromotionReward:
-      type: object
-      properties:
-        isValid:
-          type: boolean
-          description: Gets or sets the flag of promotion reward is valid. Also used as a flag for applicability (applied or potential)
-        description:
-          type: string
-          description: Gets or sets the value of promotion reward description
-          nullable: true
-        couponAmount:
-          type: number
-          description: Gets or sets the value of coupon amount
-          format: double
-        coupon:
-          type: string
-          description: Gets or sets the value of coupon code
-          nullable: true
-        couponMinOrderAmount:
-          type: number
-          description: Gets or sets the value of minimum order total cost for applying coupon
-          format: double
-          nullable: true
-        promotionId:
-          type: string
-          description: Gets or sets the value of promotion id
-          nullable: true
-        promotion:
-          allOf:
-          - $ref: '#/components/schemas/Promotion'
-          description: Gets or sets the promotion
-          nullable: true
-        rewardType:
-          type: string
-          description: Gets or sets the value of promotion reward type
-          nullable: true
-        amountType:
-          allOf:
-          - $ref: '#/components/schemas/RewardAmountType'
-          description: Gets or sets the value of promotion reward amount type
-        amount:
-          type: number
-          description: Gets or sets the value of promotion reward amount
-          format: double
-        quantity:
-          type: integer
-          description: Gets or sets the value of line item quantity for applying promotion reward
-          format: int32
-        lineItemId:
-          type: string
-          description: Gets or sets the value of line item id
-          nullable: true
-        productId:
-          type: string
-          description: Gets or sets the value of product id
-          nullable: true
-        conditionalProductId:
-          type: string
-          description: 'Conditional product
-
-            For N items of entry ProductId  in every Y items of entry ConditionalProductId get %X off'
-          nullable: true
-        categoryId:
-          type: string
-          description: Gets or sets the value of category id
-          nullable: true
-        measureUnit:
-          type: string
-          description: Gets or sets the value of measurement unit
-          nullable: true
-        imageUrl:
-          type: string
-          description: Gets or sets the value of promotion reward logo absolute URL
-          nullable: true
-        shippingMethod:
-          type: string
-          description: Gets or sets the value of reward shipping method code
-          nullable: true
-        paymentMethod:
-          type: string
-          description: Gets or sets the value of reward payment method code
-          nullable: true
-        maxLimit:
-          type: number
-          description: Gets or sets the max limit for relative rewards
-          format: double
-        forNthQuantity:
-          type: integer
-          format: int32
-        inEveryNthQuantity:
-          type: integer
-          format: int32
-      additionalProperties: false
-      description: need to backward compatibility with v.2
-    DynamicContentFolder:
-      type: object
-      properties:
-        path:
-          type: string
-          description: all parent folders names concatenated (Root\Child\Child2)
-          nullable: true
-          readOnly: true
-        outline:
-          type: string
-          description: all parent folders ids concatenated (1;21;344)
-          nullable: true
-          readOnly: true
-        parentFolderId:
-          type: string
-          nullable: true
-        parentFolder:
-          allOf:
-          - $ref: '#/components/schemas/DynamicContentFolder'
-          nullable: true
-        objectType:
-          type: string
-          nullable: true
-          readOnly: true
-        imageUrl:
-          type: string
-          description: Gets or sets the image URL.
-          nullable: true
-        name:
-          type: string
-          description: Gets or sets the name.
-          nullable: true
-        description:
-          type: string
-          nullable: true
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type: string
-          format: date-time
-          nullable: true
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    DynamicContentPublication:
-      type: object
-      properties:
-        name:
-          type: string
-          nullable: true
-        description:
-          type: string
-          nullable: true
-        priority:
-          type: integer
-          format: int32
-        isActive:
-          type: boolean
-        storeId:
-          type: string
-          nullable: true
-        dynamicExpression:
-          allOf:
-          - $ref: '#/components/schemas/DynamicContentConditionTree'
-          nullable: true
-        startDate:
-          type: string
-          format: date-time
-          nullable: true
-        endDate:
-          type: string
-          format: date-time
-          nullable: true
-        outerId:
-          type: string
-          nullable: true
-        contentItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/DynamicContentItem'
-          nullable: true
-        contentPlaces:
-          type: array
-          items:
-            $ref: '#/components/schemas/DynamicContentPlace'
-          nullable: true
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type: string
-          format: date-time
-          nullable: true
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    Currency:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Currency code may be used ISO 4217.
-          nullable: true
-        cultureName:
-          type: string
-          nullable: true
-        englishName:
-          type: string
-          nullable: true
-        name:
-          type: string
-          description: name of the currency
-          nullable: true
-        isPrimary:
-          type: boolean
-          description: Flag specifies that this is the primary currency
-        exchangeRate:
-          type: number
-          description: The exchange rate against the primary exchange rate of the currency.
-          format: double
-        symbol:
-          type: string
-          description: Currency symbol
-          nullable: true
-        customFormatting:
-          type: string
-          description: Custom formatting pattern
-          nullable: true
-        roundingType:
-          type: string
-          nullable: true
-        midpointRounding:
-          type: string
-          nullable: true
-        decimalDigits:
-          type: integer
-          format: int32
-      additionalProperties: false
-      description: Currency
-    PromotionSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Promotion'
-          nullable: true
-      additionalProperties: false
-    RewardAmountType:
-      enum:
-      - Absolute
-      - Relative
-      type: string
-    DynamicContentListEntry:
-      type: object
-      properties:
-        objectType:
-          type: string
-          description: Gets or sets the type. E.g. "folder", "content-item", "content-place"
-          nullable: true
-        imageUrl:
-          type: string
-          description: Gets or sets the image URL.
-          nullable: true
-        name:
-          type: string
-          description: Gets or sets the name.
-          nullable: true
-        description:
-          type: string
-          nullable: true
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type: string
-          format: date-time
-          nullable: true
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    DynamicPropertyObjectValue:
-      type: object
-      properties:
-        objectType:
-          type: string
-          nullable: true
-        objectId:
-          type: string
-          nullable: true
-        locale:
-          type: string
-          nullable: true
-        value:
-          type: object
-          nullable: true
-        valueId:
-          type: string
-          nullable: true
-        valueType:
-          allOf:
-          - $ref: '#/components/schemas/DynamicPropertyValueType'
-        propertyId:
-          type: string
-          nullable: true
-        propertyName:
-          type: string
-          nullable: true
-      additionalProperties: false
-    DynamicObjectProperty:
-      type: object
-      properties:
-        objectId:
-          type: string
-          nullable: true
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/DynamicPropertyObjectValue'
-          nullable: true
-        name:
-          type: string
-          nullable: true
-        description:
-          type: string
-          nullable: true
-        objectType:
-          type: string
-          nullable: true
-        isArray:
-          type: boolean
-        isDictionary:
-          type: boolean
-        isMultilingual:
-          type: boolean
-        isRequired:
-          type: boolean
-        displayOrder:
-          type: integer
-          format: int32
-          nullable: true
-        valueType:
-          allOf:
-          - $ref: '#/components/schemas/DynamicPropertyValueType'
-        displayNames:
-          type: array
-          items:
-            $ref: '#/components/schemas/DynamicPropertyName'
-          nullable: true
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type: string
-          format: date-time
-          nullable: true
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    DynamicContentConditionTree:
-      type: object
-      properties:
-        all:
-          type: boolean
-        not:
-          type: boolean
-        id:
-          type: string
-          nullable: true
-          readOnly: true
-        availableChildren:
-          type: array
-          items:
-            $ref: '#/components/schemas/IConditionTree'
-          nullable: true
-        children:
-          type: array
-          items:
-            $ref: '#/components/schemas/IConditionTree'
-          nullable: true
-      additionalProperties: false
-    CouponSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coupon'
-          nullable: true
-      additionalProperties: false
-    SortInfo:
-      type: object
-      properties:
-        sortColumn:
-          type: string
-          nullable: true
-        sortDirection:
-          allOf:
-          - $ref: '#/components/schemas/SortDirection'
-      additionalProperties: false
     DynamicContentItemSearchCriteria:
       type: object
       properties:
         folderId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         responseGroup:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         objectType:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         objectTypes:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
-          nullable: true
         objectIds:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
-          nullable: true
         keyword:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         searchPhrase:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         languageCode:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         sort:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         sortInfos:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/SortInfo'
-          nullable: true
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
-    DynamicContentItemSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/DynamicContentItem'
-          nullable: true
-      additionalProperties: false
-    DynamicContentPlaceSearchCriteria:
-      type: object
-      properties:
-        folderId:
-          type: string
-          nullable: true
-        responseGroup:
-          type: string
-          nullable: true
-        objectType:
-          type: string
-          nullable: true
-        objectTypes:
-          type: array
-          items:
-            type: string
-          nullable: true
-        objectIds:
-          type: array
-          items:
-            type: string
-          nullable: true
-        keyword:
-          type: string
-          nullable: true
-        searchPhrase:
-          type: string
-          nullable: true
-        languageCode:
-          type: string
-          nullable: true
-        sort:
-          type: string
-          nullable: true
-        sortInfos:
-          type: array
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          nullable: true
           readOnly: true
         skip:
           type: integer
@@ -2169,20 +2301,22 @@ components:
         dynamicExpression:
           allOf:
           - $ref: '#/components/schemas/PromotionConditionAndRewardTree'
-          nullable: true
         storeIds:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
-          nullable: true
         name:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Promotion name
-          nullable: true
         type:
-          type: string
+          type:
+          - string
+          - 'null'
           description: 'Required for UI. TODO: remove later'
-          nullable: true
         isActive:
           type: boolean
         priority:
@@ -2195,8 +2329,9 @@ components:
         hasCoupons:
           type: boolean
         description:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         maxUsageCount:
           type: integer
           description: Maximum redemptions for this promotion
@@ -2210,57 +2345,610 @@ components:
           description: Maximum redemptions by a single customer
           format: int32
         startDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         endDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         outerId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         isPublic:
           type: boolean
         localizedLabel:
           allOf:
           - $ref: '#/components/schemas/LocalizedString'
-          nullable: true
         localizedDisplayName:
           allOf:
           - $ref: '#/components/schemas/LocalizedString'
-          nullable: true
         localizedDescription:
           allOf:
           - $ref: '#/components/schemas/LocalizedString'
-          nullable: true
         createdDate:
           type: string
           format: date-time
         modifiedDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         createdBy:
           maxLength: 64
           minLength: 0
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         modifiedBy:
           maxLength: 64
           minLength: 0
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         id:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: false
+    CouponSearchCriteria:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        codes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        promotionId:
+          type:
+          - string
+          - 'null'
+        promotionIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
+      additionalProperties: false
+    DynamicContentItemSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicContentItem'
+      additionalProperties: false
+    RewardAmountType:
+      enum:
+      - Absolute
+      - Relative
+      type: string
+    PromotionConditionAndRewardTree:
+      type: object
+      properties:
+        all:
+          type: boolean
+        not:
+          type: boolean
+        id:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        availableChildren:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IConditionTree'
+        children:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IConditionTree'
+      additionalProperties: false
+    PromotionSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Promotion'
+      additionalProperties: false
+    DynamicObjectProperty:
+      type: object
+      properties:
+        objectId:
+          type:
+          - string
+          - 'null'
+        values:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicPropertyObjectValue'
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        isArray:
+          type: boolean
+        isDictionary:
+          type: boolean
+        isMultilingual:
+          type: boolean
+        isRequired:
+          type: boolean
+        displayOrder:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        valueType:
+          allOf:
+          - $ref: '#/components/schemas/DynamicPropertyValueType'
+        displayNames:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicPropertyName'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    DynamicContentPlace:
+      type: object
+      properties:
+        outline:
+          type:
+          - string
+          - 'null'
+          description: all parent folders ids concatenated (1;21;344)
+          readOnly: true
+        path:
+          type:
+          - string
+          - 'null'
+          description: all parent folders names concatenated (Root\Child\Child2)
+          readOnly: true
+        folderId:
+          type:
+          - string
+          - 'null'
+        folder:
+          allOf:
+          - $ref: '#/components/schemas/DynamicContentFolder'
+        objectType:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the type. E.g. "folder", "content-item", "content-place"
+        imageUrl:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the image URL.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the name.
+        description:
+          type:
+          - string
+          - 'null'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    IConditionTree:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        availableChildren:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IConditionTree'
+          description: List of all available children for current tree node (is used in expression designer)
+          readOnly: true
+        children:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IConditionTree'
+          readOnly: true
+      additionalProperties: false
+    DynamicPropertyName:
+      type: object
+      properties:
+        locale:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PromotionStatus:
+      enum:
+      - All
+      - Active
+      - Upcoming
+      - Archived
+      - Deactivated
+      type: string
+    DynamicContentPlaceSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicContentPlace'
+      additionalProperties: false
+    DynamicContentPlaceSearchCriteria:
+      type: object
+      properties:
+        folderId:
+          type:
+          - string
+          - 'null'
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
+      additionalProperties: false
+    SortDirection:
+      enum:
+      - Ascending
+      - Descending
+      type: string
+    ImportNotification:
+      type: object
+      properties:
+        finished:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        totalCount:
+          type: integer
+          format: int64
+        processedCount:
+          type: integer
+          format: int64
+        errorCount:
+          type: integer
+          format: int64
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        serverId:
+          type:
+          - string
+          - 'null'
+        creator:
+          type:
+          - string
+          - 'null'
+        created:
+          type: string
+          format: date-time
+        isNew:
+          type: boolean
+        notifyType:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        repeatCount:
+          type: integer
+          format: int32
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PromotionReward:
+      type: object
+      properties:
+        isValid:
+          type: boolean
+          description: Gets or sets the flag of promotion reward is valid. Also used as a flag for applicability (applied or potential)
+        description:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the value of promotion reward description
+        couponAmount:
+          type: number
+          description: Gets or sets the value of coupon amount
+          format: double
+        coupon:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the value of coupon code
+        couponMinOrderAmount:
+          type:
+          - number
+          - 'null'
+          description: Gets or sets the value of minimum order total cost for applying coupon
+          format: double
+        promotionId:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the value of promotion id
+        promotion:
+          allOf:
+          - $ref: '#/components/schemas/Promotion'
+          description: Gets or sets the promotion
+        rewardType:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the value of promotion reward type
+        amountType:
+          allOf:
+          - $ref: '#/components/schemas/RewardAmountType'
+          description: Gets or sets the value of promotion reward amount type
+        amount:
+          type: number
+          description: Gets or sets the value of promotion reward amount
+          format: double
+        quantity:
+          type: integer
+          description: Gets or sets the value of line item quantity for applying promotion reward
+          format: int32
+        lineItemId:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the value of line item id
+        productId:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the value of product id
+        conditionalProductId:
+          type:
+          - string
+          - 'null'
+          description: 'Conditional product
+
+            For N items of entry ProductId  in every Y items of entry ConditionalProductId get %X off'
+        categoryId:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the value of category id
+        measureUnit:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the value of measurement unit
+        imageUrl:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the value of promotion reward logo absolute URL
+        shippingMethod:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the value of reward shipping method code
+        paymentMethod:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the value of reward payment method code
+        maxLimit:
+          type: number
+          description: Gets or sets the max limit for relative rewards
+          format: double
+        forNthQuantity:
+          type: integer
+          format: int32
+        inEveryNthQuantity:
+          type: integer
+          format: int32
+      additionalProperties: false
+      description: need to backward compatibility with v.2
     ProductPromoEntry:
       type: object
       properties:
         code:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         quantity:
           type: integer
           format: int32
@@ -2277,34 +2965,182 @@ components:
           type: number
           format: double
         catalogId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         categoryId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         productId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         parentId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         owner:
-          type: object
-          nullable: true
+          type:
+          - object
+          - 'null'
         outline:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         variations:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/ProductPromoEntry'
-          nullable: true
         attributes:
-          type: object
+          type:
+          - object
+          - 'null'
           additionalProperties:
-            type: string
-            nullable: true
-          nullable: true
+            type:
+            - string
+            - 'null'
+      additionalProperties: false
+    DynamicContentListEntry:
+      type: object
+      properties:
+        objectType:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the type. E.g. "folder", "content-item", "content-place"
+        imageUrl:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the image URL.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the name.
+        description:
+          type:
+          - string
+          - 'null'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    DynamicContentItem:
+      type: object
+      properties:
+        contentType:
+          type:
+          - string
+          - 'null'
+        priority:
+          type: integer
+          format: int32
+        outline:
+          type:
+          - string
+          - 'null'
+          description: all parent folders ids concatenated (1;21;344)
+          readOnly: true
+        path:
+          type:
+          - string
+          - 'null'
+          description: all parent folders names concatenated (Root\Child\Child2)
+          readOnly: true
+        folderId:
+          type:
+          - string
+          - 'null'
+        folder:
+          allOf:
+          - $ref: '#/components/schemas/DynamicContentFolder'
+        objectType:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        dynamicProperties:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicObjectProperty'
+        imageUrl:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the image URL.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the name.
+        description:
+          type:
+          - string
+          - 'null'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CouponSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Coupon'
       additionalProperties: false
     PromotionSearchCriteria:
       type: object
@@ -2314,55 +3150,67 @@ components:
         status:
           allOf:
           - $ref: '#/components/schemas/PromotionStatus'
-          nullable: true
         store:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         storeIds:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
-          nullable: true
         isPublic:
-          type: boolean
-          nullable: true
+          type:
+          - boolean
+          - 'null'
         couponCount:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
         responseGroup:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         objectType:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         objectTypes:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
-          nullable: true
         objectIds:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
-          nullable: true
         keyword:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         searchPhrase:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         languageCode:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         sort:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         sortInfos:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/SortInfo'
-          nullable: true
           readOnly: true
         skip:
           type: integer
@@ -2371,628 +3219,51 @@ components:
           type: integer
           format: int32
       additionalProperties: false
-    PromotionStatus:
-      enum:
-      - All
-      - Active
-      - Upcoming
-      - Archived
-      - Deactivated
-      type: string
-    DynamicPropertyName:
+    SortInfo:
       type: object
       properties:
+        sortColumn:
+          type:
+          - string
+          - 'null'
+        sortDirection:
+          allOf:
+          - $ref: '#/components/schemas/SortDirection'
+      additionalProperties: false
+    DynamicPropertyObjectValue:
+      type: object
+      properties:
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectId:
+          type:
+          - string
+          - 'null'
         locale:
-          type: string
-          nullable: true
-        name:
-          type: string
-          nullable: true
-      additionalProperties: false
-    DynamicContentPlace:
-      type: object
-      properties:
-        outline:
-          type: string
-          description: all parent folders ids concatenated (1;21;344)
-          nullable: true
-          readOnly: true
-        path:
-          type: string
-          description: all parent folders names concatenated (Root\Child\Child2)
-          nullable: true
-          readOnly: true
-        folderId:
-          type: string
-          nullable: true
-        folder:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - object
+          - 'null'
+        valueId:
+          type:
+          - string
+          - 'null'
+        valueType:
           allOf:
-          - $ref: '#/components/schemas/DynamicContentFolder'
-          nullable: true
-        objectType:
-          type: string
-          description: Gets or sets the type. E.g. "folder", "content-item", "content-place"
-          nullable: true
-        imageUrl:
-          type: string
-          description: Gets or sets the image URL.
-          nullable: true
-        name:
-          type: string
-          description: Gets or sets the name.
-          nullable: true
-        description:
-          type: string
-          nullable: true
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type: string
-          format: date-time
-          nullable: true
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    SortDirection:
-      enum:
-      - Ascending
-      - Descending
-      type: string
-    ImportNotification:
-      type: object
-      properties:
-        finished:
-          type: string
-          format: date-time
-          nullable: true
-        totalCount:
-          type: integer
-          format: int64
-        processedCount:
-          type: integer
-          format: int64
-        errorCount:
-          type: integer
-          format: int64
-        errors:
-          type: array
-          items:
-            type: string
-          nullable: true
-        serverId:
-          type: string
-          nullable: true
-        creator:
-          type: string
-          nullable: true
-        created:
-          type: string
-          format: date-time
-        isNew:
-          type: boolean
-        notifyType:
-          type: string
-          nullable: true
-        description:
-          type: string
-          nullable: true
-        title:
-          type: string
-          nullable: true
-        repeatCount:
-          type: integer
-          format: int32
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    PromotionEvaluationContext:
-      type: object
-      properties:
-        refusedGiftIds:
-          type: array
-          items:
-            type: string
-          nullable: true
-        storeId:
-          type: string
-          nullable: true
-        currency:
-          type: string
-          nullable: true
-        currencyObject:
-          allOf:
-          - $ref: '#/components/schemas/Currency'
-          description: Currency
-          nullable: true
-        customerId:
-          type: string
-          description: 'Contains User Id.
-
-            This property will be deleted after update to .NET8. Use UserId property instead.'
-          nullable: true
-        userId:
-          type: string
-          nullable: true
-        contactId:
-          type: string
-          nullable: true
-        organizaitonId:
-          type: string
-          nullable: true
-          deprecated: true
-        organizationId:
-          type: string
-          nullable: true
-        isRegisteredUser:
-          type: boolean
-        isFirstTimeBuyer:
-          type: boolean
-          description: Has user made any orders
-        isEveryone:
-          type: boolean
-        cartTotal:
-          type: number
-          format: double
-        shipmentMethodCode:
-          type: string
-          description: Current shipment method
-          nullable: true
-        shipmentMethodOption:
-          type: string
-          nullable: true
-        shipmentMethodPrice:
-          type: number
-          format: double
-        availableShipmentMethodCodes:
-          type: array
-          items:
-            type: string
-          nullable: true
-        paymentMethodCode:
-          type: string
-          description: Current payment method
-          nullable: true
-        paymentMethodPrice:
-          type: number
-          format: double
-        availablePaymentMethodCodes:
-          type: array
-          items:
-            type: string
-          nullable: true
-        coupon:
-          type: string
-          description: Entered coupon
-          nullable: true
-        coupons:
-          type: array
-          items:
-            type: string
-          nullable: true
-        cartPromoEntries:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProductPromoEntry'
-          description: List of product promo in cart
-          nullable: true
-        promoEntries:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProductPromoEntry'
-          description: List of products for promo evaluation
-          nullable: true
-        promoEntry:
-          allOf:
-          - $ref: '#/components/schemas/ProductPromoEntry'
-          description: Single catalog product promo entry
-          nullable: true
-        contextObject:
-          type: object
-          nullable: true
-        geoCity:
-          type: string
-          nullable: true
-        geoState:
-          type: string
-          nullable: true
-        geoCountry:
-          type: string
-          nullable: true
-        geoContinent:
-          type: string
-          nullable: true
-        geoZipCode:
-          type: string
-          nullable: true
-        geoConnectionType:
-          type: string
-          nullable: true
-        geoTimeZone:
-          type: string
-          nullable: true
-        geoIpRoutingType:
-          type: string
-          nullable: true
-        geoIspSecondLevel:
-          type: string
-          nullable: true
-        geoIspTopLevel:
-          type: string
-          nullable: true
-        shopperAge:
-          type: integer
-          format: int32
-        shopperGender:
-          type: string
-          nullable: true
-        language:
-          type: string
-          nullable: true
-        userGroups:
-          type: array
-          items:
-            type: string
-          description: Any tags or groups belongs to user such as VIP, Wholesaler etc
-          nullable: true
-        shopperSearchedPhraseInStore:
-          type: string
-          nullable: true
-        shopperSearchedPhraseOnInternet:
-          type: string
-          nullable: true
-        currentUrl:
-          type: string
-          nullable: true
-        referredUrl:
-          type: string
-          nullable: true
-      additionalProperties: false
-    Coupon:
-      type: object
-      properties:
-        maxUsesNumber:
-          type: integer
-          description: 'Restriction of total coupon usages
-
-            0 infinitive'
-          format: int32
-        maxUsesPerUser:
-          type: integer
-          description: 'Maximum number of uses per registered user
-
-            0 infinitive'
-          format: int32
-        expirationDate:
-          type: string
-          format: date-time
-          nullable: true
-        code:
-          type: string
-          description: coupon code
-          nullable: true
-        promotionId:
-          type: string
-          nullable: true
-        totalUsesCount:
-          type: integer
-          description: Total number of uses
-          format: int64
-        outerId:
-          type: string
-          nullable: true
-        memberId:
-          type: string
-          description: Register coupon for a specific customer or organization
-          nullable: true
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type: string
-          format: date-time
-          nullable: true
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type: string
-          nullable: true
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    CouponSearchCriteria:
-      type: object
-      properties:
-        code:
-          type: string
-          nullable: true
-        codes:
-          type: array
-          items:
-            type: string
-          nullable: true
-        promotionId:
-          type: string
-          nullable: true
-        promotionIds:
-          type: array
-          items:
-            type: string
-          nullable: true
-        responseGroup:
-          type: string
-          nullable: true
-        objectType:
-          type: string
-          nullable: true
-        objectTypes:
-          type: array
-          items:
-            type: string
-          nullable: true
-        objectIds:
-          type: array
-          items:
-            type: string
-          nullable: true
-        keyword:
-          type: string
-          nullable: true
-        searchPhrase:
-          type: string
-          nullable: true
-        languageCode:
-          type: string
-          nullable: true
-        sort:
-          type: string
-          nullable: true
-        sortInfos:
-          type: array
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          nullable: true
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
-    IConditionTree:
-      type: object
-      properties:
-        id:
-          type: string
-          nullable: true
-          readOnly: true
-        availableChildren:
-          type: array
-          items:
-            $ref: '#/components/schemas/IConditionTree'
-          description: List of all available children for current tree node (is used in expression designer)
-          nullable: true
-          readOnly: true
-        children:
-          type: array
-          items:
-            $ref: '#/components/schemas/IConditionTree'
-          nullable: true
-          readOnly: true
-      additionalProperties: false
-    DynamicContentPublicationSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/DynamicContentPublication'
-          nullable: true
-      additionalProperties: false
-    LocalizedString:
-      type: object
-      properties:
-        values:
-          type: object
-          additionalProperties:
-            type: string
-            nullable: true
-          nullable: true
-          readOnly: true
-      additionalProperties: false
-    DynamicContentPublicationSearchCriteria:
-      type: object
-      properties:
-        onlyActive:
-          type: boolean
-        store:
-          type: string
-          nullable: true
-        placeName:
-          type: string
-          nullable: true
-        toDate:
-          type: string
-          format: date-time
-          nullable: true
-        folderId:
-          type: string
-          nullable: true
-        responseGroup:
-          type: string
-          nullable: true
-        objectType:
-          type: string
-          nullable: true
-        objectTypes:
-          type: array
-          items:
-            type: string
-          nullable: true
-        objectIds:
-          type: array
-          items:
-            type: string
-          nullable: true
-        keyword:
-          type: string
-          nullable: true
-        searchPhrase:
-          type: string
-          nullable: true
-        languageCode:
-          type: string
-          nullable: true
-        sort:
-          type: string
-          nullable: true
-        sortInfos:
-          type: array
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          nullable: true
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
-    DynamicContentEvaluationContext:
-      type: object
-      properties:
-        storeId:
-          type: string
-          nullable: true
-        placeName:
-          type: string
-          nullable: true
-        tags:
-          type: array
-          items:
-            type: string
-          nullable: true
-        toDate:
-          type: string
-          format: date-time
-        categoryId:
-          type: string
-          nullable: true
-        productId:
-          type: string
-          nullable: true
-        contextObject:
-          type: object
-          nullable: true
-        geoCity:
-          type: string
-          nullable: true
-        geoState:
-          type: string
-          nullable: true
-        geoCountry:
-          type: string
-          nullable: true
-        geoContinent:
-          type: string
-          nullable: true
-        geoZipCode:
-          type: string
-          nullable: true
-        geoConnectionType:
-          type: string
-          nullable: true
-        geoTimeZone:
-          type: string
-          nullable: true
-        geoIpRoutingType:
-          type: string
-          nullable: true
-        geoIspSecondLevel:
-          type: string
-          nullable: true
-        geoIspTopLevel:
-          type: string
-          nullable: true
-        shopperAge:
-          type: integer
-          format: int32
-        shopperGender:
-          type: string
-          nullable: true
-        language:
-          type: string
-          nullable: true
-        userGroups:
-          type: array
-          items:
-            type: string
-          description: Any tags or groups belongs to user such as VIP, Wholesaler etc
-          nullable: true
-        shopperSearchedPhraseInStore:
-          type: string
-          nullable: true
-        shopperSearchedPhraseOnInternet:
-          type: string
-          nullable: true
-        currentUrl:
-          type: string
-          nullable: true
-        referredUrl:
-          type: string
-          nullable: true
-      additionalProperties: false
-    DynamicContentPlaceSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/DynamicContentPlace'
-          nullable: true
-      additionalProperties: false
-    ImportRequest:
-      type: object
-      properties:
-        fileUrl:
-          type: string
-          nullable: true
-        delimiter:
-          type: string
-          nullable: true
-        promotionId:
-          type: string
-          nullable: true
-        expirationDate:
-          type: string
-          format: date-time
-          nullable: true
+          - $ref: '#/components/schemas/DynamicPropertyValueType'
+        propertyId:
+          type:
+          - string
+          - 'null'
+        propertyName:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
   securitySchemes:
     oauth2:
