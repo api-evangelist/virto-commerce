@@ -1056,264 +1056,13 @@ paths:
       x-virtocommerce-module-id: VirtoCommerce.Cart
 components:
   schemas:
-    ShoppingCartSearchCriteria:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        customerId:
-          type:
-          - string
-          - 'null'
-        storeId:
-          type:
-          - string
-          - 'null'
-        currency:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - string
-          - 'null'
-        customerIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        organizationId:
-          type:
-          - string
-          - 'null'
-        organizationIdIsEmpty:
-          type: boolean
-        createdStartDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdEndDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        modifiedStartDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        modifiedEndDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        customerOrOrganization:
-          type: boolean
-        isAnonymous:
-          type:
-          - boolean
-          - 'null'
-        hasLineItems:
-          type:
-          - boolean
-          - 'null'
-        type:
-          type:
-          - string
-          - 'null'
-        types:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        notType:
-          type:
-          - string
-          - 'null'
-        notTypes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        hasAbandonmentNotification:
-          type:
-          - boolean
-          - 'null'
-        abandonmentNotificationStartDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        abandonmentNotificationEndDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        sharingKey:
-          type:
-          - string
-          - 'null'
-        responseGroup:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-        objectTypes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        objectIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        keyword:
-          type:
-          - string
-          - 'null'
-        searchPhrase:
-          type:
-          - string
-          - 'null'
-        languageCode:
-          type:
-          - string
-          - 'null'
-        sort:
-          type:
-          - string
-          - 'null'
-        sortInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
-    PaymentMethod:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        logoUrl:
-          type:
-          - string
-          - 'null'
-        isActive:
-          type: boolean
-        priority:
-          type: integer
-          format: int32
-        isAvailableForPartial:
-          type: boolean
-        allowDeferredPayment:
-          type: boolean
-        currency:
-          type:
-          - string
-          - 'null'
-        price:
-          type: number
-          format: double
-        priceWithTax:
-          type: number
-          format: double
-          readOnly: true
-        total:
-          type: number
-          format: double
-          readOnly: true
-        totalWithTax:
-          type: number
-          format: double
-          readOnly: true
-        discountAmount:
-          type: number
-          format: double
-        discountAmountWithTax:
-          type: number
-          format: double
-          readOnly: true
-        allowCartPayment:
-          type: boolean
-          readOnly: true
-        storeId:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        typeName:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-        settings:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ObjectSettingEntry'
-        taxType:
-          type:
-          - string
-          - 'null'
-        taxTotal:
-          type: number
-          format: double
-          readOnly: true
-        taxPercentRate:
-          type: number
-          format: double
-        taxDetails:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/TaxDetail'
-        localizedName:
-          allOf:
-          - $ref: '#/components/schemas/LocalizedString'
-        paymentMethodType:
-          allOf:
-          - $ref: '#/components/schemas/PaymentMethodType'
-          readOnly: true
-        paymentMethodGroupType:
-          allOf:
-          - $ref: '#/components/schemas/PaymentMethodGroupType'
-          readOnly: true
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
+    PaymentMethodType:
+      enum:
+      - Unknown
+      - Standard
+      - Redirection
+      - PreparedForm
+      type: string
     Payment:
       type: object
       properties:
@@ -1423,202 +1172,16 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    PaymentMethodType:
-      enum:
-      - Unknown
-      - Standard
-      - Redirection
-      - PreparedForm
-      type: string
-    CartConfigurationItem:
+    SortInfo:
       type: object
       properties:
-        lineItemId:
+        sortColumn:
           type:
           - string
           - 'null'
-        productId:
-          type:
-          - string
-          - 'null'
-        sectionId:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        sku:
-          type:
-          - string
-          - 'null'
-        quantity:
-          type: integer
-          format: int32
-        listPrice:
-          type: number
-          format: double
-        salePrice:
-          type: number
-          format: double
-        extendedPrice:
-          type: number
-          format: double
-          readOnly: true
-        imageUrl:
-          type:
-          - string
-          - 'null'
-        catalogId:
-          type:
-          - string
-          - 'null'
-        categoryId:
-          type:
-          - string
-          - 'null'
-        type:
-          type:
-          - string
-          - 'null'
-        customText:
-          type:
-          - string
-          - 'null'
-        files:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/CartConfigurationItemFile'
-        selectedForCheckout:
-          type: boolean
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ShippingMethod:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        logoUrl:
-          type:
-          - string
-          - 'null'
-        isActive:
-          type: boolean
-        priority:
-          type: integer
-          format: int32
-        taxType:
-          type:
-          - string
-          - 'null'
-        storeId:
-          type:
-          - string
-          - 'null'
-        settings:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ObjectSettingEntry'
-        typeName:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    CartSharingSetting:
-      type: object
-      properties:
-        shoppingCartId:
-          type:
-          - string
-          - 'null'
-        scope:
-          type:
-          - string
-          - 'null'
-        access:
-          type:
-          - string
-          - 'null'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ShoppingCartSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ShoppingCart'
+        sortDirection:
+          allOf:
+          - $ref: '#/components/schemas/SortDirection'
       additionalProperties: false
     LocalizedString:
       type: object
@@ -1633,180 +1196,37 @@ components:
             - 'null'
           readOnly: true
       additionalProperties: false
-    DynamicPropertyValueType:
-      enum:
-      - Undefined
-      - ShortText
-      - LongText
-      - Integer
-      - Decimal
-      - DateTime
-      - Boolean
-      - Html
-      - Image
-      type: string
-    ShippingRate:
+    DynamicPropertyObjectValue:
       type: object
       properties:
-        optionName:
-          type:
-          - string
-          - 'null'
-        optionDescription:
-          type:
-          - string
-          - 'null'
-        rate:
-          type: number
-          format: double
-        rateWithTax:
-          type: number
-          format: double
-        currency:
-          type:
-          - string
-          - 'null'
-        discountAmount:
-          type: number
-          format: double
-        discountAmountWithTax:
-          type: number
-          format: double
-        shippingMethod:
-          allOf:
-          - $ref: '#/components/schemas/ShippingMethod'
-      additionalProperties: false
-    SortInfo:
-      type: object
-      properties:
-        sortColumn:
-          type:
-          - string
-          - 'null'
-        sortDirection:
-          allOf:
-          - $ref: '#/components/schemas/SortDirection'
-      additionalProperties: false
-    ObjectSettingEntry:
-      type: object
-      properties:
-        itHasValues:
-          type: boolean
-          readOnly: true
-        objectId:
-          type:
-          - string
-          - 'null'
         objectType:
           type:
           - string
           - 'null'
-        isReadOnly:
-          type: boolean
+        objectId:
+          type:
+          - string
+          - 'null'
+        locale:
+          type:
+          - string
+          - 'null'
         value:
           type:
           - object
           - 'null'
-        id:
+        valueId:
           type:
           - string
           - 'null'
-        restartRequired:
-          type: boolean
-        moduleId:
-          type:
-          - string
-          - 'null'
-        groupName:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        displayName:
-          type:
-          - string
-          - 'null'
-        isRequired:
-          type: boolean
-        isHidden:
-          type: boolean
-        isPublic:
-          type: boolean
         valueType:
           allOf:
-          - $ref: '#/components/schemas/SettingValueType'
-        allowedValues:
-          type:
-          - array
-          - 'null'
-          items:
-            type: object
-        defaultValue:
-          type:
-          - object
-          - 'null'
-        isDictionary:
-          type: boolean
-        isLocalizable:
-          type: boolean
-        tenant:
+          - $ref: '#/components/schemas/DynamicPropertyValueType'
+        propertyId:
           type:
           - string
           - 'null'
-      additionalProperties: false
-    SettingValueType:
-      enum:
-      - ShortText
-      - LongText
-      - Integer
-      - Decimal
-      - DateTime
-      - Boolean
-      - SecureString
-      - Json
-      - PositiveInteger
-      type: string
-    CartShipmentItem:
-      type: object
-      properties:
-        lineItemId:
-          type:
-          - string
-          - 'null'
-        lineItem:
-          allOf:
-          - $ref: '#/components/schemas/CartLineItem'
-        barCode:
-          type:
-          - string
-          - 'null'
-        quantity:
-          type: integer
-          format: int32
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
+        propertyName:
           type:
           - string
           - 'null'
@@ -2056,6 +1476,461 @@ components:
           - string
           - 'null'
       additionalProperties: false
+    Discount:
+      type: object
+      properties:
+        promotionId:
+          type:
+          - string
+          - 'null'
+        currency:
+          type:
+          - string
+          - 'null'
+        discountAmount:
+          type: number
+          format: double
+        discountAmountWithTax:
+          type: number
+          format: double
+        coupon:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PaymentMethodGroupType:
+      enum:
+      - Paypal
+      - BankCard
+      - Alternative
+      - Manual
+      type: string
+    ObjectSettingEntry:
+      type: object
+      properties:
+        itHasValues:
+          type: boolean
+          readOnly: true
+        objectId:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        isReadOnly:
+          type: boolean
+        value:
+          type:
+          - object
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+        restartRequired:
+          type: boolean
+        moduleId:
+          type:
+          - string
+          - 'null'
+        groupName:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        displayName:
+          type:
+          - string
+          - 'null'
+        isRequired:
+          type: boolean
+        isHidden:
+          type: boolean
+        isPublic:
+          type: boolean
+        valueType:
+          allOf:
+          - $ref: '#/components/schemas/SettingValueType'
+        allowedValues:
+          type:
+          - array
+          - 'null'
+          items:
+            type: object
+        defaultValue:
+          type:
+          - object
+          - 'null'
+        isDictionary:
+          type: boolean
+        isLocalizable:
+          type: boolean
+        tenant:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ShoppingCartSearchCriteria:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        customerId:
+          type:
+          - string
+          - 'null'
+        storeId:
+          type:
+          - string
+          - 'null'
+        currency:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - string
+          - 'null'
+        customerIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        organizationId:
+          type:
+          - string
+          - 'null'
+        organizationIdIsEmpty:
+          type: boolean
+        createdStartDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdEndDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        modifiedStartDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        modifiedEndDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        customerOrOrganization:
+          type: boolean
+        isAnonymous:
+          type:
+          - boolean
+          - 'null'
+        hasLineItems:
+          type:
+          - boolean
+          - 'null'
+        type:
+          type:
+          - string
+          - 'null'
+        types:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        notType:
+          type:
+          - string
+          - 'null'
+        notTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        hasAbandonmentNotification:
+          type:
+          - boolean
+          - 'null'
+        abandonmentNotificationStartDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        abandonmentNotificationEndDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        sharingKey:
+          type:
+          - string
+          - 'null'
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
+      additionalProperties: false
+    CartSharingSetting:
+      type: object
+      properties:
+        shoppingCartId:
+          type:
+          - string
+          - 'null'
+        scope:
+          type:
+          - string
+          - 'null'
+        access:
+          type:
+          - string
+          - 'null'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    SettingValueType:
+      enum:
+      - ShortText
+      - LongText
+      - Integer
+      - Decimal
+      - DateTime
+      - Boolean
+      - SecureString
+      - Json
+      - PositiveInteger
+      type: string
+    DynamicPropertyValueType:
+      enum:
+      - Undefined
+      - ShortText
+      - LongText
+      - Integer
+      - Decimal
+      - DateTime
+      - Boolean
+      - Html
+      - Image
+      type: string
+    CartAddress:
+      type: object
+      properties:
+        addressType:
+          allOf:
+          - $ref: '#/components/schemas/AddressType'
+        key:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        organization:
+          type:
+          - string
+          - 'null'
+        countryCode:
+          type:
+          - string
+          - 'null'
+        countryName:
+          type:
+          - string
+          - 'null'
+        city:
+          type:
+          - string
+          - 'null'
+        postalCode:
+          type:
+          - string
+          - 'null'
+        zip:
+          type:
+          - string
+          - 'null'
+        line1:
+          type:
+          - string
+          - 'null'
+        line2:
+          type:
+          - string
+          - 'null'
+        regionId:
+          type:
+          - string
+          - 'null'
+        regionName:
+          type:
+          - string
+          - 'null'
+        firstName:
+          type:
+          - string
+          - 'null'
+        middleName:
+          type:
+          - string
+          - 'null'
+        lastName:
+          type:
+          - string
+          - 'null'
+        phone:
+          type:
+          - string
+          - 'null'
+        email:
+          type:
+          - string
+          - 'null'
+        outerId:
+          type:
+          - string
+          - 'null'
+        isDefault:
+          type: boolean
+        description:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CartShipmentItem:
+      type: object
+      properties:
+        lineItemId:
+          type:
+          - string
+          - 'null'
+        lineItem:
+          allOf:
+          - $ref: '#/components/schemas/CartLineItem'
+        barCode:
+          type:
+          - string
+          - 'null'
+        quantity:
+          type: integer
+          format: int32
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     AddressType:
       enum:
       - Undefined
@@ -2064,6 +1939,632 @@ components:
       - BillingAndShipping
       - Pickup
       type: string
+    DynamicObjectProperty:
+      type: object
+      properties:
+        objectId:
+          type:
+          - string
+          - 'null'
+        values:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicPropertyObjectValue'
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        isArray:
+          type: boolean
+        isDictionary:
+          type: boolean
+        isMultilingual:
+          type: boolean
+        isRequired:
+          type: boolean
+        displayOrder:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        valueType:
+          allOf:
+          - $ref: '#/components/schemas/DynamicPropertyValueType'
+        displayNames:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicPropertyName'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CartConfigurationItem:
+      type: object
+      properties:
+        lineItemId:
+          type:
+          - string
+          - 'null'
+        productId:
+          type:
+          - string
+          - 'null'
+        sectionId:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        sku:
+          type:
+          - string
+          - 'null'
+        quantity:
+          type: integer
+          format: int32
+        listPrice:
+          type: number
+          format: double
+        salePrice:
+          type: number
+          format: double
+        extendedPrice:
+          type: number
+          format: double
+          readOnly: true
+        imageUrl:
+          type:
+          - string
+          - 'null'
+        catalogId:
+          type:
+          - string
+          - 'null'
+        categoryId:
+          type:
+          - string
+          - 'null'
+        type:
+          type:
+          - string
+          - 'null'
+        customText:
+          type:
+          - string
+          - 'null'
+        files:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CartConfigurationItemFile'
+        selectedForCheckout:
+          type: boolean
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ShippingEvaluationContext:
+      type: object
+      properties:
+        shoppingCart:
+          allOf:
+          - $ref: '#/components/schemas/ShoppingCart'
+        currency:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ShippingMethod:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        logoUrl:
+          type:
+          - string
+          - 'null'
+        isActive:
+          type: boolean
+        priority:
+          type: integer
+          format: int32
+        taxType:
+          type:
+          - string
+          - 'null'
+        storeId:
+          type:
+          - string
+          - 'null'
+        settings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ObjectSettingEntry'
+        typeName:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CartShipment:
+      type: object
+      properties:
+        shipmentMethodCode:
+          type:
+          - string
+          - 'null'
+        shipmentMethodOption:
+          type:
+          - string
+          - 'null'
+        fulfillmentCenterId:
+          type:
+          - string
+          - 'null'
+        fulfillmentCenterName:
+          type:
+          - string
+          - 'null'
+        warehouseLocation:
+          type:
+          - string
+          - 'null'
+        currency:
+          type:
+          - string
+          - 'null'
+        volumetricWeight:
+          type:
+          - number
+          - 'null'
+          format: double
+        weightUnit:
+          type:
+          - string
+          - 'null'
+        weight:
+          type:
+          - number
+          - 'null'
+          format: double
+        measureUnit:
+          type:
+          - string
+          - 'null'
+        height:
+          type:
+          - number
+          - 'null'
+          format: double
+        length:
+          type:
+          - number
+          - 'null'
+          format: double
+        width:
+          type:
+          - number
+          - 'null'
+          format: double
+        price:
+          type: number
+          format: double
+        priceWithTax:
+          type: number
+          format: double
+        total:
+          type: number
+          format: double
+        totalWithTax:
+          type: number
+          format: double
+        discountAmount:
+          type: number
+          format: double
+        discountAmountWithTax:
+          type: number
+          format: double
+        pickupLocationId:
+          type:
+          - string
+          - 'null'
+        fee:
+          type: number
+          format: double
+        feeWithTax:
+          type: number
+          format: double
+        vendorId:
+          type:
+          - string
+          - 'null'
+        comment:
+          type:
+          - string
+          - 'null'
+        taxType:
+          type:
+          - string
+          - 'null'
+        taxTotal:
+          type: number
+          format: double
+        taxPercentRate:
+          type: number
+          format: double
+        deliveryAddress:
+          allOf:
+          - $ref: '#/components/schemas/CartAddress'
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CartShipmentItem'
+        discounts:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Discount'
+        taxDetails:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/TaxDetail'
+        objectType:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        dynamicProperties:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicObjectProperty'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CartConfigurationItemFile:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        url:
+          type:
+          - string
+          - 'null'
+        contentType:
+          type:
+          - string
+          - 'null'
+        size:
+          type: integer
+          format: int64
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PaymentMethod:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        logoUrl:
+          type:
+          - string
+          - 'null'
+        isActive:
+          type: boolean
+        priority:
+          type: integer
+          format: int32
+        isAvailableForPartial:
+          type: boolean
+        allowDeferredPayment:
+          type: boolean
+        currency:
+          type:
+          - string
+          - 'null'
+        price:
+          type: number
+          format: double
+        priceWithTax:
+          type: number
+          format: double
+          readOnly: true
+        total:
+          type: number
+          format: double
+          readOnly: true
+        totalWithTax:
+          type: number
+          format: double
+          readOnly: true
+        discountAmount:
+          type: number
+          format: double
+        discountAmountWithTax:
+          type: number
+          format: double
+          readOnly: true
+        allowCartPayment:
+          type: boolean
+          readOnly: true
+        storeId:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        typeName:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        settings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ObjectSettingEntry'
+        taxType:
+          type:
+          - string
+          - 'null'
+        taxTotal:
+          type: number
+          format: double
+          readOnly: true
+        taxPercentRate:
+          type: number
+          format: double
+        taxDetails:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/TaxDetail'
+        localizedName:
+          allOf:
+          - $ref: '#/components/schemas/LocalizedString'
+        paymentMethodType:
+          allOf:
+          - $ref: '#/components/schemas/PaymentMethodType'
+          readOnly: true
+        paymentMethodGroupType:
+          allOf:
+          - $ref: '#/components/schemas/PaymentMethodGroupType'
+          readOnly: true
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Operation:
+      type: object
+      properties:
+        value:
+          type:
+          - object
+          - 'null'
+        path:
+          type:
+          - string
+          - 'null'
+        op:
+          type:
+          - string
+          - 'null'
+        from:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    TaxDetail:
+      type: object
+      properties:
+        rate:
+          type: number
+          format: double
+        amount:
+          type: number
+          format: double
+        name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    DynamicPropertyName:
+      type: object
+      properties:
+        locale:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    SortDirection:
+      enum:
+      - Ascending
+      - Descending
+      type: string
+    ShoppingCartSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ShoppingCart'
+      additionalProperties: false
+    ShippingRate:
+      type: object
+      properties:
+        optionName:
+          type:
+          - string
+          - 'null'
+        optionDescription:
+          type:
+          - string
+          - 'null'
+        rate:
+          type: number
+          format: double
+        rateWithTax:
+          type: number
+          format: double
+        currency:
+          type:
+          - string
+          - 'null'
+        discountAmount:
+          type: number
+          format: double
+        discountAmountWithTax:
+          type: number
+          format: double
+        shippingMethod:
+          allOf:
+          - $ref: '#/components/schemas/ShippingMethod'
+      additionalProperties: false
     ShoppingCart:
       type: object
       properties:
@@ -2338,507 +2839,6 @@ components:
           - string
           - 'null'
         id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    Discount:
-      type: object
-      properties:
-        promotionId:
-          type:
-          - string
-          - 'null'
-        currency:
-          type:
-          - string
-          - 'null'
-        discountAmount:
-          type: number
-          format: double
-        discountAmountWithTax:
-          type: number
-          format: double
-        coupon:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    CartAddress:
-      type: object
-      properties:
-        addressType:
-          allOf:
-          - $ref: '#/components/schemas/AddressType'
-        key:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        organization:
-          type:
-          - string
-          - 'null'
-        countryCode:
-          type:
-          - string
-          - 'null'
-        countryName:
-          type:
-          - string
-          - 'null'
-        city:
-          type:
-          - string
-          - 'null'
-        postalCode:
-          type:
-          - string
-          - 'null'
-        zip:
-          type:
-          - string
-          - 'null'
-        line1:
-          type:
-          - string
-          - 'null'
-        line2:
-          type:
-          - string
-          - 'null'
-        regionId:
-          type:
-          - string
-          - 'null'
-        regionName:
-          type:
-          - string
-          - 'null'
-        firstName:
-          type:
-          - string
-          - 'null'
-        middleName:
-          type:
-          - string
-          - 'null'
-        lastName:
-          type:
-          - string
-          - 'null'
-        phone:
-          type:
-          - string
-          - 'null'
-        email:
-          type:
-          - string
-          - 'null'
-        outerId:
-          type:
-          - string
-          - 'null'
-        isDefault:
-          type: boolean
-        description:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    DynamicObjectProperty:
-      type: object
-      properties:
-        objectId:
-          type:
-          - string
-          - 'null'
-        values:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/DynamicPropertyObjectValue'
-        name:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-        isArray:
-          type: boolean
-        isDictionary:
-          type: boolean
-        isMultilingual:
-          type: boolean
-        isRequired:
-          type: boolean
-        displayOrder:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        valueType:
-          allOf:
-          - $ref: '#/components/schemas/DynamicPropertyValueType'
-        displayNames:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/DynamicPropertyName'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    Operation:
-      type: object
-      properties:
-        value:
-          type:
-          - object
-          - 'null'
-        path:
-          type:
-          - string
-          - 'null'
-        op:
-          type:
-          - string
-          - 'null'
-        from:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    DynamicPropertyName:
-      type: object
-      properties:
-        locale:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    SortDirection:
-      enum:
-      - Ascending
-      - Descending
-      type: string
-    ShippingEvaluationContext:
-      type: object
-      properties:
-        shoppingCart:
-          allOf:
-          - $ref: '#/components/schemas/ShoppingCart'
-        currency:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    CartConfigurationItemFile:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        url:
-          type:
-          - string
-          - 'null'
-        contentType:
-          type:
-          - string
-          - 'null'
-        size:
-          type: integer
-          format: int64
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    PaymentMethodGroupType:
-      enum:
-      - Paypal
-      - BankCard
-      - Alternative
-      - Manual
-      type: string
-    CartShipment:
-      type: object
-      properties:
-        shipmentMethodCode:
-          type:
-          - string
-          - 'null'
-        shipmentMethodOption:
-          type:
-          - string
-          - 'null'
-        fulfillmentCenterId:
-          type:
-          - string
-          - 'null'
-        fulfillmentCenterName:
-          type:
-          - string
-          - 'null'
-        warehouseLocation:
-          type:
-          - string
-          - 'null'
-        currency:
-          type:
-          - string
-          - 'null'
-        volumetricWeight:
-          type:
-          - number
-          - 'null'
-          format: double
-        weightUnit:
-          type:
-          - string
-          - 'null'
-        weight:
-          type:
-          - number
-          - 'null'
-          format: double
-        measureUnit:
-          type:
-          - string
-          - 'null'
-        height:
-          type:
-          - number
-          - 'null'
-          format: double
-        length:
-          type:
-          - number
-          - 'null'
-          format: double
-        width:
-          type:
-          - number
-          - 'null'
-          format: double
-        price:
-          type: number
-          format: double
-        priceWithTax:
-          type: number
-          format: double
-        total:
-          type: number
-          format: double
-        totalWithTax:
-          type: number
-          format: double
-        discountAmount:
-          type: number
-          format: double
-        discountAmountWithTax:
-          type: number
-          format: double
-        pickupLocationId:
-          type:
-          - string
-          - 'null'
-        fee:
-          type: number
-          format: double
-        feeWithTax:
-          type: number
-          format: double
-        vendorId:
-          type:
-          - string
-          - 'null'
-        comment:
-          type:
-          - string
-          - 'null'
-        taxType:
-          type:
-          - string
-          - 'null'
-        taxTotal:
-          type: number
-          format: double
-        taxPercentRate:
-          type: number
-          format: double
-        deliveryAddress:
-          allOf:
-          - $ref: '#/components/schemas/CartAddress'
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/CartShipmentItem'
-        discounts:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Discount'
-        taxDetails:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/TaxDetail'
-        objectType:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-        dynamicProperties:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/DynamicObjectProperty'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    TaxDetail:
-      type: object
-      properties:
-        rate:
-          type: number
-          format: double
-        amount:
-          type: number
-          format: double
-        name:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    DynamicPropertyObjectValue:
-      type: object
-      properties:
-        objectType:
-          type:
-          - string
-          - 'null'
-        objectId:
-          type:
-          - string
-          - 'null'
-        locale:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - object
-          - 'null'
-        valueId:
-          type:
-          - string
-          - 'null'
-        valueType:
-          allOf:
-          - $ref: '#/components/schemas/DynamicPropertyValueType'
-        propertyId:
-          type:
-          - string
-          - 'null'
-        propertyName:
           type:
           - string
           - 'null'

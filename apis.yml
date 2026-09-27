@@ -6,17 +6,24 @@ description: Virto Commerce is an open-source, API-first B2B e-commerce platform
   quotes, contracts, and approval routing. The modular architecture offers 100+ independently deployable
   modules covering the full commerce stack for enterprise deployments.
 deliveryModel:
-  model: unknown
+  model: saas
+  license_evidence:
+    not_product:
+    - virtocommerce/vc-module-catalog
+    - virtocommerce/vc-module-customer
+    - virtocommerce/vc-module-inventory
+    - virtocommerce/vc-module-marketing
+    - virtocommerce/vc-module-order
   open_source: unknown
   commercial: true
   callable_host: true
-  label: Delivery model not determined — needs a product licence on record
+  label: Hosted service · you call their endpoint
   confidence: low
   source:
   - openapi
   - pricing
-  - repository-unlicensed
-  generated: '2026-08-28'
+  - repository-not-product
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: freemium
@@ -49,7 +56,7 @@ tags:
 - Shipping
 - Subscription
 - Headless Commerce
-- Open-Source
+- Open Source
 - .NET
 - Webhook
 - Event-Driven
@@ -80,6 +87,7 @@ tags_raw:
 - Returns
 - MCP
 - B2B Quotes
+- Open-Source
 apis:
 - aid: virto-commerce:virto-commerce-catalog-api
   name: Virto Commerce Catalog API

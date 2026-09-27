@@ -254,13 +254,15 @@ paths:
     post:
       tags:
       - VirtoCommerce Platform
-      operationId: Authorization_Authorize
+      operationId: postConnectAuthorize
       responses:
         '200':
           description: OK
       x-virtocommerce-module-id: VirtoCommerce.Platform
       summary: Authorization authorize
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Authorization_Authorize
   /connect/userinfo:
     get:
       tags:
@@ -275,13 +277,15 @@ paths:
     post:
       tags:
       - VirtoCommerce Platform
-      operationId: Authorization_Userinfo
+      operationId: postConnectUserinfo
       responses:
         '200':
           description: OK
       x-virtocommerce-module-id: VirtoCommerce.Platform
       summary: Authorization userinfo
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Authorization_Userinfo
   /connect/logout:
     get:
       tags:
@@ -4840,6 +4844,1704 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    ObjectSettingEntry:
+      type: object
+      properties:
+        itHasValues:
+          type: boolean
+          readOnly: true
+        objectId:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        isReadOnly:
+          type: boolean
+        value:
+          type:
+          - object
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+        restartRequired:
+          type: boolean
+        moduleId:
+          type:
+          - string
+          - 'null'
+        groupName:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        displayName:
+          type:
+          - string
+          - 'null'
+        isRequired:
+          type: boolean
+        isHidden:
+          type: boolean
+        isPublic:
+          type: boolean
+        valueType:
+          allOf:
+          - $ref: '#/components/schemas/SettingValueType'
+        allowedValues:
+          type:
+          - array
+          - 'null'
+          items:
+            type: object
+        defaultValue:
+          type:
+          - object
+          - 'null'
+        isDictionary:
+          type: boolean
+        isLocalizable:
+          type: boolean
+        tenant:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    DynamicPropertySearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicProperty'
+      additionalProperties: false
+    ModuleAutoInstallPushNotification:
+      type: object
+      properties:
+        started:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        finished:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        progressLog:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ProgressMessage'
+        totalCount:
+          type: integer
+          format: int32
+        errorCount:
+          type: integer
+          format: int32
+          readOnly: true
+        serverId:
+          type:
+          - string
+          - 'null'
+        creator:
+          type:
+          - string
+          - 'null'
+        created:
+          type: string
+          format: date-time
+        isNew:
+          type: boolean
+        notifyType:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        repeatCount:
+          type: integer
+          format: int32
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ProgressMessage:
+      type: object
+      properties:
+        message:
+          type:
+          - string
+          - 'null'
+        level:
+          allOf:
+          - $ref: '#/components/schemas/ProgressMessageLevel'
+      additionalProperties: false
+    Permission:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        moduleId:
+          type:
+          - string
+          - 'null'
+        groupName:
+          type:
+          - string
+          - 'null'
+        assignedScopes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PermissionScope'
+        availableScopes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PermissionScope'
+          readOnly: true
+      additionalProperties: false
+    ApplicationUser:
+      type: object
+      properties:
+        storeId:
+          type:
+          - string
+          - 'null'
+        memberId:
+          type:
+          - string
+          - 'null'
+        isAdministrator:
+          type: boolean
+        photoUrl:
+          type:
+          - string
+          - 'null'
+        userType:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - string
+          - 'null'
+        password:
+          type:
+          - string
+          - 'null'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          type:
+          - string
+          - 'null'
+        roles:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Role'
+        logins:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ApplicationUserLogin'
+        passwordExpired:
+          type: boolean
+        lastPasswordChangedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        lastPasswordChangeRequestDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        lastLoginDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        id:
+          type:
+          - string
+          - 'null'
+        userName:
+          type:
+          - string
+          - 'null'
+        normalizedUserName:
+          type:
+          - string
+          - 'null'
+        email:
+          type:
+          - string
+          - 'null'
+        normalizedEmail:
+          type:
+          - string
+          - 'null'
+        emailConfirmed:
+          type: boolean
+        passwordHash:
+          type:
+          - string
+          - 'null'
+        securityStamp:
+          type:
+          - string
+          - 'null'
+        concurrencyStamp:
+          type:
+          - string
+          - 'null'
+        phoneNumber:
+          type:
+          - string
+          - 'null'
+        phoneNumberConfirmed:
+          type: boolean
+        twoFactorEnabled:
+          type: boolean
+        lockoutEnd:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        lockoutEnabled:
+          type: boolean
+        accessFailedCount:
+          type: integer
+          format: int32
+      additionalProperties: false
+    EntryState:
+      enum:
+      - Detached
+      - Unchanged
+      - Added
+      - Deleted
+      - Modified
+      type: string
+    License:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        customerName:
+          type:
+          - string
+          - 'null'
+        customerEmail:
+          type:
+          - string
+          - 'null'
+        expirationDate:
+          type: string
+          format: date-time
+        rawLicense:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ModulePushNotification:
+      type: object
+      properties:
+        started:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        finished:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        progressLog:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ProgressMessage'
+        totalCount:
+          type: integer
+          format: int32
+        errorCount:
+          type: integer
+          format: int32
+          readOnly: true
+        serverId:
+          type:
+          - string
+          - 'null'
+        creator:
+          type:
+          - string
+          - 'null'
+        created:
+          type: string
+          format: date-time
+        isNew:
+          type: boolean
+        notifyType:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        repeatCount:
+          type: integer
+          format: int32
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    UserSession:
+      type: object
+      properties:
+        sessionGroupId:
+          type:
+          - string
+          - 'null'
+        createdDate:
+          type: string
+          format: date-time
+        expirationDate:
+          type: string
+          format: date-time
+        ipAddress:
+          type:
+          - string
+          - 'null'
+        userAgent:
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PluginRemote:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        exposed:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      description: 'Module Federation remote coordinates for a plugin. Mirrors the shape
+
+        expected by `@module-federation/runtime`.'
+    ICryptoProvider:
+      type: object
+      additionalProperties: false
+    DynamicProperty:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        isArray:
+          type: boolean
+        isDictionary:
+          type: boolean
+        isMultilingual:
+          type: boolean
+        isRequired:
+          type: boolean
+        displayOrder:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        valueType:
+          allOf:
+          - $ref: '#/components/schemas/DynamicPropertyValueType'
+        displayNames:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicPropertyName'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Role:
+      type: object
+      properties:
+        description:
+          type:
+          - string
+          - 'null'
+        permissions:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Permission'
+        id:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        normalizedName:
+          type:
+          - string
+          - 'null'
+        concurrencyStamp:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ChangePasswordRequest:
+      type: object
+      properties:
+        userName:
+          type:
+          - string
+          - 'null'
+        oldPassword:
+          type:
+          - string
+          - 'null'
+        newPassword:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ModuleInstallRequest:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+        version:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    SystemInfo:
+      type: object
+      properties:
+        platformVersion:
+          type:
+          - string
+          - 'null'
+        license:
+          allOf:
+          - $ref: '#/components/schemas/License'
+        installedModules:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ModuleDescriptor'
+        version:
+          type:
+          - string
+          - 'null'
+        is64BitOperatingSystem:
+          type: boolean
+        is64BitProcess:
+          type: boolean
+        databaseProvider:
+          type:
+          - string
+          - 'null'
+        environmentName:
+          type:
+          - string
+          - 'null'
+        runtimeIdentifier:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    DynamicPropertyName:
+      type: object
+      properties:
+        locale:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    SemanticVersion:
+      type: object
+      properties:
+        major:
+          type: integer
+          format: int32
+          readOnly: true
+        minor:
+          type: integer
+          format: int32
+          readOnly: true
+        patch:
+          type: integer
+          format: int32
+          readOnly: true
+        prerelease:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+      additionalProperties: false
+    RoleSearchResult:
+      type: object
+      properties:
+        roles:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Role'
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Role'
+      additionalProperties: false
+    JsonWebKey:
+      type: object
+      properties:
+        additionalData:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - object
+            - 'null'
+          readOnly: true
+        alg:
+          type:
+          - string
+          - 'null'
+        crv:
+          type:
+          - string
+          - 'null'
+        d:
+          type:
+          - string
+          - 'null'
+        dp:
+          type:
+          - string
+          - 'null'
+        dq:
+          type:
+          - string
+          - 'null'
+        e:
+          type:
+          - string
+          - 'null'
+        k:
+          type:
+          - string
+          - 'null'
+        keyId:
+          type:
+          - string
+          - 'null'
+        keyOps:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          readOnly: true
+        kid:
+          type:
+          - string
+          - 'null'
+        kty:
+          type:
+          - string
+          - 'null'
+        n:
+          type:
+          - string
+          - 'null'
+        oth:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          readOnly: true
+        p:
+          type:
+          - string
+          - 'null'
+        q:
+          type:
+          - string
+          - 'null'
+        qi:
+          type:
+          - string
+          - 'null'
+        use:
+          type:
+          - string
+          - 'null'
+        x:
+          type:
+          - string
+          - 'null'
+        x5c:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          readOnly: true
+        x5t:
+          type:
+          - string
+          - 'null'
+        x5tS256:
+          type:
+          - string
+          - 'null'
+        x5u:
+          type:
+          - string
+          - 'null'
+        y:
+          type:
+          - string
+          - 'null'
+        keySize:
+          type: integer
+          format: int32
+          readOnly: true
+        hasPrivateKey:
+          type: boolean
+          readOnly: true
+        cryptoProviderFactory:
+          allOf:
+          - $ref: '#/components/schemas/CryptoProviderFactory'
+      additionalProperties: false
+    LocalizableSetting:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        isLocalizable:
+          type: boolean
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DictionaryItem'
+      additionalProperties: false
+    DynamicPropertyObjectValue:
+      type: object
+      properties:
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectId:
+          type:
+          - string
+          - 'null'
+        locale:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - object
+          - 'null'
+        valueId:
+          type:
+          - string
+          - 'null'
+        valueType:
+          allOf:
+          - $ref: '#/components/schemas/DynamicPropertyValueType'
+        propertyId:
+          type:
+          - string
+          - 'null'
+        propertyName:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ModuleIdentity:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+        version:
+          allOf:
+          - $ref: '#/components/schemas/SemanticVersion'
+        optional:
+          type: boolean
+      additionalProperties: false
+    AppDescriptor:
+      type: object
+      properties:
+        title:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        iconUrl:
+          type:
+          - string
+          - 'null'
+        relativeUrl:
+          type:
+          - string
+          - 'null'
+        permission:
+          type:
+          - string
+          - 'null'
+        placement:
+          allOf:
+          - $ref: '#/components/schemas/AppPlacement'
+          description: 'Where the app surfaces in the admin navigation
+
+            (`AppMenu` / `MainMenu` / `Hidden`).'
+        supportEmbeddedMode:
+          type: boolean
+          description: 'Deprecated. Use VirtoCommerce.Platform.Web.Model.Modularity.AppDescriptor.Placement instead. Equivalent to
+
+            `Placement == AppPlacement.MainMenu`; kept on the JSON
+
+            contract for backwards compatibility.'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    DynamicPropertyValueType:
+      enum:
+      - Undefined
+      - ShortText
+      - LongText
+      - Integer
+      - Decimal
+      - DateTime
+      - Boolean
+      - Html
+      - Image
+      type: string
+    ChangedEntitiesResponse:
+      type: object
+      properties:
+        entities:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ChangedEntity'
+      additionalProperties: false
+    KeyValue:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ResetPasswordConfirmRequest:
+      type: object
+      properties:
+        token:
+          type:
+          - string
+          - 'null'
+        newPassword:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ChangeLogSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OperationLog'
+      additionalProperties: false
+    VerifyTokenRequest:
+      type: object
+      properties:
+        tokenProvider:
+          type:
+          - string
+          - 'null'
+        purpose:
+          type:
+          - string
+          - 'null'
+        token:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    SecurityResult:
+      type: object
+      properties:
+        succeeded:
+          type: boolean
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+      additionalProperties: false
+    AppManifestResponse:
+      type: object
+      properties:
+        appId:
+          type:
+          - string
+          - 'null'
+          description: Echo of the requested app id (e.g. `vc-shell-marketplace`, `system-operations`, `platform`).
+        version:
+          type:
+          - string
+          - 'null'
+          description: 'Version of the host app — taken from the running platform when
+
+            VirtoCommerce.Platform.Web.Model.Modularity.AppManifestResponse.AppId is the reserved `platform` id, otherwise
+
+            from the module that declares the `<app>` in its
+
+            `module.manifest`. Useful for clients that want to surface the
+
+            host''s version (e.g. footer banner, support diagnostics) without
+
+            a second round-trip.'
+        title:
+          type:
+          - string
+          - 'null'
+          description: 'Display title of the host app, taken from the owning module''s
+
+            `<app>` declaration in `module.manifest`.'
+        plugins:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PluginEntry'
+          description: 'Plugins to load, in topological dependency order of their owning modules.
+
+            Already filtered by current user permissions and (for Module Federation
+
+            hosts) by host-app discovery folder convention.'
+      additionalProperties: false
+      description: 'Response shape for `GET /api/apps/{appId}/manifest`.
+
+        Returns the host app metadata plus a topologically ordered, permission-filtered
+
+        list of plugins the host should load.'
+    ContentFile:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: 'Asset kind. See VirtoCommerce.Platform.Core.Modularity.ContentFileTypes
+
+            for the canonical values. Lower-case string so the JSON contract is
+
+            stable against future C# enum renames.'
+        path:
+          type:
+          - string
+          - 'null'
+          description: 'Absolute URL path served by the platform''s static-file middleware,
+
+            e.g. `/modules/$(VirtoCommerce.Catalog)/dist/app.js`.'
+        hash:
+          type:
+          - string
+          - 'null'
+          description: 'Cache-busting hash (`?v={hash}`). Stable across requests as long
+
+            as the file''s last-write time is unchanged. `null` when the file
+
+            doesn''t exist on disk (e.g. a manifest reference that fell back to
+
+            convention defaults).'
+      additionalProperties: false
+      description: 'One asset belonging to a plugin (script, stylesheet, etc.). Carries the
+
+        information a client-side loader needs to build the right HTML element
+
+        with proper cache busting.'
+    UserSearchResult:
+      type: object
+      properties:
+        users:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ApplicationUser'
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ApplicationUser'
+      additionalProperties: false
+    SignInResult:
+      type: object
+      properties:
+        succeeded:
+          type: boolean
+          readOnly: true
+        isLockedOut:
+          type: boolean
+          readOnly: true
+        isNotAllowed:
+          type: boolean
+          readOnly: true
+        requiresTwoFactor:
+          type: boolean
+          readOnly: true
+      additionalProperties: false
+    LocalizedValue:
+      type: object
+      properties:
+        languageCode:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    SettingPropertySchema:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        displayName:
+          type:
+          - string
+          - 'null'
+        groupName:
+          type:
+          - string
+          - 'null'
+        moduleId:
+          type:
+          - string
+          - 'null'
+        valueType:
+          allOf:
+          - $ref: '#/components/schemas/SettingValueType'
+        defaultValue:
+          type:
+          - object
+          - 'null'
+        allowedValues:
+          type:
+          - array
+          - 'null'
+          items:
+            type: object
+        isRequired:
+          type: boolean
+        isReadOnly:
+          type: boolean
+        isDictionary:
+          type: boolean
+        isLocalizable:
+          type: boolean
+        restartRequired:
+          type: boolean
+        assignedToTenants:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+      additionalProperties: false
+    DynamicPropertyDictionaryItem:
+      type: object
+      properties:
+        propertyId:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        displayNames:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicPropertyDictionaryItemName'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    JsonValueKind:
+      enum:
+      - Undefined
+      - Object
+      - Array
+      - String
+      - Number
+      - 'True'
+      - 'False'
+      - 'Null'
+      type: string
+    Job:
+      type: object
+      properties:
+        state:
+          type:
+          - string
+          - 'null'
+        completed:
+          type: boolean
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ResetPasswordRequest:
+      type: object
+      properties:
+        newPassword:
+          type:
+          - string
+          - 'null'
+        forcePasswordChangeOnNextSignIn:
+          type: boolean
+      additionalProperties: false
+    DynamicPropertySearchCriteria:
+      type: object
+      properties:
+        typeName:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
+      additionalProperties: false
+    ChangeLogSearchCriteria:
+      type: object
+      properties:
+        operationTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/EntryState'
+        startDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        endDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
+      additionalProperties: false
+    OpenIddictApplicationDescriptor:
+      type: object
+      properties:
+        applicationType:
+          type:
+          - string
+          - 'null'
+        clientId:
+          type:
+          - string
+          - 'null'
+        clientSecret:
+          type:
+          - string
+          - 'null'
+        clientType:
+          type:
+          - string
+          - 'null'
+        consentType:
+          type:
+          - string
+          - 'null'
+        displayName:
+          type:
+          - string
+          - 'null'
+        displayNames:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+          readOnly: true
+        jsonWebKeySet:
+          allOf:
+          - $ref: '#/components/schemas/JsonWebKeySet'
+        permissions:
+          uniqueItems: true
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          readOnly: true
+        postLogoutRedirectUris:
+          uniqueItems: true
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            format: uri
+          readOnly: true
+        properties:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            $ref: '#/components/schemas/JsonElement'
+          readOnly: true
+        redirectUris:
+          uniqueItems: true
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            format: uri
+          readOnly: true
+        requirements:
+          uniqueItems: true
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          readOnly: true
+        settings:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+          readOnly: true
+      additionalProperties: false
+    OpenIddictResponse:
+      type: object
+      properties:
+        accessToken:
+          type:
+          - string
+          - 'null'
+        code:
+          type:
+          - string
+          - 'null'
+        deviceCode:
+          type:
+          - string
+          - 'null'
+        error:
+          type:
+          - string
+          - 'null'
+        errorDescription:
+          type:
+          - string
+          - 'null'
+        errorUri:
+          type:
+          - string
+          - 'null'
+        expiresIn:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        idToken:
+          type:
+          - string
+          - 'null'
+        iss:
+          type:
+          - string
+          - 'null'
+        issuedTokenType:
+          type:
+          - string
+          - 'null'
+        refreshToken:
+          type:
+          - string
+          - 'null'
+        requestUri:
+          type:
+          - string
+          - 'null'
+        scope:
+          type:
+          - string
+          - 'null'
+        state:
+          type:
+          - string
+          - 'null'
+        tokenType:
+          type:
+          - string
+          - 'null'
+        userCode:
+          type:
+          - string
+          - 'null'
+        verificationUri:
+          type:
+          - string
+          - 'null'
+        verificationUriComplete:
+          type:
+          - string
+          - 'null'
+        count:
+          type: integer
+          format: int32
+          readOnly: true
+      additionalProperties: false
+    ClaimsIdentity:
+      type: object
+      properties:
+        authenticationType:
+          type:
+          - string
+          - 'null'
+        isAuthenticated:
+          type: boolean
+          readOnly: true
+        actor:
+          allOf:
+          - $ref: '#/components/schemas/ClaimsIdentity'
+        bootstrapContext:
+          type:
+          - object
+          - 'null'
+        claims:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Claim'
+        label:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        nameClaimType:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        roleClaimType:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+      additionalProperties: false
+    PushNotificationSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        newCount:
+          type: integer
+          format: int32
+        notifyEvents:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PushNotification'
+      additionalProperties: false
+    SettingValueType:
+      enum:
+      - ShortText
+      - LongText
+      - Integer
+      - Decimal
+      - DateTime
+      - Boolean
+      - SecureString
+      - Json
+      - PositiveInteger
+      type: string
+    ChangedEntity:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        modifiedDate:
+          type: string
+          format: date-time
+      additionalProperties: false
+    CryptoProviderCache:
+      type: object
+      additionalProperties: false
+    DynamicPropertyDictionaryItemSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicPropertyDictionaryItem'
+      additionalProperties: false
+    OAuthAppSearchCriteria:
+      type: object
+      properties:
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
+      additionalProperties: false
+    JsonWebKeySet:
+      type: object
+      properties:
+        additionalData:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - object
+            - 'null'
+          readOnly: true
+        keys:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/JsonWebKey'
+          readOnly: true
+        skipUnresolvedJsonWebKeys:
+          type: boolean
+          default: true
+        jsonData:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     PushNotificationSearchCriteria:
       type: object
       properties:
@@ -4857,6 +6559,869 @@ components:
           - 'null'
           format: date-time
         endDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
+      additionalProperties: false
+    DynamicObjectProperty:
+      type: object
+      properties:
+        objectId:
+          type:
+          - string
+          - 'null'
+        values:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicPropertyObjectValue'
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        isArray:
+          type: boolean
+        isDictionary:
+          type: boolean
+        isMultilingual:
+          type: boolean
+        isRequired:
+          type: boolean
+        displayOrder:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        valueType:
+          allOf:
+          - $ref: '#/components/schemas/DynamicPropertyValueType'
+        displayNames:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicPropertyName'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PermissionScope:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        label:
+          type:
+          - string
+          - 'null'
+        scope:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    UserLockedResult:
+      type: object
+      properties:
+        locked:
+          type: boolean
+      additionalProperties: false
+    DynamicPropertyDictionaryItemName:
+      type: object
+      properties:
+        locale:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CryptoProviderFactory:
+      type: object
+      properties:
+        cryptoProviderCache:
+          allOf:
+          - $ref: '#/components/schemas/CryptoProviderCache'
+          readOnly: true
+        customCryptoProvider:
+          allOf:
+          - $ref: '#/components/schemas/ICryptoProvider'
+        cacheSignatureProviders:
+          type: boolean
+          default: true
+        signatureProviderObjectPoolCacheSize:
+          type: integer
+          format: int32
+      additionalProperties: false
+    LocalizableSettingsAndLanguages:
+      type: object
+      properties:
+        settings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/LocalizableSetting'
+        languages:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+      additionalProperties: false
+    ValidatePasswordResetTokenRequest:
+      type: object
+      properties:
+        token:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PluginEntry:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: 'Unique plugin id within the (host app, request) tuple.
+
+            Defaults to the owning .NET module id (e.g. `VirtoCommerce.MarketplaceReviews`).'
+        version:
+          type:
+          - string
+          - 'null'
+          description: Plugin version. Defaults to the parent module version.
+        entry:
+          allOf:
+          - $ref: '#/components/schemas/ContentFile'
+          description: 'The plugin''s primary file. For Module Federation plugins this is the
+
+            federation entry (`remoteEntry.js`). For the legacy AngularJS host
+
+            it is the module bundle (`dist/app.js`). Always a script.'
+        contentFiles:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ContentFile'
+          description: 'Additional assets the host should preload alongside VirtoCommerce.Platform.Web.Model.Modularity.PluginEntry.Entry
+
+            (typically stylesheets). Each carries its own type so a generic loader
+
+            can dispatch on it.'
+        remote:
+          allOf:
+          - $ref: '#/components/schemas/PluginRemote'
+          description: Module Federation coordinates. `null` for the legacy AngularJS host.
+      additionalProperties: false
+      description: 'One plugin contribution to a host app, returned by
+
+        `GET /api/apps/{appId}/manifest`.'
+    JsonElement:
+      type: object
+      properties:
+        valueKind:
+          allOf:
+          - $ref: '#/components/schemas/JsonValueKind'
+          readOnly: true
+      additionalProperties: false
+    ExternalSignInProviderInfo:
+      type: object
+      properties:
+        authenticationType:
+          type:
+          - string
+          - 'null'
+        displayName:
+          type:
+          - string
+          - 'null'
+        logoUrl:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    LastModifiedResponse:
+      type: object
+      properties:
+        scope:
+          type:
+          - string
+          - 'null'
+        lastModifiedDate:
+          type: string
+          format: date-time
+      additionalProperties: false
+    OperationLog:
+      type: object
+      properties:
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectId:
+          type:
+          - string
+          - 'null'
+        operationType:
+          allOf:
+          - $ref: '#/components/schemas/EntryState'
+        detail:
+          type:
+          - string
+          - 'null'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    UserSessionSearchCriteria:
+      type: object
+      properties:
+        userId:
+          type:
+          - string
+          - 'null'
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
+      additionalProperties: false
+    SortInfo:
+      type: object
+      properties:
+        sortColumn:
+          type:
+          - string
+          - 'null'
+        sortDirection:
+          allOf:
+          - $ref: '#/components/schemas/SortDirection'
+      additionalProperties: false
+    UserSessionSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UserSession'
+      additionalProperties: false
+    DynamicPropertyDictionaryItemSearchCriteria:
+      type: object
+      properties:
+        propertyId:
+          type:
+          - string
+          - 'null'
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
+      additionalProperties: false
+    IdentityResult:
+      type: object
+      properties:
+        succeeded:
+          type: boolean
+          readOnly: true
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IdentityError'
+          readOnly: true
+      additionalProperties: false
+    RoleSearchCriteria:
+      type: object
+      properties:
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
+      additionalProperties: false
+    DictionaryItem:
+      type: object
+      properties:
+        alias:
+          type:
+          - string
+          - 'null'
+        localizedValues:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/LocalizedValue'
+      additionalProperties: false
+    Claim:
+      type: object
+      properties:
+        issuer:
+          type:
+          - string
+          - 'null'
+        originalIssuer:
+          type:
+          - string
+          - 'null'
+        properties:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+          readOnly: true
+        subject:
+          allOf:
+          - $ref: '#/components/schemas/ClaimsIdentity'
+        type:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+        valueType:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ApplicationUserLogin:
+      type: object
+      properties:
+        loginProvider:
+          type:
+          - string
+          - 'null'
+        providerKey:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    LoginRequest:
+      type: object
+      properties:
+        userName:
+          type:
+          - string
+          - 'null'
+        password:
+          type:
+          - string
+          - 'null'
+        rememberMe:
+          type: boolean
+      additionalProperties: false
+    UserApiKey:
+      type: object
+      properties:
+        apiKey:
+          type:
+          - string
+          - 'null'
+        userName:
+          type:
+          - string
+          - 'null'
+        userId:
+          type:
+          - string
+          - 'null'
+        isActive:
+          type: boolean
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ChangedEntitiesRequest:
+      type: object
+      properties:
+        entityNames:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        modifiedSince:
+          type: string
+          format: date-time
+      additionalProperties: false
+    ProgressMessageLevel:
+      enum:
+      - Info
+      - Warning
+      - Debug
+      - Error
+      type: string
+    DeveloperToolDescriptor:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        url:
+          type:
+          - string
+          - 'null'
+        isExternal:
+          type: boolean
+        sortOrder:
+          type: integer
+          format: int32
+        permission:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ConfirmEmailRequest:
+      type: object
+      properties:
+        token:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    UserDetail:
+      type: object
+      properties:
+        permissions:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        userName:
+          type:
+          - string
+          - 'null'
+        isAdministrator:
+          type: boolean
+        passwordExpired:
+          type: boolean
+        daysTillPasswordExpiry:
+          type: integer
+          format: int32
+        authenticationMethod:
+          type:
+          - string
+          - 'null'
+        isSsoAuthenticationMethod:
+          type: boolean
+        memberId:
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PushNotification:
+      type: object
+      properties:
+        serverId:
+          type:
+          - string
+          - 'null'
+        creator:
+          type:
+          - string
+          - 'null'
+        created:
+          type: string
+          format: date-time
+        isNew:
+          type: boolean
+        notifyType:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        repeatCount:
+          type: integer
+          format: int32
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    LoginType:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        hasLoginForm:
+          type: boolean
+        authenticationType:
+          type:
+          - string
+          - 'null'
+        priority:
+          type: integer
+          format: int32
+      additionalProperties: false
+    IdentityError:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    OAuthAppSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OpenIddictApplicationDescriptor'
+      additionalProperties: false
+    SortDirection:
+      enum:
+      - Ascending
+      - Descending
+      type: string
+    UserSearchCriteria:
+      type: object
+      properties:
+        memberId:
+          type:
+          - string
+          - 'null'
+        memberIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        modifiedSinceDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        roles:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        lasLoginDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          deprecated: true
+        onlyUnlocked:
+          type: boolean
+        onlyLocked:
+          type: boolean
+        emailConfirmed:
+          type:
+          - boolean
+          - 'null'
+        userType:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - string
+          - 'null'
+        storeId:
+          type:
+          - string
+          - 'null'
+        loginStartDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        loginEndDate:
           type:
           - string
           - 'null'
@@ -5002,2573 +7567,12 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    PluginEntry:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-          description: 'Unique plugin id within the (host app, request) tuple.
-
-            Defaults to the owning .NET module id (e.g. `VirtoCommerce.MarketplaceReviews`).'
-        version:
-          type:
-          - string
-          - 'null'
-          description: Plugin version. Defaults to the parent module version.
-        entry:
-          allOf:
-          - $ref: '#/components/schemas/ContentFile'
-          description: 'The plugin''s primary file. For Module Federation plugins this is the
-
-            federation entry (`remoteEntry.js`). For the legacy AngularJS host
-
-            it is the module bundle (`dist/app.js`). Always a script.'
-        contentFiles:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ContentFile'
-          description: 'Additional assets the host should preload alongside VirtoCommerce.Platform.Web.Model.Modularity.PluginEntry.Entry
-
-            (typically stylesheets). Each carries its own type so a generic loader
-
-            can dispatch on it.'
-        remote:
-          allOf:
-          - $ref: '#/components/schemas/PluginRemote'
-          description: Module Federation coordinates. `null` for the legacy AngularJS host.
-      additionalProperties: false
-      description: 'One plugin contribution to a host app, returned by
-
-        `GET /api/apps/{appId}/manifest`.'
-    OAuthAppSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/OpenIddictApplicationDescriptor'
-      additionalProperties: false
-    ChangePasswordRequest:
-      type: object
-      properties:
-        userName:
-          type:
-          - string
-          - 'null'
-        oldPassword:
-          type:
-          - string
-          - 'null'
-        newPassword:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    LoginType:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-        hasLoginForm:
-          type: boolean
-        authenticationType:
-          type:
-          - string
-          - 'null'
-        priority:
-          type: integer
-          format: int32
-      additionalProperties: false
-    DynamicPropertyDictionaryItemName:
-      type: object
-      properties:
-        locale:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    SettingValueType:
-      enum:
-      - ShortText
-      - LongText
-      - Integer
-      - Decimal
-      - DateTime
-      - Boolean
-      - SecureString
-      - Json
-      - PositiveInteger
-      type: string
-    AppDescriptor:
-      type: object
-      properties:
-        title:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        iconUrl:
-          type:
-          - string
-          - 'null'
-        relativeUrl:
-          type:
-          - string
-          - 'null'
-        permission:
-          type:
-          - string
-          - 'null'
-        placement:
-          allOf:
-          - $ref: '#/components/schemas/AppPlacement'
-          description: 'Where the app surfaces in the admin navigation
-
-            (`AppMenu` / `MainMenu` / `Hidden`).'
-        supportEmbeddedMode:
-          type: boolean
-          description: 'Deprecated. Use VirtoCommerce.Platform.Web.Model.Modularity.AppDescriptor.Placement instead. Equivalent to
-
-            `Placement == AppPlacement.MainMenu`; kept on the JSON
-
-            contract for backwards compatibility.'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    UserLockedResult:
-      type: object
-      properties:
-        locked:
-          type: boolean
-      additionalProperties: false
-    CryptoProviderCache:
-      type: object
-      additionalProperties: false
-    VerifyTokenRequest:
-      type: object
-      properties:
-        tokenProvider:
-          type:
-          - string
-          - 'null'
-        purpose:
-          type:
-          - string
-          - 'null'
-        token:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    OAuthAppSearchCriteria:
-      type: object
-      properties:
-        responseGroup:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-        objectTypes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        objectIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        keyword:
-          type:
-          - string
-          - 'null'
-        searchPhrase:
-          type:
-          - string
-          - 'null'
-        languageCode:
-          type:
-          - string
-          - 'null'
-        sort:
-          type:
-          - string
-          - 'null'
-        sortInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
-    ModuleIdentity:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-        version:
-          allOf:
-          - $ref: '#/components/schemas/SemanticVersion'
-        optional:
-          type: boolean
-      additionalProperties: false
-    JsonValueKind:
-      enum:
-      - Undefined
-      - Object
-      - Array
-      - String
-      - Number
-      - 'True'
-      - 'False'
-      - 'Null'
-      type: string
-    DynamicPropertyName:
-      type: object
-      properties:
-        locale:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    IdentityResult:
-      type: object
-      properties:
-        succeeded:
-          type: boolean
-          readOnly: true
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/IdentityError'
-          readOnly: true
-      additionalProperties: false
-    ProgressMessageLevel:
-      enum:
-      - Info
-      - Warning
-      - Debug
-      - Error
-      type: string
-    ValidatePasswordResetTokenRequest:
-      type: object
-      properties:
-        token:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    UserSessionSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/UserSession'
-      additionalProperties: false
-    LocalizedValue:
-      type: object
-      properties:
-        languageCode:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    JsonElement:
-      type: object
-      properties:
-        valueKind:
-          allOf:
-          - $ref: '#/components/schemas/JsonValueKind'
-          readOnly: true
-      additionalProperties: false
-    DynamicPropertySearchCriteria:
-      type: object
-      properties:
-        typeName:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-        responseGroup:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-        objectTypes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        objectIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        keyword:
-          type:
-          - string
-          - 'null'
-        searchPhrase:
-          type:
-          - string
-          - 'null'
-        languageCode:
-          type:
-          - string
-          - 'null'
-        sort:
-          type:
-          - string
-          - 'null'
-        sortInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
-    ApplicationUserLogin:
-      type: object
-      properties:
-        loginProvider:
-          type:
-          - string
-          - 'null'
-        providerKey:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    UserSession:
-      type: object
-      properties:
-        sessionGroupId:
-          type:
-          - string
-          - 'null'
-        createdDate:
-          type: string
-          format: date-time
-        expirationDate:
-          type: string
-          format: date-time
-        ipAddress:
-          type:
-          - string
-          - 'null'
-        userAgent:
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    DynamicPropertyDictionaryItem:
-      type: object
-      properties:
-        propertyId:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        displayNames:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/DynamicPropertyDictionaryItemName'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    DynamicProperty:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-        isArray:
-          type: boolean
-        isDictionary:
-          type: boolean
-        isMultilingual:
-          type: boolean
-        isRequired:
-          type: boolean
-        displayOrder:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        valueType:
-          allOf:
-          - $ref: '#/components/schemas/DynamicPropertyValueType'
-        displayNames:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/DynamicPropertyName'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    DynamicPropertySearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/DynamicProperty'
-      additionalProperties: false
-    UserApiKey:
-      type: object
-      properties:
-        apiKey:
-          type:
-          - string
-          - 'null'
-        userName:
-          type:
-          - string
-          - 'null'
-        userId:
-          type:
-          - string
-          - 'null'
-        isActive:
-          type: boolean
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ApplicationUser:
-      type: object
-      properties:
-        storeId:
-          type:
-          - string
-          - 'null'
-        memberId:
-          type:
-          - string
-          - 'null'
-        isAdministrator:
-          type: boolean
-        photoUrl:
-          type:
-          - string
-          - 'null'
-        userType:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - string
-          - 'null'
-        password:
-          type:
-          - string
-          - 'null'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          type:
-          - string
-          - 'null'
-        roles:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Role'
-        logins:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ApplicationUserLogin'
-        passwordExpired:
-          type: boolean
-        lastPasswordChangedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        lastPasswordChangeRequestDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        lastLoginDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        id:
-          type:
-          - string
-          - 'null'
-        userName:
-          type:
-          - string
-          - 'null'
-        normalizedUserName:
-          type:
-          - string
-          - 'null'
-        email:
-          type:
-          - string
-          - 'null'
-        normalizedEmail:
-          type:
-          - string
-          - 'null'
-        emailConfirmed:
-          type: boolean
-        passwordHash:
-          type:
-          - string
-          - 'null'
-        securityStamp:
-          type:
-          - string
-          - 'null'
-        concurrencyStamp:
-          type:
-          - string
-          - 'null'
-        phoneNumber:
-          type:
-          - string
-          - 'null'
-        phoneNumberConfirmed:
-          type: boolean
-        twoFactorEnabled:
-          type: boolean
-        lockoutEnd:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        lockoutEnabled:
-          type: boolean
-        accessFailedCount:
-          type: integer
-          format: int32
-      additionalProperties: false
-    License:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        customerName:
-          type:
-          - string
-          - 'null'
-        customerEmail:
-          type:
-          - string
-          - 'null'
-        expirationDate:
-          type: string
-          format: date-time
-        rawLicense:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    UserDetail:
-      type: object
-      properties:
-        permissions:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        userName:
-          type:
-          - string
-          - 'null'
-        isAdministrator:
-          type: boolean
-        passwordExpired:
-          type: boolean
-        daysTillPasswordExpiry:
-          type: integer
-          format: int32
-        authenticationMethod:
-          type:
-          - string
-          - 'null'
-        isSsoAuthenticationMethod:
-          type: boolean
-        memberId:
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ContentFile:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: 'Asset kind. See VirtoCommerce.Platform.Core.Modularity.ContentFileTypes
-
-            for the canonical values. Lower-case string so the JSON contract is
-
-            stable against future C# enum renames.'
-        path:
-          type:
-          - string
-          - 'null'
-          description: 'Absolute URL path served by the platform''s static-file middleware,
-
-            e.g. `/modules/$(VirtoCommerce.Catalog)/dist/app.js`.'
-        hash:
-          type:
-          - string
-          - 'null'
-          description: 'Cache-busting hash (`?v={hash}`). Stable across requests as long
-
-            as the file''s last-write time is unchanged. `null` when the file
-
-            doesn''t exist on disk (e.g. a manifest reference that fell back to
-
-            convention defaults).'
-      additionalProperties: false
-      description: 'One asset belonging to a plugin (script, stylesheet, etc.). Carries the
-
-        information a client-side loader needs to build the right HTML element
-
-        with proper cache busting.'
-    ChangedEntitiesResponse:
-      type: object
-      properties:
-        entities:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ChangedEntity'
-      additionalProperties: false
-    UserSessionSearchCriteria:
-      type: object
-      properties:
-        userId:
-          type:
-          - string
-          - 'null'
-        responseGroup:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-        objectTypes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        objectIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        keyword:
-          type:
-          - string
-          - 'null'
-        searchPhrase:
-          type:
-          - string
-          - 'null'
-        languageCode:
-          type:
-          - string
-          - 'null'
-        sort:
-          type:
-          - string
-          - 'null'
-        sortInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
-    IdentityError:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ModulePushNotification:
-      type: object
-      properties:
-        started:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        finished:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        progressLog:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ProgressMessage'
-        totalCount:
-          type: integer
-          format: int32
-        errorCount:
-          type: integer
-          format: int32
-          readOnly: true
-        serverId:
-          type:
-          - string
-          - 'null'
-        creator:
-          type:
-          - string
-          - 'null'
-        created:
-          type: string
-          format: date-time
-        isNew:
-          type: boolean
-        notifyType:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        repeatCount:
-          type: integer
-          format: int32
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    SecurityResult:
-      type: object
-      properties:
-        succeeded:
-          type: boolean
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-      additionalProperties: false
-    ExternalSignInProviderInfo:
-      type: object
-      properties:
-        authenticationType:
-          type:
-          - string
-          - 'null'
-        displayName:
-          type:
-          - string
-          - 'null'
-        logoUrl:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    JsonWebKey:
-      type: object
-      properties:
-        additionalData:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type:
-            - object
-            - 'null'
-          readOnly: true
-        alg:
-          type:
-          - string
-          - 'null'
-        crv:
-          type:
-          - string
-          - 'null'
-        d:
-          type:
-          - string
-          - 'null'
-        dp:
-          type:
-          - string
-          - 'null'
-        dq:
-          type:
-          - string
-          - 'null'
-        e:
-          type:
-          - string
-          - 'null'
-        k:
-          type:
-          - string
-          - 'null'
-        keyId:
-          type:
-          - string
-          - 'null'
-        keyOps:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          readOnly: true
-        kid:
-          type:
-          - string
-          - 'null'
-        kty:
-          type:
-          - string
-          - 'null'
-        n:
-          type:
-          - string
-          - 'null'
-        oth:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          readOnly: true
-        p:
-          type:
-          - string
-          - 'null'
-        q:
-          type:
-          - string
-          - 'null'
-        qi:
-          type:
-          - string
-          - 'null'
-        use:
-          type:
-          - string
-          - 'null'
-        x:
-          type:
-          - string
-          - 'null'
-        x5c:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          readOnly: true
-        x5t:
-          type:
-          - string
-          - 'null'
-        x5tS256:
-          type:
-          - string
-          - 'null'
-        x5u:
-          type:
-          - string
-          - 'null'
-        y:
-          type:
-          - string
-          - 'null'
-        keySize:
-          type: integer
-          format: int32
-          readOnly: true
-        hasPrivateKey:
-          type: boolean
-          readOnly: true
-        cryptoProviderFactory:
-          allOf:
-          - $ref: '#/components/schemas/CryptoProviderFactory'
-      additionalProperties: false
-    CryptoProviderFactory:
-      type: object
-      properties:
-        cryptoProviderCache:
-          allOf:
-          - $ref: '#/components/schemas/CryptoProviderCache'
-          readOnly: true
-        customCryptoProvider:
-          allOf:
-          - $ref: '#/components/schemas/ICryptoProvider'
-        cacheSignatureProviders:
-          type: boolean
-          default: true
-        signatureProviderObjectPoolCacheSize:
-          type: integer
-          format: int32
-      additionalProperties: false
-    ModuleInstallRequest:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-        version:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    PermissionScope:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        label:
-          type:
-          - string
-          - 'null'
-        scope:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ResetPasswordRequest:
-      type: object
-      properties:
-        newPassword:
-          type:
-          - string
-          - 'null'
-        forcePasswordChangeOnNextSignIn:
-          type: boolean
-      additionalProperties: false
-    OperationLog:
-      type: object
-      properties:
-        objectType:
-          type:
-          - string
-          - 'null'
-        objectId:
-          type:
-          - string
-          - 'null'
-        operationType:
-          allOf:
-          - $ref: '#/components/schemas/EntryState'
-        detail:
-          type:
-          - string
-          - 'null'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    DeveloperToolDescriptor:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        url:
-          type:
-          - string
-          - 'null'
-        isExternal:
-          type: boolean
-        sortOrder:
-          type: integer
-          format: int32
-        permission:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    Role:
-      type: object
-      properties:
-        description:
-          type:
-          - string
-          - 'null'
-        permissions:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Permission'
-        id:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        normalizedName:
-          type:
-          - string
-          - 'null'
-        concurrencyStamp:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    SortInfo:
-      type: object
-      properties:
-        sortColumn:
-          type:
-          - string
-          - 'null'
-        sortDirection:
-          allOf:
-          - $ref: '#/components/schemas/SortDirection'
-      additionalProperties: false
-    SemanticVersion:
-      type: object
-      properties:
-        major:
-          type: integer
-          format: int32
-          readOnly: true
-        minor:
-          type: integer
-          format: int32
-          readOnly: true
-        patch:
-          type: integer
-          format: int32
-          readOnly: true
-        prerelease:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-      additionalProperties: false
-    ConfirmEmailRequest:
-      type: object
-      properties:
-        token:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
     AppPlacement:
       enum:
       - AppMenu
       - MainMenu
       - Hidden
       type: string
-    SignInResult:
-      type: object
-      properties:
-        succeeded:
-          type: boolean
-          readOnly: true
-        isLockedOut:
-          type: boolean
-          readOnly: true
-        isNotAllowed:
-          type: boolean
-          readOnly: true
-        requiresTwoFactor:
-          type: boolean
-          readOnly: true
-      additionalProperties: false
-    AppManifestResponse:
-      type: object
-      properties:
-        appId:
-          type:
-          - string
-          - 'null'
-          description: Echo of the requested app id (e.g. `vc-shell-marketplace`, `system-operations`, `platform`).
-        version:
-          type:
-          - string
-          - 'null'
-          description: 'Version of the host app — taken from the running platform when
-
-            VirtoCommerce.Platform.Web.Model.Modularity.AppManifestResponse.AppId is the reserved `platform` id, otherwise
-
-            from the module that declares the `<app>` in its
-
-            `module.manifest`. Useful for clients that want to surface the
-
-            host''s version (e.g. footer banner, support diagnostics) without
-
-            a second round-trip.'
-        title:
-          type:
-          - string
-          - 'null'
-          description: 'Display title of the host app, taken from the owning module''s
-
-            `<app>` declaration in `module.manifest`.'
-        plugins:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PluginEntry'
-          description: 'Plugins to load, in topological dependency order of their owning modules.
-
-            Already filtered by current user permissions and (for Module Federation
-
-            hosts) by host-app discovery folder convention.'
-      additionalProperties: false
-      description: 'Response shape for `GET /api/apps/{appId}/manifest`.
-
-        Returns the host app metadata plus a topologically ordered, permission-filtered
-
-        list of plugins the host should load.'
-    ChangeLogSearchCriteria:
-      type: object
-      properties:
-        operationTypes:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/EntryState'
-        startDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        endDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        responseGroup:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-        objectTypes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        objectIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        keyword:
-          type:
-          - string
-          - 'null'
-        searchPhrase:
-          type:
-          - string
-          - 'null'
-        languageCode:
-          type:
-          - string
-          - 'null'
-        sort:
-          type:
-          - string
-          - 'null'
-        sortInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
-    DynamicPropertyDictionaryItemSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/DynamicPropertyDictionaryItem'
-      additionalProperties: false
-    OpenIddictApplicationDescriptor:
-      type: object
-      properties:
-        applicationType:
-          type:
-          - string
-          - 'null'
-        clientId:
-          type:
-          - string
-          - 'null'
-        clientSecret:
-          type:
-          - string
-          - 'null'
-        clientType:
-          type:
-          - string
-          - 'null'
-        consentType:
-          type:
-          - string
-          - 'null'
-        displayName:
-          type:
-          - string
-          - 'null'
-        displayNames:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: string
-          readOnly: true
-        jsonWebKeySet:
-          allOf:
-          - $ref: '#/components/schemas/JsonWebKeySet'
-        permissions:
-          uniqueItems: true
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          readOnly: true
-        postLogoutRedirectUris:
-          uniqueItems: true
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-            format: uri
-          readOnly: true
-        properties:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            $ref: '#/components/schemas/JsonElement'
-          readOnly: true
-        redirectUris:
-          uniqueItems: true
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-            format: uri
-          readOnly: true
-        requirements:
-          uniqueItems: true
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          readOnly: true
-        settings:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: string
-          readOnly: true
-      additionalProperties: false
-    UserSearchCriteria:
-      type: object
-      properties:
-        memberId:
-          type:
-          - string
-          - 'null'
-        memberIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        modifiedSinceDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        roles:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        lasLoginDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          deprecated: true
-        onlyUnlocked:
-          type: boolean
-        onlyLocked:
-          type: boolean
-        emailConfirmed:
-          type:
-          - boolean
-          - 'null'
-        userType:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - string
-          - 'null'
-        storeId:
-          type:
-          - string
-          - 'null'
-        loginStartDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        loginEndDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        responseGroup:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-        objectTypes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        objectIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        keyword:
-          type:
-          - string
-          - 'null'
-        searchPhrase:
-          type:
-          - string
-          - 'null'
-        languageCode:
-          type:
-          - string
-          - 'null'
-        sort:
-          type:
-          - string
-          - 'null'
-        sortInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
-    LocalizableSettingsAndLanguages:
-      type: object
-      properties:
-        settings:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/LocalizableSetting'
-        languages:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-      additionalProperties: false
-    KeyValue:
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    Job:
-      type: object
-      properties:
-        state:
-          type:
-          - string
-          - 'null'
-        completed:
-          type: boolean
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    SortDirection:
-      enum:
-      - Ascending
-      - Descending
-      type: string
-    LoginRequest:
-      type: object
-      properties:
-        userName:
-          type:
-          - string
-          - 'null'
-        password:
-          type:
-          - string
-          - 'null'
-        rememberMe:
-          type: boolean
-      additionalProperties: false
-    RoleSearchResult:
-      type: object
-      properties:
-        roles:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Role'
-          readOnly: true
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Role'
-      additionalProperties: false
-    UserSearchResult:
-      type: object
-      properties:
-        users:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ApplicationUser'
-          readOnly: true
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ApplicationUser'
-      additionalProperties: false
-    ResetPasswordConfirmRequest:
-      type: object
-      properties:
-        token:
-          type:
-          - string
-          - 'null'
-        newPassword:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ChangedEntitiesRequest:
-      type: object
-      properties:
-        entityNames:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        modifiedSince:
-          type: string
-          format: date-time
-      additionalProperties: false
-    DynamicPropertyObjectValue:
-      type: object
-      properties:
-        objectType:
-          type:
-          - string
-          - 'null'
-        objectId:
-          type:
-          - string
-          - 'null'
-        locale:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - object
-          - 'null'
-        valueId:
-          type:
-          - string
-          - 'null'
-        valueType:
-          allOf:
-          - $ref: '#/components/schemas/DynamicPropertyValueType'
-        propertyId:
-          type:
-          - string
-          - 'null'
-        propertyName:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ICryptoProvider:
-      type: object
-      additionalProperties: false
-    ProgressMessage:
-      type: object
-      properties:
-        message:
-          type:
-          - string
-          - 'null'
-        level:
-          allOf:
-          - $ref: '#/components/schemas/ProgressMessageLevel'
-      additionalProperties: false
-    RoleSearchCriteria:
-      type: object
-      properties:
-        responseGroup:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-        objectTypes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        objectIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        keyword:
-          type:
-          - string
-          - 'null'
-        searchPhrase:
-          type:
-          - string
-          - 'null'
-        languageCode:
-          type:
-          - string
-          - 'null'
-        sort:
-          type:
-          - string
-          - 'null'
-        sortInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
-    JsonWebKeySet:
-      type: object
-      properties:
-        additionalData:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type:
-            - object
-            - 'null'
-          readOnly: true
-        keys:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/JsonWebKey'
-          readOnly: true
-        skipUnresolvedJsonWebKeys:
-          type: boolean
-          default: true
-        jsonData:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    Permission:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        moduleId:
-          type:
-          - string
-          - 'null'
-        groupName:
-          type:
-          - string
-          - 'null'
-        assignedScopes:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PermissionScope'
-        availableScopes:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PermissionScope'
-          readOnly: true
-      additionalProperties: false
-    DynamicPropertyValueType:
-      enum:
-      - Undefined
-      - ShortText
-      - LongText
-      - Integer
-      - Decimal
-      - DateTime
-      - Boolean
-      - Html
-      - Image
-      type: string
-    SettingPropertySchema:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        displayName:
-          type:
-          - string
-          - 'null'
-        groupName:
-          type:
-          - string
-          - 'null'
-        moduleId:
-          type:
-          - string
-          - 'null'
-        valueType:
-          allOf:
-          - $ref: '#/components/schemas/SettingValueType'
-        defaultValue:
-          type:
-          - object
-          - 'null'
-        allowedValues:
-          type:
-          - array
-          - 'null'
-          items:
-            type: object
-        isRequired:
-          type: boolean
-        isReadOnly:
-          type: boolean
-        isDictionary:
-          type: boolean
-        isLocalizable:
-          type: boolean
-        restartRequired:
-          type: boolean
-        assignedToTenants:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-      additionalProperties: false
-    DynamicPropertyDictionaryItemSearchCriteria:
-      type: object
-      properties:
-        propertyId:
-          type:
-          - string
-          - 'null'
-        responseGroup:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-        objectTypes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        objectIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        keyword:
-          type:
-          - string
-          - 'null'
-        searchPhrase:
-          type:
-          - string
-          - 'null'
-        languageCode:
-          type:
-          - string
-          - 'null'
-        sort:
-          type:
-          - string
-          - 'null'
-        sortInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
-    ObjectSettingEntry:
-      type: object
-      properties:
-        itHasValues:
-          type: boolean
-          readOnly: true
-        objectId:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-        isReadOnly:
-          type: boolean
-        value:
-          type:
-          - object
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-        restartRequired:
-          type: boolean
-        moduleId:
-          type:
-          - string
-          - 'null'
-        groupName:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        displayName:
-          type:
-          - string
-          - 'null'
-        isRequired:
-          type: boolean
-        isHidden:
-          type: boolean
-        isPublic:
-          type: boolean
-        valueType:
-          allOf:
-          - $ref: '#/components/schemas/SettingValueType'
-        allowedValues:
-          type:
-          - array
-          - 'null'
-          items:
-            type: object
-        defaultValue:
-          type:
-          - object
-          - 'null'
-        isDictionary:
-          type: boolean
-        isLocalizable:
-          type: boolean
-        tenant:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    OpenIddictResponse:
-      type: object
-      properties:
-        accessToken:
-          type:
-          - string
-          - 'null'
-        code:
-          type:
-          - string
-          - 'null'
-        deviceCode:
-          type:
-          - string
-          - 'null'
-        error:
-          type:
-          - string
-          - 'null'
-        errorDescription:
-          type:
-          - string
-          - 'null'
-        errorUri:
-          type:
-          - string
-          - 'null'
-        expiresIn:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        idToken:
-          type:
-          - string
-          - 'null'
-        iss:
-          type:
-          - string
-          - 'null'
-        issuedTokenType:
-          type:
-          - string
-          - 'null'
-        refreshToken:
-          type:
-          - string
-          - 'null'
-        requestUri:
-          type:
-          - string
-          - 'null'
-        scope:
-          type:
-          - string
-          - 'null'
-        state:
-          type:
-          - string
-          - 'null'
-        tokenType:
-          type:
-          - string
-          - 'null'
-        userCode:
-          type:
-          - string
-          - 'null'
-        verificationUri:
-          type:
-          - string
-          - 'null'
-        verificationUriComplete:
-          type:
-          - string
-          - 'null'
-        count:
-          type: integer
-          format: int32
-          readOnly: true
-      additionalProperties: false
-    ClaimsIdentity:
-      type: object
-      properties:
-        authenticationType:
-          type:
-          - string
-          - 'null'
-        isAuthenticated:
-          type: boolean
-          readOnly: true
-        actor:
-          allOf:
-          - $ref: '#/components/schemas/ClaimsIdentity'
-        bootstrapContext:
-          type:
-          - object
-          - 'null'
-        claims:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Claim'
-        label:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-        nameClaimType:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-        roleClaimType:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-      additionalProperties: false
-    DictionaryItem:
-      type: object
-      properties:
-        alias:
-          type:
-          - string
-          - 'null'
-        localizedValues:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/LocalizedValue'
-      additionalProperties: false
-    DynamicObjectProperty:
-      type: object
-      properties:
-        objectId:
-          type:
-          - string
-          - 'null'
-        values:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/DynamicPropertyObjectValue'
-        name:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-        isArray:
-          type: boolean
-        isDictionary:
-          type: boolean
-        isMultilingual:
-          type: boolean
-        isRequired:
-          type: boolean
-        displayOrder:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        valueType:
-          allOf:
-          - $ref: '#/components/schemas/DynamicPropertyValueType'
-        displayNames:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/DynamicPropertyName'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ChangeLogSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/OperationLog'
-      additionalProperties: false
-    LastModifiedResponse:
-      type: object
-      properties:
-        scope:
-          type:
-          - string
-          - 'null'
-        lastModifiedDate:
-          type: string
-          format: date-time
-      additionalProperties: false
-    SystemInfo:
-      type: object
-      properties:
-        platformVersion:
-          type:
-          - string
-          - 'null'
-        license:
-          allOf:
-          - $ref: '#/components/schemas/License'
-        installedModules:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ModuleDescriptor'
-        version:
-          type:
-          - string
-          - 'null'
-        is64BitOperatingSystem:
-          type: boolean
-        is64BitProcess:
-          type: boolean
-        databaseProvider:
-          type:
-          - string
-          - 'null'
-        environmentName:
-          type:
-          - string
-          - 'null'
-        runtimeIdentifier:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    LocalizableSetting:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        isLocalizable:
-          type: boolean
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/DictionaryItem'
-      additionalProperties: false
-    ChangedEntity:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        modifiedDate:
-          type: string
-          format: date-time
-      additionalProperties: false
-    PluginRemote:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        exposed:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-      description: 'Module Federation remote coordinates for a plugin. Mirrors the shape
-
-        expected by `@module-federation/runtime`.'
-    PushNotificationSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        newCount:
-          type: integer
-          format: int32
-        notifyEvents:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PushNotification'
-      additionalProperties: false
-    PushNotification:
-      type: object
-      properties:
-        serverId:
-          type:
-          - string
-          - 'null'
-        creator:
-          type:
-          - string
-          - 'null'
-        created:
-          type: string
-          format: date-time
-        isNew:
-          type: boolean
-        notifyType:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        repeatCount:
-          type: integer
-          format: int32
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    EntryState:
-      enum:
-      - Detached
-      - Unchanged
-      - Added
-      - Deleted
-      - Modified
-      type: string
-    Claim:
-      type: object
-      properties:
-        issuer:
-          type:
-          - string
-          - 'null'
-        originalIssuer:
-          type:
-          - string
-          - 'null'
-        properties:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: string
-          readOnly: true
-        subject:
-          allOf:
-          - $ref: '#/components/schemas/ClaimsIdentity'
-        type:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - string
-          - 'null'
-        valueType:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ModuleAutoInstallPushNotification:
-      type: object
-      properties:
-        started:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        finished:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        progressLog:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ProgressMessage'
-        totalCount:
-          type: integer
-          format: int32
-        errorCount:
-          type: integer
-          format: int32
-          readOnly: true
-        serverId:
-          type:
-          - string
-          - 'null'
-        creator:
-          type:
-          - string
-          - 'null'
-        created:
-          type: string
-          format: date-time
-        isNew:
-          type: boolean
-        notifyType:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        repeatCount:
-          type: integer
-          format: int32
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
   securitySchemes:
     oauth2:
       type: oauth2

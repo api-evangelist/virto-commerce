@@ -1758,49 +1758,45 @@ paths:
       x-virtocommerce-module-id: VirtoCommerce.Pricing
 components:
   schemas:
-    PropertyValidationRule:
+    PropertyType:
+      enum:
+      - Product
+      - Variation
+      - Category
+      - Catalog
+      type: string
+    LocalizedString:
       type: object
       properties:
-        isUnique:
-          type: boolean
-          description: Uniquie value flag constrain
-        charCountMin:
+        values:
           type:
-          - integer
+          - object
           - 'null'
-          description: Down chars count border or null if no defined
-          format: int32
-        charCountMax:
-          type:
-          - integer
-          - 'null'
-          description: Upper chars count border or null if no defined
-          format: int32
-        regExp:
-          type:
-          - string
-          - 'null'
-          description: Custom regular expression
-        propertyId:
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+          readOnly: true
       additionalProperties: false
-      description: Represents property validation rules definition
-    MergedPriceSearchCriteria:
+    SortInfo:
       type: object
       properties:
-        all:
-          type: boolean
-        basePriceListId:
+        sortColumn:
           type:
           - string
           - 'null'
-        priorityPriceListId:
+        sortDirection:
+          allOf:
+          - $ref: '#/components/schemas/SortDirection'
+      additionalProperties: false
+    PriceEvaluationContext:
+      type: object
+      properties:
+        storeId:
+          type:
+          - string
+          - 'null'
+        catalogId:
           type:
           - string
           - 'null'
@@ -1810,6 +1806,391 @@ components:
           - 'null'
           items:
             type: string
+        pricelistIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        pricelists:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Pricelist'
+        returnAllMatchedPrices:
+          type: boolean
+        quantity:
+          type: number
+          format: double
+        customerId:
+          type:
+          - string
+          - 'null'
+        organizationId:
+          type:
+          - string
+          - 'null'
+        certainDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        currency:
+          type:
+          - string
+          - 'null'
+        skipAssignmentValidation:
+          type: boolean
+        contextObject:
+          type:
+          - object
+          - 'null'
+        geoCity:
+          type:
+          - string
+          - 'null'
+        geoState:
+          type:
+          - string
+          - 'null'
+        geoCountry:
+          type:
+          - string
+          - 'null'
+        geoContinent:
+          type:
+          - string
+          - 'null'
+        geoZipCode:
+          type:
+          - string
+          - 'null'
+        geoConnectionType:
+          type:
+          - string
+          - 'null'
+        geoTimeZone:
+          type:
+          - string
+          - 'null'
+        geoIpRoutingType:
+          type:
+          - string
+          - 'null'
+        geoIspSecondLevel:
+          type:
+          - string
+          - 'null'
+        geoIspTopLevel:
+          type:
+          - string
+          - 'null'
+        shopperAge:
+          type: integer
+          format: int32
+        shopperGender:
+          type:
+          - string
+          - 'null'
+        language:
+          type:
+          - string
+          - 'null'
+        userGroups:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Any tags or groups belongs to user such as VIP, Wholesaler etc
+        shopperSearchedPhraseInStore:
+          type:
+          - string
+          - 'null'
+        shopperSearchedPhraseOnInternet:
+          type:
+          - string
+          - 'null'
+        currentUrl:
+          type:
+          - string
+          - 'null'
+        referredUrl:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ProductAssociation:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: Association type (Accessories, Up-Sales, Cross-Sales, Related etc)
+        priority:
+          type: integer
+          format: int32
+        quantity:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        itemId:
+          type:
+          - string
+          - 'null'
+          description: Is a primary key of associating object
+        associatedObjectId:
+          type:
+          - string
+          - 'null'
+          description: 'Each link element can have an associated object like Product, Category, etc.
+
+            Is a primary key of associated object'
+        associatedObjectType:
+          type:
+          - string
+          - 'null'
+          description: 'Associated object type : ''product'', ''category'' etc'
+        outerId:
+          type:
+          - string
+          - 'null'
+          description: ''
+        associatedObjectName:
+          type:
+          - string
+          - 'null'
+          description: Display name for associated object
+          readOnly: true
+        associatedObjectImg:
+          type:
+          - string
+          - 'null'
+          description: Associated object image URL
+          readOnly: true
+        tags:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        imgSrc:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        images:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Image'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Image:
+      type: object
+      properties:
+        binaryData:
+          type:
+          - string
+          - 'null'
+          format: byte
+        altText:
+          type:
+          - string
+          - 'null'
+        relativeUrl:
+          type:
+          - string
+          - 'null'
+        url:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        sortOrder:
+          type: integer
+          format: int32
+        typeId:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the asset type identifier.
+        group:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the asset group name.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the asset name.
+        outerId:
+          type:
+          - string
+          - 'null'
+          description: ''
+        languageCode:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the asset language.
+        isInherited:
+          type: boolean
+          description: System flag used to mark that object was inherited from other
+          readOnly: true
+        seoObjectType:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        seoInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SeoInfo'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PricelistAssignment:
+      type: object
+      properties:
+        catalogId:
+          type:
+          - string
+          - 'null'
+        storeId:
+          type:
+          - string
+          - 'null'
+        pricelistId:
+          type:
+          - string
+          - 'null'
+        pricelist:
+          allOf:
+          - $ref: '#/components/schemas/Pricelist'
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        priority:
+          type: integer
+          description: If two PricelistAssignments satisfies the conditions and rules, will use one with the greater priority
+          format: int32
+        startDate:
+          type:
+          - string
+          - 'null'
+          description: Start of period when Prices Assignment is valid. Null value means no limit
+          format: date-time
+        endDate:
+          type:
+          - string
+          - 'null'
+          description: End of period when Prices Assignment is valid. Null value means no limit
+          format: date-time
+        dynamicExpression:
+          allOf:
+          - $ref: '#/components/schemas/PriceConditionTree'
+          description: List of conditions and rules to define Prices Assignment is valid
+        outerId:
+          type:
+          - string
+          - 'null'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      description: Used to assign pricelist to specific catalog by using conditional expression
+    PricesSearchCriteria:
+      type: object
+      properties:
+        groupByProducts:
+          type: boolean
+        priceListId:
+          type:
+          - string
+          - 'null'
+        priceListIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        productId:
+          type:
+          - string
+          - 'null'
+        productIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        modifiedSince:
+          type:
+          - string
+          - 'null'
+          format: date-time
         responseGroup:
           type:
           - string
@@ -1860,10 +2241,32 @@ components:
           type: integer
           format: int32
       additionalProperties: false
-    PropertyDisplayName:
+    ProductPrice:
       type: object
       properties:
-        name:
+        productId:
+          type:
+          - string
+          - 'null'
+        product:
+          allOf:
+          - $ref: '#/components/schemas/CatalogProduct'
+        prices:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Price'
+          description: List prices for the products. It includes tiered prices also. (Depending on the quantity, for example)
+      additionalProperties: false
+    EditorialReview:
+      type: object
+      properties:
+        content:
+          type:
+          - string
+          - 'null'
+        reviewType:
           type:
           - string
           - 'null'
@@ -1871,41 +2274,8 @@ components:
           type:
           - string
           - 'null'
-      additionalProperties: false
-    Pricelist:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        currency:
-          type:
-          - string
-          - 'null'
-        outerId:
-          type:
-          - string
-          - 'null'
-        priority:
-          type: integer
-          format: int32
-        prices:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Price'
-        assignments:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PricelistAssignment'
+        isInherited:
+          type: boolean
         createdDate:
           type: string
           format: date-time
@@ -1931,6 +2301,18 @@ components:
           - string
           - 'null'
       additionalProperties: false
+    PropertyDisplayName:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     PropertyValueType:
       enum:
       - ShortText
@@ -1944,6 +2326,329 @@ components:
       - Measure
       - Color
       type: string
+    CategoryLink:
+      type: object
+      properties:
+        entryId:
+          type:
+          - string
+          - 'null'
+          description: Entry identifier which this link belongs to
+          readOnly: true
+        listEntryId:
+          type:
+          - string
+          - 'null'
+        listEntryType:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the type of the list entry. E.g. "product", "category"
+        priority:
+          type: integer
+          description: Product order position in virtual catalog
+          format: int32
+        catalogId:
+          type:
+          - string
+          - 'null'
+        categoryId:
+          type:
+          - string
+          - 'null'
+        targetId:
+          type:
+          - string
+          - 'null'
+          description: Gets the Id of either target Catetory or Catalog
+          readOnly: true
+        name:
+          type:
+          - string
+          - 'null'
+          description: Gets the name of either target Catetory or Catalog
+          readOnly: true
+        isAutomatic:
+          type: boolean
+      additionalProperties: false
+    PropertyValidationRule:
+      type: object
+      properties:
+        isUnique:
+          type: boolean
+          description: Uniquie value flag constrain
+        charCountMin:
+          type:
+          - integer
+          - 'null'
+          description: Down chars count border or null if no defined
+          format: int32
+        charCountMax:
+          type:
+          - integer
+          - 'null'
+          description: Upper chars count border or null if no defined
+          format: int32
+        regExp:
+          type:
+          - string
+          - 'null'
+          description: Custom regular expression
+        propertyId:
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      description: Represents property validation rules definition
+    OutlineItem:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Object id
+        seoObjectType:
+          type:
+          - string
+          - 'null'
+          description: Object type
+        seoInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SeoInfo'
+          description: All SEO records for the object
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of current item
+        localizedName:
+          allOf:
+          - $ref: '#/components/schemas/LocalizedString'
+        hasVirtualParent:
+          type: boolean
+          description: True when this object is linked to the virtual parent.
+      additionalProperties: false
+      description: 'Represents one outline element: catalog, category or product.'
+    PropertyValue:
+      type: object
+      properties:
+        propertyName:
+          type:
+          - string
+          - 'null'
+        propertyId:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        alias:
+          type:
+          - string
+          - 'null'
+        displayOrder:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        valueType:
+          allOf:
+          - $ref: '#/components/schemas/PropertyValueType'
+        valueId:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - object
+          - 'null'
+        propertyMultivalue:
+          type: boolean
+          readOnly: true
+        outerId:
+          type:
+          - string
+          - 'null'
+        unitOfMeasureId:
+          type:
+          - string
+          - 'null'
+        colorCode:
+          type:
+          - string
+          - 'null'
+        isInherited:
+          type: boolean
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Outline:
+      type: object
+      properties:
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OutlineItem'
+          description: Outline parts
+      additionalProperties: false
+      description: 'Represents the path from the catalog to one of the child objects (product or category):
+
+        catalog/parent-category1/.../parent-categoryN/object'
+    MergedPriceState:
+      enum:
+      - Base
+      - New
+      - Updated
+      type: string
+    Price:
+      type: object
+      properties:
+        pricelistId:
+          type:
+          - string
+          - 'null'
+        pricelist:
+          allOf:
+          - $ref: '#/components/schemas/Pricelist'
+        currency:
+          type:
+          - string
+          - 'null'
+        productId:
+          type:
+          - string
+          - 'null'
+        sale:
+          type:
+          - number
+          - 'null'
+          format: double
+        list:
+          type: number
+          format: double
+        minQuantity:
+          type: integer
+          format: int32
+        startDate:
+          type:
+          - string
+          - 'null'
+          description: 'Optional start date for this price, so that we can prepare prices ahead of time.
+
+            If start date equals now, this price will be active.'
+          format: date-time
+        endDate:
+          type:
+          - string
+          - 'null'
+          description: 'Optional end date for this price, so that we can prepare prices ahead of time.
+
+            If end date equals now, this price will not be active.'
+          format: date-time
+        effectiveValue:
+          type: number
+          format: double
+          readOnly: true
+        outerId:
+          type:
+          - string
+          - 'null'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    MergedPriceGroupSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/MergedPriceGroup'
+      additionalProperties: false
+    IConditionTree:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        availableChildren:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IConditionTree'
+          description: List of all available children for current tree node (is used in expression designer)
+          readOnly: true
+        children:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IConditionTree'
+          readOnly: true
+      additionalProperties: false
     Variation:
       type: object
       properties:
@@ -2264,22 +2969,197 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    PricesSearchCriteria:
+    ExcludedProperty:
       type: object
       properties:
-        groupByProducts:
-          type: boolean
-        priceListId:
+        name:
           type:
           - string
           - 'null'
-        priceListIds:
+        isInherited:
+          type: boolean
+      additionalProperties: false
+    MergedPriceSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
           type:
           - array
           - 'null'
           items:
-            type: string
-        productId:
+            $ref: '#/components/schemas/MergedPrice'
+      additionalProperties: false
+    Pricelist:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        currency:
+          type:
+          - string
+          - 'null'
+        outerId:
+          type:
+          - string
+          - 'null'
+        priority:
+          type: integer
+          format: int32
+        prices:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Price'
+        assignments:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PricelistAssignment'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ProductPriceSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ProductPrice'
+      additionalProperties: false
+    PropertyAttribute:
+      type: object
+      properties:
+        propertyId:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PricelistSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Pricelist'
+      additionalProperties: false
+    Operation:
+      type: object
+      properties:
+        value:
+          type:
+          - object
+          - 'null'
+        path:
+          type:
+          - string
+          - 'null'
+        op:
+          type:
+          - string
+          - 'null'
+        from:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PricelistAssignmentSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PricelistAssignment'
+      additionalProperties: false
+    MergedPriceSearchCriteria:
+      type: object
+      properties:
+        all:
+          type: boolean
+        basePriceListId:
+          type:
+          - string
+          - 'null'
+        priorityPriceListId:
           type:
           - string
           - 'null'
@@ -2289,11 +3169,6 @@ components:
           - 'null'
           items:
             type: string
-        modifiedSince:
-          type:
-          - string
-          - 'null'
-          format: date-time
         responseGroup:
           type:
           - string
@@ -2343,90 +3218,6 @@ components:
         take:
           type: integer
           format: int32
-      additionalProperties: false
-    MergedPrice:
-      type: object
-      properties:
-        currency:
-          type:
-          - string
-          - 'null'
-        pricelistId:
-          type:
-          - string
-          - 'null'
-        productId:
-          type:
-          - string
-          - 'null'
-        sale:
-          type:
-          - number
-          - 'null'
-          format: double
-        list:
-          type: number
-          format: double
-        minQuantity:
-          type: integer
-          format: int32
-        state:
-          allOf:
-          - $ref: '#/components/schemas/MergedPriceState'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ProductPrice:
-      type: object
-      properties:
-        productId:
-          type:
-          - string
-          - 'null'
-        product:
-          allOf:
-          - $ref: '#/components/schemas/CatalogProduct'
-        prices:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Price'
-          description: List prices for the products. It includes tiered prices also. (Depending on the quantity, for example)
-      additionalProperties: false
-    MergedPriceState:
-      enum:
-      - Base
-      - New
-      - Updated
-      type: string
-    MergedPriceGroupSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/MergedPriceGroup'
-      additionalProperties: false
-    LocalizedString:
-      type: object
-      properties:
-        values:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-          readOnly: true
       additionalProperties: false
     Property:
       type: object
@@ -2549,85 +3340,140 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    ProductAssociation:
+    Asset:
       type: object
       properties:
-        type:
+        mimeType:
           type:
           - string
           - 'null'
-          description: Association type (Accessories, Up-Sales, Cross-Sales, Related etc)
-        priority:
+        size:
+          type: integer
+          format: int64
+        readableSize:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        binaryData:
+          type:
+          - string
+          - 'null'
+          format: byte
+        relativeUrl:
+          type:
+          - string
+          - 'null'
+        url:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        sortOrder:
           type: integer
           format: int32
-        quantity:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        itemId:
+        typeId:
           type:
           - string
           - 'null'
-          description: Is a primary key of associating object
-        associatedObjectId:
+          description: Gets or sets the asset type identifier.
+        group:
           type:
           - string
           - 'null'
-          description: 'Each link element can have an associated object like Product, Category, etc.
-
-            Is a primary key of associated object'
-        associatedObjectType:
+          description: Gets or sets the asset group name.
+        name:
           type:
           - string
           - 'null'
-          description: 'Associated object type : ''product'', ''category'' etc'
+          description: Gets or sets the asset name.
         outerId:
           type:
           - string
           - 'null'
           description: ''
-        associatedObjectName:
+        languageCode:
           type:
           - string
           - 'null'
-          description: Display name for associated object
+          description: Gets or sets the asset language.
+        isInherited:
+          type: boolean
+          description: System flag used to mark that object was inherited from other
           readOnly: true
-        associatedObjectImg:
+        seoObjectType:
           type:
           - string
           - 'null'
-          description: Associated object image URL
           readOnly: true
-        tags:
+        seoInfos:
           type:
           - array
           - 'null'
           items:
-            type: string
-        imgSrc:
+            $ref: '#/components/schemas/SeoInfo'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
           type:
           - string
           - 'null'
-          readOnly: true
-        images:
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
           type:
-          - array
+          - string
           - 'null'
-          items:
-            $ref: '#/components/schemas/Image'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
         id:
           type:
           - string
           - 'null'
       additionalProperties: false
-    PropertyType:
-      enum:
-      - Product
-      - Variation
-      - Category
-      - Catalog
-      type: string
+    MergedPrice:
+      type: object
+      properties:
+        currency:
+          type:
+          - string
+          - 'null'
+        pricelistId:
+          type:
+          - string
+          - 'null'
+        productId:
+          type:
+          - string
+          - 'null'
+        sale:
+          type:
+          - number
+          - 'null'
+          format: double
+        list:
+          type: number
+          format: double
+        minQuantity:
+          type: integer
+          format: int32
+        state:
+          allOf:
+          - $ref: '#/components/schemas/MergedPriceState'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     SeoInfo:
       type: object
       properties:
@@ -2706,318 +3552,11 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    MergedPriceGroup:
-      type: object
-      properties:
-        productId:
-          type:
-          - string
-          - 'null'
-        productName:
-          type:
-          - string
-          - 'null'
-        productCode:
-          type:
-          - string
-          - 'null'
-        productImgSrc:
-          type:
-          - string
-          - 'null'
-        groupPricesCount:
-          type: integer
-          format: int32
-        groupState:
-          allOf:
-          - $ref: '#/components/schemas/MergedPriceState'
-        minSalePrice:
-          type:
-          - number
-          - 'null'
-          format: double
-        maxSalePrice:
-          type:
-          - number
-          - 'null'
-          format: double
-        minListPrice:
-          type: number
-          format: double
-        maxListPrice:
-          type: number
-          format: double
-      additionalProperties: false
-    PriceConditionTree:
-      type: object
-      properties:
-        all:
-          type: boolean
-        not:
-          type: boolean
-        id:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-        availableChildren:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/IConditionTree'
-        children:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/IConditionTree'
-      additionalProperties: false
-    Outline:
-      type: object
-      properties:
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/OutlineItem'
-          description: Outline parts
-      additionalProperties: false
-      description: 'Represents the path from the catalog to one of the child objects (product or category):
-
-        catalog/parent-category1/.../parent-categoryN/object'
-    ExcludedProperty:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        isInherited:
-          type: boolean
-      additionalProperties: false
-    PricelistSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Pricelist'
-      additionalProperties: false
-    PropertyAttribute:
-      type: object
-      properties:
-        propertyId:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    PropertyValue:
-      type: object
-      properties:
-        propertyName:
-          type:
-          - string
-          - 'null'
-        propertyId:
-          type:
-          - string
-          - 'null'
-        languageCode:
-          type:
-          - string
-          - 'null'
-        alias:
-          type:
-          - string
-          - 'null'
-        displayOrder:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        valueType:
-          allOf:
-          - $ref: '#/components/schemas/PropertyValueType'
-        valueId:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - object
-          - 'null'
-        propertyMultivalue:
-          type: boolean
-          readOnly: true
-        outerId:
-          type:
-          - string
-          - 'null'
-        unitOfMeasureId:
-          type:
-          - string
-          - 'null'
-        colorCode:
-          type:
-          - string
-          - 'null'
-        isInherited:
-          type: boolean
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    PricelistAssignmentSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PricelistAssignment'
-      additionalProperties: false
-    Price:
-      type: object
-      properties:
-        pricelistId:
-          type:
-          - string
-          - 'null'
-        pricelist:
-          allOf:
-          - $ref: '#/components/schemas/Pricelist'
-        currency:
-          type:
-          - string
-          - 'null'
-        productId:
-          type:
-          - string
-          - 'null'
-        sale:
-          type:
-          - number
-          - 'null'
-          format: double
-        list:
-          type: number
-          format: double
-        minQuantity:
-          type: integer
-          format: int32
-        startDate:
-          type:
-          - string
-          - 'null'
-          description: 'Optional start date for this price, so that we can prepare prices ahead of time.
-
-            If start date equals now, this price will be active.'
-          format: date-time
-        endDate:
-          type:
-          - string
-          - 'null'
-          description: 'Optional end date for this price, so that we can prepare prices ahead of time.
-
-            If end date equals now, this price will not be active.'
-          format: date-time
-        effectiveValue:
-          type: number
-          format: double
-          readOnly: true
-        outerId:
-          type:
-          - string
-          - 'null'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
+    SortDirection:
+      enum:
+      - Ascending
+      - Descending
+      type: string
     CatalogProduct:
       type: object
       properties:
@@ -3338,29 +3877,13 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    Operation:
+    PriceConditionTree:
       type: object
       properties:
-        value:
-          type:
-          - object
-          - 'null'
-        path:
-          type:
-          - string
-          - 'null'
-        op:
-          type:
-          - string
-          - 'null'
-        from:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    IConditionTree:
-      type: object
-      properties:
+        all:
+          type: boolean
+        not:
+          type: boolean
         id:
           type:
           - string
@@ -3372,578 +3895,55 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/IConditionTree'
-          description: List of all available children for current tree node (is used in expression designer)
-          readOnly: true
         children:
           type:
           - array
           - 'null'
           items:
             $ref: '#/components/schemas/IConditionTree'
-          readOnly: true
       additionalProperties: false
-    MergedPriceSearchResult:
+    MergedPriceGroup:
       type: object
       properties:
-        totalCount:
+        productId:
+          type:
+          - string
+          - 'null'
+        productName:
+          type:
+          - string
+          - 'null'
+        productCode:
+          type:
+          - string
+          - 'null'
+        productImgSrc:
+          type:
+          - string
+          - 'null'
+        groupPricesCount:
           type: integer
           format: int32
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/MergedPrice'
-      additionalProperties: false
-    Image:
-      type: object
-      properties:
-        binaryData:
-          type:
-          - string
-          - 'null'
-          format: byte
-        altText:
-          type:
-          - string
-          - 'null'
-        relativeUrl:
-          type:
-          - string
-          - 'null'
-        url:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        sortOrder:
-          type: integer
-          format: int32
-        typeId:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the asset type identifier.
-        group:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the asset group name.
-        name:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the asset name.
-        outerId:
-          type:
-          - string
-          - 'null'
-          description: ''
-        languageCode:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the asset language.
-        isInherited:
-          type: boolean
-          description: System flag used to mark that object was inherited from other
-          readOnly: true
-        seoObjectType:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-        seoInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SeoInfo'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    CategoryLink:
-      type: object
-      properties:
-        entryId:
-          type:
-          - string
-          - 'null'
-          description: Entry identifier which this link belongs to
-          readOnly: true
-        listEntryId:
-          type:
-          - string
-          - 'null'
-        listEntryType:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the type of the list entry. E.g. "product", "category"
-        priority:
-          type: integer
-          description: Product order position in virtual catalog
-          format: int32
-        catalogId:
-          type:
-          - string
-          - 'null'
-        categoryId:
-          type:
-          - string
-          - 'null'
-        targetId:
-          type:
-          - string
-          - 'null'
-          description: Gets the Id of either target Catetory or Catalog
-          readOnly: true
-        name:
-          type:
-          - string
-          - 'null'
-          description: Gets the name of either target Catetory or Catalog
-          readOnly: true
-        isAutomatic:
-          type: boolean
-      additionalProperties: false
-    EditorialReview:
-      type: object
-      properties:
-        content:
-          type:
-          - string
-          - 'null'
-        reviewType:
-          type:
-          - string
-          - 'null'
-        languageCode:
-          type:
-          - string
-          - 'null'
-        isInherited:
-          type: boolean
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    SortDirection:
-      enum:
-      - Ascending
-      - Descending
-      type: string
-    OutlineItem:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-          description: Object id
-        seoObjectType:
-          type:
-          - string
-          - 'null'
-          description: Object type
-        seoInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SeoInfo'
-          description: All SEO records for the object
-        name:
-          type:
-          - string
-          - 'null'
-          description: The name of current item
-        localizedName:
+        groupState:
           allOf:
-          - $ref: '#/components/schemas/LocalizedString'
-        hasVirtualParent:
-          type: boolean
-          description: True when this object is linked to the virtual parent.
-      additionalProperties: false
-      description: 'Represents one outline element: catalog, category or product.'
-    PriceEvaluationContext:
-      type: object
-      properties:
-        storeId:
+          - $ref: '#/components/schemas/MergedPriceState'
+        minSalePrice:
           type:
-          - string
+          - number
           - 'null'
-        catalogId:
+          format: double
+        maxSalePrice:
           type:
-          - string
+          - number
           - 'null'
-        productIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        pricelistIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        pricelists:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Pricelist'
-        returnAllMatchedPrices:
-          type: boolean
-        quantity:
+          format: double
+        minListPrice:
           type: number
           format: double
-        customerId:
-          type:
-          - string
-          - 'null'
-        organizationId:
-          type:
-          - string
-          - 'null'
-        certainDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        currency:
-          type:
-          - string
-          - 'null'
-        skipAssignmentValidation:
-          type: boolean
-        contextObject:
-          type:
-          - object
-          - 'null'
-        geoCity:
-          type:
-          - string
-          - 'null'
-        geoState:
-          type:
-          - string
-          - 'null'
-        geoCountry:
-          type:
-          - string
-          - 'null'
-        geoContinent:
-          type:
-          - string
-          - 'null'
-        geoZipCode:
-          type:
-          - string
-          - 'null'
-        geoConnectionType:
-          type:
-          - string
-          - 'null'
-        geoTimeZone:
-          type:
-          - string
-          - 'null'
-        geoIpRoutingType:
-          type:
-          - string
-          - 'null'
-        geoIspSecondLevel:
-          type:
-          - string
-          - 'null'
-        geoIspTopLevel:
-          type:
-          - string
-          - 'null'
-        shopperAge:
-          type: integer
-          format: int32
-        shopperGender:
-          type:
-          - string
-          - 'null'
-        language:
-          type:
-          - string
-          - 'null'
-        userGroups:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: Any tags or groups belongs to user such as VIP, Wholesaler etc
-        shopperSearchedPhraseInStore:
-          type:
-          - string
-          - 'null'
-        shopperSearchedPhraseOnInternet:
-          type:
-          - string
-          - 'null'
-        currentUrl:
-          type:
-          - string
-          - 'null'
-        referredUrl:
-          type:
-          - string
-          - 'null'
+        maxListPrice:
+          type: number
+          format: double
       additionalProperties: false
-    Asset:
-      type: object
-      properties:
-        mimeType:
-          type:
-          - string
-          - 'null'
-        size:
-          type: integer
-          format: int64
-        readableSize:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-        binaryData:
-          type:
-          - string
-          - 'null'
-          format: byte
-        relativeUrl:
-          type:
-          - string
-          - 'null'
-        url:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        sortOrder:
-          type: integer
-          format: int32
-        typeId:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the asset type identifier.
-        group:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the asset group name.
-        name:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the asset name.
-        outerId:
-          type:
-          - string
-          - 'null'
-          description: ''
-        languageCode:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the asset language.
-        isInherited:
-          type: boolean
-          description: System flag used to mark that object was inherited from other
-          readOnly: true
-        seoObjectType:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-        seoInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SeoInfo'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ProductPriceSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ProductPrice'
-      additionalProperties: false
-    SortInfo:
-      type: object
-      properties:
-        sortColumn:
-          type:
-          - string
-          - 'null'
-        sortDirection:
-          allOf:
-          - $ref: '#/components/schemas/SortDirection'
-      additionalProperties: false
-    PricelistAssignment:
-      type: object
-      properties:
-        catalogId:
-          type:
-          - string
-          - 'null'
-        storeId:
-          type:
-          - string
-          - 'null'
-        pricelistId:
-          type:
-          - string
-          - 'null'
-        pricelist:
-          allOf:
-          - $ref: '#/components/schemas/Pricelist'
-        name:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        priority:
-          type: integer
-          description: If two PricelistAssignments satisfies the conditions and rules, will use one with the greater priority
-          format: int32
-        startDate:
-          type:
-          - string
-          - 'null'
-          description: Start of period when Prices Assignment is valid. Null value means no limit
-          format: date-time
-        endDate:
-          type:
-          - string
-          - 'null'
-          description: End of period when Prices Assignment is valid. Null value means no limit
-          format: date-time
-        dynamicExpression:
-          allOf:
-          - $ref: '#/components/schemas/PriceConditionTree'
-          description: List of conditions and rules to define Prices Assignment is valid
-        outerId:
-          type:
-          - string
-          - 'null'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-      description: Used to assign pricelist to specific catalog by using conditional expression
   securitySchemes:
     oauth2:
       type: oauth2
