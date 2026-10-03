@@ -224,6 +224,1489 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    EntryState:
+      enum:
+      - Detached
+      - Unchanged
+      - Added
+      - Deleted
+      - Modified
+      type: string
+    OrderConfigurationItemFile:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        url:
+          type:
+          - string
+          - 'null'
+        contentType:
+          type:
+          - string
+          - 'null'
+        size:
+          type: integer
+          format: int64
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    AddressType:
+      enum:
+      - Undefined
+      - Billing
+      - Shipping
+      - BillingAndShipping
+      - Pickup
+      type: string
+    OrderShipment:
+      type: object
+      properties:
+        organizationId:
+          type:
+          - string
+          - 'null'
+        organizationName:
+          type:
+          - string
+          - 'null'
+        fulfillmentCenterId:
+          type:
+          - string
+          - 'null'
+        fulfillmentCenterName:
+          type:
+          - string
+          - 'null'
+        employeeId:
+          type:
+          - string
+          - 'null'
+        employeeName:
+          type:
+          - string
+          - 'null'
+        shipmentMethodCode:
+          type:
+          - string
+          - 'null'
+          description: Current shipment method code
+        shipmentMethodOption:
+          type:
+          - string
+          - 'null'
+          description: Current shipment option code
+        shippingMethod:
+          allOf:
+          - $ref: '#/components/schemas/ShippingMethod'
+          description: Shipment method contains additional shipment method information
+        customerOrderId:
+          type:
+          - string
+          - 'null'
+        customerOrder:
+          allOf:
+          - $ref: '#/components/schemas/CustomerOrder'
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OrderShipmentItem'
+        packages:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ShipmentPackage'
+        inPayments:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PaymentIn'
+        feeDetails:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/FeeDetail'
+        weightUnit:
+          type:
+          - string
+          - 'null'
+        weight:
+          type:
+          - number
+          - 'null'
+          format: double
+        measureUnit:
+          type:
+          - string
+          - 'null'
+        height:
+          type:
+          - number
+          - 'null'
+          format: double
+        length:
+          type:
+          - number
+          - 'null'
+          format: double
+        width:
+          type:
+          - number
+          - 'null'
+          format: double
+        discounts:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Discount'
+        deliveryAddress:
+          allOf:
+          - $ref: '#/components/schemas/OrderAddress'
+        price:
+          type: number
+          format: double
+        priceWithTax:
+          type: number
+          format: double
+        total:
+          type: number
+          format: double
+        totalWithTax:
+          type: number
+          format: double
+        discountAmount:
+          type: number
+          format: double
+        discountAmountWithTax:
+          type: number
+          format: double
+        pickupLocationId:
+          type:
+          - string
+          - 'null'
+        fee:
+          type: number
+          format: double
+        feeWithTax:
+          type: number
+          format: double
+        trackingNumber:
+          type:
+          - string
+          - 'null'
+          description: Tracking information
+        trackingUrl:
+          type:
+          - string
+          - 'null'
+        deliveryDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        objectType:
+          type:
+          - string
+          - 'null'
+        vendorId:
+          type:
+          - string
+          - 'null'
+        taxType:
+          type:
+          - string
+          - 'null'
+          description: Tax category or type
+        taxTotal:
+          type: number
+          format: double
+        taxPercentRate:
+          type: number
+          format: double
+        taxDetails:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/TaxDetail'
+        operationType:
+          type:
+          - string
+          - 'null'
+        parentOperationId:
+          type:
+          - string
+          - 'null'
+        number:
+          type:
+          - string
+          - 'null'
+        isApproved:
+          type: boolean
+        status:
+          type:
+          - string
+          - 'null'
+        comment:
+          type:
+          - string
+          - 'null'
+        currency:
+          type:
+          - string
+          - 'null'
+        sum:
+          type: number
+          format: double
+        outerId:
+          type:
+          - string
+          - 'null'
+        cancelledState:
+          allOf:
+          - $ref: '#/components/schemas/CancelledState'
+          description: For system use to handle canellation flow
+        isCancelled:
+          type: boolean
+          description: Used by payment provides to indicate that cancellation operation has completed
+        cancelledDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        cancelReason:
+          type:
+          - string
+          - 'null'
+        dynamicProperties:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicObjectProperty'
+        operationsLog:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OperationLog'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    OrderShipmentItem:
+      type: object
+      properties:
+        lineItemId:
+          type:
+          - string
+          - 'null'
+        lineItem:
+          allOf:
+          - $ref: '#/components/schemas/OrderLineItem'
+        barCode:
+          type:
+          - string
+          - 'null'
+        quantity:
+          type: integer
+          format: int32
+        outerId:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - string
+          - 'null'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ShippingMethod:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        logoUrl:
+          type:
+          - string
+          - 'null'
+        isActive:
+          type: boolean
+        priority:
+          type: integer
+          format: int32
+        taxType:
+          type:
+          - string
+          - 'null'
+        storeId:
+          type:
+          - string
+          - 'null'
+        settings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ObjectSettingEntry'
+        typeName:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PaymentGatewayTransaction:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: double
+        currencyCode:
+          type:
+          - string
+          - 'null'
+        isProcessed:
+          type: boolean
+          description: Flag represent that current transaction is processed
+        processedDate:
+          type:
+          - string
+          - 'null'
+          description: Date when this transaction was handled
+          format: date-time
+        processError:
+          type:
+          - string
+          - 'null'
+        processAttemptCount:
+          type: integer
+          format: int32
+        requestData:
+          type:
+          - string
+          - 'null'
+          description: Raw request data
+        responseData:
+          type:
+          - string
+          - 'null'
+          description: Raw response data
+        responseCode:
+          type:
+          - string
+          - 'null'
+          description: Gateway or VC response status code
+        gatewayIpAddress:
+          type:
+          - string
+          - 'null'
+          description: Gateway IP address
+        type:
+          type:
+          - string
+          - 'null'
+          description: "The type of payment interaction.The payment can be Capture or CheckReceived. \nThe value also includes customer payment interactions such as Website, Call, Store, or Unknown."
+        status:
+          type:
+          - string
+          - 'null'
+          description: '"Active", "Expired", and "Inactive" or other'
+        note:
+          type:
+          - string
+          - 'null'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CancelledState:
+      enum:
+      - Undefined
+      - Requested
+      - Completed
+      type: string
+    DynamicPropertyName:
+      type: object
+      properties:
+        locale:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    OrderLineItem:
+      type: object
+      properties:
+        customerOrderId:
+          type:
+          - string
+          - 'null'
+          description: 'Not mapped for updates: updates to this property are ignored by CRUD services.'
+          readOnly: true
+        priceId:
+          type:
+          - string
+          - 'null'
+          description: Price id
+        currency:
+          type:
+          - string
+          - 'null'
+        price:
+          type: number
+          description: unit price without discount and tax
+          format: double
+        priceWithTax:
+          type: number
+          format: double
+        listTotal:
+          type: number
+          format: double
+        listTotalWithTax:
+          type: number
+          format: double
+        placedPrice:
+          type: number
+          description: Resulting price with discount for one unit
+          format: double
+        placedPriceWithTax:
+          type: number
+          format: double
+        extendedPrice:
+          type: number
+          format: double
+        extendedPriceWithTax:
+          type: number
+          format: double
+        discountAmount:
+          type: number
+          description: Gets the value of the single qty line item discount amount
+          format: double
+        isDiscountAmountRounded:
+          type: boolean
+          description: 'Indicates whether the discount amount per item was rounded according to the currency settings.
+
+            If false, DiscountAmount and PlacedPrice should not be visible to the customer, as these values may be incorrect;
+
+            in this case, DiscountTotal and ExtendedPrice should be used.'
+        discountAmountWithTax:
+          type: number
+          format: double
+        discountTotal:
+          type: number
+          format: double
+        discountTotalWithTax:
+          type: number
+          format: double
+        fee:
+          type: number
+          format: double
+        feeWithTax:
+          type: number
+          format: double
+        taxType:
+          type:
+          - string
+          - 'null'
+          description: Tax category or type
+        taxTotal:
+          type: number
+          format: double
+        taxPercentRate:
+          type: number
+          format: double
+        reserveQuantity:
+          type: integer
+          description: Reserve quantity
+          format: int32
+        quantity:
+          type: integer
+          format: int32
+        productId:
+          type:
+          - string
+          - 'null'
+        sku:
+          type:
+          - string
+          - 'null'
+        productType:
+          type:
+          - string
+          - 'null'
+        catalogId:
+          type:
+          - string
+          - 'null'
+        categoryId:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        productOuterId:
+          type:
+          - string
+          - 'null'
+        comment:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - string
+          - 'null'
+        imageUrl:
+          type:
+          - string
+          - 'null'
+        isGift:
+          type:
+          - boolean
+          - 'null'
+        shippingMethodCode:
+          type:
+          - string
+          - 'null'
+        fulfillmentLocationCode:
+          type:
+          - string
+          - 'null'
+        fulfillmentCenterId:
+          type:
+          - string
+          - 'null'
+        fulfillmentCenterName:
+          type:
+          - string
+          - 'null'
+        outerId:
+          type:
+          - string
+          - 'null'
+        feeDetails:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/FeeDetail'
+        vendorId:
+          type:
+          - string
+          - 'null'
+        isConfigured:
+          type: boolean
+        weightUnit:
+          type:
+          - string
+          - 'null'
+        weight:
+          type:
+          - number
+          - 'null'
+          format: double
+        measureUnit:
+          type:
+          - string
+          - 'null'
+        height:
+          type:
+          - number
+          - 'null'
+          format: double
+        length:
+          type:
+          - number
+          - 'null'
+          format: double
+        width:
+          type:
+          - number
+          - 'null'
+          format: double
+        isCancelled:
+          type: boolean
+        cancelledDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        cancelReason:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        dynamicProperties:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicObjectProperty'
+        discounts:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Discount'
+        taxDetails:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/TaxDetail'
+        configurationItems:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OrderConfigurationItem'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    RefundStatus:
+      enum:
+      - Pending
+      - Rejected
+      - Processed
+      type: string
+    ProcessPaymentRequestResult:
+      type: object
+      properties:
+        redirectUrl:
+          type:
+          - string
+          - 'null'
+        htmlForm:
+          type:
+          - string
+          - 'null'
+        outerId:
+          type:
+          - string
+          - 'null'
+        paymentMethod:
+          allOf:
+          - $ref: '#/components/schemas/PaymentMethod'
+        isSuccess:
+          type: boolean
+        errorMessage:
+          type:
+          - string
+          - 'null'
+        newPaymentStatus:
+          allOf:
+          - $ref: '#/components/schemas/PaymentStatus'
+        publicParameters:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+      additionalProperties: false
+    SortDirection:
+      enum:
+      - Ascending
+      - Descending
+      type: string
+    DynamicObjectProperty:
+      type: object
+      properties:
+        objectId:
+          type:
+          - string
+          - 'null'
+        values:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicPropertyObjectValue'
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        isArray:
+          type: boolean
+        isDictionary:
+          type: boolean
+        isMultilingual:
+          type: boolean
+        isRequired:
+          type: boolean
+        displayOrder:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        valueType:
+          allOf:
+          - $ref: '#/components/schemas/DynamicPropertyValueType'
+        displayNames:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicPropertyName'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PaymentMethodType:
+      enum:
+      - Unknown
+      - Standard
+      - Redirection
+      - PreparedForm
+      type: string
+    OperationLog:
+      type: object
+      properties:
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectId:
+          type:
+          - string
+          - 'null'
+        operationType:
+          allOf:
+          - $ref: '#/components/schemas/EntryState'
+        detail:
+          type:
+          - string
+          - 'null'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PaymentMethodGroupType:
+      enum:
+      - Paypal
+      - BankCard
+      - Alternative
+      - Manual
+      type: string
+    ObjectSettingEntry:
+      type: object
+      properties:
+        itHasValues:
+          type: boolean
+          readOnly: true
+        objectId:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        isReadOnly:
+          type: boolean
+        value:
+          type:
+          - object
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+        restartRequired:
+          type: boolean
+        moduleId:
+          type:
+          - string
+          - 'null'
+        groupName:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        displayName:
+          type:
+          - string
+          - 'null'
+        isRequired:
+          type: boolean
+        isHidden:
+          type: boolean
+        isPublic:
+          type: boolean
+        valueType:
+          allOf:
+          - $ref: '#/components/schemas/SettingValueType'
+        allowedValues:
+          type:
+          - array
+          - 'null'
+          items:
+            type: object
+        defaultValue:
+          type:
+          - object
+          - 'null'
+        isDictionary:
+          type: boolean
+        isLocalizable:
+          type: boolean
+        tenant:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ShipmentPackage:
+      type: object
+      properties:
+        barCode:
+          type:
+          - string
+          - 'null'
+        packageType:
+          type:
+          - string
+          - 'null'
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OrderShipmentItem'
+        weightUnit:
+          type:
+          - string
+          - 'null'
+        weight:
+          type:
+          - number
+          - 'null'
+          format: double
+        measureUnit:
+          type:
+          - string
+          - 'null'
+        height:
+          type:
+          - number
+          - 'null'
+          format: double
+        length:
+          type:
+          - number
+          - 'null'
+          format: double
+        width:
+          type:
+          - number
+          - 'null'
+          format: double
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    SortInfo:
+      type: object
+      properties:
+        sortColumn:
+          type:
+          - string
+          - 'null'
+        sortDirection:
+          allOf:
+          - $ref: '#/components/schemas/SortDirection'
+      additionalProperties: false
+    Capture:
+      type: object
+      properties:
+        objectType:
+          type:
+          - string
+          - 'null'
+        amount:
+          type: number
+          format: double
+        vendorId:
+          type:
+          - string
+          - 'null'
+        transactionId:
+          type:
+          - string
+          - 'null'
+        customerOrderId:
+          type:
+          - string
+          - 'null'
+        paymentId:
+          type:
+          - string
+          - 'null'
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CaptureItem'
+        closeTransaction:
+          type: boolean
+        operationType:
+          type:
+          - string
+          - 'null'
+        parentOperationId:
+          type:
+          - string
+          - 'null'
+        number:
+          type:
+          - string
+          - 'null'
+        isApproved:
+          type: boolean
+        status:
+          type:
+          - string
+          - 'null'
+        comment:
+          type:
+          - string
+          - 'null'
+        currency:
+          type:
+          - string
+          - 'null'
+        sum:
+          type: number
+          format: double
+        outerId:
+          type:
+          - string
+          - 'null'
+        cancelledState:
+          allOf:
+          - $ref: '#/components/schemas/CancelledState'
+          description: For system use to handle canellation flow
+        isCancelled:
+          type: boolean
+          description: Used by payment provides to indicate that cancellation operation has completed
+        cancelledDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        cancelReason:
+          type:
+          - string
+          - 'null'
+        dynamicProperties:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicObjectProperty'
+        operationsLog:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OperationLog'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    FeeDetail:
+      type: object
+      properties:
+        feeId:
+          type:
+          - string
+          - 'null'
+        currency:
+          type:
+          - string
+          - 'null'
+        amount:
+          type: number
+          format: double
+        description:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    LocalizedString:
+      type: object
+      properties:
+        values:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+          readOnly: true
+      additionalProperties: false
+    OrderAddress:
+      type: object
+      properties:
+        addressType:
+          allOf:
+          - $ref: '#/components/schemas/AddressType'
+        key:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        organization:
+          type:
+          - string
+          - 'null'
+        countryCode:
+          type:
+          - string
+          - 'null'
+        countryName:
+          type:
+          - string
+          - 'null'
+        city:
+          type:
+          - string
+          - 'null'
+        postalCode:
+          type:
+          - string
+          - 'null'
+        zip:
+          type:
+          - string
+          - 'null'
+        line1:
+          type:
+          - string
+          - 'null'
+        line2:
+          type:
+          - string
+          - 'null'
+        regionId:
+          type:
+          - string
+          - 'null'
+        regionName:
+          type:
+          - string
+          - 'null'
+        firstName:
+          type:
+          - string
+          - 'null'
+        middleName:
+          type:
+          - string
+          - 'null'
+        lastName:
+          type:
+          - string
+          - 'null'
+        phone:
+          type:
+          - string
+          - 'null'
+        email:
+          type:
+          - string
+          - 'null'
+        outerId:
+          type:
+          - string
+          - 'null'
+        isDefault:
+          type: boolean
+        description:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PaymentMethod:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        logoUrl:
+          type:
+          - string
+          - 'null'
+        isActive:
+          type: boolean
+        priority:
+          type: integer
+          format: int32
+        isAvailableForPartial:
+          type: boolean
+        allowDeferredPayment:
+          type: boolean
+        currency:
+          type:
+          - string
+          - 'null'
+        price:
+          type: number
+          format: double
+        priceWithTax:
+          type: number
+          format: double
+          readOnly: true
+        total:
+          type: number
+          format: double
+          readOnly: true
+        totalWithTax:
+          type: number
+          format: double
+          readOnly: true
+        discountAmount:
+          type: number
+          format: double
+        discountAmountWithTax:
+          type: number
+          format: double
+          readOnly: true
+        allowCartPayment:
+          type: boolean
+          readOnly: true
+        storeId:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        typeName:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        settings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ObjectSettingEntry'
+        taxType:
+          type:
+          - string
+          - 'null'
+        taxTotal:
+          type: number
+          format: double
+          readOnly: true
+        taxPercentRate:
+          type: number
+          format: double
+        taxDetails:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/TaxDetail'
+        localizedName:
+          allOf:
+          - $ref: '#/components/schemas/LocalizedString'
+        paymentMethodType:
+          allOf:
+          - $ref: '#/components/schemas/PaymentMethodType'
+          readOnly: true
+        paymentMethodGroupType:
+          allOf:
+          - $ref: '#/components/schemas/PaymentMethodGroupType'
+          readOnly: true
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    DynamicPropertyObjectValue:
+      type: object
+      properties:
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectId:
+          type:
+          - string
+          - 'null'
+        locale:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - object
+          - 'null'
+        valueId:
+          type:
+          - string
+          - 'null'
+        valueType:
+          allOf:
+          - $ref: '#/components/schemas/DynamicPropertyValueType'
+        propertyId:
+          type:
+          - string
+          - 'null'
+        propertyName:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     CustomerOrder:
       type: object
       properties:
@@ -574,95 +2057,81 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    OrderLineItem:
+    ReturnLineItem:
       type: object
       properties:
+        returnId:
+          type:
+          - string
+          - 'null'
+        orderLineItemId:
+          type:
+          - string
+          - 'null'
+        quantity:
+          type: integer
+          format: int32
+        availableQuantity:
+          type: integer
+          format: int32
+        price:
+          type: number
+          format: double
+        reason:
+          type:
+          - string
+          - 'null'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    OrderConfigurationItem:
+      type: object
+      properties:
+        lineItemId:
+          type:
+          - string
+          - 'null'
         customerOrderId:
           type:
           - string
           - 'null'
           description: 'Not mapped for updates: updates to this property are ignored by CRUD services.'
           readOnly: true
-        priceId:
-          type:
-          - string
-          - 'null'
-          description: Price id
-        currency:
-          type:
-          - string
-          - 'null'
-        price:
-          type: number
-          description: unit price without discount and tax
-          format: double
-        priceWithTax:
-          type: number
-          format: double
-        listTotal:
-          type: number
-          format: double
-        listTotalWithTax:
-          type: number
-          format: double
-        placedPrice:
-          type: number
-          description: Resulting price with discount for one unit
-          format: double
-        placedPriceWithTax:
-          type: number
-          format: double
-        extendedPrice:
-          type: number
-          format: double
-        extendedPriceWithTax:
-          type: number
-          format: double
-        discountAmount:
-          type: number
-          description: Gets the value of the single qty line item discount amount
-          format: double
-        isDiscountAmountRounded:
-          type: boolean
-          description: 'Indicates whether the discount amount per item was rounded according to the currency settings.
-
-            If false, DiscountAmount and PlacedPrice should not be visible to the customer, as these values may be incorrect;
-
-            in this case, DiscountTotal and ExtendedPrice should be used.'
-        discountAmountWithTax:
-          type: number
-          format: double
-        discountTotal:
-          type: number
-          format: double
-        discountTotalWithTax:
-          type: number
-          format: double
-        fee:
-          type: number
-          format: double
-        feeWithTax:
-          type: number
-          format: double
-        taxType:
-          type:
-          - string
-          - 'null'
-          description: Tax category or type
-        taxTotal:
-          type: number
-          format: double
-        taxPercentRate:
-          type: number
-          format: double
-        reserveQuantity:
-          type: integer
-          description: Reserve quantity
-          format: int32
-        quantity:
-          type: integer
-          format: int32
         productId:
+          type:
+          - string
+          - 'null'
+        sectionId:
+          type:
+          - string
+          - 'null'
+        sectionName:
+          type:
+          - string
+          - 'null'
+        name:
           type:
           - string
           - 'null'
@@ -670,7 +2139,20 @@ components:
           type:
           - string
           - 'null'
-        productType:
+        quantity:
+          type: integer
+          format: int32
+        price:
+          type: number
+          format: double
+        salePrice:
+          type: number
+          format: double
+        extendedPrice:
+          type: number
+          format: double
+          readOnly: true
+        imageUrl:
           type:
           - string
           - 'null'
@@ -682,493 +2164,20 @@ components:
           type:
           - string
           - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        productOuterId:
-          type:
-          - string
-          - 'null'
-        comment:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - string
-          - 'null'
-        imageUrl:
-          type:
-          - string
-          - 'null'
-        isGift:
-          type:
-          - boolean
-          - 'null'
-        shippingMethodCode:
-          type:
-          - string
-          - 'null'
-        fulfillmentLocationCode:
-          type:
-          - string
-          - 'null'
-        fulfillmentCenterId:
-          type:
-          - string
-          - 'null'
-        fulfillmentCenterName:
-          type:
-          - string
-          - 'null'
-        outerId:
-          type:
-          - string
-          - 'null'
-        feeDetails:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/FeeDetail'
-        vendorId:
-          type:
-          - string
-          - 'null'
-        isConfigured:
-          type: boolean
-        weightUnit:
-          type:
-          - string
-          - 'null'
-        weight:
-          type:
-          - number
-          - 'null'
-          format: double
-        measureUnit:
-          type:
-          - string
-          - 'null'
-        height:
-          type:
-          - number
-          - 'null'
-          format: double
-        length:
-          type:
-          - number
-          - 'null'
-          format: double
-        width:
-          type:
-          - number
-          - 'null'
-          format: double
-        isCancelled:
-          type: boolean
-        cancelledDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        cancelReason:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-        dynamicProperties:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/DynamicObjectProperty'
-        discounts:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Discount'
-        taxDetails:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/TaxDetail'
-        configurationItems:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/OrderConfigurationItem'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    PaymentMethodType:
-      enum:
-      - Unknown
-      - Standard
-      - Redirection
-      - PreparedForm
-      type: string
-    SortInfo:
-      type: object
-      properties:
-        sortColumn:
-          type:
-          - string
-          - 'null'
-        sortDirection:
-          allOf:
-          - $ref: '#/components/schemas/SortDirection'
-      additionalProperties: false
-    LocalizedString:
-      type: object
-      properties:
-        values:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-          readOnly: true
-      additionalProperties: false
-    DynamicPropertyObjectValue:
-      type: object
-      properties:
-        objectType:
-          type:
-          - string
-          - 'null'
-        objectId:
-          type:
-          - string
-          - 'null'
-        locale:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - object
-          - 'null'
-        valueId:
-          type:
-          - string
-          - 'null'
-        valueType:
-          allOf:
-          - $ref: '#/components/schemas/DynamicPropertyValueType'
-        propertyId:
-          type:
-          - string
-          - 'null'
-        propertyName:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    PaymentMethodGroupType:
-      enum:
-      - Paypal
-      - BankCard
-      - Alternative
-      - Manual
-      type: string
-    Discount:
-      type: object
-      properties:
-        promotionId:
-          type:
-          - string
-          - 'null'
-        currency:
-          type:
-          - string
-          - 'null'
-        discountAmount:
-          type: number
-          format: double
-        discountAmountWithTax:
-          type: number
-          format: double
-        coupon:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ProcessPaymentRequestResult:
-      type: object
-      properties:
-        redirectUrl:
-          type:
-          - string
-          - 'null'
-        htmlForm:
-          type:
-          - string
-          - 'null'
-        outerId:
-          type:
-          - string
-          - 'null'
-        paymentMethod:
-          allOf:
-          - $ref: '#/components/schemas/PaymentMethod'
-        isSuccess:
-          type: boolean
-        errorMessage:
-          type:
-          - string
-          - 'null'
-        newPaymentStatus:
-          allOf:
-          - $ref: '#/components/schemas/PaymentStatus'
-        publicParameters:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-      additionalProperties: false
-    ObjectSettingEntry:
-      type: object
-      properties:
-        itHasValues:
-          type: boolean
-          readOnly: true
-        objectId:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-        isReadOnly:
-          type: boolean
-        value:
-          type:
-          - object
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-        restartRequired:
-          type: boolean
-        moduleId:
-          type:
-          - string
-          - 'null'
-        groupName:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        displayName:
-          type:
-          - string
-          - 'null'
-        isRequired:
-          type: boolean
-        isHidden:
-          type: boolean
-        isPublic:
-          type: boolean
-        valueType:
-          allOf:
-          - $ref: '#/components/schemas/SettingValueType'
-        allowedValues:
-          type:
-          - array
-          - 'null'
-          items:
-            type: object
-        defaultValue:
-          type:
-          - object
-          - 'null'
-        isDictionary:
-          type: boolean
-        isLocalizable:
-          type: boolean
-        tenant:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    RefundItem:
-      type: object
-      properties:
-        quantity:
-          type: integer
-          format: int32
-        lineItemId:
-          type:
-          - string
-          - 'null'
-        lineItem:
-          allOf:
-          - $ref: '#/components/schemas/OrderLineItem'
-        refundId:
-          type:
-          - string
-          - 'null'
-        outerId:
-          type:
-          - string
-          - 'null'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    FeeDetail:
-      type: object
-      properties:
-        feeId:
-          type:
-          - string
-          - 'null'
-        currency:
-          type:
-          - string
-          - 'null'
-        amount:
-          type: number
-          format: double
-        description:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    PaymentGatewayTransaction:
-      type: object
-      properties:
-        amount:
-          type: number
-          format: double
-        currencyCode:
-          type:
-          - string
-          - 'null'
-        isProcessed:
-          type: boolean
-          description: Flag represent that current transaction is processed
-        processedDate:
-          type:
-          - string
-          - 'null'
-          description: Date when this transaction was handled
-          format: date-time
-        processError:
-          type:
-          - string
-          - 'null'
-        processAttemptCount:
-          type: integer
-          format: int32
-        requestData:
-          type:
-          - string
-          - 'null'
-          description: Raw request data
-        responseData:
-          type:
-          - string
-          - 'null'
-          description: Raw response data
-        responseCode:
-          type:
-          - string
-          - 'null'
-          description: Gateway or VC response status code
-        gatewayIpAddress:
-          type:
-          - string
-          - 'null'
-          description: Gateway IP address
         type:
           type:
           - string
           - 'null'
-          description: "The type of payment interaction.The payment can be Capture or CheckReceived. \nThe value also includes customer payment interactions such as Website, Call, Store, or Unknown."
-        status:
+        customText:
           type:
           - string
           - 'null'
-          description: '"Active", "Expired", and "Inactive" or other'
-        note:
+        files:
           type:
-          - string
+          - array
           - 'null'
+          items:
+            $ref: '#/components/schemas/OrderConfigurationItemFile'
         createdDate:
           type: string
           format: date-time
@@ -1194,398 +2203,101 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    Return:
+    TaxDetail:
       type: object
       properties:
-        number:
+        rate:
+          type: number
+          format: double
+        amount:
+          type: number
+          format: double
+        name:
           type:
           - string
           - 'null'
+      additionalProperties: false
+    ReturnSearchCriteria:
+      type: object
+      properties:
         orderId:
           type:
           - string
           - 'null'
-        status:
+        responseGroup:
           type:
           - string
           - 'null'
-        resolution:
-          type:
-          - string
-          - 'null'
-        order:
-          allOf:
-          - $ref: '#/components/schemas/CustomerOrder'
-        lineItems:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ReturnLineItem'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    OrderShipment:
-      type: object
-      properties:
-        organizationId:
-          type:
-          - string
-          - 'null'
-        organizationName:
-          type:
-          - string
-          - 'null'
-        fulfillmentCenterId:
-          type:
-          - string
-          - 'null'
-        fulfillmentCenterName:
-          type:
-          - string
-          - 'null'
-        employeeId:
-          type:
-          - string
-          - 'null'
-        employeeName:
-          type:
-          - string
-          - 'null'
-        shipmentMethodCode:
-          type:
-          - string
-          - 'null'
-          description: Current shipment method code
-        shipmentMethodOption:
-          type:
-          - string
-          - 'null'
-          description: Current shipment option code
-        shippingMethod:
-          allOf:
-          - $ref: '#/components/schemas/ShippingMethod'
-          description: Shipment method contains additional shipment method information
-        customerOrderId:
-          type:
-          - string
-          - 'null'
-        customerOrder:
-          allOf:
-          - $ref: '#/components/schemas/CustomerOrder'
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/OrderShipmentItem'
-        packages:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ShipmentPackage'
-        inPayments:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PaymentIn'
-        feeDetails:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/FeeDetail'
-        weightUnit:
-          type:
-          - string
-          - 'null'
-        weight:
-          type:
-          - number
-          - 'null'
-          format: double
-        measureUnit:
-          type:
-          - string
-          - 'null'
-        height:
-          type:
-          - number
-          - 'null'
-          format: double
-        length:
-          type:
-          - number
-          - 'null'
-          format: double
-        width:
-          type:
-          - number
-          - 'null'
-          format: double
-        discounts:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Discount'
-        deliveryAddress:
-          allOf:
-          - $ref: '#/components/schemas/OrderAddress'
-        price:
-          type: number
-          format: double
-        priceWithTax:
-          type: number
-          format: double
-        total:
-          type: number
-          format: double
-        totalWithTax:
-          type: number
-          format: double
-        discountAmount:
-          type: number
-          format: double
-        discountAmountWithTax:
-          type: number
-          format: double
-        pickupLocationId:
-          type:
-          - string
-          - 'null'
-        fee:
-          type: number
-          format: double
-        feeWithTax:
-          type: number
-          format: double
-        trackingNumber:
-          type:
-          - string
-          - 'null'
-          description: Tracking information
-        trackingUrl:
-          type:
-          - string
-          - 'null'
-        deliveryDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
         objectType:
           type:
           - string
           - 'null'
-        vendorId:
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
           type:
           - string
           - 'null'
-        taxType:
+        searchPhrase:
           type:
           - string
           - 'null'
-          description: Tax category or type
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
+      additionalProperties: false
+    OrderTotal:
+      type: object
+      properties:
+        currencyCode:
+          type:
+          - string
+          - 'null'
+        total:
+          type: number
+          format: double
+        subTotal:
+          type: number
+          format: double
         taxTotal:
           type: number
           format: double
-        taxPercentRate:
+        discountTotal:
           type: number
           format: double
-        taxDetails:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/TaxDetail'
-        operationType:
-          type:
-          - string
-          - 'null'
-        parentOperationId:
-          type:
-          - string
-          - 'null'
-        number:
-          type:
-          - string
-          - 'null'
-        isApproved:
-          type: boolean
-        status:
-          type:
-          - string
-          - 'null'
-        comment:
-          type:
-          - string
-          - 'null'
-        currency:
-          type:
-          - string
-          - 'null'
-        sum:
-          type: number
-          format: double
-        outerId:
-          type:
-          - string
-          - 'null'
-        cancelledState:
-          allOf:
-          - $ref: '#/components/schemas/CancelledState'
-          description: For system use to handle canellation flow
-        isCancelled:
-          type: boolean
-          description: Used by payment provides to indicate that cancellation operation has completed
-        cancelledDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        cancelReason:
-          type:
-          - string
-          - 'null'
-        dynamicProperties:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/DynamicObjectProperty'
-        operationsLog:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/OperationLog'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
         id:
           type:
           - string
           - 'null'
       additionalProperties: false
-    SettingValueType:
-      enum:
-      - ShortText
-      - LongText
-      - Integer
-      - Decimal
-      - DateTime
-      - Boolean
-      - SecureString
-      - Json
-      - PositiveInteger
-      - Cron
-      type: string
-    DynamicPropertyValueType:
-      enum:
-      - Undefined
-      - ShortText
-      - LongText
-      - Integer
-      - Decimal
-      - DateTime
-      - Boolean
-      - Html
-      - Image
-      type: string
-    CaptureItem:
-      type: object
-      properties:
-        quantity:
-          type: integer
-          format: int32
-        lineItemId:
-          type:
-          - string
-          - 'null'
-        lineItem:
-          allOf:
-          - $ref: '#/components/schemas/OrderLineItem'
-        captureId:
-          type:
-          - string
-          - 'null'
-        outerId:
-          type:
-          - string
-          - 'null'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    CancelledState:
-      enum:
-      - Undefined
-      - Requested
-      - Completed
-      type: string
     Refund:
       type: object
       properties:
@@ -1718,61 +2430,34 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    AddressType:
-      enum:
-      - Undefined
-      - Billing
-      - Shipping
-      - BillingAndShipping
-      - Pickup
-      type: string
-    DynamicObjectProperty:
+    Return:
       type: object
       properties:
-        objectId:
+        number:
           type:
           - string
           - 'null'
-        values:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/DynamicPropertyObjectValue'
-        name:
+        orderId:
           type:
           - string
           - 'null'
-        description:
+        status:
           type:
           - string
           - 'null'
-        objectType:
+        resolution:
           type:
           - string
           - 'null'
-        isArray:
-          type: boolean
-        isDictionary:
-          type: boolean
-        isMultilingual:
-          type: boolean
-        isRequired:
-          type: boolean
-        displayOrder:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        valueType:
+        order:
           allOf:
-          - $ref: '#/components/schemas/DynamicPropertyValueType'
-        displayNames:
+          - $ref: '#/components/schemas/CustomerOrder'
+        lineItems:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/DynamicPropertyName'
+            $ref: '#/components/schemas/ReturnLineItem'
         createdDate:
           type: string
           format: date-time
@@ -1794,91 +2479,6 @@ components:
           - string
           - 'null'
         id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    OrderAddress:
-      type: object
-      properties:
-        addressType:
-          allOf:
-          - $ref: '#/components/schemas/AddressType'
-        key:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        organization:
-          type:
-          - string
-          - 'null'
-        countryCode:
-          type:
-          - string
-          - 'null'
-        countryName:
-          type:
-          - string
-          - 'null'
-        city:
-          type:
-          - string
-          - 'null'
-        postalCode:
-          type:
-          - string
-          - 'null'
-        zip:
-          type:
-          - string
-          - 'null'
-        line1:
-          type:
-          - string
-          - 'null'
-        line2:
-          type:
-          - string
-          - 'null'
-        regionId:
-          type:
-          - string
-          - 'null'
-        regionName:
-          type:
-          - string
-          - 'null'
-        firstName:
-          type:
-          - string
-          - 'null'
-        middleName:
-          type:
-          - string
-          - 'null'
-        lastName:
-          type:
-          - string
-          - 'null'
-        phone:
-          type:
-          - string
-          - 'null'
-        email:
-          type:
-          - string
-          - 'null'
-        outerId:
-          type:
-          - string
-          - 'null'
-        isDefault:
-          type: boolean
-        description:
           type:
           - string
           - 'null'
@@ -1897,206 +2497,52 @@ components:
       - Declined
       - Error
       type: string
-    OrderConfigurationItem:
+    SettingValueType:
+      enum:
+      - ShortText
+      - LongText
+      - Integer
+      - Decimal
+      - DateTime
+      - Boolean
+      - SecureString
+      - Json
+      - PositiveInteger
+      - Cron
+      type: string
+    DynamicPropertyValueType:
+      enum:
+      - Undefined
+      - ShortText
+      - LongText
+      - Integer
+      - Decimal
+      - DateTime
+      - Boolean
+      - Html
+      - Image
+      type: string
+    RefundItem:
       type: object
       properties:
+        quantity:
+          type: integer
+          format: int32
         lineItemId:
           type:
           - string
           - 'null'
-        customerOrderId:
+        lineItem:
+          allOf:
+          - $ref: '#/components/schemas/OrderLineItem'
+        refundId:
           type:
           - string
           - 'null'
-          description: 'Not mapped for updates: updates to this property are ignored by CRUD services.'
-          readOnly: true
-        productId:
-          type:
-          - string
-          - 'null'
-        sectionId:
-          type:
-          - string
-          - 'null'
-        sectionName:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        sku:
-          type:
-          - string
-          - 'null'
-        quantity:
-          type: integer
-          format: int32
-        price:
-          type: number
-          format: double
-        salePrice:
-          type: number
-          format: double
-        extendedPrice:
-          type: number
-          format: double
-          readOnly: true
-        imageUrl:
-          type:
-          - string
-          - 'null'
-        catalogId:
-          type:
-          - string
-          - 'null'
-        categoryId:
-          type:
-          - string
-          - 'null'
-        type:
-          type:
-          - string
-          - 'null'
-        customText:
-          type:
-          - string
-          - 'null'
-        files:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/OrderConfigurationItemFile'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    EntryState:
-      enum:
-      - Detached
-      - Unchanged
-      - Added
-      - Deleted
-      - Modified
-      type: string
-    Capture:
-      type: object
-      properties:
-        objectType:
-          type:
-          - string
-          - 'null'
-        amount:
-          type: number
-          format: double
-        vendorId:
-          type:
-          - string
-          - 'null'
-        transactionId:
-          type:
-          - string
-          - 'null'
-        customerOrderId:
-          type:
-          - string
-          - 'null'
-        paymentId:
-          type:
-          - string
-          - 'null'
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/CaptureItem'
-        closeTransaction:
-          type: boolean
-        operationType:
-          type:
-          - string
-          - 'null'
-        parentOperationId:
-          type:
-          - string
-          - 'null'
-        number:
-          type:
-          - string
-          - 'null'
-        isApproved:
-          type: boolean
-        status:
-          type:
-          - string
-          - 'null'
-        comment:
-          type:
-          - string
-          - 'null'
-        currency:
-          type:
-          - string
-          - 'null'
-        sum:
-          type: number
-          format: double
         outerId:
           type:
           - string
           - 'null'
-        cancelledState:
-          allOf:
-          - $ref: '#/components/schemas/CancelledState'
-          description: For system use to handle canellation flow
-        isCancelled:
-          type: boolean
-          description: Used by payment provides to indicate that cancellation operation has completed
-        cancelledDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        cancelReason:
-          type:
-          - string
-          - 'null'
-        dynamicProperties:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/DynamicObjectProperty'
-        operationsLog:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/OperationLog'
         createdDate:
           type: string
           format: date-time
@@ -2122,73 +2568,27 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    ReturnLineItem:
+    CaptureItem:
       type: object
       properties:
-        returnId:
-          type:
-          - string
-          - 'null'
-        orderLineItemId:
-          type:
-          - string
-          - 'null'
         quantity:
           type: integer
           format: int32
-        availableQuantity:
-          type: integer
-          format: int32
-        price:
-          type: number
-          format: double
-        reason:
+        lineItemId:
           type:
           - string
           - 'null'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
+        lineItem:
+          allOf:
+          - $ref: '#/components/schemas/OrderLineItem'
+        captureId:
           type:
           - string
           - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
+        outerId:
           type:
           - string
           - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    OrderConfigurationItemFile:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        url:
-          type:
-          - string
-          - 'null'
-        contentType:
-          type:
-          - string
-          - 'null'
-        size:
-          type: integer
-          format: int64
         createdDate:
           type: string
           format: date-time
@@ -2438,298 +2838,6 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    ShippingMethod:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        logoUrl:
-          type:
-          - string
-          - 'null'
-        isActive:
-          type: boolean
-        priority:
-          type: integer
-          format: int32
-        taxType:
-          type:
-          - string
-          - 'null'
-        storeId:
-          type:
-          - string
-          - 'null'
-        settings:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ObjectSettingEntry'
-        typeName:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    PaymentMethod:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        logoUrl:
-          type:
-          - string
-          - 'null'
-        isActive:
-          type: boolean
-        priority:
-          type: integer
-          format: int32
-        isAvailableForPartial:
-          type: boolean
-        allowDeferredPayment:
-          type: boolean
-        currency:
-          type:
-          - string
-          - 'null'
-        price:
-          type: number
-          format: double
-        priceWithTax:
-          type: number
-          format: double
-          readOnly: true
-        total:
-          type: number
-          format: double
-          readOnly: true
-        totalWithTax:
-          type: number
-          format: double
-          readOnly: true
-        discountAmount:
-          type: number
-          format: double
-        discountAmountWithTax:
-          type: number
-          format: double
-          readOnly: true
-        allowCartPayment:
-          type: boolean
-          readOnly: true
-        storeId:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        typeName:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-        settings:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ObjectSettingEntry'
-        taxType:
-          type:
-          - string
-          - 'null'
-        taxTotal:
-          type: number
-          format: double
-          readOnly: true
-        taxPercentRate:
-          type: number
-          format: double
-        taxDetails:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/TaxDetail'
-        localizedName:
-          allOf:
-          - $ref: '#/components/schemas/LocalizedString'
-        paymentMethodType:
-          allOf:
-          - $ref: '#/components/schemas/PaymentMethodType'
-          readOnly: true
-        paymentMethodGroupType:
-          allOf:
-          - $ref: '#/components/schemas/PaymentMethodGroupType'
-          readOnly: true
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    TaxDetail:
-      type: object
-      properties:
-        rate:
-          type: number
-          format: double
-        amount:
-          type: number
-          format: double
-        name:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ReturnSearchCriteria:
-      type: object
-      properties:
-        orderId:
-          type:
-          - string
-          - 'null'
-        responseGroup:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-        objectTypes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        objectIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        keyword:
-          type:
-          - string
-          - 'null'
-        searchPhrase:
-          type:
-          - string
-          - 'null'
-        languageCode:
-          type:
-          - string
-          - 'null'
-        sort:
-          type:
-          - string
-          - 'null'
-        sortInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
-    RefundStatus:
-      enum:
-      - Pending
-      - Rejected
-      - Processed
-      type: string
-    DynamicPropertyName:
-      type: object
-      properties:
-        locale:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    OrderShipmentItem:
-      type: object
-      properties:
-        lineItemId:
-          type:
-          - string
-          - 'null'
-        lineItem:
-          allOf:
-          - $ref: '#/components/schemas/OrderLineItem'
-        barCode:
-          type:
-          - string
-          - 'null'
-        quantity:
-          type: integer
-          format: int32
-        outerId:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - string
-          - 'null'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
     RefundReasonCode:
       enum:
       - Duplicate
@@ -2737,140 +2845,32 @@ components:
       - RequestedByCustomer
       - Other
       type: string
-    SortDirection:
-      enum:
-      - Ascending
-      - Descending
-      type: string
-    ShipmentPackage:
+    Discount:
       type: object
       properties:
-        barCode:
+        promotionId:
           type:
           - string
           - 'null'
-        packageType:
+        currency:
           type:
           - string
           - 'null'
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/OrderShipmentItem'
-        weightUnit:
-          type:
-          - string
-          - 'null'
-        weight:
-          type:
-          - number
-          - 'null'
-          format: double
-        measureUnit:
-          type:
-          - string
-          - 'null'
-        height:
-          type:
-          - number
-          - 'null'
-          format: double
-        length:
-          type:
-          - number
-          - 'null'
-          format: double
-        width:
-          type:
-          - number
-          - 'null'
-          format: double
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    OrderTotal:
-      type: object
-      properties:
-        currencyCode:
-          type:
-          - string
-          - 'null'
-        total:
+        discountAmount:
           type: number
           format: double
-        subTotal:
+        discountAmountWithTax:
           type: number
           format: double
-        taxTotal:
-          type: number
-          format: double
-        discountTotal:
-          type: number
-          format: double
-        id:
+        coupon:
           type:
           - string
           - 'null'
-      additionalProperties: false
-    OperationLog:
-      type: object
-      properties:
-        objectType:
+        description:
           type:
           - string
           - 'null'
-        objectId:
-          type:
-          - string
-          - 'null'
-        operationType:
-          allOf:
-          - $ref: '#/components/schemas/EntryState'
-        detail:
-          type:
-          - string
-          - 'null'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
+        name:
           type:
           - string
           - 'null'

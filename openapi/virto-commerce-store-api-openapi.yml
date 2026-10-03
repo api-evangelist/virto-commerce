@@ -543,6 +543,85 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    StoreAuthenticationScheme:
+      type: object
+      properties:
+        storeId:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        displayName:
+          type:
+          - string
+          - 'null'
+        isActive:
+          type: boolean
+        position:
+          type: integer
+          format: int32
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Operation:
+      type: object
+      properties:
+        value:
+          type:
+          - object
+          - 'null'
+        path:
+          type:
+          - string
+          - 'null'
+        op:
+          type:
+          - string
+          - 'null'
+        from:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ModulePublicStoreSettings:
+      type: object
+      properties:
+        moduleId:
+          type:
+          - string
+          - 'null'
+        settings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PublicStoreSetting'
+      additionalProperties: false
     StoreSearchCriteria:
       type: object
       properties:
@@ -612,48 +691,132 @@ components:
           type: integer
           format: int32
       additionalProperties: false
-    SortInfo:
+    DynamicPropertyName:
       type: object
       properties:
-        sortColumn:
-          type:
-          - string
-          - 'null'
-        sortDirection:
-          allOf:
-          - $ref: '#/components/schemas/SortDirection'
-      additionalProperties: false
-    DynamicPropertyObjectValue:
-      type: object
-      properties:
-        objectType:
-          type:
-          - string
-          - 'null'
-        objectId:
-          type:
-          - string
-          - 'null'
         locale:
           type:
           - string
           - 'null'
-        value:
-          type:
-          - object
-          - 'null'
-        valueId:
+        name:
           type:
           - string
           - 'null'
+      additionalProperties: false
+    StoreState:
+      enum:
+      - Open
+      - Closed
+      - RestrictedAccess
+      type: string
+    SortDirection:
+      enum:
+      - Ascending
+      - Descending
+      type: string
+    LoginOnBehalfInfo:
+      type: object
+      properties:
+        userName:
+          type:
+          - string
+          - 'null'
+        canLoginOnBehalf:
+          type: boolean
+      additionalProperties: false
+      description: Represent result for checking of possibility login on behalf request
+    DynamicObjectProperty:
+      type: object
+      properties:
+        objectId:
+          type:
+          - string
+          - 'null'
+        values:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicPropertyObjectValue'
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        isArray:
+          type: boolean
+        isDictionary:
+          type: boolean
+        isMultilingual:
+          type: boolean
+        isRequired:
+          type: boolean
+        displayOrder:
+          type:
+          - integer
+          - 'null'
+          format: int32
         valueType:
           allOf:
           - $ref: '#/components/schemas/DynamicPropertyValueType'
-        propertyId:
+        displayNames:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicPropertyName'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
           type:
           - string
           - 'null'
-        propertyName:
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    SendDynamicNotificationRequest:
+      type: object
+      properties:
+        storeId:
+          type:
+          - string
+          - 'null'
+        type:
+          type:
+          - string
+          - 'null'
+        fields:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        language:
           type:
           - string
           - 'null'
@@ -740,146 +903,16 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    StoreAuthenticationScheme:
+    SortInfo:
       type: object
       properties:
-        storeId:
+        sortColumn:
           type:
           - string
           - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        displayName:
-          type:
-          - string
-          - 'null'
-        isActive:
-          type: boolean
-        position:
-          type: integer
-          format: int32
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    SettingValueType:
-      enum:
-      - ShortText
-      - LongText
-      - Integer
-      - Decimal
-      - DateTime
-      - Boolean
-      - SecureString
-      - Json
-      - PositiveInteger
-      type: string
-    DynamicPropertyValueType:
-      enum:
-      - Undefined
-      - ShortText
-      - LongText
-      - Integer
-      - Decimal
-      - DateTime
-      - Boolean
-      - Html
-      - Image
-      type: string
-    DynamicObjectProperty:
-      type: object
-      properties:
-        objectId:
-          type:
-          - string
-          - 'null'
-        values:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/DynamicPropertyObjectValue'
-        name:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-        isArray:
-          type: boolean
-        isDictionary:
-          type: boolean
-        isMultilingual:
-          type: boolean
-        isRequired:
-          type: boolean
-        displayOrder:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        valueType:
+        sortDirection:
           allOf:
-          - $ref: '#/components/schemas/DynamicPropertyValueType'
-        displayNames:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/DynamicPropertyName'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
+          - $ref: '#/components/schemas/SortDirection'
       additionalProperties: false
     Store:
       type: object
@@ -1065,53 +1098,37 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    LoginOnBehalfInfo:
+    DynamicPropertyObjectValue:
       type: object
       properties:
-        userName:
+        objectType:
           type:
           - string
           - 'null'
-        canLoginOnBehalf:
-          type: boolean
-      additionalProperties: false
-      description: Represent result for checking of possibility login on behalf request
-    ModulePublicStoreSettings:
-      type: object
-      properties:
-        moduleId:
+        objectId:
           type:
           - string
           - 'null'
-        settings:
+        locale:
           type:
-          - array
+          - string
           - 'null'
-          items:
-            $ref: '#/components/schemas/PublicStoreSetting'
-      additionalProperties: false
-    StoreState:
-      enum:
-      - Open
-      - Closed
-      - RestrictedAccess
-      type: string
-    Operation:
-      type: object
-      properties:
         value:
           type:
           - object
           - 'null'
-        path:
+        valueId:
           type:
           - string
           - 'null'
-        op:
+        valueType:
+          allOf:
+          - $ref: '#/components/schemas/DynamicPropertyValueType'
+        propertyId:
           type:
           - string
           - 'null'
-        from:
+        propertyName:
           type:
           - string
           - 'null'
@@ -1128,18 +1145,6 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/Store'
-      additionalProperties: false
-    DynamicPropertyName:
-      type: object
-      properties:
-        locale:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
       additionalProperties: false
     SeoInfo:
       type: object
@@ -1219,34 +1224,29 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    SendDynamicNotificationRequest:
-      type: object
-      properties:
-        storeId:
-          type:
-          - string
-          - 'null'
-        type:
-          type:
-          - string
-          - 'null'
-        fields:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-        language:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    SortDirection:
+    SettingValueType:
       enum:
-      - Ascending
-      - Descending
+      - ShortText
+      - LongText
+      - Integer
+      - Decimal
+      - DateTime
+      - Boolean
+      - SecureString
+      - Json
+      - PositiveInteger
+      type: string
+    DynamicPropertyValueType:
+      enum:
+      - Undefined
+      - ShortText
+      - LongText
+      - Integer
+      - Decimal
+      - DateTime
+      - Boolean
+      - Html
+      - Image
       type: string
   securitySchemes:
     oauth2:
