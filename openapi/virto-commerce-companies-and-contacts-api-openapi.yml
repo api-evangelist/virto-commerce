@@ -1943,107 +1943,55 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    InviteCustomerRequest:
+    OrganizationSearchResult:
       type: object
       properties:
-        storeId:
-          type:
-          - string
-          - 'null'
-        cultureName:
-          type:
-          - string
-          - 'null'
-        organizationId:
-          type:
-          - string
-          - 'null'
-        emails:
+        totalCount:
+          type: integer
+          format: int32
+        results:
           type:
           - array
           - 'null'
           items:
-            type: string
-        message:
-          type:
-          - string
-          - 'null'
-        roleIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        urlSuffix:
-          type:
-          - string
-          - 'null'
-        additionalParameters:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type:
-            - string
-            - 'null'
+            $ref: '#/components/schemas/Organization'
       additionalProperties: false
-    Employee:
+    MembersSearchCriteria:
       type: object
       properties:
-        salutation:
+        memberType:
           type:
           - string
           - 'null'
-        fullName:
-          type:
-          - string
-          - 'null'
-        firstName:
-          type:
-          - string
-          - 'null'
-        middleName:
-          type:
-          - string
-          - 'null'
-        lastName:
-          type:
-          - string
-          - 'null'
-        birthDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        defaultLanguage:
-          type:
-          - string
-          - 'null'
-        timeZone:
-          type:
-          - string
-          - 'null'
-        organizations:
+        memberTypes:
           type:
           - array
           - 'null'
           items:
             type: string
-        defaultOrganizationId:
+        group:
           type:
           - string
           - 'null'
-        currentOrganizationId:
+        groups:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        memberId:
           type:
           - string
           - 'null'
-        employeeType:
-          type:
-          - string
-          - 'null'
-        isActive:
+        deepSearch:
           type: boolean
-        photoUrl:
+        outerIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        responseGroup:
           type:
           - string
           - 'null'
@@ -2051,18 +1999,56 @@ components:
           type:
           - string
           - 'null'
-          readOnly: true
-        securityAccounts:
+        objectTypes:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/ApplicationUser'
-        name:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
           type:
           - string
           - 'null'
-        memberType:
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
+      additionalProperties: false
+    Note:
+      type: object
+      properties:
+        title:
+          type:
+          - string
+          - 'null'
+        body:
           type:
           - string
           - 'null'
@@ -2070,69 +2056,6 @@ components:
           type:
           - string
           - 'null'
-        status:
-          type:
-          - string
-          - 'null'
-        addresses:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/CustomerAddress'
-        phones:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        emails:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        notes:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Note'
-        groups:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        iconUrl:
-          type:
-          - string
-          - 'null'
-        relevanceScore:
-          type:
-          - number
-          - 'null'
-          format: double
-        dynamicProperties:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/DynamicObjectProperty'
-        useDynamicPropertyAccessor:
-          type: boolean
-        dynamicPropertyAccessor: {}
-        seoObjectType:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-        seoInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SeoInfo'
         createdDate:
           type: string
           format: date-time
@@ -2158,58 +2081,46 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    MemberSearchResult:
+    InviteCustomerResult:
       type: object
       properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
+        succeeded:
+          type: boolean
+        errors:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/Member'
+            $ref: '#/components/schemas/InviteCustomerError'
       additionalProperties: false
-    AddressType:
-      enum:
-      - Undefined
-      - Billing
-      - Shipping
-      - BillingAndShipping
-      - Pickup
-      type: string
-    Operation:
+    Permission:
       type: object
       properties:
-        value:
-          type:
-          - object
-          - 'null'
-        path:
+        name:
           type:
           - string
           - 'null'
-        op:
+        moduleId:
           type:
           - string
           - 'null'
-        from:
+        groupName:
           type:
           - string
           - 'null'
-      additionalProperties: false
-    ApplicationUserLogin:
-      type: object
-      properties:
-        loginProvider:
+        assignedScopes:
           type:
-          - string
+          - array
           - 'null'
-        providerKey:
+          items:
+            $ref: '#/components/schemas/PermissionScope'
+        availableScopes:
           type:
-          - string
+          - array
           - 'null'
+          items:
+            $ref: '#/components/schemas/PermissionScope'
+          readOnly: true
       additionalProperties: false
     ApplicationUser:
       type: object
@@ -2338,6 +2249,18 @@ components:
           type: integer
           format: int32
       additionalProperties: false
+    DynamicPropertyValueType:
+      enum:
+      - Undefined
+      - ShortText
+      - LongText
+      - Integer
+      - Decimal
+      - DateTime
+      - Boolean
+      - Html
+      - Image
+      type: string
     DynamicPropertyName:
       type: object
       properties:
@@ -2350,96 +2273,14 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    SortDirection:
-      enum:
-      - Ascending
-      - Descending
-      type: string
-    CustomerAddress:
+    ApplicationUserLogin:
       type: object
       properties:
-        id:
+        loginProvider:
           type:
           - string
           - 'null'
-        addressType:
-          allOf:
-          - $ref: '#/components/schemas/AddressType'
-        key:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        organization:
-          type:
-          - string
-          - 'null'
-        countryCode:
-          type:
-          - string
-          - 'null'
-        countryName:
-          type:
-          - string
-          - 'null'
-        city:
-          type:
-          - string
-          - 'null'
-        postalCode:
-          type:
-          - string
-          - 'null'
-        zip:
-          type:
-          - string
-          - 'null'
-        line1:
-          type:
-          - string
-          - 'null'
-        line2:
-          type:
-          - string
-          - 'null'
-        regionId:
-          type:
-          - string
-          - 'null'
-        regionName:
-          type:
-          - string
-          - 'null'
-        firstName:
-          type:
-          - string
-          - 'null'
-        middleName:
-          type:
-          - string
-          - 'null'
-        lastName:
-          type:
-          - string
-          - 'null'
-        phone:
-          type:
-          - string
-          - 'null'
-        email:
-          type:
-          - string
-          - 'null'
-        outerId:
-          type:
-          - string
-          - 'null'
-        isDefault:
-          type: boolean
-        description:
+        providerKey:
           type:
           - string
           - 'null'
@@ -2516,36 +2357,256 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    SortInfo:
+    SortDirection:
+      enum:
+      - Ascending
+      - Descending
+      type: string
+    CustomerPreferenceSearchCriteria:
       type: object
       properties:
-        sortColumn:
+        userId:
           type:
           - string
           - 'null'
-        sortDirection:
-          allOf:
-          - $ref: '#/components/schemas/SortDirection'
+        name:
+          type:
+          - string
+          - 'null'
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
       additionalProperties: false
-    InviteCustomerError:
+    AddressType:
+      enum:
+      - Undefined
+      - Billing
+      - Shipping
+      - BillingAndShipping
+      - Pickup
+      type: string
+    Role:
       type: object
       properties:
-        code:
-          type:
-          - string
-          - 'null'
         description:
           type:
           - string
           - 'null'
-        parameter:
+        permissions:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Permission'
+        id:
           type:
           - string
           - 'null'
-        email:
+        name:
           type:
           - string
           - 'null'
+        normalizedName:
+          type:
+          - string
+          - 'null'
+        concurrencyStamp:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CustomerRoleSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CustomerRole'
+      additionalProperties: false
+    Member:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        memberType:
+          type:
+          - string
+          - 'null'
+        outerId:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - string
+          - 'null'
+        addresses:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CustomerAddress'
+        phones:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        emails:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        notes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Note'
+        groups:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        iconUrl:
+          type:
+          - string
+          - 'null'
+        relevanceScore:
+          type:
+          - number
+          - 'null'
+          format: double
+        objectType:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        dynamicProperties:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicObjectProperty'
+        useDynamicPropertyAccessor:
+          type: boolean
+        dynamicPropertyAccessor: {}
+        seoObjectType:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        seoInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SeoInfo'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CustomerPreferenceSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CustomerPreference'
+      additionalProperties: false
+    ContactSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Contact'
       additionalProperties: false
     Vendor:
       type: object
@@ -2677,7 +2738,18 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    OrganizationSearchResult:
+    SortInfo:
+      type: object
+      properties:
+        sortColumn:
+          type:
+          - string
+          - 'null'
+        sortDirection:
+          allOf:
+          - $ref: '#/components/schemas/SortDirection'
+      additionalProperties: false
+    MemberSearchResult:
       type: object
       properties:
         totalCount:
@@ -2688,16 +2760,83 @@ components:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/Organization'
+            $ref: '#/components/schemas/Member'
       additionalProperties: false
-    Note:
+    CustomerAddress:
       type: object
       properties:
-        title:
+        id:
           type:
           - string
           - 'null'
-        body:
+        addressType:
+          allOf:
+          - $ref: '#/components/schemas/AddressType'
+        key:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        organization:
+          type:
+          - string
+          - 'null'
+        countryCode:
+          type:
+          - string
+          - 'null'
+        countryName:
+          type:
+          - string
+          - 'null'
+        city:
+          type:
+          - string
+          - 'null'
+        postalCode:
+          type:
+          - string
+          - 'null'
+        zip:
+          type:
+          - string
+          - 'null'
+        line1:
+          type:
+          - string
+          - 'null'
+        line2:
+          type:
+          - string
+          - 'null'
+        regionId:
+          type:
+          - string
+          - 'null'
+        regionName:
+          type:
+          - string
+          - 'null'
+        firstName:
+          type:
+          - string
+          - 'null'
+        middleName:
+          type:
+          - string
+          - 'null'
+        lastName:
+          type:
+          - string
+          - 'null'
+        phone:
+          type:
+          - string
+          - 'null'
+        email:
           type:
           - string
           - 'null'
@@ -2705,165 +2844,44 @@ components:
           type:
           - string
           - 'null'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
+        isDefault:
+          type: boolean
+        description:
           type:
           - string
           - 'null'
       additionalProperties: false
-    DynamicPropertyObjectValue:
+    PermissionScope:
       type: object
       properties:
-        objectType:
+        type:
           type:
           - string
           - 'null'
-        objectId:
+        label:
           type:
           - string
           - 'null'
-        locale:
+        scope:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CustomerPreference:
+      type: object
+      properties:
+        userId:
+          type:
+          - string
+          - 'null'
+        name:
           type:
           - string
           - 'null'
         value:
           type:
-          - object
-          - 'null'
-        valueId:
-          type:
           - string
           - 'null'
-        valueType:
-          allOf:
-          - $ref: '#/components/schemas/DynamicPropertyValueType'
-        propertyId:
-          type:
-          - string
-          - 'null'
-        propertyName:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    Organization:
-      type: object
-      properties:
-        description:
-          type:
-          - string
-          - 'null'
-        businessCategory:
-          type:
-          - string
-          - 'null'
-        ownerId:
-          type:
-          - string
-          - 'null'
-        parentId:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-        name:
-          type:
-          - string
-          - 'null'
-        memberType:
-          type:
-          - string
-          - 'null'
-        outerId:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - string
-          - 'null'
-        addresses:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/CustomerAddress'
-        phones:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        emails:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        notes:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Note'
-        groups:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        iconUrl:
-          type:
-          - string
-          - 'null'
-        relevanceScore:
-          type:
-          - number
-          - 'null'
-          format: double
-        dynamicProperties:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/DynamicObjectProperty'
-        useDynamicPropertyAccessor:
-          type: boolean
-        dynamicPropertyAccessor: {}
-        seoObjectType:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-        seoInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SeoInfo'
         createdDate:
           type: string
           format: date-time
@@ -2967,275 +2985,6 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    VendorSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Vendor'
-      additionalProperties: false
-    Member:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        memberType:
-          type:
-          - string
-          - 'null'
-        outerId:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - string
-          - 'null'
-        addresses:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/CustomerAddress'
-        phones:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        emails:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        notes:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Note'
-        groups:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        iconUrl:
-          type:
-          - string
-          - 'null'
-        relevanceScore:
-          type:
-          - number
-          - 'null'
-          format: double
-        objectType:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-        dynamicProperties:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/DynamicObjectProperty'
-        useDynamicPropertyAccessor:
-          type: boolean
-        dynamicPropertyAccessor: {}
-        seoObjectType:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-        seoInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SeoInfo'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    CustomerPreference:
-      type: object
-      properties:
-        userId:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - string
-          - 'null'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    CustomerPreferenceSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/CustomerPreference'
-      additionalProperties: false
-    CustomerRoleSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/CustomerRole'
-      additionalProperties: false
-    Permission:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        moduleId:
-          type:
-          - string
-          - 'null'
-        groupName:
-          type:
-          - string
-          - 'null'
-        assignedScopes:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PermissionScope'
-        availableScopes:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PermissionScope'
-          readOnly: true
-      additionalProperties: false
-    PermissionScope:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        label:
-          type:
-          - string
-          - 'null'
-        scope:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    InviteCustomerResult:
-      type: object
-      properties:
-        succeeded:
-          type: boolean
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/InviteCustomerError'
-      additionalProperties: false
-    ContactSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Contact'
-      additionalProperties: false
-    DynamicPropertyValueType:
-      enum:
-      - Undefined
-      - ShortText
-      - LongText
-      - Integer
-      - Decimal
-      - DateTime
-      - Boolean
-      - Html
-      - Image
-      type: string
     Contact:
       type: object
       properties:
@@ -3442,6 +3191,433 @@ components:
           - string
           - 'null'
       additionalProperties: false
+    Operation:
+      type: object
+      properties:
+        value:
+          type:
+          - object
+          - 'null'
+        path:
+          type:
+          - string
+          - 'null'
+        op:
+          type:
+          - string
+          - 'null'
+        from:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Employee:
+      type: object
+      properties:
+        salutation:
+          type:
+          - string
+          - 'null'
+        fullName:
+          type:
+          - string
+          - 'null'
+        firstName:
+          type:
+          - string
+          - 'null'
+        middleName:
+          type:
+          - string
+          - 'null'
+        lastName:
+          type:
+          - string
+          - 'null'
+        birthDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        defaultLanguage:
+          type:
+          - string
+          - 'null'
+        timeZone:
+          type:
+          - string
+          - 'null'
+        organizations:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        defaultOrganizationId:
+          type:
+          - string
+          - 'null'
+        currentOrganizationId:
+          type:
+          - string
+          - 'null'
+        employeeType:
+          type:
+          - string
+          - 'null'
+        isActive:
+          type: boolean
+        photoUrl:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        securityAccounts:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ApplicationUser'
+        name:
+          type:
+          - string
+          - 'null'
+        memberType:
+          type:
+          - string
+          - 'null'
+        outerId:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - string
+          - 'null'
+        addresses:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CustomerAddress'
+        phones:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        emails:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        notes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Note'
+        groups:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        iconUrl:
+          type:
+          - string
+          - 'null'
+        relevanceScore:
+          type:
+          - number
+          - 'null'
+          format: double
+        dynamicProperties:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicObjectProperty'
+        useDynamicPropertyAccessor:
+          type: boolean
+        dynamicPropertyAccessor: {}
+        seoObjectType:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        seoInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SeoInfo'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Organization:
+      type: object
+      properties:
+        description:
+          type:
+          - string
+          - 'null'
+        businessCategory:
+          type:
+          - string
+          - 'null'
+        ownerId:
+          type:
+          - string
+          - 'null'
+        parentId:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        name:
+          type:
+          - string
+          - 'null'
+        memberType:
+          type:
+          - string
+          - 'null'
+        outerId:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - string
+          - 'null'
+        addresses:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CustomerAddress'
+        phones:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        emails:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        notes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Note'
+        groups:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        iconUrl:
+          type:
+          - string
+          - 'null'
+        relevanceScore:
+          type:
+          - number
+          - 'null'
+          format: double
+        dynamicProperties:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicObjectProperty'
+        useDynamicPropertyAccessor:
+          type: boolean
+        dynamicPropertyAccessor: {}
+        seoObjectType:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        seoInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SeoInfo'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    InviteCustomerError:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        parameter:
+          type:
+          - string
+          - 'null'
+        email:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    InviteCustomerRequest:
+      type: object
+      properties:
+        storeId:
+          type:
+          - string
+          - 'null'
+        cultureName:
+          type:
+          - string
+          - 'null'
+        organizationId:
+          type:
+          - string
+          - 'null'
+        emails:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        message:
+          type:
+          - string
+          - 'null'
+        roleIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        urlSuffix:
+          type:
+          - string
+          - 'null'
+        additionalParameters:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+      additionalProperties: false
+    VendorSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Vendor'
+      additionalProperties: false
+    DynamicPropertyObjectValue:
+      type: object
+      properties:
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectId:
+          type:
+          - string
+          - 'null'
+        locale:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - object
+          - 'null'
+        valueId:
+          type:
+          - string
+          - 'null'
+        valueType:
+          allOf:
+          - $ref: '#/components/schemas/DynamicPropertyValueType'
+        propertyId:
+          type:
+          - string
+          - 'null'
+        propertyName:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     CustomerRole:
       type: object
       properties:
@@ -3454,182 +3630,6 @@ components:
           - string
           - 'null'
         id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    MembersSearchCriteria:
-      type: object
-      properties:
-        memberType:
-          type:
-          - string
-          - 'null'
-        memberTypes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        group:
-          type:
-          - string
-          - 'null'
-        groups:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        memberId:
-          type:
-          - string
-          - 'null'
-        deepSearch:
-          type: boolean
-        outerIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        responseGroup:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-        objectTypes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        objectIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        keyword:
-          type:
-          - string
-          - 'null'
-        searchPhrase:
-          type:
-          - string
-          - 'null'
-        languageCode:
-          type:
-          - string
-          - 'null'
-        sort:
-          type:
-          - string
-          - 'null'
-        sortInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
-    CustomerPreferenceSearchCriteria:
-      type: object
-      properties:
-        userId:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        responseGroup:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-        objectTypes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        objectIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        keyword:
-          type:
-          - string
-          - 'null'
-        searchPhrase:
-          type:
-          - string
-          - 'null'
-        languageCode:
-          type:
-          - string
-          - 'null'
-        sort:
-          type:
-          - string
-          - 'null'
-        sortInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
-    Role:
-      type: object
-      properties:
-        description:
-          type:
-          - string
-          - 'null'
-        permissions:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Permission'
-        id:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        normalizedName:
-          type:
-          - string
-          - 'null'
-        concurrencyStamp:
           type:
           - string
           - 'null'

@@ -543,10 +543,28 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    StoreAuthenticationScheme:
+    StoreState:
+      enum:
+      - Open
+      - Closed
+      - RestrictedAccess
+      type: string
+    DynamicPropertyValueType:
+      enum:
+      - Undefined
+      - ShortText
+      - LongText
+      - Integer
+      - Decimal
+      - DateTime
+      - Boolean
+      - Html
+      - Image
+      type: string
+    DynamicPropertyName:
       type: object
       properties:
-        storeId:
+        locale:
           type:
           - string
           - 'null'
@@ -554,73 +572,6 @@ components:
           type:
           - string
           - 'null'
-        displayName:
-          type:
-          - string
-          - 'null'
-        isActive:
-          type: boolean
-        position:
-          type: integer
-          format: int32
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    Operation:
-      type: object
-      properties:
-        value:
-          type:
-          - object
-          - 'null'
-        path:
-          type:
-          - string
-          - 'null'
-        op:
-          type:
-          - string
-          - 'null'
-        from:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ModulePublicStoreSettings:
-      type: object
-      properties:
-        moduleId:
-          type:
-          - string
-          - 'null'
-        settings:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PublicStoreSetting'
       additionalProperties: false
     StoreSearchCriteria:
       type: object
@@ -691,40 +642,6 @@ components:
           type: integer
           format: int32
       additionalProperties: false
-    DynamicPropertyName:
-      type: object
-      properties:
-        locale:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    StoreState:
-      enum:
-      - Open
-      - Closed
-      - RestrictedAccess
-      type: string
-    SortDirection:
-      enum:
-      - Ascending
-      - Descending
-      type: string
-    LoginOnBehalfInfo:
-      type: object
-      properties:
-        userName:
-          type:
-          - string
-          - 'null'
-        canLoginOnBehalf:
-          type: boolean
-      additionalProperties: false
-      description: Represent result for checking of possibility login on behalf request
     DynamicObjectProperty:
       type: object
       properties:
@@ -797,73 +714,15 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    SendDynamicNotificationRequest:
+    SortDirection:
+      enum:
+      - Ascending
+      - Descending
+      type: string
+    StoreAuthenticationScheme:
       type: object
       properties:
         storeId:
-          type:
-          - string
-          - 'null'
-        type:
-          type:
-          - string
-          - 'null'
-        fields:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-        language:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    PublicStoreSetting:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - object
-          - 'null'
-      additionalProperties: false
-    ObjectSettingEntry:
-      type: object
-      properties:
-        itHasValues:
-          type: boolean
-          readOnly: true
-        objectId:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-        isReadOnly:
-          type: boolean
-        value:
-          type:
-          - object
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-        restartRequired:
-          type: boolean
-        moduleId:
-          type:
-          - string
-          - 'null'
-        groupName:
           type:
           - string
           - 'null'
@@ -875,44 +734,35 @@ components:
           type:
           - string
           - 'null'
-        isRequired:
+        isActive:
           type: boolean
-        isHidden:
-          type: boolean
-        isPublic:
-          type: boolean
-        valueType:
-          allOf:
-          - $ref: '#/components/schemas/SettingValueType'
-        allowedValues:
-          type:
-          - array
-          - 'null'
-          items:
-            type: object
-        defaultValue:
-          type:
-          - object
-          - 'null'
-        isDictionary:
-          type: boolean
-        isLocalizable:
-          type: boolean
-        tenant:
+        position:
+          type: integer
+          format: int32
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
           type:
           - string
           - 'null'
-      additionalProperties: false
-    SortInfo:
-      type: object
-      properties:
-        sortColumn:
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
           type:
           - string
           - 'null'
-        sortDirection:
-          allOf:
-          - $ref: '#/components/schemas/SortDirection'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     Store:
       type: object
@@ -1098,53 +948,16 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    DynamicPropertyObjectValue:
+    SortInfo:
       type: object
       properties:
-        objectType:
+        sortColumn:
           type:
           - string
           - 'null'
-        objectId:
-          type:
-          - string
-          - 'null'
-        locale:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - object
-          - 'null'
-        valueId:
-          type:
-          - string
-          - 'null'
-        valueType:
+        sortDirection:
           allOf:
-          - $ref: '#/components/schemas/DynamicPropertyValueType'
-        propertyId:
-          type:
-          - string
-          - 'null'
-        propertyName:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    StoreSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Store'
+          - $ref: '#/components/schemas/SortDirection'
       additionalProperties: false
     SeoInfo:
       type: object
@@ -1224,6 +1037,76 @@ components:
           - string
           - 'null'
       additionalProperties: false
+    ObjectSettingEntry:
+      type: object
+      properties:
+        itHasValues:
+          type: boolean
+          readOnly: true
+        objectId:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        isReadOnly:
+          type: boolean
+        value:
+          type:
+          - object
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+        restartRequired:
+          type: boolean
+        moduleId:
+          type:
+          - string
+          - 'null'
+        groupName:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        displayName:
+          type:
+          - string
+          - 'null'
+        isRequired:
+          type: boolean
+        isHidden:
+          type: boolean
+        isPublic:
+          type: boolean
+        valueType:
+          allOf:
+          - $ref: '#/components/schemas/SettingValueType'
+        allowedValues:
+          type:
+          - array
+          - 'null'
+          items:
+            type: object
+        defaultValue:
+          type:
+          - object
+          - 'null'
+        isDictionary:
+          type: boolean
+        isLocalizable:
+          type: boolean
+        tenant:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     SettingValueType:
       enum:
       - ShortText
@@ -1236,18 +1119,135 @@ components:
       - Json
       - PositiveInteger
       type: string
-    DynamicPropertyValueType:
-      enum:
-      - Undefined
-      - ShortText
-      - LongText
-      - Integer
-      - Decimal
-      - DateTime
-      - Boolean
-      - Html
-      - Image
-      type: string
+    Operation:
+      type: object
+      properties:
+        value:
+          type:
+          - object
+          - 'null'
+        path:
+          type:
+          - string
+          - 'null'
+        op:
+          type:
+          - string
+          - 'null'
+        from:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    SendDynamicNotificationRequest:
+      type: object
+      properties:
+        storeId:
+          type:
+          - string
+          - 'null'
+        type:
+          type:
+          - string
+          - 'null'
+        fields:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        language:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ModulePublicStoreSettings:
+      type: object
+      properties:
+        moduleId:
+          type:
+          - string
+          - 'null'
+        settings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PublicStoreSetting'
+      additionalProperties: false
+    PublicStoreSetting:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - object
+          - 'null'
+      additionalProperties: false
+    LoginOnBehalfInfo:
+      type: object
+      properties:
+        userName:
+          type:
+          - string
+          - 'null'
+        canLoginOnBehalf:
+          type: boolean
+      additionalProperties: false
+      description: Represent result for checking of possibility login on behalf request
+    DynamicPropertyObjectValue:
+      type: object
+      properties:
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectId:
+          type:
+          - string
+          - 'null'
+        locale:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - object
+          - 'null'
+        valueId:
+          type:
+          - string
+          - 'null'
+        valueType:
+          allOf:
+          - $ref: '#/components/schemas/DynamicPropertyValueType'
+        propertyId:
+          type:
+          - string
+          - 'null'
+        propertyName:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    StoreSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Store'
+      additionalProperties: false
   securitySchemes:
     oauth2:
       type: oauth2

@@ -402,27 +402,72 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    WebHookPayload:
+      type: object
+      properties:
+        eventPropertyName:
+          type:
+          - string
+          - 'null'
+        webHookId:
+          type:
+          - string
+          - 'null'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    EventObjectProperties:
+      type: object
+      properties:
+        discovered:
+          type: boolean
+        properties:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+      additionalProperties: false
+    WebHookFeedSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/WebhookFeedEntry'
+      additionalProperties: false
     SortDirection:
       enum:
       - Ascending
       - Descending
       type: string
-    WebhookSendResponse:
-      type: object
-      properties:
-        statusCode:
-          type: integer
-          format: int32
-        error:
-          type:
-          - string
-          - 'null'
-        responseParams:
-          allOf:
-          - $ref: '#/components/schemas/WebhookHttpParams'
-        isSuccessfull:
-          type: boolean
-      additionalProperties: false
     WebhookFeedEntry:
       type: object
       properties:
@@ -487,248 +532,6 @@ components:
           type:
           - string
           - 'null'
-      additionalProperties: false
-    WebhookFeedSearchCriteria:
-      type: object
-      properties:
-        webHookIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        eventIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        statuses:
-          type:
-          - array
-          - 'null'
-          items:
-            type: integer
-            format: int32
-        recordTypes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: integer
-            format: int32
-        responseGroup:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-        objectTypes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        objectIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        keyword:
-          type:
-          - string
-          - 'null'
-        searchPhrase:
-          type:
-          - string
-          - 'null'
-        languageCode:
-          type:
-          - string
-          - 'null'
-        sort:
-          type:
-          - string
-          - 'null'
-        sortInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
-    WebHookFeedSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/WebhookFeedEntry'
-      additionalProperties: false
-    WebhookEvent:
-      type: object
-      properties:
-        webHookId:
-          type:
-          - string
-          - 'null'
-        eventId:
-          type:
-          - string
-          - 'null'
-        displayName:
-          type:
-          - string
-          - 'null'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    AuthenticationType:
-      enum:
-      - None
-      - Basic
-      - BearerToken
-      - CustomHeader
-      type: string
-    WebhookHttpParams:
-      type: object
-      properties:
-        headers:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-        body:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    WebhookSearchCriteria:
-      type: object
-      properties:
-        isActive:
-          type:
-          - boolean
-          - 'null'
-        eventIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        responseGroup:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-        objectTypes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        objectIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        keyword:
-          type:
-          - string
-          - 'null'
-        searchPhrase:
-          type:
-          - string
-          - 'null'
-        languageCode:
-          type:
-          - string
-          - 'null'
-        sort:
-          type:
-          - string
-          - 'null'
-        sortInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
-    SortInfo:
-      type: object
-      properties:
-        sortColumn:
-          type:
-          - string
-          - 'null'
-        sortDirection:
-          allOf:
-          - $ref: '#/components/schemas/SortDirection'
-      additionalProperties: false
-    WebhookSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Webhook'
       additionalProperties: false
     Webhook:
       type: object
@@ -816,6 +619,58 @@ components:
           - string
           - 'null'
       additionalProperties: false
+    AuthenticationType:
+      enum:
+      - None
+      - Basic
+      - BearerToken
+      - CustomHeader
+      type: string
+    WebhookHttpParams:
+      type: object
+      properties:
+        headers:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        body:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    WebhookSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Webhook'
+      additionalProperties: false
+    WebhookSendResponse:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          format: int32
+        error:
+          type:
+          - string
+          - 'null'
+        responseParams:
+          allOf:
+          - $ref: '#/components/schemas/WebhookHttpParams'
+        isSuccessfull:
+          type: boolean
+      additionalProperties: false
     RegisteredEvent:
       type: object
       properties:
@@ -832,26 +687,18 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    EventObjectProperties:
+    WebhookEvent:
       type: object
       properties:
-        discovered:
-          type: boolean
-        properties:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-      additionalProperties: false
-    WebHookPayload:
-      type: object
-      properties:
-        eventPropertyName:
+        webHookId:
           type:
           - string
           - 'null'
-        webHookId:
+        eventId:
+          type:
+          - string
+          - 'null'
+        displayName:
           type:
           - string
           - 'null'
@@ -879,6 +726,159 @@ components:
           type:
           - string
           - 'null'
+      additionalProperties: false
+    WebhookSearchCriteria:
+      type: object
+      properties:
+        isActive:
+          type:
+          - boolean
+          - 'null'
+        eventIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
+      additionalProperties: false
+    WebhookFeedSearchCriteria:
+      type: object
+      properties:
+        webHookIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        eventIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        statuses:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int32
+        recordTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int32
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
+      additionalProperties: false
+    SortInfo:
+      type: object
+      properties:
+        sortColumn:
+          type:
+          - string
+          - 'null'
+        sortDirection:
+          allOf:
+          - $ref: '#/components/schemas/SortDirection'
       additionalProperties: false
   securitySchemes:
     oauth2:

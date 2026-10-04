@@ -3966,142 +3966,99 @@ paths:
       x-virtocommerce-module-id: VirtoCommerce.Catalog
 components:
   schemas:
-    PropertyValidationRequest:
+    NumericRange:
       type: object
       properties:
-        originalName:
+        lower:
+          type:
+          - number
+          - 'null'
+          format: double
+        upper:
+          type:
+          - number
+          - 'null'
+          format: double
+        includeLower:
+          type: boolean
+        includeUpper:
+          type: boolean
+      additionalProperties: false
+    ListEntryBase:
+      type: object
+      properties:
+        type:
           type:
           - string
           - 'null'
+          description: Gets or sets the type. E.g. "product", "category"
+        isActive:
+          type:
+          - boolean
+          - 'null'
+          description: Gets or sets a value indicating whether this entry is active.
+        imageUrl:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the image URL.
+        code:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the entry code.
         name:
           type:
           - string
           - 'null'
-        productId:
+          description: Gets or sets the name.
+        links:
           type:
-          - string
+          - array
           - 'null'
-      additionalProperties: false
-      description: Property name validation data
-    Operation:
-      type: object
-      properties:
-        value:
+          items:
+            $ref: '#/components/schemas/CategoryLink'
+          description: Gets or sets the links.
+        outlines:
           type:
-          - object
+          - array
           - 'null'
-        path:
-          type:
-          - string
-          - 'null'
-        op:
-          type:
-          - string
-          - 'null'
-        from:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    PropertyValidationRule:
-      type: object
-      properties:
-        isUnique:
-          type: boolean
-          description: Uniquie value flag constrain
-        charCountMin:
-          type:
-          - integer
-          - 'null'
-          description: Down chars count border or null if no defined
-          format: int32
-        charCountMax:
-          type:
-          - integer
-          - 'null'
-          description: Upper chars count border or null if no defined
-          format: int32
-        regExp:
-          type:
-          - string
-          - 'null'
-          description: Custom regular expression
-        propertyId:
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-      description: Represents property validation rules definition
-    PropertyValueType:
-      enum:
-      - ShortText
-      - LongText
-      - Number
-      - DateTime
-      - Boolean
-      - Integer
-      - GeoPoint
-      - Html
-      - Measure
-      - Color
-      type: string
-    SuggestionResponse:
-      type: object
-      properties:
-        suggestions:
+          items:
+            $ref: '#/components/schemas/Outline'
+        outline:
           type:
           - array
           - 'null'
           items:
             type: string
-      additionalProperties: false
-    ProductConfigurationSection:
-      type: object
-      properties:
-        configurationId:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        isRequired:
-          type: boolean
-        displayOrder:
-          type: integer
-          format: int32
-        type:
-          type:
-          - string
-          - 'null'
-        allowCustomText:
-          type: boolean
-        allowPredefinedOptions:
-          type: boolean
-        maxLength:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        dependsOnSectionId:
-          type:
-          - string
-          - 'null'
-        options:
+          description: All entry parents ids
+        path:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/ProductConfigurationOption'
+            type: string
+          description: All entry parents names
+        catalogId:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the catalog id.
+        seoObjectType:
+          type:
+          - string
+          - 'null'
+        seoInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SeoInfo'
+        relevanceScore:
+          type:
+          - number
+          - 'null'
+          format: double
         createdDate:
           type: string
           format: date-time
@@ -4127,13 +4084,44 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    PropertyType:
+      description: Base class for all entries used in catalog categories browsing.
+    DynamicPropertyValueType:
       enum:
-      - Product
-      - Variation
-      - Category
-      - Catalog
+      - Undefined
+      - ShortText
+      - LongText
+      - Integer
+      - Decimal
+      - DateTime
+      - Boolean
+      - Html
+      - Image
       type: string
+    DynamicPropertyName:
+      type: object
+      properties:
+        locale:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CatalogSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Catalog'
+      additionalProperties: false
     Outline:
       type: object
       properties:
@@ -4148,73 +4136,470 @@ components:
       description: 'Represents the path from the catalog to one of the child objects (product or category):
 
         catalog/parent-category1/.../parent-categoryN/object'
-    ProductAssociation:
+    VideoSearchCriteria:
       type: object
       properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: Association type (Accessories, Up-Sales, Cross-Sales, Related etc)
-        priority:
-          type: integer
-          format: int32
-        quantity:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        itemId:
-          type:
-          - string
-          - 'null'
-          description: Is a primary key of associating object
-        associatedObjectId:
-          type:
-          - string
-          - 'null'
-          description: 'Each link element can have an associated object like Product, Category, etc.
-
-            Is a primary key of associated object'
-        associatedObjectType:
-          type:
-          - string
-          - 'null'
-          description: 'Associated object type : ''product'', ''category'' etc'
-        outerId:
-          type:
-          - string
-          - 'null'
-          description: ''
-        associatedObjectName:
-          type:
-          - string
-          - 'null'
-          description: Display name for associated object
-          readOnly: true
-        associatedObjectImg:
-          type:
-          - string
-          - 'null'
-          description: Associated object image URL
-          readOnly: true
-        tags:
+        ownerIds:
           type:
           - array
           - 'null'
           items:
             type: string
-        imgSrc:
+        ownerType:
           type:
           - string
           - 'null'
-          readOnly: true
-        images:
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/Image'
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
+      additionalProperties: false
+    Video:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        sortOrder:
+          type: integer
+          format: int32
+        uploadDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        thumbnailUrl:
+          type:
+          - string
+          - 'null'
+        contentUrl:
+          type:
+          - string
+          - 'null'
+        embedUrl:
+          type:
+          - string
+          - 'null'
+        duration:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        ownerId:
+          type:
+          - string
+          - 'null'
+        ownerType:
+          type:
+          - string
+          - 'null'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      description: Video content information
+    ValidationFailure:
+      type: object
+      properties:
+        propertyName:
+          type:
+          - string
+          - 'null'
+        errorMessage:
+          type:
+          - string
+          - 'null'
+        attemptedValue:
+          type:
+          - object
+          - 'null'
+        customState:
+          type:
+          - object
+          - 'null'
+        severity:
+          allOf:
+          - $ref: '#/components/schemas/Severity'
+        errorCode:
+          type:
+          - string
+          - 'null'
+        formattedMessagePlaceholderValues:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - object
+            - 'null'
+      additionalProperties: false
+    GeoDistanceFilter:
+      type: object
+      properties:
+        fieldName:
+          type:
+          - string
+          - 'null'
+        location:
+          allOf:
+          - $ref: '#/components/schemas/GeoPoint'
+        distance:
+          type: number
+          format: double
+      additionalProperties: false
+    AggregationItem:
+      type: object
+      properties:
+        value:
+          type:
+          - object
+          - 'null'
+          description: Gets or sets the aggregation item value
+        count:
+          type: integer
+          description: Gets or sets the aggregation item count
+          format: int32
+        isApplied:
+          type: boolean
+          description: Gets or sets the flag for aggregation item is applied
+        labels:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AggregationLabel'
+          description: Gets or sets the collection of the aggregation item labels
+        requestedLowerBound:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the request lower bound for range aggregation value
+        requestedUpperBound:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the request lower bound for range aggregation value
+        includeLower:
+          type: boolean
+          description: Is lower bound for range included
+        includeUpper:
+          type: boolean
+          description: Is upper bound for range included
+      additionalProperties: false
+    CategoryLink:
+      type: object
+      properties:
+        entryId:
+          type:
+          - string
+          - 'null'
+          description: Entry identifier which this link belongs to
+          readOnly: true
+        listEntryId:
+          type:
+          - string
+          - 'null'
+        listEntryType:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the type of the list entry. E.g. "product", "category"
+        priority:
+          type: integer
+          description: Product order position in virtual catalog
+          format: int32
+        catalogId:
+          type:
+          - string
+          - 'null'
+        categoryId:
+          type:
+          - string
+          - 'null'
+        targetId:
+          type:
+          - string
+          - 'null'
+          description: Gets the Id of either target Catetory or Catalog
+          readOnly: true
+        name:
+          type:
+          - string
+          - 'null'
+          description: Gets the name of either target Catetory or Catalog
+          readOnly: true
+        isAutomatic:
+          type: boolean
+      additionalProperties: false
+    SortDirection:
+      enum:
+      - Ascending
+      - Descending
+      type: string
+    ListEntriesMoveRequest:
+      type: object
+      properties:
+        catalog:
+          type:
+          - string
+          - 'null'
+        catalogId:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        category:
+          type:
+          - string
+          - 'null'
+        listEntries:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ListEntryBase'
+      additionalProperties: false
+      description: Represents  move list entries command
+    Aggregation:
+      type: object
+      properties:
+        aggregationType:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the value of the aggregation type
+        field:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the value of the aggregation field
+        termValuesSortingType:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the type of "Attribute" aggregation type value sorting (if the aggregation was resolved via browse filters)
+        labels:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AggregationLabel'
+          description: Gets or sets the collection of the aggregation labels
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AggregationItem'
+          description: Gets or sets the collection of the aggregation items
+        statistics:
+          allOf:
+          - $ref: '#/components/schemas/AggregationStatistics'
+          description: Statistics for range aggregations, such as "PriceRange" or "Range".
+      additionalProperties: false
+    ProductConfigurationSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ProductConfiguration'
+      additionalProperties: false
+    Property:
+      type: object
+      properties:
+        isReadOnly:
+          type: boolean
+          description: Gets or sets a value indicating whether user can change property value.
+        isManageable:
+          type: boolean
+          description: Gets or sets a value indicating whether user can change property metadata or remove this property.
+          readOnly: true
+        isNew:
+          type: boolean
+          description: Gets or sets a value indicating whether this instance is new. A new property should be created on server site instead of trying to update it.
+        catalogId:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the catalog id that this product belongs to.
+        categoryId:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the category id that this product belongs to.
+        propertyGroupId:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        required:
+          type: boolean
+        dictionary:
+          type: boolean
+        multivalue:
+          type: boolean
+        multilanguage:
+          type: boolean
+        hidden:
+          type: boolean
+          description: Gets or sets a value indicating whether this VirtoCommerce.CatalogModule.Core.Model.Property is hidden.
+        valueType:
+          allOf:
+          - $ref: '#/components/schemas/PropertyValueType'
+        type:
+          allOf:
+          - $ref: '#/components/schemas/PropertyType'
+        outerId:
+          type:
+          - string
+          - 'null'
+        measureId:
+          type:
+          - string
+          - 'null'
+        ownerName:
+          type:
+          - string
+          - 'null'
+        displayOrder:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        values:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PropertyValue'
+        attributes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PropertyAttribute'
+        displayNames:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PropertyDisplayName'
+        validationRules:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PropertyValidationRule'
+        validationRule:
+          allOf:
+          - $ref: '#/components/schemas/PropertyValidationRule'
+          description: Represents property validation rules definition
+          readOnly: true
+        isInherited:
+          type: boolean
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
         id:
           type:
           - string
@@ -4404,49 +4789,21 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    AggregationLabel:
+    PropertyDictionaryItemSearchCriteria:
       type: object
       properties:
-        language:
+        propertyIds:
           type:
-          - string
+          - array
           - 'null'
-        label:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    PropertyDisplayName:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        languageCode:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    CatalogSearchCriteria:
-      type: object
-      properties:
+          items:
+            type: string
         catalogIds:
           type:
           - array
           - 'null'
           items:
             type: string
-        outerIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        isVirtual:
-          type:
-          - boolean
-          - 'null'
         responseGroup:
           type:
           - string
@@ -4497,468 +4854,19 @@ components:
           type: integer
           format: int32
       additionalProperties: false
-    Measure:
+      description: Search criteria used for search property dictionary items
+    SortInfo:
       type: object
       properties:
-        code:
+        sortColumn:
           type:
           - string
           - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        units:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/MeasureUnit'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    Category:
-      type: object
-      properties:
-        catalogId:
-          type:
-          - string
-          - 'null'
-        parentId:
-          type:
-          - string
-          - 'null'
-        code:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        localizedName:
+        sortDirection:
           allOf:
-          - $ref: '#/components/schemas/LocalizedString'
-        outline:
-          type:
-          - string
-          - 'null'
-          description: Category outline in physical catalog (all parent categories ids concatenated. E.g. (1/21/344))
-          readOnly: true
-        path:
-          type:
-          - string
-          - 'null'
-          description: Category path in physical catalog (all parent categories names concatenated. E.g. (parent1/parent2))
-        isVirtual:
-          type: boolean
-        level:
-          type: integer
-          format: int32
-        packageType:
-          type:
-          - string
-          - 'null'
-        priority:
-          type: integer
-          format: int32
-        isActive:
-          type:
-          - boolean
-          - 'null'
-        outerId:
-          type:
-          - string
-          - 'null'
-        properties:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Property'
-        excludedProperties:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ExcludedProperty'
-        links:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/CategoryLink'
-        taxType:
-          type:
-          - string
-          - 'null'
-        seoObjectType:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-        seoInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SeoInfo'
-        enableDescription:
-          type:
-          - boolean
-          - 'null'
-        descriptions:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/CategoryDescription'
-        imgSrc:
-          type:
-          - string
-          - 'null'
-          description: Gets the default image
-          readOnly: true
-        images:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Image'
-        assets:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Asset'
-        outlines:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Outline'
-        isInherited:
-          type: boolean
-          description: System flag used to mark that object was inherited from other
-          readOnly: true
-        parentIsActive:
-          type: boolean
-          readOnly: true
-        relevanceScore:
-          type:
-          - number
-          - 'null'
-          format: double
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
+          - $ref: '#/components/schemas/SortDirection'
       additionalProperties: false
-    PropertyAttribute:
-      type: object
-      properties:
-        propertyId:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    CategoryIndexedSearchCriteria:
-      type: object
-      properties:
-        objectType:
-          type:
-          - string
-          - 'null'
-        storeId:
-          type:
-          - string
-          - 'null'
-        catalogId:
-          type:
-          - string
-          - 'null'
-        catalogIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        outline:
-          type:
-          - string
-          - 'null'
-          description: CategoryId1/CategoryId2, no catalog should be included in the outline
-        outlines:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: CategoryId1/CategoryId2, no catalog should be included in the outline
-        terms:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: 'Term format: name:value1,value2'
-        userGroups:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: 'Assigned groups for current user. Data format: user_groups:value1,value2'
-        isFuzzySearch:
-          type: boolean
-          description: Enable fuzzy search, i.e. allow to search color:white even if color:wihte actually passed to criteria
-        rawQuery:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the search provider specific raw search query; all other search criteria will be ignored
-        includeFields:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: Allows to retrieve only a specific set of fields in the result hits
-        searchPhrase:
-          type:
-          - string
-          - 'null'
-        keyword:
-          type:
-          - string
-          - 'null'
-        responseGroup:
-          type:
-          - string
-          - 'null'
-        objectTypes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        objectIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        languageCode:
-          type:
-          - string
-          - 'null'
-        sort:
-          type:
-          - string
-          - 'null'
-        sortInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
-    ListEntriesMoveRequest:
-      type: object
-      properties:
-        catalog:
-          type:
-          - string
-          - 'null'
-        catalogId:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-        category:
-          type:
-          - string
-          - 'null'
-        listEntries:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ListEntryBase'
-      additionalProperties: false
-      description: Represents  move list entries command
-    CatalogSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Catalog'
-      additionalProperties: false
-    Video:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        sortOrder:
-          type: integer
-          format: int32
-        uploadDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        thumbnailUrl:
-          type:
-          - string
-          - 'null'
-        contentUrl:
-          type:
-          - string
-          - 'null'
-        embedUrl:
-          type:
-          - string
-          - 'null'
-        duration:
-          type:
-          - string
-          - 'null'
-        languageCode:
-          type:
-          - string
-          - 'null'
-        ownerId:
-          type:
-          - string
-          - 'null'
-        ownerType:
-          type:
-          - string
-          - 'null'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-      description: Video content information
-    CategoryIndexedSearchResult:
+    ProductIndexedSearchResult:
       type: object
       properties:
         totalCount:
@@ -4969,7 +4877,7 @@ components:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/Category'
+            $ref: '#/components/schemas/CatalogProduct'
         aggregations:
           type:
           - array
@@ -5027,154 +4935,6 @@ components:
           type:
           - string
           - 'null'
-      additionalProperties: false
-    VideoSearchCriteria:
-      type: object
-      properties:
-        ownerIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        ownerType:
-          type:
-          - string
-          - 'null'
-        responseGroup:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-        objectTypes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        objectIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        keyword:
-          type:
-          - string
-          - 'null'
-        searchPhrase:
-          type:
-          - string
-          - 'null'
-        languageCode:
-          type:
-          - string
-          - 'null'
-        sort:
-          type:
-          - string
-          - 'null'
-        sortInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
-    ValidationResult:
-      type: object
-      properties:
-        isValid:
-          type: boolean
-          readOnly: true
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ValidationFailure'
-        ruleSetsExecuted:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-      additionalProperties: false
-    PropertyDictionaryItemSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PropertyDictionaryItem'
-      additionalProperties: false
-    MeasureSearchCriteria:
-      type: object
-      properties:
-        responseGroup:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-        objectTypes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        objectIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        keyword:
-          type:
-          - string
-          - 'null'
-        searchPhrase:
-          type:
-          - string
-          - 'null'
-        languageCode:
-          type:
-          - string
-          - 'null'
-        sort:
-          type:
-          - string
-          - 'null'
-        sortInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
       additionalProperties: false
     ProductIndexedSearchCriteria:
       type: object
@@ -5356,152 +5116,19 @@ components:
           type: integer
           format: int32
       additionalProperties: false
-    StoreState:
-      enum:
-      - Open
-      - Closed
-      - RestrictedAccess
-      type: string
-    AggregationItem:
+    PropertyDictionaryItemSearchResult:
       type: object
       properties:
-        value:
-          type:
-          - object
-          - 'null'
-          description: Gets or sets the aggregation item value
-        count:
+        totalCount:
           type: integer
-          description: Gets or sets the aggregation item count
           format: int32
-        isApplied:
-          type: boolean
-          description: Gets or sets the flag for aggregation item is applied
-        labels:
+        results:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/AggregationLabel'
-          description: Gets or sets the collection of the aggregation item labels
-        requestedLowerBound:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the request lower bound for range aggregation value
-        requestedUpperBound:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the request lower bound for range aggregation value
-        includeLower:
-          type: boolean
-          description: Is lower bound for range included
-        includeUpper:
-          type: boolean
-          description: Is upper bound for range included
+            $ref: '#/components/schemas/PropertyDictionaryItem'
       additionalProperties: false
-    ListEntryBase:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the type. E.g. "product", "category"
-        isActive:
-          type:
-          - boolean
-          - 'null'
-          description: Gets or sets a value indicating whether this entry is active.
-        imageUrl:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the image URL.
-        code:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the entry code.
-        name:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the name.
-        links:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/CategoryLink'
-          description: Gets or sets the links.
-        outlines:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Outline'
-        outline:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: All entry parents ids
-        path:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: All entry parents names
-        catalogId:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the catalog id.
-        seoObjectType:
-          type:
-          - string
-          - 'null'
-        seoInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SeoInfo'
-        relevanceScore:
-          type:
-          - number
-          - 'null'
-          format: double
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-      description: Base class for all entries used in catalog categories browsing.
     ObjectSettingEntry:
       type: object
       properties:
@@ -5572,301 +5199,53 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    LocalizedString:
+    AggregationStatistics:
       type: object
       properties:
-        values:
+        min:
+          type:
+          - number
+          - 'null'
+          format: double
+        max:
+          type:
+          - number
+          - 'null'
+          format: double
+      additionalProperties: false
+    Operation:
+      type: object
+      properties:
+        value:
           type:
           - object
           - 'null'
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-          readOnly: true
-      additionalProperties: false
-    SeoInfo:
-      type: object
-      properties:
-        name:
+        path:
           type:
           - string
           - 'null'
-        semanticUrl:
+        op:
           type:
           - string
           - 'null'
-        outline:
-          type:
-          - string
-          - 'null'
-        pageTitle:
-          type:
-          - string
-          - 'null'
-        metaDescription:
-          type:
-          - string
-          - 'null'
-        imageAltDescription:
-          type:
-          - string
-          - 'null'
-        metaKeywords:
-          type:
-          - string
-          - 'null'
-        storeId:
-          type:
-          - string
-          - 'null'
-        organizationId:
-          type:
-          - string
-          - 'null'
-        objectId:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-        isActive:
-          type: boolean
-        languageCode:
-          type:
-          - string
-          - 'null'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
+        from:
           type:
           - string
           - 'null'
       additionalProperties: false
-    Asset:
-      type: object
-      properties:
-        mimeType:
-          type:
-          - string
-          - 'null'
-        size:
-          type: integer
-          format: int64
-        readableSize:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-        binaryData:
-          type:
-          - string
-          - 'null'
-          format: byte
-        relativeUrl:
-          type:
-          - string
-          - 'null'
-        url:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        sortOrder:
-          type: integer
-          format: int32
-        typeId:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the asset type identifier.
-        group:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the asset group name.
-        name:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the asset name.
-        outerId:
-          type:
-          - string
-          - 'null'
-          description: ''
-        languageCode:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the asset language.
-        isInherited:
-          type: boolean
-          description: System flag used to mark that object was inherited from other
-          readOnly: true
-        seoObjectType:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-        seoInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SeoInfo'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ProductAssociationSearchCriteria:
-      type: object
-      properties:
-        group:
-          type:
-          - string
-          - 'null'
-        tags:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        associatedObjectIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        responseGroup:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-        objectTypes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        objectIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        keyword:
-          type:
-          - string
-          - 'null'
-        searchPhrase:
-          type:
-          - string
-          - 'null'
-        languageCode:
-          type:
-          - string
-          - 'null'
-        sort:
-          type:
-          - string
-          - 'null'
-        sortInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
-    VideoSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Video'
-      additionalProperties: false
-    SettingValueType:
+    PropertyValueType:
       enum:
       - ShortText
       - LongText
-      - Integer
-      - Decimal
+      - Number
       - DateTime
       - Boolean
-      - SecureString
-      - Json
-      - PositiveInteger
+      - Integer
+      - GeoPoint
+      - Html
+      - Measure
+      - Color
       type: string
-    ExcludedProperty:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        isInherited:
-          type: boolean
-      additionalProperties: false
     CatalogLanguage:
       type: object
       properties:
@@ -5889,455 +5268,72 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    Aggregation:
+    PropertyValidationRule:
       type: object
       properties:
-        aggregationType:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the value of the aggregation type
-        field:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the value of the aggregation field
-        termValuesSortingType:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the type of "Attribute" aggregation type value sorting (if the aggregation was resolved via browse filters)
-        labels:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/AggregationLabel'
-          description: Gets or sets the collection of the aggregation labels
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/AggregationItem'
-          description: Gets or sets the collection of the aggregation items
-        statistics:
-          allOf:
-          - $ref: '#/components/schemas/AggregationStatistics'
-          description: Statistics for range aggregations, such as "PriceRange" or "Range".
-      additionalProperties: false
-    BrandStoreSetting:
-      type: object
-      properties:
-        storeId:
-          type:
-          - string
-          - 'null'
-        store:
-          allOf:
-          - $ref: '#/components/schemas/Store'
-        brandsEnabled:
+        isUnique:
           type: boolean
-        brandPropertyName:
-          type:
-          - string
-          - 'null'
-        brandCatalogId:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    VideoCreateRequest:
-      type: object
-      properties:
-        contentUrl:
-          type:
-          - string
-          - 'null'
-        sortOrder:
+          description: Uniquie value flag constrain
+        charCountMin:
           type:
           - integer
           - 'null'
+          description: Down chars count border or null if no defined
           format: int32
-        languageCode:
+        charCountMax:
+          type:
+          - integer
+          - 'null'
+          description: Upper chars count border or null if no defined
+          format: int32
+        regExp:
           type:
           - string
           - 'null'
-        ownerId:
+          description: Custom regular expression
+        propertyId:
           type:
           - string
           - 'null'
-        ownerType:
+        id:
           type:
           - string
           - 'null'
       additionalProperties: false
-    CategoryLink:
+      description: Represents property validation rules definition
+    Catalog:
       type: object
       properties:
-        entryId:
-          type:
-          - string
-          - 'null'
-          description: Entry identifier which this link belongs to
-          readOnly: true
-        listEntryId:
-          type:
-          - string
-          - 'null'
-        listEntryType:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the type of the list entry. E.g. "product", "category"
-        priority:
-          type: integer
-          description: Product order position in virtual catalog
-          format: int32
-        catalogId:
-          type:
-          - string
-          - 'null'
-        categoryId:
-          type:
-          - string
-          - 'null'
-        targetId:
-          type:
-          - string
-          - 'null'
-          description: Gets the Id of either target Catetory or Catalog
-          readOnly: true
         name:
           type:
           - string
           - 'null'
-          description: Gets the name of either target Catetory or Catalog
-          readOnly: true
-        isAutomatic:
+        isVirtual:
           type: boolean
-      additionalProperties: false
-    DynamicPropertyName:
-      type: object
-      properties:
-        locale:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    PropertyGroupSearchCriteria:
-      type: object
-      properties:
-        catalogId:
-          type:
-          - string
-          - 'null'
-        responseGroup:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-        objectTypes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        objectIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        keyword:
-          type:
-          - string
-          - 'null'
-        searchPhrase:
-          type:
-          - string
-          - 'null'
-        languageCode:
-          type:
-          - string
-          - 'null'
-        sort:
-          type:
-          - string
-          - 'null'
-        sortInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
-    CatalogProduct:
-      type: object
-      properties:
-        productType:
-          type:
-          - string
-          - 'null'
-          description: The type of product. Can be "Physical", "Digital", etc.
-        code:
-          type:
-          - string
-          - 'null'
-          description: The Stock Keeping Unit (SKU) code for the product.
-        manufacturerPartNumber:
-          type:
-          - string
-          - 'null'
-          description: A manufacturer part number (MPN) is a unique alphanumeric code assigned by a manufacturer to identify a specific product or component. It is used primarily for part tracking in inventory management, supply chain operations, and ordering purposes.
-        gtin:
-          type:
-          - string
-          - 'null'
-          description: The Global Trade Item Number (GTIN) for the product. This can include UPC (in North America), EAN (in Europe), JAN (in Japan), and ISBN (for books).
-        name:
-          type:
-          - string
-          - 'null'
-          description: The name of the product.
-        localizedName:
-          allOf:
-          - $ref: '#/components/schemas/LocalizedString'
-        catalogId:
-          type:
-          - string
-          - 'null'
-          description: The ID of the catalog to which this product belongs.
-        categoryId:
-          type:
-          - string
-          - 'null'
-          description: The ID of the category to which this product belongs.
-        outline:
-          type:
-          - string
-          - 'null'
-          description: Product outline in physical catalog (all parent categories ids concatenated. E.g. (1/21/344))
-          readOnly: true
-        path:
-          type:
-          - string
-          - 'null'
-          description: Product path in physical catalog (all parent categories names concatenated. E.g. (parent1/parent2))
-          readOnly: true
-        titularItemId:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-        mainProductId:
-          type:
-          - string
-          - 'null'
-          description: The ID of the main product associated with this product variation.
-        isActive:
-          type:
-          - boolean
-          - 'null'
-          description: 'Specifies whether the product is currently visible on the store for customers to view and purchase.
-
-            If set to false, the product is currently sold out.'
-        isBuyable:
-          type:
-          - boolean
-          - 'null'
-          description: 'Specifies whether the product is currently visible on the store for customers to view and purchase.
-
-            If set to false, the product is currently ouf of stock.'
-        trackInventory:
-          type:
-          - boolean
-          - 'null'
-          description: 'Indicates whether the inventory service is tracking the availability of this product.
-
-            If set to false, the product is considered in stock without any inventory limitations.'
-        indexingDate:
-          type:
-          - string
-          - 'null'
-          description: The date and time when the product was last indexed for search.
-          format: date-time
-        maxQuantity:
-          type:
-          - integer
-          - 'null'
-          description: The maximum quantity of the product that can be purchased in a single order. A value of 0 indicates that there are no limitations on the maximum quantity.
-          format: int32
-        minQuantity:
-          type:
-          - integer
-          - 'null'
-          description: The minimum quantity of the product that must be purchased in a single order. A value of 0 indicates that there are no limitations on the minimum quantity.
-          format: int32
-        packSize:
-          type: integer
-          description: Defines the number of items in a package. Quantity step for your product's. Default value is 1.
-          format: int32
-        startDate:
-          type: string
-          description: First listed date and time. If you do not specify an end date, the product will be active until you deactivate it.If you do not specify an end date, the product will be active until you deactivate it.If you do not specify a start date, the product will become active immediately once you save it.
-          format: date-time
-        endDate:
-          type:
-          - string
-          - 'null'
-          description: Listing expires on the specific date and time. If you do not specify an end date, the product will be active until you deactivate it.
-          format: date-time
-        packageType:
-          type:
-          - string
-          - 'null'
-          description: The type of package for this product, which determines the product's specific dimensions.
-        weightUnit:
-          type:
-          - string
-          - 'null'
-          description: The unit of measurement for the product's weight.
-        weight:
-          type:
-          - number
-          - 'null'
-          description: The weight of the product, in the unit specified by the WeightUnit property.
-          format: double
-        measureUnit:
-          type:
-          - string
-          - 'null'
-          description: The unit of measurement for the product's height, length, and width.
-        height:
-          type:
-          - number
-          - 'null'
-          description: The height of the product, in the unit specified by the MeasureUnit property.
-          format: double
-        length:
-          type:
-          - number
-          - 'null'
-          description: The length of the product, in the unit specified by the MeasureUnit property.
-          format: double
-        width:
-          type:
-          - number
-          - 'null'
-          description: The width of the product, in the unit specified by the MeasureUnit property.
-          format: double
-        enableReview:
-          type:
-          - boolean
-          - 'null'
-        maxNumberOfDownload:
-          type:
-          - integer
-          - 'null'
-          description: The maximum number of times the product can be downloaded. A value of 0 indicates no limit.
-          format: int32
-        downloadExpiration:
-          type:
-          - string
-          - 'null'
-          description: The date and time when the download link or access to the product will expire.
-          format: date-time
-        downloadType:
-          type:
-          - string
-          - 'null'
-          description: 'The type of product download. Valid values include: "Standard Product", "Software", and "Music".'
-        hasUserAgreement:
-          type:
-          - boolean
-          - 'null'
-          description: Indicates whether the product requires the user to agree to any terms or conditions before downloading.
-        shippingType:
-          type:
-          - string
-          - 'null'
-          description: Specifies the type of shipping option available for the product.
-        taxType:
-          type:
-          - string
-          - 'null'
-          description: Specifies the type of tax applied to the product.
-        vendor:
-          type:
-          - string
-          - 'null'
-          description: ID of the vendor associated with the product.
-        priority:
-          type: integer
-          description: Indicates the position of the product in the catalog for ordering purposes.
-          format: int32
         outerId:
           type:
           - string
           - 'null'
-          description: An external identifier for the product that can be used for integration with external systems.
+        defaultLanguage:
+          allOf:
+          - $ref: '#/components/schemas/CatalogLanguage'
+          readOnly: true
+        languages:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CatalogLanguage'
         properties:
           type:
           - array
           - 'null'
           items:
             $ref: '#/components/schemas/Property'
-        excludedProperties:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ExcludedProperty'
-        imgSrc:
-          type:
-          - string
-          - 'null'
-          description: Gets the default image for the product.
-          readOnly: true
-        images:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Image'
-        assets:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Asset'
-        links:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/CategoryLink'
-        variations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Variation'
         seoObjectType:
           type:
           - string
           - 'null'
-          description: Each descendant type should override this property to use other object type for seo records
           readOnly: true
         seoInfos:
           type:
@@ -6345,322 +5341,177 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/SeoInfo'
-        reviews:
+        propertyGroups:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/EditorialReview'
-        associations:
+            $ref: '#/components/schemas/PropertyGroup'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CatalogSearchCriteria:
+      type: object
+      properties:
+        catalogIds:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/ProductAssociation'
-        referencedAssociations:
+            type: string
+        outerIds:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/ProductAssociation'
+            type: string
+        isVirtual:
+          type:
+          - boolean
+          - 'null'
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
+      additionalProperties: false
+    CategoryIndexedSearchCriteria:
+      type: object
+      properties:
+        objectType:
+          type:
+          - string
+          - 'null'
+        storeId:
+          type:
+          - string
+          - 'null'
+        catalogId:
+          type:
+          - string
+          - 'null'
+        catalogIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        outline:
+          type:
+          - string
+          - 'null'
+          description: CategoryId1/CategoryId2, no catalog should be included in the outline
         outlines:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/Outline'
-        isInherited:
-          type: boolean
-          description: System flag used to mark that object was inherited from other
-          readOnly: true
-        parentCategoryIsActive:
-          type: boolean
-          readOnly: true
-        relevanceScore:
-          type:
-          - number
-          - 'null'
-          format: double
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ProductConfigurationOption:
-      type: object
-      properties:
-        sectionId:
-          type:
-          - string
-          - 'null'
-        productId:
-          type:
-          - string
-          - 'null'
-        quantity:
-          type: integer
-          format: int32
-        text:
-          type:
-          - string
-          - 'null'
-        isDefault:
-          type: boolean
-        productName:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-        productImageUrl:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-        productType:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    PropertyDictionaryItemLocalizedValue:
-      type: object
-      properties:
-        languageCode:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    PropertyValue:
-      type: object
-      properties:
-        propertyName:
-          type:
-          - string
-          - 'null'
-        propertyId:
-          type:
-          - string
-          - 'null'
-        languageCode:
-          type:
-          - string
-          - 'null'
-        alias:
-          type:
-          - string
-          - 'null'
-        displayOrder:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        valueType:
-          allOf:
-          - $ref: '#/components/schemas/PropertyValueType'
-        valueId:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - object
-          - 'null'
-        propertyMultivalue:
-          type: boolean
-          readOnly: true
-        outerId:
-          type:
-          - string
-          - 'null'
-        unitOfMeasureId:
-          type:
-          - string
-          - 'null'
-        colorCode:
-          type:
-          - string
-          - 'null'
-        isInherited:
-          type: boolean
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ProductAssociationSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ProductAssociation'
-      additionalProperties: false
-    EditorialReview:
-      type: object
-      properties:
-        content:
-          type:
-          - string
-          - 'null'
-        reviewType:
-          type:
-          - string
-          - 'null'
-        languageCode:
-          type:
-          - string
-          - 'null'
-        isInherited:
-          type: boolean
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    GeoDistanceFilter:
-      type: object
-      properties:
-        fieldName:
-          type:
-          - string
-          - 'null'
-        location:
-          allOf:
-          - $ref: '#/components/schemas/GeoPoint'
-        distance:
-          type: number
-          format: double
-      additionalProperties: false
-    ProductConfigurationSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ProductConfiguration'
-      additionalProperties: false
-    LinkSearchCriteria:
-      type: object
-      properties:
-        categoryIds:
+            type: string
+          description: CategoryId1/CategoryId2, no catalog should be included in the outline
+        terms:
           type:
           - array
           - 'null'
           items:
             type: string
-        catalogIds:
+          description: 'Term format: name:value1,value2'
+        userGroups:
           type:
           - array
           - 'null'
           items:
             type: string
-        isAutomatic:
+          description: 'Assigned groups for current user. Data format: user_groups:value1,value2'
+        isFuzzySearch:
+          type: boolean
+          description: Enable fuzzy search, i.e. allow to search color:white even if color:wihte actually passed to criteria
+        rawQuery:
           type:
-          - boolean
+          - string
+          - 'null'
+          description: Gets or sets the search provider specific raw search query; all other search criteria will be ignored
+        includeFields:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Allows to retrieve only a specific set of fields in the result hits
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        keyword:
+          type:
+          - string
           - 'null'
         responseGroup:
-          type:
-          - string
-          - 'null'
-        objectType:
           type:
           - string
           - 'null'
@@ -6676,14 +5527,6 @@ components:
           - 'null'
           items:
             type: string
-        keyword:
-          type:
-          - string
-          - 'null'
-        searchPhrase:
-          type:
-          - string
-          - 'null'
         languageCode:
           type:
           - string
@@ -6705,593 +5548,6 @@ components:
         take:
           type: integer
           format: int32
-      additionalProperties: false
-    Severity:
-      enum:
-      - Error
-      - Warning
-      - Info
-      type: string
-    Property:
-      type: object
-      properties:
-        isReadOnly:
-          type: boolean
-          description: Gets or sets a value indicating whether user can change property value.
-        isManageable:
-          type: boolean
-          description: Gets or sets a value indicating whether user can change property metadata or remove this property.
-          readOnly: true
-        isNew:
-          type: boolean
-          description: Gets or sets a value indicating whether this instance is new. A new property should be created on server site instead of trying to update it.
-        catalogId:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the catalog id that this product belongs to.
-        categoryId:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the category id that this product belongs to.
-        propertyGroupId:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        required:
-          type: boolean
-        dictionary:
-          type: boolean
-        multivalue:
-          type: boolean
-        multilanguage:
-          type: boolean
-        hidden:
-          type: boolean
-          description: Gets or sets a value indicating whether this VirtoCommerce.CatalogModule.Core.Model.Property is hidden.
-        valueType:
-          allOf:
-          - $ref: '#/components/schemas/PropertyValueType'
-        type:
-          allOf:
-          - $ref: '#/components/schemas/PropertyType'
-        outerId:
-          type:
-          - string
-          - 'null'
-        measureId:
-          type:
-          - string
-          - 'null'
-        ownerName:
-          type:
-          - string
-          - 'null'
-        displayOrder:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        values:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PropertyValue'
-        attributes:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PropertyAttribute'
-        displayNames:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PropertyDisplayName'
-        validationRules:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PropertyValidationRule'
-        validationRule:
-          allOf:
-          - $ref: '#/components/schemas/PropertyValidationRule'
-          description: Represents property validation rules definition
-          readOnly: true
-        isInherited:
-          type: boolean
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    CategoryPropertyValidationRequest:
-      type: object
-      properties:
-        propertyName:
-          type:
-          - string
-          - 'null'
-        propertyType:
-          type:
-          - string
-          - 'null'
-        propertyValueType:
-          allOf:
-          - $ref: '#/components/schemas/PropertyValueType'
-        categoryId:
-          type:
-          - string
-          - 'null'
-        catalogId:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    VideoProvidersStatus:
-      type: object
-      properties:
-        isYouTubeApiKeyConfigured:
-          type: boolean
-        isVimeoAccessTokenConfigured:
-          type: boolean
-      additionalProperties: false
-    PropertyDictionaryItemSearchCriteria:
-      type: object
-      properties:
-        propertyIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        catalogIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        responseGroup:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-        objectTypes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        objectIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        keyword:
-          type:
-          - string
-          - 'null'
-        searchPhrase:
-          type:
-          - string
-          - 'null'
-        languageCode:
-          type:
-          - string
-          - 'null'
-        sort:
-          type:
-          - string
-          - 'null'
-        sortInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
-      description: Search criteria used for search property dictionary items
-    AggregationStatistics:
-      type: object
-      properties:
-        min:
-          type:
-          - number
-          - 'null'
-          format: double
-        max:
-          type:
-          - number
-          - 'null'
-          format: double
-      additionalProperties: false
-    AutomaticLinkQuerySearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/AutomaticLinkQuery'
-      additionalProperties: false
-    ProductConfigurationSearchCriteria:
-      type: object
-      properties:
-        productId:
-          type:
-          - string
-          - 'null'
-        productIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        isActive:
-          type:
-          - boolean
-          - 'null'
-        responseGroup:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-        objectTypes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        objectIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        keyword:
-          type:
-          - string
-          - 'null'
-        searchPhrase:
-          type:
-          - string
-          - 'null'
-        languageCode:
-          type:
-          - string
-          - 'null'
-        sort:
-          type:
-          - string
-          - 'null'
-        sortInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
-    AutomaticLinkQuerySearchCriteria:
-      type: object
-      properties:
-        targetCategoryId:
-          type:
-          - string
-          - 'null'
-        responseGroup:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-        objectTypes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        objectIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        keyword:
-          type:
-          - string
-          - 'null'
-        searchPhrase:
-          type:
-          - string
-          - 'null'
-        languageCode:
-          type:
-          - string
-          - 'null'
-        sort:
-          type:
-          - string
-          - 'null'
-        sortInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-      additionalProperties: false
-    BulkLinkCreationRequest:
-      type: object
-      properties:
-        searchCriteria:
-          allOf:
-          - $ref: '#/components/schemas/CatalogListEntrySearchCriteria'
-        categoryId:
-          type:
-          - string
-          - 'null'
-          description: The target category identifier for the link
-        catalogId:
-          type:
-          - string
-          - 'null'
-          description: The target catalog identifier for the link
-      additionalProperties: false
-      description: Information to search and create links to categories and items
-    OutlineItem:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-          description: Object id
-        seoObjectType:
-          type:
-          - string
-          - 'null'
-          description: Object type
-        seoInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SeoInfo'
-          description: All SEO records for the object
-        name:
-          type:
-          - string
-          - 'null'
-          description: The name of current item
-        localizedName:
-          allOf:
-          - $ref: '#/components/schemas/LocalizedString'
-        hasVirtualParent:
-          type: boolean
-          description: True when this object is linked to the virtual parent.
-      additionalProperties: false
-      description: 'Represents one outline element: catalog, category or product.'
-    GeoPoint:
-      type: object
-      properties:
-        latitude:
-          type: number
-          format: double
-        longitude:
-          type: number
-          format: double
-      additionalProperties: false
-    SortDirection:
-      enum:
-      - Ascending
-      - Descending
-      type: string
-    NumericRange:
-      type: object
-      properties:
-        lower:
-          type:
-          - number
-          - 'null'
-          format: double
-        upper:
-          type:
-          - number
-          - 'null'
-          format: double
-        includeLower:
-          type: boolean
-        includeUpper:
-          type: boolean
-      additionalProperties: false
-    DynamicObjectProperty:
-      type: object
-      properties:
-        objectId:
-          type:
-          - string
-          - 'null'
-        values:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/DynamicPropertyObjectValue'
-        name:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-        isArray:
-          type: boolean
-        isDictionary:
-          type: boolean
-        isMultilingual:
-          type: boolean
-        isRequired:
-          type: boolean
-        displayOrder:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        valueType:
-          allOf:
-          - $ref: '#/components/schemas/DynamicPropertyValueType'
-        displayNames:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/DynamicPropertyName'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    PropertyGroup:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        catalogId:
-          type:
-          - string
-          - 'null'
-        localizedName:
-          allOf:
-          - $ref: '#/components/schemas/LocalizedString'
-        localizedDescription:
-          allOf:
-          - $ref: '#/components/schemas/LocalizedString'
-        displayOrder:
-          type: integer
-          format: int32
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    SortInfo:
-      type: object
-      properties:
-        sortColumn:
-          type:
-          - string
-          - 'null'
-        sortDirection:
-          allOf:
-          - $ref: '#/components/schemas/SortDirection'
       additionalProperties: false
     Image:
       type: object
@@ -7385,198 +5641,78 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    Catalog:
+    StoreState:
+      enum:
+      - Open
+      - Closed
+      - RestrictedAccess
+      type: string
+    CategoryPropertyValidationRequest:
       type: object
       properties:
-        name:
-          type:
-          - string
-          - 'null'
-        isVirtual:
-          type: boolean
-        outerId:
-          type:
-          - string
-          - 'null'
-        defaultLanguage:
-          allOf:
-          - $ref: '#/components/schemas/CatalogLanguage'
-          readOnly: true
-        languages:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/CatalogLanguage'
-        properties:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Property'
-        seoObjectType:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-        seoInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SeoInfo'
-        propertyGroups:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PropertyGroup'
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    PropertyDictionaryItem:
-      type: object
-      properties:
-        propertyId:
-          type:
-          - string
-          - 'null'
-        alias:
-          type:
-          - string
-          - 'null'
-        colorCode:
-          type:
-          - string
-          - 'null'
-        sortOrder:
-          type: integer
-          format: int32
-        localizedValues:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PropertyDictionaryItemLocalizedValue'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    CategoryDescription:
-      type: object
-      properties:
-        content:
-          type:
-          - string
-          - 'null'
-        descriptionType:
-          type:
-          - string
-          - 'null'
-        languageCode:
-          type:
-          - string
-          - 'null'
-        isInherited:
-          type: boolean
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    DynamicPropertyObjectValue:
-      type: object
-      properties:
-        objectType:
-          type:
-          - string
-          - 'null'
-        objectId:
-          type:
-          - string
-          - 'null'
-        locale:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - object
-          - 'null'
-        valueId:
-          type:
-          - string
-          - 'null'
-        valueType:
-          allOf:
-          - $ref: '#/components/schemas/DynamicPropertyValueType'
-        propertyId:
-          type:
-          - string
-          - 'null'
         propertyName:
           type:
           - string
           - 'null'
+        propertyType:
+          type:
+          - string
+          - 'null'
+        propertyValueType:
+          allOf:
+          - $ref: '#/components/schemas/PropertyValueType'
+        categoryId:
+          type:
+          - string
+          - 'null'
+        catalogId:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
-    AutomaticLinkQuery:
+    ProductConfigurationSection:
       type: object
       properties:
-        targetCategoryId:
+        configurationId:
           type:
           - string
           - 'null'
-        sourceCatalogId:
+        name:
           type:
           - string
           - 'null'
-        sourceCatalogQuery:
+        description:
           type:
           - string
           - 'null'
+        isRequired:
+          type: boolean
+        displayOrder:
+          type: integer
+          format: int32
+        type:
+          type:
+          - string
+          - 'null'
+        allowCustomText:
+          type: boolean
+        allowPredefinedOptions:
+          type: boolean
+        maxLength:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        dependsOnSectionId:
+          type:
+          - string
+          - 'null'
+        options:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ProductConfigurationOption'
         createdDate:
           type: string
           format: date-time
@@ -7622,6 +5758,128 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/ListEntryBase'
+      additionalProperties: false
+    ProductAssociationSearchCriteria:
+      type: object
+      properties:
+        group:
+          type:
+          - string
+          - 'null'
+        tags:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        associatedObjectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
+      additionalProperties: false
+    AutomaticLinkQuerySearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AutomaticLinkQuery'
+      additionalProperties: false
+    BrandStoreSetting:
+      type: object
+      properties:
+        storeId:
+          type:
+          - string
+          - 'null'
+        store:
+          allOf:
+          - $ref: '#/components/schemas/Store'
+        brandsEnabled:
+          type: boolean
+        brandPropertyName:
+          type:
+          - string
+          - 'null'
+        brandCatalogId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Severity:
+      enum:
+      - Error
+      - Warning
+      - Info
+      type: string
+    MeasureSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Measure'
       additionalProperties: false
     Variation:
       type: object
@@ -7943,123 +6201,128 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    ValidationFailure:
+    PropertyValidationRequest:
+      type: object
+      properties:
+        originalName:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        productId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      description: Property name validation data
+    MeasureSearchCriteria:
+      type: object
+      properties:
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
+      additionalProperties: false
+    PropertyValue:
       type: object
       properties:
         propertyName:
           type:
           - string
           - 'null'
-        errorMessage:
+        propertyId:
           type:
           - string
           - 'null'
-        attemptedValue:
+        languageCode:
           type:
-          - object
+          - string
           - 'null'
-        customState:
+        alias:
           type:
-          - object
+          - string
           - 'null'
-        severity:
+        displayOrder:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        valueType:
           allOf:
-          - $ref: '#/components/schemas/Severity'
-        errorCode:
+          - $ref: '#/components/schemas/PropertyValueType'
+        valueId:
           type:
           - string
           - 'null'
-        formattedMessagePlaceholderValues:
+        value:
           type:
           - object
           - 'null'
-          additionalProperties:
-            type:
-            - object
-            - 'null'
-      additionalProperties: false
-    DynamicPropertyValueType:
-      enum:
-      - Undefined
-      - ShortText
-      - LongText
-      - Integer
-      - Decimal
-      - DateTime
-      - Boolean
-      - Html
-      - Image
-      type: string
-    JsonPatchDocument:
-      type: object
-      properties:
-        operations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Operation'
-      additionalProperties: false
-    ProductIndexedSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int64
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/CatalogProduct'
-        aggregations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Aggregation'
-      additionalProperties: false
-    PropertyGroupSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PropertyGroup'
-      additionalProperties: false
-    MeasureSearchResult:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int32
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Measure'
-      additionalProperties: false
-    ProductConfiguration:
-      type: object
-      properties:
-        productId:
+        propertyMultivalue:
+          type: boolean
+          readOnly: true
+        outerId:
           type:
           - string
           - 'null'
-        isActive:
-          type: boolean
-        sections:
+        unitOfMeasureId:
           type:
-          - array
+          - string
           - 'null'
-          items:
-            $ref: '#/components/schemas/ProductConfigurationSection'
+        colorCode:
+          type:
+          - string
+          - 'null'
+        isInherited:
+          type: boolean
         createdDate:
           type: string
           format: date-time
@@ -8084,6 +6347,101 @@ components:
           type:
           - string
           - 'null'
+      additionalProperties: false
+    PropertyAttribute:
+      type: object
+      properties:
+        propertyId:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CategoryDescription:
+      type: object
+      properties:
+        content:
+          type:
+          - string
+          - 'null'
+        descriptionType:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        isInherited:
+          type: boolean
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ProductAssociationSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ProductAssociation'
       additionalProperties: false
     CatalogListEntrySearchCriteria:
       type: object
@@ -8217,6 +6575,1648 @@ components:
         take:
           type: integer
           format: int32
+      additionalProperties: false
+    DynamicPropertyObjectValue:
+      type: object
+      properties:
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectId:
+          type:
+          - string
+          - 'null'
+        locale:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - object
+          - 'null'
+        valueId:
+          type:
+          - string
+          - 'null'
+        valueType:
+          allOf:
+          - $ref: '#/components/schemas/DynamicPropertyValueType'
+        propertyId:
+          type:
+          - string
+          - 'null'
+        propertyName:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    VideoSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Video'
+      additionalProperties: false
+    SuggestionResponse:
+      type: object
+      properties:
+        suggestions:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+      additionalProperties: false
+    DynamicObjectProperty:
+      type: object
+      properties:
+        objectId:
+          type:
+          - string
+          - 'null'
+        values:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicPropertyObjectValue'
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        isArray:
+          type: boolean
+        isDictionary:
+          type: boolean
+        isMultilingual:
+          type: boolean
+        isRequired:
+          type: boolean
+        displayOrder:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        valueType:
+          allOf:
+          - $ref: '#/components/schemas/DynamicPropertyValueType'
+        displayNames:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicPropertyName'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    BulkLinkCreationRequest:
+      type: object
+      properties:
+        searchCriteria:
+          allOf:
+          - $ref: '#/components/schemas/CatalogListEntrySearchCriteria'
+        categoryId:
+          type:
+          - string
+          - 'null'
+          description: The target category identifier for the link
+        catalogId:
+          type:
+          - string
+          - 'null'
+          description: The target catalog identifier for the link
+      additionalProperties: false
+      description: Information to search and create links to categories and items
+    PropertyType:
+      enum:
+      - Product
+      - Variation
+      - Category
+      - Catalog
+      type: string
+    PropertyDictionaryItem:
+      type: object
+      properties:
+        propertyId:
+          type:
+          - string
+          - 'null'
+        alias:
+          type:
+          - string
+          - 'null'
+        colorCode:
+          type:
+          - string
+          - 'null'
+        sortOrder:
+          type: integer
+          format: int32
+        localizedValues:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PropertyDictionaryItemLocalizedValue'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ProductConfigurationOption:
+      type: object
+      properties:
+        sectionId:
+          type:
+          - string
+          - 'null'
+        productId:
+          type:
+          - string
+          - 'null'
+        quantity:
+          type: integer
+          format: int32
+        text:
+          type:
+          - string
+          - 'null'
+        isDefault:
+          type: boolean
+        productName:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        productImageUrl:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        productType:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CategoryIndexedSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int64
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Category'
+        aggregations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Aggregation'
+      additionalProperties: false
+    ExcludedProperty:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        isInherited:
+          type: boolean
+      additionalProperties: false
+    CatalogProduct:
+      type: object
+      properties:
+        productType:
+          type:
+          - string
+          - 'null'
+          description: The type of product. Can be "Physical", "Digital", etc.
+        code:
+          type:
+          - string
+          - 'null'
+          description: The Stock Keeping Unit (SKU) code for the product.
+        manufacturerPartNumber:
+          type:
+          - string
+          - 'null'
+          description: A manufacturer part number (MPN) is a unique alphanumeric code assigned by a manufacturer to identify a specific product or component. It is used primarily for part tracking in inventory management, supply chain operations, and ordering purposes.
+        gtin:
+          type:
+          - string
+          - 'null'
+          description: The Global Trade Item Number (GTIN) for the product. This can include UPC (in North America), EAN (in Europe), JAN (in Japan), and ISBN (for books).
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the product.
+        localizedName:
+          allOf:
+          - $ref: '#/components/schemas/LocalizedString'
+        catalogId:
+          type:
+          - string
+          - 'null'
+          description: The ID of the catalog to which this product belongs.
+        categoryId:
+          type:
+          - string
+          - 'null'
+          description: The ID of the category to which this product belongs.
+        outline:
+          type:
+          - string
+          - 'null'
+          description: Product outline in physical catalog (all parent categories ids concatenated. E.g. (1/21/344))
+          readOnly: true
+        path:
+          type:
+          - string
+          - 'null'
+          description: Product path in physical catalog (all parent categories names concatenated. E.g. (parent1/parent2))
+          readOnly: true
+        titularItemId:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        mainProductId:
+          type:
+          - string
+          - 'null'
+          description: The ID of the main product associated with this product variation.
+        isActive:
+          type:
+          - boolean
+          - 'null'
+          description: 'Specifies whether the product is currently visible on the store for customers to view and purchase.
+
+            If set to false, the product is currently sold out.'
+        isBuyable:
+          type:
+          - boolean
+          - 'null'
+          description: 'Specifies whether the product is currently visible on the store for customers to view and purchase.
+
+            If set to false, the product is currently ouf of stock.'
+        trackInventory:
+          type:
+          - boolean
+          - 'null'
+          description: 'Indicates whether the inventory service is tracking the availability of this product.
+
+            If set to false, the product is considered in stock without any inventory limitations.'
+        indexingDate:
+          type:
+          - string
+          - 'null'
+          description: The date and time when the product was last indexed for search.
+          format: date-time
+        maxQuantity:
+          type:
+          - integer
+          - 'null'
+          description: The maximum quantity of the product that can be purchased in a single order. A value of 0 indicates that there are no limitations on the maximum quantity.
+          format: int32
+        minQuantity:
+          type:
+          - integer
+          - 'null'
+          description: The minimum quantity of the product that must be purchased in a single order. A value of 0 indicates that there are no limitations on the minimum quantity.
+          format: int32
+        packSize:
+          type: integer
+          description: Defines the number of items in a package. Quantity step for your product's. Default value is 1.
+          format: int32
+        startDate:
+          type: string
+          description: First listed date and time. If you do not specify an end date, the product will be active until you deactivate it.If you do not specify an end date, the product will be active until you deactivate it.If you do not specify a start date, the product will become active immediately once you save it.
+          format: date-time
+        endDate:
+          type:
+          - string
+          - 'null'
+          description: Listing expires on the specific date and time. If you do not specify an end date, the product will be active until you deactivate it.
+          format: date-time
+        packageType:
+          type:
+          - string
+          - 'null'
+          description: The type of package for this product, which determines the product's specific dimensions.
+        weightUnit:
+          type:
+          - string
+          - 'null'
+          description: The unit of measurement for the product's weight.
+        weight:
+          type:
+          - number
+          - 'null'
+          description: The weight of the product, in the unit specified by the WeightUnit property.
+          format: double
+        measureUnit:
+          type:
+          - string
+          - 'null'
+          description: The unit of measurement for the product's height, length, and width.
+        height:
+          type:
+          - number
+          - 'null'
+          description: The height of the product, in the unit specified by the MeasureUnit property.
+          format: double
+        length:
+          type:
+          - number
+          - 'null'
+          description: The length of the product, in the unit specified by the MeasureUnit property.
+          format: double
+        width:
+          type:
+          - number
+          - 'null'
+          description: The width of the product, in the unit specified by the MeasureUnit property.
+          format: double
+        enableReview:
+          type:
+          - boolean
+          - 'null'
+        maxNumberOfDownload:
+          type:
+          - integer
+          - 'null'
+          description: The maximum number of times the product can be downloaded. A value of 0 indicates no limit.
+          format: int32
+        downloadExpiration:
+          type:
+          - string
+          - 'null'
+          description: The date and time when the download link or access to the product will expire.
+          format: date-time
+        downloadType:
+          type:
+          - string
+          - 'null'
+          description: 'The type of product download. Valid values include: "Standard Product", "Software", and "Music".'
+        hasUserAgreement:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the product requires the user to agree to any terms or conditions before downloading.
+        shippingType:
+          type:
+          - string
+          - 'null'
+          description: Specifies the type of shipping option available for the product.
+        taxType:
+          type:
+          - string
+          - 'null'
+          description: Specifies the type of tax applied to the product.
+        vendor:
+          type:
+          - string
+          - 'null'
+          description: ID of the vendor associated with the product.
+        priority:
+          type: integer
+          description: Indicates the position of the product in the catalog for ordering purposes.
+          format: int32
+        outerId:
+          type:
+          - string
+          - 'null'
+          description: An external identifier for the product that can be used for integration with external systems.
+        properties:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Property'
+        excludedProperties:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ExcludedProperty'
+        imgSrc:
+          type:
+          - string
+          - 'null'
+          description: Gets the default image for the product.
+          readOnly: true
+        images:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Image'
+        assets:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Asset'
+        links:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CategoryLink'
+        variations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Variation'
+        seoObjectType:
+          type:
+          - string
+          - 'null'
+          description: Each descendant type should override this property to use other object type for seo records
+          readOnly: true
+        seoInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SeoInfo'
+        reviews:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/EditorialReview'
+        associations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ProductAssociation'
+        referencedAssociations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ProductAssociation'
+        outlines:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Outline'
+        isInherited:
+          type: boolean
+          description: System flag used to mark that object was inherited from other
+          readOnly: true
+        parentCategoryIsActive:
+          type: boolean
+          readOnly: true
+        relevanceScore:
+          type:
+          - number
+          - 'null'
+          format: double
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ProductConfiguration:
+      type: object
+      properties:
+        productId:
+          type:
+          - string
+          - 'null'
+        isActive:
+          type: boolean
+        sections:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ProductConfigurationSection'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    VideoProvidersStatus:
+      type: object
+      properties:
+        isYouTubeApiKeyConfigured:
+          type: boolean
+        isVimeoAccessTokenConfigured:
+          type: boolean
+      additionalProperties: false
+    LinkSearchCriteria:
+      type: object
+      properties:
+        categoryIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        catalogIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        isAutomatic:
+          type:
+          - boolean
+          - 'null'
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
+      additionalProperties: false
+    PropertyGroupSearchCriteria:
+      type: object
+      properties:
+        catalogId:
+          type:
+          - string
+          - 'null'
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
+      additionalProperties: false
+    OutlineItem:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Object id
+        seoObjectType:
+          type:
+          - string
+          - 'null'
+          description: Object type
+        seoInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SeoInfo'
+          description: All SEO records for the object
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of current item
+        localizedName:
+          allOf:
+          - $ref: '#/components/schemas/LocalizedString'
+        hasVirtualParent:
+          type: boolean
+          description: True when this object is linked to the virtual parent.
+      additionalProperties: false
+      description: 'Represents one outline element: catalog, category or product.'
+    Asset:
+      type: object
+      properties:
+        mimeType:
+          type:
+          - string
+          - 'null'
+        size:
+          type: integer
+          format: int64
+        readableSize:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        binaryData:
+          type:
+          - string
+          - 'null'
+          format: byte
+        relativeUrl:
+          type:
+          - string
+          - 'null'
+        url:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        sortOrder:
+          type: integer
+          format: int32
+        typeId:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the asset type identifier.
+        group:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the asset group name.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the asset name.
+        outerId:
+          type:
+          - string
+          - 'null'
+          description: ''
+        languageCode:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the asset language.
+        isInherited:
+          type: boolean
+          description: System flag used to mark that object was inherited from other
+          readOnly: true
+        seoObjectType:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        seoInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SeoInfo'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    AggregationLabel:
+      type: object
+      properties:
+        language:
+          type:
+          - string
+          - 'null'
+        label:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    AutomaticLinkQuery:
+      type: object
+      properties:
+        targetCategoryId:
+          type:
+          - string
+          - 'null'
+        sourceCatalogId:
+          type:
+          - string
+          - 'null'
+        sourceCatalogQuery:
+          type:
+          - string
+          - 'null'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    JsonPatchDocument:
+      type: object
+      properties:
+        operations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Operation'
+      additionalProperties: false
+    ProductAssociation:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: Association type (Accessories, Up-Sales, Cross-Sales, Related etc)
+        priority:
+          type: integer
+          format: int32
+        quantity:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        itemId:
+          type:
+          - string
+          - 'null'
+          description: Is a primary key of associating object
+        associatedObjectId:
+          type:
+          - string
+          - 'null'
+          description: 'Each link element can have an associated object like Product, Category, etc.
+
+            Is a primary key of associated object'
+        associatedObjectType:
+          type:
+          - string
+          - 'null'
+          description: 'Associated object type : ''product'', ''category'' etc'
+        outerId:
+          type:
+          - string
+          - 'null'
+          description: ''
+        associatedObjectName:
+          type:
+          - string
+          - 'null'
+          description: Display name for associated object
+          readOnly: true
+        associatedObjectImg:
+          type:
+          - string
+          - 'null'
+          description: Associated object image URL
+          readOnly: true
+        tags:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        imgSrc:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        images:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Image'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Measure:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        units:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/MeasureUnit'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    LocalizedString:
+      type: object
+      properties:
+        values:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+          readOnly: true
+      additionalProperties: false
+    PropertyDisplayName:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    SeoInfo:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        semanticUrl:
+          type:
+          - string
+          - 'null'
+        outline:
+          type:
+          - string
+          - 'null'
+        pageTitle:
+          type:
+          - string
+          - 'null'
+        metaDescription:
+          type:
+          - string
+          - 'null'
+        imageAltDescription:
+          type:
+          - string
+          - 'null'
+        metaKeywords:
+          type:
+          - string
+          - 'null'
+        storeId:
+          type:
+          - string
+          - 'null'
+        organizationId:
+          type:
+          - string
+          - 'null'
+        objectId:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        isActive:
+          type: boolean
+        languageCode:
+          type:
+          - string
+          - 'null'
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    SettingValueType:
+      enum:
+      - ShortText
+      - LongText
+      - Integer
+      - Decimal
+      - DateTime
+      - Boolean
+      - SecureString
+      - Json
+      - PositiveInteger
+      type: string
+    ValidationResult:
+      type: object
+      properties:
+        isValid:
+          type: boolean
+          readOnly: true
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ValidationFailure'
+        ruleSetsExecuted:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+      additionalProperties: false
+    AutomaticLinkQuerySearchCriteria:
+      type: object
+      properties:
+        targetCategoryId:
+          type:
+          - string
+          - 'null'
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
+      additionalProperties: false
+    ProductConfigurationSearchCriteria:
+      type: object
+      properties:
+        productId:
+          type:
+          - string
+          - 'null'
+        productIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        isActive:
+          type:
+          - boolean
+          - 'null'
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
+      additionalProperties: false
+    VideoCreateRequest:
+      type: object
+      properties:
+        contentUrl:
+          type:
+          - string
+          - 'null'
+        sortOrder:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        languageCode:
+          type:
+          - string
+          - 'null'
+        ownerId:
+          type:
+          - string
+          - 'null'
+        ownerType:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Category:
+      type: object
+      properties:
+        catalogId:
+          type:
+          - string
+          - 'null'
+        parentId:
+          type:
+          - string
+          - 'null'
+        code:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        localizedName:
+          allOf:
+          - $ref: '#/components/schemas/LocalizedString'
+        outline:
+          type:
+          - string
+          - 'null'
+          description: Category outline in physical catalog (all parent categories ids concatenated. E.g. (1/21/344))
+          readOnly: true
+        path:
+          type:
+          - string
+          - 'null'
+          description: Category path in physical catalog (all parent categories names concatenated. E.g. (parent1/parent2))
+        isVirtual:
+          type: boolean
+        level:
+          type: integer
+          format: int32
+        packageType:
+          type:
+          - string
+          - 'null'
+        priority:
+          type: integer
+          format: int32
+        isActive:
+          type:
+          - boolean
+          - 'null'
+        outerId:
+          type:
+          - string
+          - 'null'
+        properties:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Property'
+        excludedProperties:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ExcludedProperty'
+        links:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CategoryLink'
+        taxType:
+          type:
+          - string
+          - 'null'
+        seoObjectType:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        seoInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SeoInfo'
+        enableDescription:
+          type:
+          - boolean
+          - 'null'
+        descriptions:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CategoryDescription'
+        imgSrc:
+          type:
+          - string
+          - 'null'
+          description: Gets the default image
+          readOnly: true
+        images:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Image'
+        assets:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Asset'
+        outlines:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Outline'
+        isInherited:
+          type: boolean
+          description: System flag used to mark that object was inherited from other
+          readOnly: true
+        parentIsActive:
+          type: boolean
+          readOnly: true
+        relevanceScore:
+          type:
+          - number
+          - 'null'
+          format: double
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    EditorialReview:
+      type: object
+      properties:
+        content:
+          type:
+          - string
+          - 'null'
+        reviewType:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        isInherited:
+          type: boolean
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PropertyGroup:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        catalogId:
+          type:
+          - string
+          - 'null'
+        localizedName:
+          allOf:
+          - $ref: '#/components/schemas/LocalizedString'
+        localizedDescription:
+          allOf:
+          - $ref: '#/components/schemas/LocalizedString'
+        displayOrder:
+          type: integer
+          format: int32
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    GeoPoint:
+      type: object
+      properties:
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+      additionalProperties: false
+    PropertyGroupSearchResult:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PropertyGroup'
+      additionalProperties: false
+    PropertyDictionaryItemLocalizedValue:
+      type: object
+      properties:
+        languageCode:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
   securitySchemes:
     oauth2:
