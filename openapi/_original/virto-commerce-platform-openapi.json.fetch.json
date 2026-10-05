@@ -1,0 +1,12 @@
+{
+ "url": "https://virtostart-demo-admin.govirto.com/docs/VirtoCommerce.Platform/swagger.json",
+ "requested_url": "https://virtostart-demo-admin.govirto.com/docs/VirtoCommerce.Platform/swagger.json",
+ "status": 200,
+ "content_type": "application/json;charset=utf-8",
+ "bytes": 314891,
+ "sha256": "798df2d0e6d9733564eb579b4f60cb4310f190457958e00b7050384674d4a8a7",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 0.961), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
