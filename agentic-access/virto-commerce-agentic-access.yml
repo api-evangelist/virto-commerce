@@ -1,405 +1,27 @@
-generated: '2026-07-15'
+generated: '2026-09-23'
 method: generated
-source: openapi/virto-commerce-cart-openapi.json, openapi/virto-commerce-catalog-openapi.json,
-  openapi/virto-commerce-customer-openapi.json, openapi/virto-commerce-inventory-openapi.json,
-  openapi/virto-commerce-marketing-openapi.json, openapi/virto-commerce-orders-openapi.json,
-  openapi/virto-commerce-platform-openapi.json, openapi/virto-commerce-pricing-openapi.json,
-  openapi/virto-commerce-quote-openapi.json, openapi/virto-commerce-store-openapi.json
+source: openapi/virto-commerce-catalog-api-openapi.yml, openapi/virto-commerce-companies-and-contacts-api-openapi.yml,
+  openapi/virto-commerce-event-bus-module-api-openapi.yml, openapi/virto-commerce-inventory-api-openapi.yml,
+  openapi/virto-commerce-marketing-api-openapi.yml, openapi/virto-commerce-order-management-api-openapi.yml,
+  openapi/virto-commerce-pricing-api-openapi.yml, openapi/virto-commerce-quotes-api-openapi.yml,
+  openapi/virto-commerce-returns-api-openapi.yml, openapi/virto-commerce-shopping-cart-api-openapi.yml,
+  openapi/virto-commerce-store-api-openapi.yml, openapi/virto-commerce-virtocommerce-platform-api-openapi.yml,
+  openapi/virto-commerce-webhooks-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
-  operations: 426
+  operations: 452
   by_action_class:
-    connected: 143
-    acting: 283
+    acting: 266
+    connected: 186
   by_consequence:
-    read: 143
-    write: 237
-    physical: 37
+    write: 224
+    read: 186
+    physical: 33
     safety-critical: 9
   human_in_the_loop_required: 9
 operations:
-- path: /api/carts/{storeId}/{customerId}/{cartName}/{currency}/{cultureName}/current
-  method: get
-  operationId: CartModule_GetCart
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/carts/{cartId}/itemscount
-  method: get
-  operationId: CartModule_GetCartItemsCount
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/carts/{cartId}/items
-  method: post
-  operationId: CartModule_AddItemToCart
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/carts/{cartId}/items
-  method: put
-  operationId: CartModule_ChangeCartItem
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/carts/{cartId}/items
-  method: delete
-  operationId: CartModule_ClearCart
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/carts/{cartId}/items/{lineItemId}
-  method: delete
-  operationId: CartModule_RemoveCartItem
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/carts/{cartId}
-  method: patch
-  operationId: CartModule_MergeWithCart
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/carts/{cartId}
-  method: get
-  operationId: CartModule_GetCartById
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/carts/{cartId}/availshippingrates
-  method: get
-  operationId: CartModule_GetAvailableShippingRates
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/carts/availshippingrates
-  method: post
-  operationId: CartModule_GetAvailableShippingRatesByContext
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/carts/{cartId}/availpaymentmethods
-  method: get
-  operationId: CartModule_GetAvailablePaymentMethods
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/carts/{cartId}/coupons/{couponCode}
-  method: post
-  operationId: CartModule_AddCartCoupon
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/carts/{cartId}/coupons/{couponCode}
-  method: delete
-  operationId: CartModule_RemoveCartCoupon
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/carts/{cartId}/shipments
-  method: post
-  operationId: CartModule_AddOrUpdateCartShipment
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/carts/{cartId}/payments
-  method: post
-  operationId: CartModule_AddOrUpdateCartPayment
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/carts/search
-  method: post
-  operationId: CartModule_SearchShoppingCart
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - cart:read
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/carts
-  method: post
-  operationId: CartModule_Create
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - cart:create
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/carts
-  method: put
-  operationId: CartModule_UpdateShoppingCart
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - cart:update
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/carts
-  method: delete
-  operationId: CartModule_DeleteCarts
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - cart:delete
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/carts/recalculate
-  method: post
-  operationId: CartModule_RecalculateTotals
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/carts/patch/{id}
-  method: patch
-  operationId: CartModule_PatchCart
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - cart:update
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/carts/patch/{cartId}/items/{lineItemId}
-  method: patch
-  operationId: CartModule_PatchCartItem
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - cart:update
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/carts/patch/{cartId}/shipments/{shipmentId}
-  method: patch
-  operationId: CartModule_PatchCartShipment
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    scope:
-    - cart:update
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/carts/patch/{cartId}/payments/{paymentId}
-  method: patch
-  operationId: CartModule_PatchCartPayment
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    scope:
-    - cart:update
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
 - path: /api/catalog/automatic-link-queries/search
   method: post
   operationId: AutomaticLinkQuery_Search
@@ -828,18 +450,12 @@ operations:
   method: post
   operationId: CatalogModuleCategories_GetCategoriesByPlentyIds
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/catalog/{catalogId}/categories-by-codes
   method: post
   operationId: CatalogModuleCategories_GetCategoriesByCodes
@@ -948,20 +564,14 @@ operations:
   method: post
   operationId: CatalogModuleConfigurations_SearchConfigurations
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
+    action-class: connected
+    consequence: read
+    subject: optional
     scope:
     - catalog:configurations:read
-    audience: null
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/catalog/products/configurations
   method: post
   operationId: CatalogModuleConfigurations_CreateOrUpdateConfiguration
@@ -1566,18 +1176,12 @@ operations:
   method: post
   operationId: CatalogModulePropertyDictionaryItems_SearchPropertyDictionaryItems
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/catalog/dictionaryitems
   method: post
   operationId: CatalogModulePropertyDictionaryItems_SaveChanges
@@ -1722,20 +1326,14 @@ operations:
   method: post
   operationId: CatalogModuleVideos_SearchVideos
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
+    action-class: connected
+    consequence: read
+    subject: optional
     scope:
     - catalog:read
-    audience: null
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/catalog/videos
   method: post
   operationId: CatalogModuleVideos_Update
@@ -1804,18 +1402,12 @@ operations:
   method: post
   operationId: CustomerModule_SearchMember
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/members/{id}
   method: get
   operationId: CustomerModule_GetMemberById
@@ -2114,18 +1706,12 @@ operations:
   method: post
   operationId: CustomerModule_SearchContacts
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/organizations
   method: post
   operationId: CustomerModule_CreateOrganization
@@ -2248,18 +1834,12 @@ operations:
   method: post
   operationId: CustomerModule_SearchOrganizations
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/vendors/{id}
   method: get
   operationId: CustomerModule_GetVendorById
@@ -2288,20 +1868,14 @@ operations:
   method: post
   operationId: CustomerModule_SearchVendors
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
+    action-class: connected
+    consequence: read
+    subject: optional
     scope:
     - customer:read
-    audience: null
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/addresses
   method: put
   operationId: CustomerModule_UpdateAddesses
@@ -2460,62 +2034,222 @@ operations:
     token:
       max-ttl: 3600
     audit: none
+- path: /api/eventbus/connections/search
+  method: post
+  operationId: Connections_SearchConnections
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - eventbus:subscriptions:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/eventbus/connections/{name}
+  method: get
+  operationId: Connections_GetConnectionByName
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - eventbus:subscriptions:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/eventbus/connections/{name}
+  method: delete
+  operationId: Connections_DeleteConnection
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - eventbus:subscriptions:delete
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/eventbus/connections
+  method: post
+  operationId: Connections_CreateConnection
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - eventbus:subscriptions:сreate
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/eventbus/connections
+  method: put
+  operationId: Connections_UpdateConnection
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - eventbus:subscriptions:update
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/eventbus/logs/search
+  method: post
+  operationId: ConnectionsLog_SearchProviderConnectionLog
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - eventbus:subscriptions:сreate
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/eventbus/events
+  method: get
+  operationId: Subscriptions_Get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - eventbus:events:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/eventbus/subscriptions/search
+  method: post
+  operationId: Subscriptions_SearchSubscriptions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - eventbus:subscriptions:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/eventbus/subscriptions/{name}
+  method: get
+  operationId: Subscriptions_GetSubscriptionById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - eventbus:subscriptions:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/eventbus/subscriptions/{name}
+  method: delete
+  operationId: Subscriptions_DeleteSubscription
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - eventbus:subscriptions:delete
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/eventbus/subscriptions
+  method: post
+  operationId: Subscriptions_CreateSubscription
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - eventbus:subscriptions:сreate
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/eventbus/subscriptions
+  method: put
+  operationId: Subscriptions_UpdateSubscription
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - eventbus:subscriptions:update
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
 - path: /api/inventory/search
   method: post
   operationId: InventoryModule_SearchInventories
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
+    action-class: connected
+    consequence: read
+    subject: optional
     scope:
     - inventory:read
-    audience: null
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/inventory/product/search
   method: post
   operationId: InventoryModule_SearchProductInventories
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
+    action-class: connected
+    consequence: read
+    subject: optional
     scope:
     - inventory:read
-    audience: null
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/inventory/fulfillmentcenters/search
   method: post
   operationId: InventoryModule_SearchFulfillmentCenters
   x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
+    action-class: connected
+    consequence: read
+    subject: optional
     scope:
     - inventory:fulfillment:read
-    audience: null
     token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/inventory/fulfillmentcenters/{id}
   method: get
   operationId: InventoryModule_GetFulfillmentCenter
@@ -2564,22 +2298,14 @@ operations:
   method: post
   operationId: InventoryModule_GetFulfillmentCenters
   x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
+    action-class: connected
+    consequence: read
+    subject: optional
     scope:
     - inventory:fulfillment:read
-    audience: null
     token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/inventory/fulfillmentcenters
   method: put
   operationId: InventoryModule_SaveFulfillmentCenter
@@ -2686,20 +2412,14 @@ operations:
   method: post
   operationId: InventoryModule_GetProductsInventoriesByPlentyIds
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
+    action-class: connected
+    consequence: read
+    subject: optional
     scope:
     - inventory:read
-    audience: null
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/inventory/plenty
   method: put
   operationId: InventoryModule_UpsertProductInventories
@@ -2740,110 +2460,74 @@ operations:
   method: post
   operationId: MarketingModuleDynamicContent_DynamicContentPlaceListEntriesSearch
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
+    action-class: connected
+    consequence: read
+    subject: optional
     scope:
     - marketing:read
-    audience: null
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/marketing/contentplaces/search
   method: post
   operationId: MarketingModuleDynamicContent_DynamicContentPlacesSearch
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
+    action-class: connected
+    consequence: read
+    subject: optional
     scope:
     - marketing:read
-    audience: null
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/marketing/contentitems/listentries/search
   method: post
   operationId: MarketingModuleDynamicContent_DynamicContentItemsEntriesSearch
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
+    action-class: connected
+    consequence: read
+    subject: optional
     scope:
     - marketing:read
-    audience: null
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/marketing/contentitems/search
   method: post
   operationId: MarketingModuleDynamicContent_DynamicContentItemsSearch
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
+    action-class: connected
+    consequence: read
+    subject: optional
     scope:
     - marketing:read
-    audience: null
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/marketing/contentpublications/search
   method: post
   operationId: MarketingModuleDynamicContent_DynamicContentPublicationsSearch
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
+    action-class: connected
+    consequence: read
+    subject: optional
     scope:
     - marketing:read
-    audience: null
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/marketing/contentitems/evaluate
   method: post
   operationId: MarketingModuleDynamicContent_EvaluateDynamicContent
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
+    action-class: connected
+    consequence: read
+    subject: optional
     scope:
     - marketing:read
-    audience: null
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/marketing/contentitems/{id}
   method: get
   operationId: MarketingModuleDynamicContent_GetDynamicContentById
@@ -3124,18 +2808,12 @@ operations:
   method: post
   operationId: MarketingModulePromotion_PromotionsSearch
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/marketing/promotions/evaluate
   method: post
   operationId: MarketingModulePromotion_EvaluatePromotions
@@ -3312,20 +2990,12 @@ operations:
   method: post
   operationId: OrderModule_SearchCustomerOrder
   x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/order/customerOrders/number/{number}
   method: get
   operationId: OrderModule_GetByNumber
@@ -3660,20 +3330,12 @@ operations:
   method: post
   operationId: OrderModulePayments_SearchOrderPayments
   x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/order/payments/{id}
   method: get
   operationId: OrderModulePayments_GetById
@@ -3830,20 +3492,12 @@ operations:
   method: post
   operationId: OrderModuleShipments_SearchOrderShipments
   x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/order/shipments/{id}
   method: patch
   operationId: OrderModuleShipments_PatchShipment
@@ -3864,6 +3518,1307 @@ operations:
       - abnormal
       - high-value
     audit: required
+- path: /api/pricing/evaluate
+  method: post
+  operationId: PricingModule_EvaluatePrices
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - pricing:read
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/pricing/pricelists/evaluate
+  method: post
+  operationId: PricingModule_EvaluatePriceLists
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - pricing:read
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/pricing/assignments/{id}
+  method: get
+  operationId: PricingModule_GetPricelistAssignmentById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - pricing:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/pricing/assignments/{id}
+  method: patch
+  operationId: PricingModule_PatchPriceListAssignment
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - pricing:read
+    - pricing:update
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/pricing/assignments/outer/{outerId}
+  method: get
+  operationId: PricingModule_GetPricelistAssignmentByOuterId
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - pricing:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/pricing/assignments/new
+  method: get
+  operationId: PricingModule_GetNewPricelistAssignments
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - pricing:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/pricing/pricelists
+  method: get
+  operationId: PricingModule_SearchPricelists
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - pricing:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/pricing/pricelists
+  method: post
+  operationId: PricingModule_CreatePriceList
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - pricing:create
+    - pricing:read
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/pricing/pricelists
+  method: put
+  operationId: PricingModule_UpdatePriceList
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - pricing:read
+    - pricing:update
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/pricing/pricelists
+  method: delete
+  operationId: PricingModule_DeletePricelists
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - pricing:delete
+    - pricing:read
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/pricing/assignments
+  method: get
+  operationId: PricingModule_SearchPricelistAssignments
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - pricing:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/pricing/assignments
+  method: post
+  operationId: PricingModule_CreatePricelistAssignment
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - pricing:create
+    - pricing:read
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/pricing/assignments
+  method: put
+  operationId: PricingModule_UpdatePriceListAssignment
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - pricing:read
+    - pricing:update
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/pricing/assignments
+  method: delete
+  operationId: PricingModule_DeleteAssignments
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - pricing:delete
+    - pricing:read
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/catalog/products/prices/search
+  method: get
+  operationId: PricingModule_SearchProductPricesGet
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - pricing:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/catalog/products/prices/search
+  method: post
+  operationId: PricingModule_SearchProductPricesPost
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - pricing:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/products/{productId}/prices
+  method: get
+  operationId: PricingModule_EvaluateProductPrices
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - pricing:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/products/{productId}/prices
+  method: put
+  operationId: PricingModule_UpdateProductPrices
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - pricing:read
+    - pricing:update
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/products/{productId}/{catalogId}/pricesWidget
+  method: get
+  operationId: PricingModule_EvaluateProductPricesForCatalog
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - pricing:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/products/prices
+  method: put
+  operationId: PricingModule_UpdateProductsPrices
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - pricing:read
+    - pricing:update
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/catalog/products/{productId}/pricelists
+  method: get
+  operationId: PricingModule_GetProductPriceLists
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - pricing:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/pricing/pricelists/{id}
+  method: get
+  operationId: PricingModule_GetPriceListById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - pricing:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/pricing/pricelists/{id}
+  method: patch
+  operationId: PricingModule_PatchPriceList
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - pricing:read
+    - pricing:update
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/pricing/pricelists/outer/{outerId}
+  method: get
+  operationId: PricingModule_GetPricelistByOuterId
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - pricing:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/pricing/pricelistsshort/{id}
+  method: get
+  operationId: PricingModule_GetPriceListInShortById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - pricing:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/pricing/pricelistsshort/outer/{outerId}
+  method: get
+  operationId: PricingModule_GetPricelistInShortByOuterId
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - pricing:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/pricing/filteredAssignments
+  method: delete
+  operationId: PricingModule_DeleteFilteredAssignments
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - pricing:delete
+    - pricing:read
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/pricing/pricelists/{pricelistId}/products/prices
+  method: delete
+  operationId: PricingModule_DeleteProductPrices
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - pricing:read
+    - pricing:update
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/pricing/products/prices
+  method: delete
+  operationId: PricingModule_DeleteProductPrice
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - pricing:delete
+    - pricing:read
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/pricing/mergedpricegroups
+  method: post
+  operationId: PricingModule_SearchGroups
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - pricing:read
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/pricing/mergedprices
+  method: post
+  operationId: PricingModule_SearchGroupPrices
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - pricing:read
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/products/prices/{id}
+  method: patch
+  operationId: PricingModule_PatchProductPrice
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - pricing:read
+    - pricing:update
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/quote/requests/search
+  method: post
+  operationId: QuoteModule_Search
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - quote:read
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/quote/requests/{id}
+  method: get
+  operationId: QuoteModule_GetById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - quote:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/quote/requests
+  method: post
+  operationId: QuoteModule_Create
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - quote:create
+    - quote:read
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/quote/requests
+  method: put
+  operationId: QuoteModule_Update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - quote:read
+    - quote:update
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/quote/requests
+  method: delete
+  operationId: QuoteModule_Delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - quote:delete
+    - quote:read
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/quote/requests/recalculate
+  method: put
+  operationId: QuoteModule_CalculateTotals
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - quote:read
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/quote/requests/{id}/shipmentmethods
+  method: get
+  operationId: QuoteModule_GetShipmentMethods
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - quote:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/quote/requests/{id}/order
+  method: post
+  operationId: QuoteModule_CreateOrderFromQuote
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - order:create
+    - quote:read
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/quote/requests/{id}/status
+  method: put
+  operationId: QuoteModule_UpdateStatus
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - quote:read
+    - quote:update
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/quote/requests/attachments/options
+  method: get
+  operationId: QuoteModule_GetAttachmentOptions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - quote:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/return/search
+  method: post
+  operationId: Return_SearchReturns
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - return:read
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/return/{id}
+  method: get
+  operationId: Return_GetReturnById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - return:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/return
+  method: put
+  operationId: Return_UpdateReturn
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - return:update
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/return
+  method: delete
+  operationId: Return_DeleteReturn
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - return:delete
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/return/available-quantities/{orderId}
+  method: get
+  operationId: Return_GetAvailableQuantities
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - return:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/carts/{storeId}/{customerId}/{cartName}/{currency}/{cultureName}/current
+  method: get
+  operationId: CartModule_GetCart
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/carts/{cartId}/itemscount
+  method: get
+  operationId: CartModule_GetCartItemsCount
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/carts/{cartId}/items
+  method: post
+  operationId: CartModule_AddItemToCart
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/carts/{cartId}/items
+  method: put
+  operationId: CartModule_ChangeCartItem
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/carts/{cartId}/items
+  method: delete
+  operationId: CartModule_ClearCart
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/carts/{cartId}/items/{lineItemId}
+  method: delete
+  operationId: CartModule_RemoveCartItem
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/carts/{cartId}
+  method: patch
+  operationId: CartModule_MergeWithCart
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/carts/{cartId}
+  method: get
+  operationId: CartModule_GetCartById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/carts/{cartId}/availshippingrates
+  method: get
+  operationId: CartModule_GetAvailableShippingRates
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/carts/availshippingrates
+  method: post
+  operationId: CartModule_GetAvailableShippingRatesByContext
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/carts/{cartId}/availpaymentmethods
+  method: get
+  operationId: CartModule_GetAvailablePaymentMethods
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/carts/{cartId}/coupons/{couponCode}
+  method: post
+  operationId: CartModule_AddCartCoupon
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/carts/{cartId}/coupons/{couponCode}
+  method: delete
+  operationId: CartModule_RemoveCartCoupon
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/carts/{cartId}/shipments
+  method: post
+  operationId: CartModule_AddOrUpdateCartShipment
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/carts/{cartId}/payments
+  method: post
+  operationId: CartModule_AddOrUpdateCartPayment
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/carts/search
+  method: post
+  operationId: CartModule_SearchShoppingCart
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - cart:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/carts
+  method: post
+  operationId: CartModule_Create
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - cart:create
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/carts
+  method: put
+  operationId: CartModule_UpdateShoppingCart
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - cart:update
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/carts
+  method: delete
+  operationId: CartModule_DeleteCarts
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - cart:delete
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/carts/recalculate
+  method: post
+  operationId: CartModule_RecalculateTotals
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/carts/patch/{id}
+  method: patch
+  operationId: CartModule_PatchCart
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - cart:update
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/carts/patch/{cartId}/items/{lineItemId}
+  method: patch
+  operationId: CartModule_PatchCartItem
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - cart:update
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/carts/patch/{cartId}/shipments/{shipmentId}
+  method: patch
+  operationId: CartModule_PatchCartShipment
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - cart:update
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/carts/patch/{cartId}/payments/{paymentId}
+  method: patch
+  operationId: CartModule_PatchCartPayment
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - cart:update
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/store-authentication-schemes/{storeId}
+  method: get
+  operationId: StoreAuthenticationScheme_Get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - store:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/store-authentication-schemes/{storeId}
+  method: put
+  operationId: StoreAuthenticationScheme_Update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - store:update
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/stores/search
+  method: post
+  operationId: StoreModule_SearchStores
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/stores/{id}
+  method: get
+  operationId: StoreModule_GetStoreById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/stores/{id}
+  method: patch
+  operationId: StoreModule_PatchStore
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/stores/outer/{outerId}
+  method: get
+  operationId: StoreModule_GetStoreByOuterId
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/stores
+  method: post
+  operationId: StoreModule_CreateStore
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - store:create
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/stores
+  method: put
+  operationId: StoreModule_UpdateStore
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/stores
+  method: delete
+  operationId: StoreModule_DeleteStore
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/stores/send/dynamicnotification
+  method: post
+  operationId: StoreModule_SendDynamicNotificationToStoreEmail
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/stores/{storeId}/accounts/{id}/loginonbehalf
+  method: get
+  operationId: StoreModule_GetLoginOnBehalfInfo
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/stores/allowed/{userId}
+  method: get
+  operationId: StoreModule_GetUserAllowedStores
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/stores/{id}/public-settings
+  method: get
+  operationId: StoreModule_GetStorePublicSettingsById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /externalsignin
   method: get
   operationId: ExternalSignIn_SignIn
@@ -4275,20 +5230,14 @@ operations:
   method: post
   operationId: DynamicProperties_SearchDynamicProperties
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
+    action-class: connected
+    consequence: read
+    subject: optional
     scope:
     - platform:dynamic_properties:read
-    audience: null
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/platform/dynamic
   method: post
   operationId: DynamicProperties_ExposeDynamicObjectProperty
@@ -4361,20 +5310,14 @@ operations:
   method: post
   operationId: DynamicProperties_SearchDictionaryItems
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
+    action-class: connected
+    consequence: read
+    subject: optional
     scope:
     - platform:dynamic_properties:read
-    audience: null
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/platform/jobs/{id}
   method: get
   operationId: Jobs_GetStatus
@@ -4481,20 +5424,14 @@ operations:
   method: post
   operationId: Modules_GetDependingModules
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
+    action-class: connected
+    consequence: read
+    subject: optional
     scope:
     - platform:module:read
-    audience: null
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/platform/modules/getmissingdependencies
   method: post
   operationId: Modules_GetMissingDependencies
@@ -4821,18 +5758,12 @@ operations:
   method: post
   operationId: PushNotification_SearchPushNotification
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/platform/pushnotifications/markAllAsRead
   method: post
   operationId: PushNotification_MarkAllAsRead
@@ -4965,20 +5896,14 @@ operations:
   method: post
   operationId: Security_SearchRoles
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
+    action-class: connected
+    consequence: read
+    subject: optional
     scope:
     - platform:security:read
-    audience: null
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/platform/security/roles/{roleName}
   method: get
   operationId: Security_GetRole
@@ -5031,20 +5956,14 @@ operations:
   method: post
   operationId: Security_SearchUsers
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
+    action-class: connected
+    consequence: read
+    subject: optional
     scope:
     - platform:security:read
-    audience: null
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/platform/security/users
   method: get
   operationId: Security_GetUsersByIds
@@ -5717,15 +6636,27 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /api/pricing/evaluate
+- path: /api/webhooks/{id}
+  method: get
+  operationId: WebHooks_GetWebhookById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - webhooks:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/webhooks/search
   method: post
-  operationId: PricingModule_EvaluatePrices
+  operationId: WebHooks_Search
   x-agentic-access:
     action-class: acting
     consequence: write
     subject: required
     scope:
-    - pricing:read
+    - webhooks:read
     audience: null
     token:
       max-ttl: 900
@@ -5735,15 +6666,15 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /api/pricing/pricelists/evaluate
+- path: /api/webhooks/feed/search
   method: post
-  operationId: PricingModule_EvaluatePriceLists
+  operationId: WebHooks_SearchWebhookFeed
   x-agentic-access:
     action-class: acting
     consequence: write
     subject: required
     scope:
-    - pricing:read
+    - webhooks:feed:read
     audience: null
     token:
       max-ttl: 900
@@ -5753,121 +6684,15 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /api/pricing/assignments/{id}
-  method: get
-  operationId: PricingModule_GetPricelistAssignmentById
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    scope:
-    - pricing:read
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/pricing/assignments/{id}
-  method: patch
-  operationId: PricingModule_PatchPriceListAssignment
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - pricing:read
-    - pricing:update
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/pricing/assignments/outer/{outerId}
-  method: get
-  operationId: PricingModule_GetPricelistAssignmentByOuterId
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    scope:
-    - pricing:read
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/pricing/assignments/new
-  method: get
-  operationId: PricingModule_GetNewPricelistAssignments
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    scope:
-    - pricing:read
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/pricing/pricelists
-  method: get
-  operationId: PricingModule_SearchPricelists
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    scope:
-    - pricing:read
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/pricing/pricelists
-  method: post
-  operationId: PricingModule_CreatePriceList
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - pricing:create
-    - pricing:read
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/pricing/pricelists
-  method: put
-  operationId: PricingModule_UpdatePriceList
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - pricing:read
-    - pricing:update
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/pricing/pricelists
+- path: /api/webhooks/feed
   method: delete
-  operationId: PricingModule_DeletePricelists
+  operationId: WebHooks_DeleteWebHookFeeds
   x-agentic-access:
     action-class: acting
     consequence: write
     subject: required
     scope:
-    - pricing:delete
-    - pricing:read
+    - webhooks:delete
     audience: null
     token:
       max-ttl: 900
@@ -5877,28 +6702,15 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /api/pricing/assignments
-  method: get
-  operationId: PricingModule_SearchPricelistAssignments
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    scope:
-    - pricing:read
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/pricing/assignments
+- path: /api/webhooks
   method: post
-  operationId: PricingModule_CreatePricelistAssignment
+  operationId: WebHooks_SaveWebhooks
   x-agentic-access:
     action-class: acting
     consequence: write
     subject: required
     scope:
-    - pricing:create
-    - pricing:read
+    - webhooks:update
     audience: null
     token:
       max-ttl: 900
@@ -5908,35 +6720,15 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /api/pricing/assignments
-  method: put
-  operationId: PricingModule_UpdatePriceListAssignment
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - pricing:read
-    - pricing:update
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/pricing/assignments
+- path: /api/webhooks
   method: delete
-  operationId: PricingModule_DeleteAssignments
+  operationId: WebHooks_DeleteWebHooks
   x-agentic-access:
     action-class: acting
     consequence: write
     subject: required
     scope:
-    - pricing:delete
-    - pricing:read
+    - webhooks:delete
     audience: null
     token:
       max-ttl: 900
@@ -5946,593 +6738,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /api/catalog/products/prices/search
-  method: get
-  operationId: PricingModule_SearchProductPricesGet
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    scope:
-    - pricing:read
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/catalog/products/prices/search
+- path: /api/webhooks/send
   method: post
-  operationId: PricingModule_SearchProductPricesPost
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - pricing:read
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/products/{productId}/prices
-  method: get
-  operationId: PricingModule_EvaluateProductPrices
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    scope:
-    - pricing:read
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/products/{productId}/prices
-  method: put
-  operationId: PricingModule_UpdateProductPrices
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - pricing:read
-    - pricing:update
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/products/{productId}/{catalogId}/pricesWidget
-  method: get
-  operationId: PricingModule_EvaluateProductPricesForCatalog
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    scope:
-    - pricing:read
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/products/prices
-  method: put
-  operationId: PricingModule_UpdateProductsPrices
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - pricing:read
-    - pricing:update
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/catalog/products/{productId}/pricelists
-  method: get
-  operationId: PricingModule_GetProductPriceLists
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    scope:
-    - pricing:read
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/pricing/pricelists/{id}
-  method: get
-  operationId: PricingModule_GetPriceListById
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    scope:
-    - pricing:read
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/pricing/pricelists/{id}
-  method: patch
-  operationId: PricingModule_PatchPriceList
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - pricing:read
-    - pricing:update
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/pricing/pricelists/outer/{outerId}
-  method: get
-  operationId: PricingModule_GetPricelistByOuterId
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    scope:
-    - pricing:read
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/pricing/pricelistsshort/{id}
-  method: get
-  operationId: PricingModule_GetPriceListInShortById
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    scope:
-    - pricing:read
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/pricing/pricelistsshort/outer/{outerId}
-  method: get
-  operationId: PricingModule_GetPricelistInShortByOuterId
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    scope:
-    - pricing:read
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/pricing/filteredAssignments
-  method: delete
-  operationId: PricingModule_DeleteFilteredAssignments
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - pricing:delete
-    - pricing:read
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/pricing/pricelists/{pricelistId}/products/prices
-  method: delete
-  operationId: PricingModule_DeleteProductPrices
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - pricing:read
-    - pricing:update
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/pricing/products/prices
-  method: delete
-  operationId: PricingModule_DeleteProductPrice
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - pricing:delete
-    - pricing:read
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/pricing/mergedpricegroups
-  method: post
-  operationId: PricingModule_SearchGroups
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - pricing:read
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/pricing/mergedprices
-  method: post
-  operationId: PricingModule_SearchGroupPrices
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - pricing:read
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/products/prices/{id}
-  method: patch
-  operationId: PricingModule_PatchProductPrice
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - pricing:read
-    - pricing:update
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/quote/requests/search
-  method: post
-  operationId: QuoteModule_Search
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - quote:read
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/quote/requests/{id}
-  method: get
-  operationId: QuoteModule_GetById
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    scope:
-    - quote:read
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/quote/requests
-  method: post
-  operationId: QuoteModule_Create
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - quote:create
-    - quote:read
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/quote/requests
-  method: put
-  operationId: QuoteModule_Update
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - quote:read
-    - quote:update
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/quote/requests
-  method: delete
-  operationId: QuoteModule_Delete
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - quote:delete
-    - quote:read
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/quote/requests/recalculate
-  method: put
-  operationId: QuoteModule_CalculateTotals
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - quote:read
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/quote/requests/{id}/shipmentmethods
-  method: get
-  operationId: QuoteModule_GetShipmentMethods
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    scope:
-    - quote:read
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/quote/requests/{id}/order
-  method: post
-  operationId: QuoteModule_CreateOrderFromQuote
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    scope:
-    - order:create
-    - quote:read
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/quote/requests/{id}/status
-  method: put
-  operationId: QuoteModule_UpdateStatus
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - quote:read
-    - quote:update
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/quote/requests/attachments/options
-  method: get
-  operationId: QuoteModule_GetAttachmentOptions
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    scope:
-    - quote:read
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/store-authentication-schemes/{storeId}
-  method: get
-  operationId: StoreAuthenticationScheme_Get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    scope:
-    - store:read
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/store-authentication-schemes/{storeId}
-  method: put
-  operationId: StoreAuthenticationScheme_Update
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - store:update
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/stores/search
-  method: post
-  operationId: StoreModule_SearchStores
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/stores/{id}
-  method: get
-  operationId: StoreModule_GetStoreById
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/stores/{id}
-  method: patch
-  operationId: StoreModule_PatchStore
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/stores/outer/{outerId}
-  method: get
-  operationId: StoreModule_GetStoreByOuterId
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/stores
-  method: post
-  operationId: StoreModule_CreateStore
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - store:create
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/stores
-  method: put
-  operationId: StoreModule_UpdateStore
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/stores
-  method: delete
-  operationId: StoreModule_DeleteStore
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/stores/send/dynamicnotification
-  method: post
-  operationId: StoreModule_SendDynamicNotificationToStoreEmail
+  operationId: WebHooks_Run
   x-agentic-access:
     action-class: acting
     consequence: physical
@@ -6548,33 +6756,27 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /api/stores/{storeId}/accounts/{id}/loginonbehalf
+- path: /api/webhooks/events
   method: get
-  operationId: StoreModule_GetLoginOnBehalfInfo
+  operationId: WebHooks_GetAllRegisteredEvents
   x-agentic-access:
     action-class: connected
     consequence: read
     subject: optional
+    scope:
+    - webhooks:read
     token:
       max-ttl: 3600
     audit: none
-- path: /api/stores/allowed/{userId}
+- path: /api/webhooks/properties
   method: get
-  operationId: StoreModule_GetUserAllowedStores
+  operationId: WebHooks_GetEventObjectProperties
   x-agentic-access:
     action-class: connected
     consequence: read
     subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/stores/{id}/public-settings
-  method: get
-  operationId: StoreModule_GetStorePublicSettingsById
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
+    scope:
+    - webhooks:read
     token:
       max-ttl: 3600
     audit: none

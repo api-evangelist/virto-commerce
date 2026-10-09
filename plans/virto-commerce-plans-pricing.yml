@@ -52,3 +52,28 @@ pricing_page_note: 'Virto publishes starting anchors but no tier table: "Conside
   contract. plan_count counts the three named commercial shapes — open-source community, managed cloud,
   self-hosted enterprise — not published price points, of which there are two starting anchors and no
   tiers.'
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - negotiated
+  units: []
+  plans:
+  - name: Open Source Community
+    access: free
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Virto Commerce Enterprise (Cloud)
+    access: enterprise
+    model: negotiated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Virto Commerce Enterprise (Self-hosted)
+    access: enterprise
+    model: negotiated
+    model_how: derived
+    units: []
+    periods: []
