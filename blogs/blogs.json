@@ -2,11 +2,11 @@
   "repo": "virto-commerce",
   "feeds": [
     {
-      "source": "https://www.linkedin.com/company/virto-commerce/",
-      "feed_url": "https://www.linkedin.com/company/virto-commerce/",
+      "source": "https://virtocommerce.com/blog",
+      "feed_url": "https://virtocommerce.com/blog/feed/",
       "title": "",
       "saved": 0,
-      "method": "none"
+      "method": "discovered"
     },
     {
       "source": "https://virtocommerce.com/blog/feed/",
@@ -14,9 +14,16 @@
       "title": "",
       "saved": 0,
       "method": "feed"
+    },
+    {
+      "source": "https://www.linkedin.com/company/virto-commerce/",
+      "feed_url": "https://www.linkedin.com/company/virto-commerce/",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "fetched": "2026-10-03T12:30:02Z",
+  "fetched": "2026-10-10T13:15:00Z",
   "post_count": 55,
   "feed_nature": "undetermined",
   "feed_nature_basis": null,
