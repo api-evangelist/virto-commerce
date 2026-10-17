@@ -543,104 +543,28 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    StoreState:
-      enum:
-      - Open
-      - Closed
-      - RestrictedAccess
-      type: string
-    DynamicPropertyValueType:
-      enum:
-      - Undefined
-      - ShortText
-      - LongText
-      - Integer
-      - Decimal
-      - DateTime
-      - Boolean
-      - Html
-      - Image
-      type: string
-    DynamicPropertyName:
+    PublicStoreSetting:
       type: object
       properties:
-        locale:
-          type:
-          - string
-          - 'null'
         name:
           type:
           - string
           - 'null'
+        value:
+          type:
+          - object
+          - 'null'
       additionalProperties: false
-    StoreSearchCriteria:
+    SortInfo:
       type: object
       properties:
-        storeStates:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/StoreState'
-        fulfillmentCenterIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        domain:
+        sortColumn:
           type:
           - string
           - 'null'
-        responseGroup:
-          type:
-          - string
-          - 'null'
-        objectType:
-          type:
-          - string
-          - 'null'
-        objectTypes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        objectIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        keyword:
-          type:
-          - string
-          - 'null'
-        searchPhrase:
-          type:
-          - string
-          - 'null'
-        languageCode:
-          type:
-          - string
-          - 'null'
-        sort:
-          type:
-          - string
-          - 'null'
-        sortInfos:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SortInfo'
-          readOnly: true
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
+        sortDirection:
+          allOf:
+          - $ref: '#/components/schemas/SortDirection'
       additionalProperties: false
     DynamicObjectProperty:
       type: object
@@ -714,52 +638,149 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    SortDirection:
+    StoreState:
       enum:
-      - Ascending
-      - Descending
+      - Open
+      - Closed
+      - RestrictedAccess
       type: string
-    StoreAuthenticationScheme:
+    SendDynamicNotificationRequest:
       type: object
       properties:
         storeId:
           type:
           - string
           - 'null'
-        name:
+        type:
           type:
           - string
           - 'null'
-        displayName:
+        fields:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        language:
           type:
           - string
           - 'null'
-        isActive:
-          type: boolean
-        position:
+      additionalProperties: false
+    ModulePublicStoreSettings:
+      type: object
+      properties:
+        moduleId:
+          type:
+          - string
+          - 'null'
+        settings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PublicStoreSetting'
+      additionalProperties: false
+    StoreSearchResult:
+      type: object
+      properties:
+        totalCount:
           type: integer
           format: int32
-        createdDate:
-          type: string
-          format: date-time
-        modifiedDate:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Store'
+      additionalProperties: false
+    DynamicPropertyObjectValue:
+      type: object
+      properties:
+        objectType:
           type:
           - string
           - 'null'
-          format: date-time
-        createdBy:
-          maxLength: 64
-          minLength: 0
+        objectId:
           type:
           - string
           - 'null'
-        modifiedBy:
-          maxLength: 64
-          minLength: 0
+        locale:
           type:
           - string
           - 'null'
-        id:
+        value:
+          type:
+          - object
+          - 'null'
+        valueId:
+          type:
+          - string
+          - 'null'
+        valueType:
+          allOf:
+          - $ref: '#/components/schemas/DynamicPropertyValueType'
+        propertyId:
+          type:
+          - string
+          - 'null'
+        propertyName:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Operation:
+      type: object
+      properties:
+        value:
+          type:
+          - object
+          - 'null'
+        path:
+          type:
+          - string
+          - 'null'
+        op:
+          type:
+          - string
+          - 'null'
+        from:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    DynamicPropertyValueType:
+      enum:
+      - Undefined
+      - ShortText
+      - LongText
+      - Integer
+      - Decimal
+      - DateTime
+      - Boolean
+      - Html
+      - Image
+      type: string
+    LoginOnBehalfInfo:
+      type: object
+      properties:
+        userName:
+          type:
+          - string
+          - 'null'
+        canLoginOnBehalf:
+          type: boolean
+      additionalProperties: false
+      description: Represent result for checking of possibility login on behalf request
+    DynamicPropertyName:
+      type: object
+      properties:
+        locale:
+          type:
+          - string
+          - 'null'
+        name:
           type:
           - string
           - 'null'
@@ -948,16 +969,91 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    SortInfo:
+    SettingValueType:
+      enum:
+      - ShortText
+      - LongText
+      - Integer
+      - Decimal
+      - DateTime
+      - Boolean
+      - SecureString
+      - Json
+      - PositiveInteger
+      type: string
+    SortDirection:
+      enum:
+      - Ascending
+      - Descending
+      type: string
+    StoreSearchCriteria:
       type: object
       properties:
-        sortColumn:
+        storeStates:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/StoreState'
+        fulfillmentCenterIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        domain:
           type:
           - string
           - 'null'
-        sortDirection:
-          allOf:
-          - $ref: '#/components/schemas/SortDirection'
+        responseGroup:
+          type:
+          - string
+          - 'null'
+        objectType:
+          type:
+          - string
+          - 'null'
+        objectTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        objectIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        keyword:
+          type:
+          - string
+          - 'null'
+        searchPhrase:
+          type:
+          - string
+          - 'null'
+        languageCode:
+          type:
+          - string
+          - 'null'
+        sort:
+          type:
+          - string
+          - 'null'
+        sortInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SortInfo'
+          readOnly: true
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
       additionalProperties: false
     SeoInfo:
       type: object
@@ -1107,146 +1203,50 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    SettingValueType:
-      enum:
-      - ShortText
-      - LongText
-      - Integer
-      - Decimal
-      - DateTime
-      - Boolean
-      - SecureString
-      - Json
-      - PositiveInteger
-      type: string
-    Operation:
-      type: object
-      properties:
-        value:
-          type:
-          - object
-          - 'null'
-        path:
-          type:
-          - string
-          - 'null'
-        op:
-          type:
-          - string
-          - 'null'
-        from:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    SendDynamicNotificationRequest:
+    StoreAuthenticationScheme:
       type: object
       properties:
         storeId:
           type:
           - string
           - 'null'
-        type:
-          type:
-          - string
-          - 'null'
-        fields:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-        language:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ModulePublicStoreSettings:
-      type: object
-      properties:
-        moduleId:
-          type:
-          - string
-          - 'null'
-        settings:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PublicStoreSetting'
-      additionalProperties: false
-    PublicStoreSetting:
-      type: object
-      properties:
         name:
           type:
           - string
           - 'null'
-        value:
-          type:
-          - object
-          - 'null'
-      additionalProperties: false
-    LoginOnBehalfInfo:
-      type: object
-      properties:
-        userName:
+        displayName:
           type:
           - string
           - 'null'
-        canLoginOnBehalf:
+        isActive:
           type: boolean
-      additionalProperties: false
-      description: Represent result for checking of possibility login on behalf request
-    DynamicPropertyObjectValue:
-      type: object
-      properties:
-        objectType:
-          type:
-          - string
-          - 'null'
-        objectId:
-          type:
-          - string
-          - 'null'
-        locale:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - object
-          - 'null'
-        valueId:
-          type:
-          - string
-          - 'null'
-        valueType:
-          allOf:
-          - $ref: '#/components/schemas/DynamicPropertyValueType'
-        propertyId:
-          type:
-          - string
-          - 'null'
-        propertyName:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    StoreSearchResult:
-      type: object
-      properties:
-        totalCount:
+        position:
           type: integer
           format: int32
-        results:
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
           type:
-          - array
+          - string
           - 'null'
-          items:
-            $ref: '#/components/schemas/Store'
+          format: date-time
+        createdBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        modifiedBy:
+          maxLength: 64
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
   securitySchemes:
     oauth2:
