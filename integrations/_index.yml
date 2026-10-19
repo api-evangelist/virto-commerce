@@ -15,3 +15,34 @@
   relationship: distribution-channel
   status: not-a-workflow
   arazzo: null
+- slug: virto-commerce-nuget-gallery
+  label: NuGet Gallery
+  partner: nuget
+  partner_name: NuGet Gallery
+  category: official SDK (.NET)
+  type: register
+  channel: package-registry
+  evidence: https://www.nuget.org/packages/VirtoCommerce.GlobalTool
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: NuGet Gallery (public registry JSON)
+    spec_file: null
+    language: .NET
+    packages:
+    - name: VirtoCommerce.GlobalTool
+      version: 3.1001.0
+      released: '2026-07-24'
+      released_field: published
+      lapsed: false
+      page: https://www.nuget.org/packages/VirtoCommerce.GlobalTool
+      repo_leg: github-org:virtocommerce
+      publisher_leg: org:virtocommerce
+      matched_by: github-org
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null

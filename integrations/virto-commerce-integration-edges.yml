@@ -6,10 +6,17 @@ source:
 - https://composio.dev/toolkits/virto-commerce
 - https://monid.ai/tools/virto-commerce
 checked:
+- https://api.nuget.org/v3
 - https://azuremarketplace.microsoft.com/
 - https://composio.dev/toolkits/virto-commerce
+- https://crates.io/api/v1
 - https://monid.ai/tools/virto-commerce
 - https://n8n.io/integrations/virto-commerce/
+- https://proxy.golang.org
+- https://pypi.org/pypi
+- https://registry.npmjs.org
+- https://repo1.maven.org/maven2
+- https://rubygems.org/api/v1
 - https://zapier.com/apps/virto-commerce/integrations
 summary: null
 marketplace_apps: []
@@ -29,4 +36,34 @@ edges:
   seller_name: Virto Commerce
   detected_by: sweep-cloud-marketplaces.py
   detected: '2026-10-13'
+- partner_name: NuGet Gallery
+  partner: nuget
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (.NET)
+  evidence: https://www.nuget.org/packages/VirtoCommerce.GlobalTool
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: NuGet Gallery (public registry JSON)
+    spec_file: null
+    language: .NET
+    packages:
+    - name: VirtoCommerce.GlobalTool
+      version: 3.1001.0
+      released: '2026-07-24'
+      released_field: published
+      lapsed: false
+      page: https://www.nuget.org/packages/VirtoCommerce.GlobalTool
+      repo_leg: github-org:virtocommerce
+      publisher_leg: org:virtocommerce
+      matched_by: github-org
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
 templates: []
