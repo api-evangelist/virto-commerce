@@ -7602,3 +7602,9 @@ components:
       type: http
       description: Basic authentication using username and password
       scheme: basic
+x-provenance:
+  method: harvested
+  publisher: Virto Commerce
+  source: https://virtostart-demo-admin.govirto.com/docs/VirtoCommerce.Platform/swagger.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
